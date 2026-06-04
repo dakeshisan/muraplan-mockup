@@ -82,6 +82,13 @@ h2.sec:first-of-type{margin-top:0}
 .bdg span{display:block;font-size:11.5px;color:var(--faint);font-weight:400;margin-top:3px}
 .bdg.ok{border-color:#bfe0c9;background:var(--green-bg)}
 .bdg.gold{border-color:#e2d2a6;background:var(--gold-soft)}
+/* морковка впереди: лестница грейдов + копилка премии */
+.ladder{display:flex;gap:6px;margin:2px 0 4px}
+.step{flex:1;text-align:center;font-size:11px;font-weight:600;padding:8px 5px;border-radius:999px;background:var(--line-soft);color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step.done{background:var(--accent-soft);color:var(--accent-d)}
+.step.now{background:var(--gold);color:#1E1E1E}
+.bignum{font-family:'Cormorant',Georgia,serif;font-size:36px;font-weight:700;color:var(--gold-deep);line-height:1;margin:8px 0}.bignum small{font-size:15px;font-family:'Jost',sans-serif;color:var(--faint);font-weight:600}
+.nextstep{margin-top:11px;font-size:12px;font-weight:600;color:var(--accent-d);background:var(--accent-soft);border-radius:11px;padding:9px 13px;line-height:1.5}
 .formula{padding:18px 22px}
 .formula .ft{font-weight:600;font-size:13.5px;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .formula .info{font-size:11.5px;color:var(--accent);font-weight:600}
@@ -220,6 +227,28 @@ h2.sec:first-of-type{margin-top:0}
         <div class="bdg">🏷 Цена ≤ эталон: <b>12 / 14</b><span>датир. эталон Бэтмена; 2 на пересогласовании</span></div>
         <div class="bdg ok">✓ Качество <b>×1.0</b><span>0 критич. дефектов спецификации</span></div>
       </div>
+
+      <h2 class="sec">Что впереди <span class="pill">грейд · серия · премия</span></h2>
+      <div class="gamewrap">
+        <div class="card gcard">
+          <div class="t">Лестница грейдов → рост оклада</div>
+          <div class="ladder">
+            <div class="step done">Стажёр</div>
+            <div class="step now">Специалист · ты</div>
+            <div class="step">Старший</div>
+            <div class="step">Ведущий</div>
+          </div>
+          <div class="track"><div class="fill" style="width:66%"></div><span class="goal">до «Старшего»</span></div>
+          <div class="s">Следующий анлок — <b>Старший</b>: 6 недель KPI ≥85% (осталось <b>2</b>) + закрытые объёмы. Каждый грейд — ступень оклада вверх (через допсоглашение, не штраф).</div>
+        </div>
+        <div class="card gcard">
+          <div class="t">Премия копится — морковка впереди</div>
+          <div class="bignum">~180 000 <small>₸ / мес</small></div>
+          <div class="s">Накоплено в <b>режиме наблюдения</b> по подтверждённому Хранителем факту — самоотметкой не надуть. Включится деньгами в Фазе 2; оклад при этом не трогается (≥75%). Сумма условная.</div>
+          <div class="nextstep">↗ Ближайший шаг: закрой <b>2 фронта</b> до субботы → +~40 000 ₸ в копилку, серия <b>6 недель</b> и +1 к треку «Старшего».</div>
+        </div>
+      </div>
+
       <div class="card formula">
         <div class="ft">Как считается мой KPI<span class="info">пул × KPI-скор × качество</span></div>
         <div class="frow"><span class="b1">Пул недели</span> × <span class="b1">KPI-скор 0.84</span> × <span class="b1">качество 1.0</span> = <b>наблюдательно (деньги — Фаза 2)</b></div>
