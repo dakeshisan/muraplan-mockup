@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ru" style="color-scheme:light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#284157">
+<title>ATLAS · снабжение — интерфейсы по ролям</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* brandbook ATAMURA: тёплый крем, бирюза + золото, навы */
+  --bg:#F7F5EE;--card:#FBFBFB;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#9C9486;
+  --line:#E0DDD3;--line-soft:#ECEAE2;
+  --accent:#007484;--accent-d:#005763;--accent-soft:#E0EEF0;
+  --gold:#CFB372;--gold-soft:#EFE6CD;--gold-deep:#A88E48;
+  --navy:#284157;--navy-d:#1A2B3A;
+  --green:#3E9B66;--green-bg:#E7F1E7;--amber:#C07A1E;--amber-bg:#F5E9D2;--red:#C7544A;--red-bg:#F6E4DF;--blue:#3C6E8B;--blue-bg:#E4ECF1;--violet:#7A66A6;--violet-bg:#ECE7F3;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Jost','Futura PT','Futura',-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+.serif{font-family:'Cormorant',Georgia,'Times New Roman',serif}
+.tnum{font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
+:where(button,a,select):focus-visible{outline:none;box-shadow:0 0 0 3px rgba(0,116,132,.35);border-radius:8px}
+
+.top{background:var(--navy);color:#fff;position:sticky;top:0;z-index:20}
+.top .row{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .lg{width:34px;height:34px;border-radius:9px;background:var(--gold);display:flex;align-items:center;justify-content:center}
+.brand .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:21px;letter-spacing:.02em;line-height:1}
+.brand .sb{font-size:11.5px;color:#A9BBC9;margin-top:2px;letter-spacing:.01em}
+.top .meta{margin-left:auto;font-size:12.5px;color:#A9BBC9}.top .meta b{color:#fff;font-weight:600}
+.roles{background:var(--navy-d);border-top:1px solid rgba(255,255,255,.08)}
+.roles .row{max-width:1180px;margin:0 auto;padding:0 28px;display:flex;gap:2px;overflow-x:auto}
+.roles button{padding:12px 15px;color:#A9BBC9;font-size:13.5px;font-weight:500;white-space:nowrap;border-bottom:2px solid transparent}
+.roles button .who{display:block;font-size:10.5px;font-weight:400;color:#7E93A6;margin-top:2px}
+.roles button[aria-selected="true"]{color:#fff;border-bottom-color:var(--gold)}
+.roles button[aria-selected="true"] .who{color:var(--gold)}
+.roles .grp{align-self:center;font-size:10px;color:#6E8398;text-transform:uppercase;letter-spacing:.12em;padding:0 8px;white-space:nowrap}
+
+.wrap{max-width:1180px;margin:0 auto;padding:26px 28px 64px}
+.view{display:none}.view.on{display:block}
+@media(prefers-reduced-motion:no-preference){.view.on{animation:f .2s ease}@keyframes f{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:10px}
+.rolehint{font-size:13px;color:var(--mut);margin-bottom:16px;padding:13px 17px;background:#fff;border-radius:14px;border:1px solid var(--line)}
+.rolehint b{color:var(--accent-d);font-weight:600}
+.obsnote{font-size:12px;color:#8a6420;background:var(--gold-soft);border:1px solid #e2d2a6;border-radius:10px;padding:9px 14px;display:block;margin-bottom:20px}
+.obsnote b{color:#6f4e12}
+h2.sec{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--faint);margin:26px 2px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+h2.sec:first-of-type{margin-top:0}
+.pill{font-size:10.5px;font-weight:600;color:var(--gold-deep);background:var(--gold-soft);border-radius:999px;padding:3px 10px;text-transform:none;letter-spacing:.01em}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px}
+.b-green{background:var(--green-bg);color:var(--green)}.b-amber{background:var(--amber-bg);color:var(--amber)}.b-red{background:var(--red-bg);color:var(--red)}.b-blue{background:var(--blue-bg);color:var(--blue)}.b-violet{background:var(--violet-bg);color:var(--violet)}.b-gray{background:#EFEBDF;color:var(--mut)}
+.btn{font-size:13px;font-weight:600;padding:9px 16px;border-radius:11px;border:1px solid var(--line);color:var(--ink)}
+.btn:hover{border-color:var(--ink)}.btn.pri{background:var(--accent);color:#fff;border-color:var(--accent)}.btn.pri:hover{background:var(--accent-d);border-color:var(--accent-d)}
+.btn.ok{color:var(--green);border-color:#bfe0c9}.btn.ok:hover{background:var(--green-bg)}
+.btn.gold{background:var(--gold);color:#1E1E1E;border-color:var(--gold)}.btn.gold:hover{background:var(--gold-deep);color:#fff}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:13px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:17px 19px;border-top:3px solid var(--accent)}
+.kpi.g{border-top-color:var(--green)}.kpi.a{border-top-color:var(--gold-deep)}.kpi.r{border-top-color:var(--red)}.kpi.v{border-top-color:var(--violet)}
+.kpi .l{font-size:12px;color:var(--mut);margin-bottom:8px}
+.kpi .v{font-family:'Cormorant',Georgia,serif;font-size:34px;font-weight:700;line-height:1}.kpi .v small{font-size:14px;color:var(--faint);font-weight:600;font-family:'Jost',sans-serif}
+.kpi .h{font-size:11.5px;color:var(--faint);margin-top:7px}
+
+/* gamified KPI */
+.gamewrap{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px}
+.gcard{padding:20px 22px;overflow:hidden}
+.ring{position:relative;width:88px;height:88px;float:left;margin:0 18px 6px 0}
+.ringv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ringv b{font-family:'Cormorant',Georgia,serif;font-size:25px;font-weight:700;line-height:1}.ringv span{font-size:10px;color:var(--mut)}
+.gcard .t{font-weight:600;font-size:14.5px;margin-bottom:5px}.gcard .s{font-size:12.5px;color:var(--mut)}.gcard .s b{color:var(--ink)}
+.track{height:12px;border-radius:999px;background:var(--line);position:relative;margin:13px 0 10px;overflow:hidden}
+.track .fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:999px}
+.track .goal{position:absolute;right:8px;top:-2px;font-size:11px;font-weight:700;color:#fff;mix-blend-mode:difference}
+.badges{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:13px;margin-bottom:13px}
+.bdg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:13px;font-weight:600}
+.bdg span{display:block;font-size:11.5px;color:var(--faint);font-weight:400;margin-top:3px}
+.bdg.ok{border-color:#bfe0c9;background:var(--green-bg)}
+.bdg.gold{border-color:#e2d2a6;background:var(--gold-soft)}
+.formula{padding:18px 22px}
+.formula .ft{font-weight:600;font-size:13.5px;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.formula .info{font-size:11.5px;color:var(--accent);font-weight:600}
+.frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--mut);background:var(--bg);padding:12px 15px;border-radius:12px}
+.frow .b1{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:4px 10px;font-weight:600;color:var(--ink)}
+.frow b{color:var(--gold-deep);font-weight:700}
+.frow.sub{margin-top:8px;font-size:12px;background:#F2EFE5;color:var(--mut)}
+.gates{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.gates span{font-size:11.5px;color:var(--green);background:var(--green-bg);border-radius:9px;padding:5px 11px;font-weight:600}
+.expl{font-size:12px;color:var(--mut);margin-top:12px;line-height:1.6;padding-top:11px;border-top:1px solid var(--line)}.expl b{color:var(--ink);font-weight:600}
+@media(max-width:700px){.gamewrap{grid-template-columns:1fr}}
+
+/* week cycle strip */
+.cycle{display:flex;align-items:center;gap:0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:7px;margin-bottom:20px;overflow:hidden}
+.cstep{flex:1;text-align:center;padding:11px 8px;border-radius:12px;font-size:12.5px;color:var(--faint)}
+.cstep b{display:block;font-size:13.5px;color:var(--mut);font-weight:600}
+.cstep.now{background:var(--accent-soft);color:var(--accent-d)}.cstep.now b{color:var(--accent-d)}
+.cstep.done{color:var(--green)}.cstep.done b{color:var(--green)}
+.carrow{color:var(--faint);font-size:13px;padding:0 4px}
+
+/* kanban */
+.kbtools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+.kbtools .f{font-size:12px;border:1px solid var(--line);background:var(--card);padding:7px 14px;border-radius:999px;color:var(--mut)}
+.kbtools .f[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.kan{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.kcol{background:#F0ECE0;border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.kcol .kh{font-size:12px;font-weight:600;color:var(--mut);display:flex;justify-content:space-between;padding:3px 5px}
+.kcol .kh .c{color:var(--faint)}
+.kc{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:12px 13px;min-width:0}
+.kc.srv{border-color:#e2b3ac;box-shadow:inset 3px 0 0 var(--red)}
+.kc .kt{font-size:13px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.kc .kt .abc{font-size:9.5px;font-weight:700;color:var(--faint);border:1px solid var(--line);border-radius:6px;padding:1px 5px}
+.kc .kt .abc.A{color:var(--gold-deep);border-color:#e2d2a6;background:var(--gold-soft)}
+.kc .km{font-size:11.5px;color:var(--mut);display:flex;justify-content:space-between;gap:6px;align-items:center}
+.kc .km .qf{font-weight:600;color:var(--ink)}
+.kc .br{font-size:11.5px;color:var(--mut);margin-top:6px;line-height:1.45}.kc .br b{color:var(--ink);font-weight:600}
+.kc .chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.kc .chip{font-size:10.5px;font-weight:600;border-radius:999px;padding:3px 9px}
+.kc .row2{display:flex;justify-content:space-between;align-items:center;margin-top:9px;gap:6px}
+.kc .sup{font-size:11px;color:var(--faint);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kc .mark{font-size:12px;font-weight:600;color:var(--accent);border:1px solid #b9dee2;border-radius:9px;padding:5px 10px;white-space:nowrap}
+.kc .mark:hover{background:var(--accent-soft)}
+
+/* list rows */
+.list{overflow:hidden}
+.lrow{display:flex;align-items:center;gap:13px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.lrow:last-child{border-bottom:none}.lrow .bd{flex:1;min-width:0}.lrow .t{font-weight:600}.lrow .s{font-size:12.5px;color:var(--mut);margin-top:2px}.lrow .s b{color:var(--ink)}
+.lrow .meta{font-size:12.5px;color:var(--faint);white-space:nowrap;text-align:right}.acts{display:flex;gap:7px}
+.cc{font-size:10.5px;font-weight:600;border-radius:999px;padding:2px 9px;white-space:nowrap}
+.verd{font-size:11px;color:var(--accent-d);background:var(--accent-soft);border-radius:999px;padding:2px 9px;font-weight:600;white-space:nowrap}
+
+/* arrival schedule */
+.sched .lrow{gap:10px}
+.sched .stat{min-width:118px;text-align:right;font-size:11.5px;font-weight:600}
+.sched .pf{font-size:11.5px;color:var(--faint);white-space:nowrap}
+
+/* obespechennost plots */
+.plots{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.plot{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.plot .ph{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:11px}
+.plot .pn{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:19px}.plot .pq{font-size:11.5px;color:var(--faint)}
+.bw{height:7px;border-radius:999px;background:var(--line);position:relative;overflow:hidden}.bw .f{position:absolute;left:0;top:0;bottom:0;border-radius:999px}
+.bl{display:flex;justify-content:space-between;font-size:11.5px;color:var(--mut);margin-top:8px}
+
+/* ABC / optimization */
+.abc{display:flex;flex-direction:column;gap:12px;padding:18px 20px}
+.abcrow{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center}
+.abcrow .lt{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;font-family:'Cormorant',Georgia,serif}
+.abcrow.A .lt{background:var(--gold);color:#1E1E1E}.abcrow.B .lt{background:var(--accent)}.abcrow.C .lt{background:var(--faint)}
+.abcrow .nm{font-size:12.5px;color:var(--mut)}.abcrow .nm b{color:var(--ink);font-weight:600}
+.abcrow .bar{height:9px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:6px}.abcrow .bar i{display:block;height:100%;border-radius:999px}
+.abcrow.A .bar i{background:var(--gold)}.abcrow.B .bar i{background:var(--accent)}.abcrow.C .bar i{background:var(--faint)}
+.abcrow .pct{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:18px;text-align:right;min-width:48px}
+.varsum{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:13px}
+.varc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 17px}
+.varc .vl{font-size:11.5px;color:var(--mut)}.varc .vv{font-family:'Cormorant',Georgia,serif;font-size:27px;font-weight:700;margin-top:5px}.varc .vh{font-size:11px;color:var(--faint);margin-top:5px}
+
+.cta{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}.cta .btn{padding:12px 22px;font-size:14px}.cta .pri{flex:1;min-width:200px}
+.linkrow{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap}
+.linkrow a{font-size:13px;color:var(--mut);text-decoration:none;padding:11px 16px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.linkrow a:hover{border-color:var(--accent);color:var(--accent)}
+.foot{margin-top:18px;font-size:12px;color:var(--faint);line-height:1.6}
+@media(max-width:820px){.kan{grid-template-columns:1fr}.cycle{flex-wrap:wrap}.sched .stat{min-width:90px}}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="row">
+      <div class="brand">
+        <div class="lg" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#284157" stroke-width="2" stroke-linejoin="round"><path d="M3 7.5l9-4.5 9 4.5v9l-9 4.5-9-4.5v-9z"/><path d="M3 7.5l9 4.5 9-4.5M12 12v9"/></svg></div>
+        <div><div class="nm">ATLAS · снабжение</div><div class="sb">обеспечение работ материалами</div></div>
+      </div>
+      <div class="meta">ЖК «Аура» · неделя <b>01–07.06</b></div>
+    </div>
+    <div class="roles"><div class="row" role="tablist" aria-label="Роль">
+      <span class="grp">Снабжение</span>
+      <button role="tab" aria-selected="true" data-r="snab">Снабженец<span class="who">заявки · приход · KPI</span></button>
+      <button role="tab" aria-selected="false" data-r="lead">Руководитель снабжения<span class="who">свод · согласования · цены</span></button>
+      <span class="grp">Управление</span>
+      <button role="tab" aria-selected="false" data-r="dir">Директор<span class="who">акцепт · обеспеченность</span></button>
+      <button role="tab" aria-selected="false" data-r="ceo">CEO<span class="who">портфель</span></button>
+      <button role="tab" aria-selected="false" data-r="owner">Собственник<span class="who">надзор · оборотка</span></button>
+    </div></div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- СНАБЖЕНЕЦ -->
+    <section class="view on" id="v-snab" role="tabpanel" tabindex="-1">
+      <div class="eyebrow">Обеспечение фронта · неделя</div>
+      <p class="rolehint"><b>Экран снабженца.</b> Понедельник — план закупа недели из ГПР (что нужно к сроку работ); пятница-суббота — отметка прихода; дальше считается недельный KPI. Канбан заявок по типам материалов, поставщики, сцепка «материал → срок работы».</p>
+      <span class="obsnote">● <b>НАБЛЮДЕНИЕ · демо-данные · не для расчёта премии.</b> Боевой расчёт — после оцифровки приёмки на пятне (Хранитель), партийного входного контроля (ОКК) и заключения юриста по ТК РК (Фаза 2).</span>
+
+      <div class="cycle">
+        <div class="cstep done"><b>Пн</b>план закупа из ГПР</div><span class="carrow">→</span>
+        <div class="cstep done"><b>Вт–Чт</b>закуп · логистика</div><span class="carrow">→</span>
+        <div class="cstep now"><b>Пт–Сб ›</b>отметить приход</div><span class="carrow">→</span>
+        <div class="cstep"><b>Вс</b>недельный KPI</div>
+      </div>
+
+      <h2 class="sec">Мой KPI за неделю <span class="pill">наблюдательно · поощрение</span></h2>
+      <div class="gamewrap">
+        <div class="card gcard">
+          <div class="ring"><svg viewBox="0 0 88 88" width="88" height="88" aria-hidden="true"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#007484"/><stop offset="1" stop-color="#CFB372"/></linearGradient></defs><circle cx="44" cy="44" r="37" fill="none" stroke="#E0DDD3" stroke-width="9"/><circle cx="44" cy="44" r="37" fill="none" stroke="url(#rg)" stroke-width="9" stroke-linecap="round" stroke-dasharray="232" stroke-dashoffset="37" transform="rotate(-90 44 44)"/></svg><div class="ringv"><b>84%</b><span>неделя</span></div></div>
+          <div class="t">Комплектный приём фронта к окну</div><div class="s">Материал принят на пятне <b>Хранителем</b> к сроку работы, в объёме под старт. Взвешено по критичности (ABC). Осталось обеспечить <b>2 фронта</b>: лифты, слаботочка.</div>
+        </div>
+        <div class="card gcard">
+          <div class="t">Месячный план → коэффициент ×1.2</div>
+          <div class="track"><div class="fill" style="width:70%"></div><span class="goal">70% → 100%</span></div>
+          <div class="s">Добей месяц обеспечения до 100% — коэффициент <b>×1.2</b>. Считается по приёмке Хранителя, не по самоотметке. Ранний перезавоз сверх окна деньгами не премируется (кап + сигнал запаса).</div>
+        </div>
+      </div>
+      <div class="badges">
+        <div class="bdg">🔥 Серия: <b>5 недель</b> ≥85%<span>по приёмке Хранителя, не по самоотметке</span></div>
+        <div class="bdg gold">🏗 Грейд: <b>Специалист снабжения</b><span>до «Старшего» — стабильный KPI ещё ~2 мес</span></div>
+        <div class="bdg">🏷 Цена ≤ эталон: <b>12 / 14</b><span>датир. эталон Бэтмена; 2 на пересогласовании</span></div>
+        <div class="bdg ok">✓ Качество <b>×1.0</b><span>0 критич. дефектов спецификации</span></div>
+      </div>
+      <div class="card formula">
+        <div class="ft">Как считается мой KPI<span class="info">пул × KPI-скор × качество</span></div>
+        <div class="frow"><span class="b1">Пул недели</span> × <span class="b1">KPI-скор 0.84</span> × <span class="b1">качество 1.0</span> = <b>наблюдательно (деньги — Фаза 2)</b></div>
+        <div class="frow sub">KPI-скор = <b style="color:var(--ink)">комплектный приём фронта к окну</b>, взвешен по критичности (ABC). Цена ≤ эталон и соблюдение спецификации — гейт допуска, не премия. Экономия к смете — управленческая аналитика, <b style="color:var(--ink)">не личная премия</b> (премирование экономии провоцирует занижение марки/брак).</div>
+        <div class="gates"><span>✓ срыв по вине: нет</span><span>✓ приём подтвердил Хранитель</span><span>✓ цена ≤ эталон</span><span>✓ спецификация соблюдена</span></div>
+        <div class="expl">Считается <b>только то, чем управляет снабженец</b>: материал на пятне к окну срока и цена в эталоне. need-date и номенклатуру задаёт <b>ГПР + смета сверху</b> (immutable, снабженец не двигает). Срыв из-за позднего ТЗ ПТО, неоплаты финансов или форс-мажора поставщика — по <b>коду причины</b> на виновную сторону (арбитраж РП + ПТО + финансы), премию снабженца не режет; тот же вердикт снимает минус у прораба за этот фронт (<b>один work_uid — один виновник</b>, не двойное наказание). Ранний перезавоз ради «100%» деньгами не премируется (кап) и виден как замороженный запас. Оклад не трогается (≥75%) — это поощрение, не штраф.</div>
+      </div>
+
+      <h2 class="sec">Заявки недели · канбан <span class="pill">пайплайн «Заявка на закуп» · Муравей → Хранитель</span></h2>
+      <div class="kbtools" role="group" aria-label="Тип материалов">
+        <button class="f" data-t="all" aria-pressed="true">Все типы</button>
+        <button class="f" data-t="Бетон-арматура" aria-pressed="false">Бетон-арматура</button>
+        <button class="f" data-t="Инженерка" aria-pressed="false">Инженерка</button>
+        <button class="f" data-t="Отделочные" aria-pressed="false">Отделочные</button>
+        <button class="f" data-t="Благоустр." aria-pressed="false">Благоустр.</button>
+      </div>
+      <div class="kan" id="kan">
+        <div class="kcol" data-col="req"><div class="kh"><span>Заявка · согласование</span><span class="c" data-c>0</span></div></div>
+        <div class="kcol" data-col="pay"><div class="kh"><span>Оплачено · в пути</span><span class="c" data-c>0</span></div></div>
+        <div class="kcol" data-col="arr"><div class="kh"><span>Приём · Хранитель</span><span class="c" data-c>0</span></div></div>
+      </div>
+
+      <h2 class="sec">График прихода недели <span class="pill">план прихода → факт (Хранитель)</span></h2>
+      <div class="card list sched" id="sched"></div>
+
+      <h2 class="sec">Критическое — срыв поставки → стоп фронта</h2>
+      <div class="card list">
+        <div class="lrow"><span class="badge b-red">срыв → стоп фронта</span><div class="bd"><div class="t">Камеры + домофоны · П3 — заявка зависла 48 дн</div><div class="s">Слаботочка стоит · <b>вердикт: на снабжение</b> — фронт прораба за это не режется</div></div><div class="acts"><span class="cc b-red">снабжение</span><button class="btn">Эскалация</button></div></div>
+        <div class="lrow"><span class="badge b-red">срыв поставки</span><div class="bd"><div class="t">Лифтовое оборудование · П3 — ETA 13.06 против срока 05.06</div><div class="s">Импорт 90 дн · заявка и оплата были в срок · <b>вердикт: поставщик</b></div></div><div class="acts"><span class="cc b-blue">поставщик</span><button class="btn">План Б</button></div></div>
+        <div class="lrow"><span class="badge b-amber">не законтрактовано</span><div class="bd"><div class="t">Бордюр / брусчатка · П3 — фронт благоустройства 0%</div><div class="s">Спецификация от ПТО не выдана · снабжение эскалировало 02.06 · <b>вердикт: ПТО</b></div></div><div class="acts"><span class="cc b-violet">ПТО</span><button class="btn">Открыть</button></div></div>
+        <div class="lrow"><span class="badge b-amber">цена &gt; эталон</span><div class="bd"><div class="t">Кабель ВВГнг 3×2.5 · П4 — +6% к эталону</div><div class="s">Пересогласовать поставщика или подтвердить cost-of-delay</div></div><div class="acts"><span class="cc b-gray">B-позиция</span><button class="btn">Сравнить КП</button></div></div>
+        <div class="lrow"><span class="badge b-gray">запас · оборотка</span><div class="bd"><div class="t">Газоблок D500 · П3 — ранний завоз, запас ~18 дн</div><div class="s">Вне окна поставки · заморожена оборотка — наблюдательный сигнал</div></div><span class="meta">A-контроль</span></div>
+        <div class="lrow"><span class="badge b-violet">от руководства</span><div class="bd"><div class="t">Найти альтернативного поставщика камер/домофонов до 10.06</div><div class="s">поручение руководителя снабжения · планёрка 01.06</div></div><button class="btn">Взять</button></div>
+      </div>
+    </section>
+
+    <!-- РУКОВОДИТЕЛЬ СНАБЖЕНИЯ -->
+    <section class="view" id="v-lead" role="tabpanel" tabindex="-1">
+      <div class="eyebrow">Свод снабжения · объект</div>
+      <p class="rolehint"><b>Экран руководителя снабжения.</b> Свод обеспеченности по объекту, очередь согласований заявок, контроль цен против датированного эталона. Согласование пропускает только заявки в эталоне и по спецификации.</p>
+      <span class="obsnote">● <b>Наблюдательный режим.</b> Экономия к смете и цены — управленческая аналитика для контроля, не премия снабженца. Суммы условные.</span>
+
+      <h2 class="sec">Объект за неделю</h2>
+      <div class="kpis">
+        <div class="kpi g"><div class="l">Обеспеченность фронта</div><div class="v">76<small>%</small></div><div class="h">взвешено по ABC · окно к сроку</div></div>
+        <div class="kpi a"><div class="l">Заявок на согласовании</div><div class="v">6</div><div class="h">2 — цена выше эталона</div></div>
+        <div class="kpi r"><div class="l">Срывов → стоп фронта</div><div class="v">3</div><div class="h">слаботочка · лифты · благоустр.</div></div>
+        <div class="kpi v"><div class="l">Замороженная оборотка</div><div class="v">~28<small> млн ₸</small></div><div class="h">ранний завоз / запас · условно</div></div>
+      </div>
+
+      <h2 class="sec">Очередь согласований заявок</h2>
+      <div class="card list" id="approve"></div>
+      <div class="cta"><button class="btn gold">Согласовать всё ≤ эталон со спецификацией</button><button class="btn">Запросить КП по дорогим</button></div>
+
+      <h2 class="sec">Оптимизация по смете <span class="pill">наблюдательно · суммы условные</span></h2>
+      <div class="varsum">
+        <div class="varc"><div class="vl">Закуп vs смета (портфель)</div><div class="vv" style="color:var(--amber)">+1.8%</div><div class="vh">валовое отклонение по принятому объёму</div></div>
+        <div class="varc"><div class="vl">↳ рыночный сдвиг (не вина снабжения)</div><div class="vv" style="color:var(--red)">+3.2%</div><div class="vh">смета vs датир. эталон Бэтмена</div></div>
+        <div class="varc"><div class="vl">↳ закупочная разница</div><div class="vv" style="color:var(--green)">−1.4%</div><div class="vh">факт vs эталон на дату заявки</div></div>
+      </div>
+      <div class="card abc">
+        <div class="abcrow A"><div class="lt">A</div><div><div class="nm"><b>Бетон, арматура, лифты, фасад</b> · 14 позиций</div><div class="bar"><i style="width:76%"></i></div></div><div class="pct">76%</div></div>
+        <div class="abcrow B"><div class="lt">B</div><div><div class="nm"><b>Инженерка</b> — кабель, трубы, слаботочка, окна, плитка · 38 позиций</div><div class="bar"><i style="width:18%"></i></div></div><div class="pct">18%</div></div>
+        <div class="abcrow C"><div class="lt">C</div><div><div class="nm"><b>Отделочная мелочь, благоустройство</b> · 130+ позиций</div><div class="bar"><i style="width:6%"></i></div></div><div class="pct">6%</div></div>
+        <div class="expl" style="border-top:1px solid var(--line)">Контроль цены и эталона сосредоточить на <b>A-позициях</b> (76% бюджета материалов в 14 позициях — правило Парето). Цена сверяется с <b>датированным эталоном</b> (Бэтмен), нормализованным к landed price (НДС, доставка, объём, город, срочность). Экономия считается только по <b>принятому объёму и качеству</b> — нельзя «сэкономить» недопоставкой или занижением марки.</div>
+      </div>
+    </section>
+
+    <!-- УПРАВЛЕНИЕ: директор / CEO / собственник (унифицировано) -->
+    <section class="view" id="v-mgmt" role="tabpanel" tabindex="-1">
+      <div class="eyebrow" id="mgmt-eyebrow">Обеспеченность портфеля</div>
+      <p class="rolehint" id="mgmt-hint"></p>
+      <span class="obsnote">● <b>Наблюдательный режим</b> — KPI и обеспеченность считаются, на премию пока не влияют. Сцепка со срывом фронта ГПР по единому коду причины.</span>
+
+      <h2 class="sec"><span id="mgmt-scope">Объект</span> · обеспеченность за неделю</h2>
+      <div class="kpis">
+        <div class="kpi g"><div class="l">Обеспеченность портфеля</div><div class="v">64<small>%</small></div><div class="h">взвешено по ABC · окно к сроку</div></div>
+        <div class="kpi r"><div class="l">Срывов → стоп фронта</div><div class="v">3</div><div class="h">сцеплены с отставанием ГПР</div></div>
+        <div class="kpi a"><div class="l">Закуп vs смета</div><div class="v">+1.8<small>%</small></div><div class="h">рынок +3.2% / закуп −1.4% · условно</div></div>
+        <div class="kpi v" id="mgmt-kpi4"><div class="l">Заявки на акцепт</div><div class="v">2</div><div class="h">свод недели ждёт</div></div>
+      </div>
+
+      <h2 class="sec">Критические срывы поставок <span class="pill">материал → срок работы ГПР</span></h2>
+      <div class="card list">
+        <div class="lrow"><span class="badge b-red">срыв → стоп фронта</span><div class="bd"><div class="t">Видеонаблюдение / Домофоны · П3 — поставка 48 дн</div><div class="s">фронт «Слаботочка» стоит · отставание ГПР −48 дн</div></div><div class="acts"><span class="cc b-red">снабжение</span><span class="meta">Инженерка</span></div></div>
+        <div class="lrow"><span class="badge b-red">критический путь</span><div class="bd"><div class="t">Монтаж лифтов · П3 — оборудование ETA 13.06 / срок 05.06</div><div class="s">импорт 90 дн · заявка+оплата в срок · отставание ГПР −27 дн</div></div><div class="acts"><span class="cc b-blue">поставщик</span><span class="meta">Инженерка</span></div></div>
+        <div class="lrow"><span class="badge b-amber">фронт 0%</span><div class="bd"><div class="t">Благоустройство · П3 — бордюр / брусчатка / асфальт</div><div class="s">спецификация ПТО не выдана · отставание ГПР −19 дн</div></div><div class="acts"><span class="cc b-violet">ПТО</span><span class="meta">Благоустр.</span></div></div>
+        <div class="lrow"><span class="badge b-violet">задача руководства</span><div class="bd"><div class="t">Решить по поставщику камер/домофонов до 10.06</div><div class="s">эскалация с планёрки · единый вердикт по фронту</div></div><button class="btn">Открыть</button></div>
+      </div>
+
+      <h2 class="sec" id="mgmt-grid-h">Обеспеченность по пятнам</h2>
+      <div class="plots" id="mgmtplots"></div>
+
+      <h2 class="sec">Оптимизация по смете · ABC <span class="pill">наблюдательно · суммы условные</span></h2>
+      <div class="card abc">
+        <div class="abcrow A"><div class="lt">A</div><div><div class="nm"><b>Бетон, арматура, лифты, фасад</b> · 14 позиций · контроль цены здесь</div><div class="bar"><i style="width:76%"></i></div></div><div class="pct">76%</div></div>
+        <div class="abcrow B"><div class="lt">B</div><div><div class="nm"><b>Инженерка</b> · 38 позиций</div><div class="bar"><i style="width:18%"></i></div></div><div class="pct">18%</div></div>
+        <div class="abcrow C"><div class="lt">C</div><div><div class="nm"><b>Отделка, благоустройство</b> · 130+ позиций</div><div class="bar"><i style="width:6%"></i></div></div><div class="pct">6%</div></div>
+      </div>
+
+      <div class="cta" id="mgmt-cta"></div>
+    </section>
+
+    <div class="linkrow">
+      <a href="web.html">ГПР-модуль ATLAS (выполнение работ) →</a>
+      <a href="atamura_aura_gpr_dashboard.html">Дашборд ГПР «Аура» →</a>
+      <a href="atlas_supply_roles.html">Версия в дашборд-палитре →</a>
+    </div>
+    <p class="foot">Второй модуль ATLAS: ГПР отслеживает <b>выполнение</b> работ, снабжение — <b>обеспечение</b> работ материалами. Мост — «материал к сроку работы»: срыв поставки сцепляется со срывом фронта ГПР по единому коду причины (один work_uid — один виновник). KPI везде в наблюдательном режиме (боевой расчёт с деньгами — Фаза 2, после оцифровки приёмки и заключения юриста ТК РК). Оформление по брендбуку ATAMURA. Данные условные по ЖК «Аура», поставщики и имена вымышленные, цены и суммы не реальные.</p>
+  </div>
+
+<script>
+// ——— Заявки недели (канбан снабженца) ———
+const REQS=[
+  {mat:'Бетон B25 (товарный)',type:'Бетон-арматура',qty:'180 м³',work:'Ж/Б каркас',plot:5,need:'12.06',sup:'БетонКЗ',col:'pay',abc:'A',price:'ok',win:'оплачено · в пути · в окне'},
+  {mat:'Арматура А500С ⌀12',type:'Бетон-арматура',qty:'22 т',work:'Ж/Б каркас',plot:5,need:'12.06',sup:'МеталлТрейд',col:'pay',abc:'A',price:'ok',win:'в пути · ETA 11.06 · в окне'},
+  {mat:'Газоблок D500',type:'Бетон-арматура',qty:'1 200 шт',work:'Кладка стен 6 эт.',plot:3,need:'09.06',sup:'СтройБлок',col:'arr',abc:'B',price:'ok',win:'принят 06.06 · ранний'},
+  {mat:'Утеплитель фасадный',type:'Отделочные',qty:'1 800 м²',work:'Фасад',plot:3,need:'10.06',sup:'ТеплоИзол',col:'pay',abc:'B',price:'ok',win:'в пути · ETA 09.06 · в окне'},
+  {mat:'ЦПС М150',type:'Отделочные',qty:'600 меш.',work:'Стяжка полов',plot:3,need:'11.06',sup:'СухиеСмеси',col:'pay',abc:'C',price:'ok',win:'в пути · ETA 09.06 · в окне'},
+  {mat:'Окна ПВХ',type:'Отделочные',qty:'64 шт',work:'Монтаж окон',plot:3,need:'08.06',sup:'ОконныйЗавод',col:'arr',abc:'B',price:'ok',win:'принят 07.06 · в окне'},
+  {mat:'Керамогранит',type:'Отделочные',qty:'900 м²',work:'Отделка МОП',plot:4,need:'18.06',sup:'КерамКЗ',col:'req',abc:'B',price:'ok'},
+  {mat:'Кабель ВВГнг 3×2.5',type:'Инженерка',qty:'4 500 м',work:'Электромонтаж',plot:4,need:'14.06',sup:'ЭлектроСнаб',col:'req',abc:'B',price:'over'},
+  {mat:'Труба PP-R ⌀25',type:'Инженерка',qty:'800 м',work:'Отопление',plot:4,need:'16.06',sup:'ИнжСети KZ',col:'req',abc:'B',price:'ok'},
+  {mat:'Лифтовое оборудование',type:'Инженерка',qty:'2 компл.',work:'Монтаж лифтов',plot:3,need:'05.06',sup:'ЛифтИмпорт',col:'pay',abc:'A',price:'ok',win:'ETA 13.06 · риск −8д',late:1},
+  {mat:'Камеры + домофоны',type:'Инженерка',qty:'1 компл.',work:'Видеонабл./Домофоны',plot:3,need:'01.06',sup:'не законтрактовано',col:'req',abc:'B',srv:1,win:'срыв −48д'},
+  {mat:'Бордюрный камень',type:'Благоустр.',qty:'800 м',work:'Бордюры/поребрики',plot:3,need:'13.06',sup:'ЖБИ-Завод',col:'req',abc:'C',hold:'ПТО'},
+  {mat:'Брусчатка',type:'Благоустр.',qty:'2 400 м²',work:'Брусчатка',plot:3,need:'15.06',sup:'ТротуарПлит',col:'req',abc:'C',hold:'ПТО'},
+  {mat:'Саженцы + грунт',type:'Благоустр.',qty:'комплект',work:'Озеленение',plot:4,need:'20.06',sup:'Питомник',col:'req',abc:'C',hold:'финансы'},
+];
+const typeColor={'Бетон-арматура':'b-blue','Инженерка':'b-violet','Отделочные':'b-amber','Благоустр.':'b-green'};
+const winColor=w=>!w?'':/срыв|риск/.test(w)?'b-red':/ранний/.test(w)?'b-gray':/принят/.test(w)?'b-green':'b-blue';
+let curType='all';
+function renderKan(){
+  ['req','pay','arr'].forEach(col=>{
+    const box=document.querySelector(`[data-col="${col}"]`);
+    [...box.querySelectorAll('.kc')].forEach(n=>n.remove());
+    const items=REQS.filter(x=>x.col===col&&(curType==='all'||x.type===curType));
+    box.querySelector('[data-c]').textContent=items.length;
+    items.forEach(x=>{const d=document.createElement('div');d.className='kc'+(x.srv?' srv':'');
+      const act=col==='arr'?(/принят/.test(x.win||'')?'Принято ✓':'Ждёт приёмки'):col==='pay'?'Отследить':x.hold?'Запросить ТЗ':'Согласование';
+      const chips=[];
+      if(x.price==='ok')chips.push('<span class="chip b-green">цена ≤ эталон</span>');
+      if(x.price==='over')chips.push('<span class="chip b-red">+6% к эталону</span>');
+      if(x.hold)chips.push(`<span class="chip b-violet">ждёт ТЗ · ${x.hold}</span>`);
+      if(x.win)chips.push(`<span class="chip ${winColor(x.win)}">${x.win}</span>`);
+      d.innerHTML=`<div class="kt"><span class="abc ${x.abc}">${x.abc}</span>${x.mat}</div>
+        <div class="km"><span class="badge ${typeColor[x.type]}">${x.type}</span><span class="qf">${x.qty}</span></div>
+        <div class="br">→ <b>${x.work}</b> · П${x.plot} · к <b>${x.need}</b></div>
+        <div class="chips">${chips.join('')}</div>
+        <div class="row2"><span class="sup">${x.late||x.srv?'⚠ ':''}${x.sup}</span><span class="mark">${act}</span></div>`;
+      box.appendChild(d);});
+  });
+}
+document.querySelectorAll('.kbtools .f').forEach(b=>b.addEventListener('click',()=>{curType=b.dataset.t;
+  document.querySelectorAll('.kbtools .f').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderKan();}));
+
+// ——— График прихода недели ———
+const SCHED=[
+  {mat:'Газоблок D500',work:'Кладка стен',plot:3,need:'09.06',plan:'07.06',fact:'принят 06.06',st:'опережение +1д',c:'b-green'},
+  {mat:'Окна ПВХ',work:'Монтаж окон',plot:3,need:'08.06',plan:'06.06',fact:'принят 07.06',st:'в окне',c:'b-green'},
+  {mat:'Утеплитель фасадный',work:'Фасад',plot:3,need:'10.06',plan:'09.06',fact:'в пути',st:'ETA 09.06 · в окне',c:'b-blue'},
+  {mat:'ЦПС М150',work:'Стяжка полов',plot:3,need:'11.06',plan:'09.06',fact:'в пути',st:'ETA 09.06 · в окне',c:'b-blue'},
+  {mat:'Бетон B25 · Арматура',work:'Ж/Б каркас',plot:5,need:'12.06',plan:'11.06',fact:'оплачено',st:'в окне',c:'b-blue'},
+  {mat:'Лифтовое оборудование',work:'Монтаж лифтов',plot:3,need:'05.06',plan:'28.05',fact:'в пути (импорт)',st:'срыв −8д',c:'b-red'},
+  {mat:'Камеры + домофоны',work:'Видеонабл./Домофоны',plot:3,need:'01.06',plan:'—',fact:'не законтрактовано',st:'СРЫВ −48д',c:'b-red'},
+];
+document.getElementById('sched').innerHTML=SCHED.map(s=>`<div class="lrow">
+  <div class="bd"><div class="t">${s.mat}</div><div class="s">→ <b>${s.work}</b> · П${s.plot} · к ${s.need}</div></div>
+  <span class="pf">план ${s.plan} · факт: ${s.fact}</span>
+  <span class="stat" style="color:var(--${s.c==='b-green'?'green':s.c==='b-red'?'red':'blue'})">${s.st}</span></div>`).join('');
+
+// ——— Очередь согласований (руководитель снабжения) ———
+const APPROVE=[
+  {mat:'Кабель ВВГнг 3×2.5',qty:'4 500 м',sum:'~3.1 млн ₸',sup:'ЭлектроСнаб',work:'Электромонтаж П4 · к 14.06',abc:'B',price:'over'},
+  {mat:'Лифтовое оборудование',qty:'2 компл.',sum:'~88 млн ₸',sup:'ЛифтИмпорт',work:'Монтаж лифтов П3 · к 05.06',abc:'A',price:'ok',crit:1},
+  {mat:'Керамогранит',qty:'900 м²',sum:'~6.3 млн ₸',sup:'КерамКЗ',work:'Отделка МОП П4 · к 18.06',abc:'B',price:'ok'},
+  {mat:'Бордюрный камень',qty:'800 м',sum:'~2.4 млн ₸',sup:'ЖБИ-Завод',work:'Бордюры П3 · к 13.06',abc:'C',hold:'ПТО'},
+  {mat:'Труба PP-R ⌀25',qty:'800 м',sum:'~1.2 млн ₸',sup:'ИнжСети KZ',work:'Отопление П4 · к 16.06',abc:'B',price:'ok'},
+  {mat:'Саженцы + грунт',qty:'комплект',sum:'~1.8 млн ₸',sup:'Питомник',work:'Озеленение П4 · к 20.06',abc:'C',hold:'финансы'},
+];
+document.getElementById('approve').innerHTML=APPROVE.map(a=>{
+  const tag=a.hold?`<span class="cc b-violet">ждёт ТЗ · ${a.hold}</span>`:a.price==='over'?'<span class="cc b-red">+6% к эталону</span>':'<span class="cc b-green">≤ эталон</span>';
+  const acts=a.hold?'<button class="btn">Запросить ТЗ</button>':a.price==='over'?'<button class="btn">Вернуть</button><button class="btn">Сравнить КП</button>':'<button class="btn ok">Согласовать</button><button class="btn">Вернуть</button>';
+  return `<div class="lrow"><span class="badge ${a.crit?'b-red':'b-gray'}">${a.abc}${a.crit?' · крит':''}</span>
+    <div class="bd"><div class="t">${a.mat} · ${a.qty} <span style="color:var(--faint);font-weight:500">— ${a.sum}</span></div>
+    <div class="s">${a.sup} · → <b>${a.work}</b></div></div>
+    <div class="acts">${tag}${acts}</div></div>`;}).join('');
+
+// ——— Управление: варианты роли (унифицировано) ———
+const MGMT={
+  dir:{eye:'Обеспеченность объекта',hint:'<b>Экран директора по строительству.</b> Обеспеченность объекта, критические срывы поставок и свод снабжения на акцепт. Еженедельный акцепт свода — обязанность (это твой KPI).',scope:'Объект',kpi4:['Заявки на акцепт','2','свод недели ждёт'],cta:'<button class="btn pri">Акцептовать свод недели</button><button class="btn">Вернуть руководителю снабжения</button>'},
+  ceo:{eye:'Обеспеченность портфеля',hint:'<b>Экран CEO.</b> Тот же обзор по всему стройблоку: обеспеченность портфеля, критические срывы и контроль свода снабжения (где причесали обеспеченность).',scope:'Портфель',kpi4:['Расхождение факт↔свод','1','обеспеченность завышена в своде'],cta:'<button class="btn">Разобрать с руководителем снабжения</button>'},
+  owner:{eye:'Надзор · эффективность оборотки',hint:'<b>Экран собственника.</b> Тот же обзор для надзора: обеспеченность и эффективность оборотки. Решения — у CEO и директора; тебе виден сырой факт прихода (Хранитель) для проверки.',scope:'Портфель',kpi4:['Замороженная оборотка','~28 млн ₸','ранний завоз / запас · условно'],cta:'<button class="btn gold">Принять неделю</button><button class="btn">Запросить разбор у CEO</button>'},
+};
+const PLOTS=[{id:3,q:2,cov:78,risk:3},{id:4,q:2,cov:75,risk:2},{id:5,q:3,cov:62,risk:1},{id:6,q:3,cov:55,risk:1},{id:7,q:4,cov:28,risk:0},{id:8,q:4,cov:25,risk:0}];
+const col=v=>v>=75?'var(--green)':v>=50?'var(--gold-deep)':'var(--blue)';
+function renderMgmt(role){const m=MGMT[role];
+  document.getElementById('mgmt-eyebrow').textContent=m.eye;
+  document.getElementById('mgmt-hint').innerHTML=m.hint;
+  document.getElementById('mgmt-scope').textContent=m.scope;
+  const k=document.getElementById('mgmt-kpi4');k.querySelector('.l').textContent=m.kpi4[0];k.querySelector('.v').textContent=m.kpi4[1];k.querySelector('.h').textContent=m.kpi4[2];
+  document.getElementById('mgmt-cta').innerHTML=m.cta;
+  document.getElementById('mgmt-grid-h').textContent=role==='dir'?'Обеспеченность пятен объекта':'Обеспеченность по пятнам';
+  document.getElementById('mgmtplots').innerHTML=PLOTS.map(p=>`<div class="plot"><div class="ph"><div class="pn">Пятно ${p.id}</div><div class="pq">${p.q}-я оч.</div></div>
+    <div class="bw"><div class="f" style="width:${p.cov}%;background:${col(p.cov)}"></div></div>
+    <div class="bl"><span>обеспечено <b class="tnum" style="color:${col(p.cov)}">${p.cov}%</b></span><span class="tnum">${p.risk?'риск-позиций '+p.risk:'план закупа'}</span></div></div>`).join('');
+}
+
+// ——— Маршрутизация ролей ———
+const tabs=[...document.querySelectorAll('.roles button')];
+const VIEW={snab:'v-snab',lead:'v-lead',dir:'v-mgmt',ceo:'v-mgmt',owner:'v-mgmt'};
+function pick(r){if(!VIEW[r])r='snab';
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id===VIEW[r]));
+  tabs.forEach(t=>t.setAttribute('aria-selected',String(t.dataset.r===r)));
+  if(VIEW[r]==='v-mgmt')renderMgmt(r);
+  history.replaceState(null,'',location.pathname+'#'+r);}
+tabs.forEach(t=>t.addEventListener('click',()=>pick(t.dataset.r)));
+renderKan();
+pick(location.hash.slice(1)||'snab');
+</script>
+</body>
+</html>
