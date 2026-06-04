@@ -3,36 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#11253b">
+<meta name="theme-color" content="#284157">
 <title>ATLAS · интерфейсы по ролям</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f1f4f7;--card:#fff;--ink:#1e2a37;--mut:#64748b;--faint:#94a3b2;
-  --line:#e6ebf1;--accent:#1f8f8a;--accent-d:#177571;--accent-soft:#e7f4f3;
-  --green:#2f9e63;--green-bg:#e7f5ee;--amber:#cf8a2c;--amber-bg:#fbf0dd;--red:#d2544b;--red-bg:#fbe9e7;--blue:#3576b8;--blue-bg:#e8f1fa;--violet:#7a52c4;--violet-bg:#efe9fb;
+  /* ATAMŪRA brandbook (theme=teal): тёплый кремовый + навы/бирюза/золото */
+  --bg:#F7F5EE;--card:#FBFBFB;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;
+  --line:#E0DDD3;--accent:#007484;--accent-d:#005763;--accent-soft:#E0EEF0;
+  --navy:#284157;--gold:#CFB372;--gold-d:#A88E48;--gold-soft:#EFE6CD;
+  --green:#2E8F5B;--green-bg:#E8F2EA;--amber:#C98A2C;--amber-bg:#F4EAD4;--red:#C8554C;--red-bg:#F6E7E2;--blue:#3A6E8C;--blue-bg:#E7EFF4;--violet:#3B5168;--violet-bg:#E5EAF0;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Archivo',-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+body{font-family:'Jost','Futura PT','Futura',-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;font-feature-settings:"ss03","cv11"}
 .tnum{font-variant-numeric:tabular-nums}
 button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
 :where(button,a,select):focus-visible{outline:none;box-shadow:0 0 0 3px rgba(31,143,138,.4);border-radius:8px}
 
-.top{background:#11253b;color:#fff;position:sticky;top:0;z-index:20}
+.top{background:rgba(247,245,238,.85);color:var(--ink);position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
 .top .row{max-width:1120px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:11px}
-.brand .lg{width:32px;height:32px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px}
-.brand .nm{font-weight:700;font-size:16px}.brand .sb{font-size:11.5px;color:#8ba0b3}
-.top .meta{margin-left:auto;font-size:12.5px;color:#9fb2c4}.top .meta b{color:#fff;font-weight:600}
-.roles{background:#0c1d30;border-top:1px solid rgba(255,255,255,.07)}
+.brand .lg{width:34px;height:34px;border-radius:9px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;font-family:'Cormorant',Georgia,serif;box-shadow:inset 0 0 0 1px rgba(207,179,114,.4)}
+.brand .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;letter-spacing:.02em;line-height:1;color:var(--navy)}.brand .sb{font-size:11.5px;color:var(--mut)}
+.top .meta{margin-left:auto;font-size:12.5px;color:var(--mut)}.top .meta b{color:var(--ink);font-weight:600}
+.roles{background:var(--card);border-bottom:1px solid var(--line)}
 .roles .row{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;gap:2px;overflow-x:auto}
-.roles button{padding:12px 15px;color:#9fb2c4;font-size:13.5px;font-weight:600;white-space:nowrap;border-bottom:2px solid transparent}
-.roles button .who{display:block;font-size:10.5px;font-weight:500;color:#7990a4;margin-top:2px}
-.roles button[aria-selected="true"]{color:#fff;border-bottom-color:var(--accent)}
-.roles button[aria-selected="true"] .who{color:var(--accent)}
-.roles .grp{align-self:center;font-size:10px;color:#5f7governs;color:#5d7287;text-transform:uppercase;letter-spacing:.08em;padding:0 8px;white-space:nowrap}
+.roles button{padding:12px 15px;color:var(--mut);font-size:13.5px;font-weight:600;white-space:nowrap;border-bottom:2px solid transparent}
+.roles button .who{display:block;font-size:10.5px;font-weight:500;color:var(--faint);margin-top:2px}
+.roles button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.roles button[aria-selected="true"] .who{color:var(--accent-d)}
+.roles .grp{align-self:center;font-size:10px;color:var(--gold-d);text-transform:uppercase;letter-spacing:.08em;padding:0 8px;white-space:nowrap}
 
 .wrap{max-width:1120px;margin:0 auto;padding:24px 24px 60px}
 .view{display:none}.view.on{display:block}
@@ -43,10 +45,10 @@ button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
 h2.sec{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:24px 2px 13px;display:flex;align-items:center;gap:10px}
 h2.sec:first-of-type{margin-top:0}
 
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 2px rgba(30,30,30,.04)}
 .badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px}
 .b-green{background:var(--green-bg);color:var(--green)}.b-amber{background:var(--amber-bg);color:var(--amber)}.b-red{background:var(--red-bg);color:var(--red)}.b-blue{background:var(--blue-bg);color:var(--blue)}.b-violet{background:var(--violet-bg);color:var(--violet)}.b-gray{background:#eef1f4;color:var(--mut)}
-.btn{font-size:13px;font-weight:600;padding:9px 15px;border-radius:9px;border:1px solid var(--line);color:var(--mut)}
+.btn{font-size:13px;font-weight:600;padding:9px 16px;border-radius:999px;border:1px solid var(--line);color:var(--ink);background:var(--card)}
 .btn:hover{background:var(--bg)}.btn.pri{background:var(--accent);color:#fff;border-color:var(--accent)}.btn.pri:hover{background:var(--accent-d)}
 .btn.ok{color:var(--green);border-color:#bfe3cd}.btn.ok:hover{background:var(--green-bg)}
 
@@ -126,13 +128,55 @@ h2.sec:first-of-type{margin-top:0}
 .linkrow a{font-size:13px;color:var(--mut);text-decoration:none;padding:10px 15px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
 .linkrow a:hover{border-color:var(--accent);color:var(--accent)}
 .foot{margin-top:24px;font-size:12px;color:var(--faint);line-height:1.6}
+
+/* gantt — таймлайн ГПР: план ↔ факт */
+.gantt-card{padding:15px 17px 17px;overflow:hidden}
+.glegend{display:flex;gap:13px;flex-wrap:wrap;align-items:center;font-size:11.5px;color:var(--mut);margin-bottom:13px}
+.glegend i{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:-1px}
+.glegend .sep{color:#cdd6df}
+.gantt{--glab:166px;overflow-x:auto;overflow-y:hidden;padding-bottom:2px}
+.gscale,.gbody{min-width:760px}
+.gscale{display:flex;align-items:flex-end;height:28px;margin-bottom:5px}
+.gscale .gsp{width:var(--glab);flex:none}
+.gmonths{flex:1;position:relative;height:100%}
+.gmonths .mo{position:absolute;bottom:0;font-size:9.5px;color:var(--faint);white-space:nowrap;padding-left:4px;border-left:1px solid var(--line);height:9px;line-height:17px}
+.gmonths .mo.yr{color:var(--mut);font-weight:700;height:15px;border-left-color:#cdd6df}
+.gbody{position:relative}
+.goverlay,.gtoday{position:absolute;left:var(--glab);right:0;top:0;bottom:0;pointer-events:none}
+.goverlay{z-index:0}.gtoday{z-index:3}
+.goverlay .gl{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+.goverlay .gl.yr{background:#dde4ec}
+.gtoday .tl{position:absolute;top:0;bottom:0;width:2px;background:var(--red);opacity:.7;transform:translateX(-1px)}
+.gtoday .tt{position:absolute;top:-1px;transform:translateX(-50%);font-size:9px;font-weight:700;color:#fff;background:var(--red);border-radius:4px;padding:1px 5px;white-space:nowrap}
+.grow{display:flex;align-items:center;min-height:33px;position:relative;z-index:1}
+.glabel{display:flex;align-items:center;gap:6px;width:var(--glab);flex:none;text-align:left;padding:4px 8px 4px 2px;border-radius:8px}
+button.glabel{cursor:pointer}button.glabel:hover{background:var(--bg)}
+.gchev{font-size:9px;color:var(--faint);transition:transform .15s;flex:none;width:8px}
+.glabel[aria-expanded="true"] .gchev{transform:rotate(90deg)}
+.gnm{font-size:12px;font-weight:600;line-height:1.2;flex:1;min-width:0;overflow:hidden}
+.gnm small{display:block;font-size:9.5px;color:var(--faint);font-weight:500;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gfact{font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums;flex:none}
+.gfact.st-done{color:var(--green)}.gfact.st-prog{color:var(--accent-d)}.gfact.st-late{color:var(--red)}.gfact.st-risk{color:var(--amber)}.gfact.st-idle{color:var(--faint)}
+.gchip{font-size:9px;font-weight:700;color:var(--red);background:var(--red-bg);border-radius:5px;padding:1px 4px;white-space:nowrap;flex:none}
+.gtrack{flex:1;position:relative;height:22px}
+.gbar{position:absolute;top:50%;transform:translateY(-50%);height:14px;border-radius:5px;min-width:3px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(20,40,60,.05)}
+.gbar.st-done{background:var(--green-bg)}.gbar.st-prog{background:var(--accent-soft)}.gbar.st-late{background:var(--red-bg)}.gbar.st-risk{background:var(--amber-bg)}.gbar.st-idle{background:#eceff3}
+.gfill{position:absolute;left:0;top:0;bottom:0}
+.gbar.st-done .gfill{background:var(--green)}.gbar.st-prog .gfill{background:var(--accent)}.gbar.st-late .gfill{background:var(--red)}.gbar.st-risk .gfill{background:var(--amber)}.gbar.st-idle .gfill{background:var(--faint)}
+.gsubs{display:none}.gsubs.open{display:block;margin:1px 0 9px}
+.grow.sub{min-height:25px;z-index:1}
+.grow.sub .glabel{padding-left:22px}
+.grow.sub .gnm{font-size:11px;font-weight:500;color:var(--mut)}
+.grow.sub .gbar{height:10px}
+.ghint{font-size:11.5px;color:var(--faint);margin-top:12px;line-height:1.5}
+.mppframe{width:100%;height:86vh;min-height:560px;border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:0 1px 2px rgba(30,30,30,.04);display:block}
 @media(max-width:820px){.kan{grid-template-columns:1fr}.cycle{flex-wrap:wrap}}
 </style>
 </head>
 <body>
   <div class="top">
     <div class="row">
-      <div class="brand"><div class="lg" aria-hidden="true">M</div><div><div class="nm">ATLAS</div><div class="sb">отслеживание стройки</div></div></div>
+      <div class="brand"><div class="lg" aria-hidden="true">A</div><div><div class="nm">ATLAS</div><div class="sb">отслеживание стройки</div></div></div>
       <div class="meta">ЖК «Аура» · неделя <b>01–07.06</b></div>
     </div>
     <div class="roles"><div class="row" role="tablist" aria-label="Роль">
@@ -239,16 +283,38 @@ h2.sec:first-of-type{margin-top:0}
         <div class="lrow"><span class="badge b-violet">задача руководства</span><div class="bd"><div class="t">Решить по подрядчику лифтов до 10.06</div><div class="s">эскалация с планёрки</div></div><button class="btn">Открыть</button></div>
       </div>
 
+      <h2 class="sec">Таймлайн ГПР · план ↔ факт</h2>
+      <div class="card gantt-card">
+        <div class="glegend">
+          <span><i style="background:var(--green)"></i>готово</span>
+          <span><i style="background:var(--accent)"></i>в работе</span>
+          <span><i style="background:var(--amber)"></i>риск</span>
+          <span><i style="background:var(--red)"></i>отставание</span>
+          <span><i style="background:var(--faint)"></i>не начато</span>
+          <span class="sep">·</span><span>заливка = факт, контур = плановый срок</span>
+          <span class="sep">·</span><span style="color:var(--red);font-weight:600">▏ сегодня</span>
+        </div>
+        <div class="gantt">
+          <div class="gscale" id="gscale"><div class="gsp"></div><div class="gmonths"></div></div>
+          <div class="gbody" id="gbody"><div class="goverlay" id="gov"></div><div class="gtoday" id="gtoday"></div></div>
+        </div>
+        <p class="ghint">Это управленческий свод. Клик по пятну — разрез по разделам. <a href="#fullplan" style="color:var(--accent-d);font-weight:600;white-space:nowrap">Полный план ГПР — все 232 работы, ниже на странице ↓</a></p>
+      </div>
+
       <h2 class="sec" id="mgmt-grid-h">Готовность по пятнам</h2>
       <div class="plots" id="mgmtplots"></div>
 
       <div class="cta" id="mgmt-cta"></div>
+
+      <h2 class="sec" id="fullplan">Полный план ГПР · все работы (как MS Project)</h2>
+      <iframe class="mppframe" src="gpr.html?embed=1" title="Полный план ГПР — как в MS Project" loading="lazy"></iframe>
     </section>
 
     <div class="linkrow">
       <a href="bot.html">Экраны бота (НУ в поле) →</a>
       <a href="web_full.html">Полная рабочая панель →</a>
       <a href="atamura_aura_gpr_dashboard.html">Дашборд ГПР →</a>
+      <a href="gpr.html" style="border-color:var(--gold);color:var(--gold-d)">Полный план ГПР (как MS Project) →</a>
     </div>
     <p class="foot">Один продукт, разные интерфейсы по роли: исполнители (прораб/НУ) видят свои задачи и выработку; управленцы (директор/CEO/собственник) — почти одинаковый обзор, разница в масштабе и правах. Данные условные по ЖК «Аура», имена вымышленные.</p>
   </div>
@@ -305,6 +371,42 @@ function renderMgmt(role){const m=MGMT[role];
     <div class="bl"><span>факт <b class="tnum" style="color:${col(p.fact)}">${p.fact}%</b></span><span class="tnum">план ${p.plan}% · −${p.plan-p.fact}</span></div></div>`).join('');
 }
 
+// ===== Таймлайн ГПР (Гант) — реальные агрегаты ЖК «Аура» =====
+const GANTT={"axis":{"min":"2025-02-13","max":"2026-10-05","today":"2026-06-04"},"plots":[{"id":3,"q":2,"plan":91,"fact":84,"start":"2025-06-24","finish":"2026-05-02","overdue":15,"total":39,"delay":48,"sections":[{"name":"Общестрой","start":"2025-06-24","finish":"2026-03-20","fact":100,"n":7,"overdue":0,"maxdelay":0},{"name":"Отделка","start":"2025-11-18","finish":"2026-04-16","fact":100,"n":10,"overdue":0,"maxdelay":0},{"name":"Инженерка","start":"2025-11-13","finish":"2026-04-21","fact":86,"n":14,"overdue":7,"maxdelay":48},{"name":"Благоустройство","start":"2026-03-14","finish":"2026-05-02","fact":5,"n":8,"overdue":8,"maxdelay":19}]},{"id":4,"q":2,"plan":91,"fact":83,"start":"2025-02-13","finish":"2026-05-09","overdue":16,"total":39,"delay":38,"sections":[{"name":"Общестрой","start":"2025-07-24","finish":"2026-04-01","fact":99,"n":7,"overdue":1,"maxdelay":7},{"name":"Отделка","start":"2025-12-18","finish":"2026-05-06","fact":100,"n":10,"overdue":0,"maxdelay":0},{"name":"Инженерка","start":"2025-02-13","finish":"2026-05-06","fact":86,"n":14,"overdue":7,"maxdelay":38},{"name":"Благоустройство","start":"2026-03-16","finish":"2026-05-09","fact":4,"n":8,"overdue":8,"maxdelay":19}]},{"id":5,"q":3,"plan":10,"fact":10,"start":"2026-01-25","finish":"2026-09-10","overdue":1,"total":39,"delay":10,"sections":[{"name":"Общестрой","start":"2026-01-25","finish":"2026-08-11","fact":51,"n":7,"overdue":1,"maxdelay":10},{"name":"Отделка","start":"2026-06-25","finish":"2026-09-10","fact":0,"n":9,"overdue":0,"maxdelay":0},{"name":"Инженерка","start":"2026-06-25","finish":"2026-09-10","fact":0,"n":14,"overdue":0,"maxdelay":0},{"name":"Благоустройство","start":"2026-07-26","finish":"2026-09-03","fact":0,"n":8,"overdue":0,"maxdelay":0}]},{"id":6,"q":3,"plan":10,"fact":10,"start":"2026-01-25","finish":"2026-09-10","overdue":1,"total":38,"delay":9,"sections":[{"name":"Общестрой","start":"2026-01-25","finish":"2026-08-11","fact":51,"n":7,"overdue":1,"maxdelay":9},{"name":"Отделка","start":"2026-06-25","finish":"2026-09-10","fact":0,"n":10,"overdue":0,"maxdelay":0},{"name":"Инженерка","start":"2026-06-25","finish":"2026-09-10","fact":0,"n":13,"overdue":0,"maxdelay":0},{"name":"Благоустройство","start":"2026-07-26","finish":"2026-09-03","fact":0,"n":8,"overdue":0,"maxdelay":0}]},{"id":7,"q":4,"plan":10,"fact":10,"start":"2026-01-25","finish":"2026-10-05","overdue":1,"total":39,"delay":13,"sections":[{"name":"Общестрой","start":"2026-01-25","finish":"2026-09-12","fact":48,"n":7,"overdue":1,"maxdelay":13},{"name":"Отделка","start":"2026-07-16","finish":"2026-10-01","fact":0,"n":10,"overdue":0,"maxdelay":0},{"name":"Инженерка","start":"2026-07-16","finish":"2026-10-01","fact":0,"n":14,"overdue":0,"maxdelay":0},{"name":"Благоустройство","start":"2026-08-27","finish":"2026-10-05","fact":0,"n":8,"overdue":0,"maxdelay":0}]},{"id":8,"q":4,"plan":10,"fact":10,"start":"2026-01-25","finish":"2026-10-05","overdue":1,"total":38,"delay":11,"sections":[{"name":"Общестрой","start":"2026-01-25","finish":"2026-09-12","fact":50,"n":6,"overdue":0,"maxdelay":0},{"name":"Отделка","start":"2026-07-16","finish":"2026-10-01","fact":0,"n":10,"overdue":0,"maxdelay":0},{"name":"Инженерка","start":"2026-07-16","finish":"2026-10-01","fact":0,"n":14,"overdue":0,"maxdelay":0},{"name":"Благоустройство","start":"2026-08-27","finish":"2026-10-05","fact":0,"n":7,"overdue":0,"maxdelay":0}]}]};
+function gPstat(p){if(p.fact>=98)return'done';if(p.delay>=14||p.overdue/p.total>=0.15)return'late';if(p.fact<=2)return'idle';return'prog';}
+function gSstat(s){if(s.fact>=98)return'done';if(s.overdue>=3||s.maxdelay>=14)return'late';if(s.overdue>0)return'risk';if(s.fact<=2)return'idle';return'prog';}
+const GSN={"Благоустройство":"Благоустр."};
+function renderGantt(){
+  const A=GANTT.axis,t0=Date.parse(A.min),t1=Date.parse(A.max),sp=t1-t0;
+  const P=d=>(Date.parse(d)-t0)/sp*100;
+  const MON=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+  let mh='',oh='',y=new Date(t0).getUTCFullYear(),mo=new Date(t0).getUTCMonth();
+  for(let i=0;i<28;i++){
+    const x=P(new Date(Date.UTC(y,mo,1)).toISOString().slice(0,10));
+    if(x>100.5)break;
+    const yr=mo===0||i===0;
+    if(x>=-1)mh+=`<span class="mo${yr?' yr':''}" style="left:${Math.max(0,x)}%">${yr?MON[mo]+" '"+String(y).slice(2):MON[mo]}</span>`;
+    if(x>0.3&&x<99.7)oh+=`<div class="gl${mo===0?' yr':''}" style="left:${x}%"></div>`;
+    if(++mo>11){mo=0;y++;}
+  }
+  document.querySelector('#gscale .gmonths').innerHTML=mh;
+  document.getElementById('gov').innerHTML=oh;
+  const tx=P(A.today);
+  document.getElementById('gtoday').innerHTML=`<div class="tl" style="left:${tx}%"></div><div class="tt" style="left:${tx}%">сегодня</div>`;
+  const bar=(o,st)=>{const L=P(o.start),W=Math.max(0.6,P(o.finish)-L);
+    return `<div class="gtrack"><div class="gbar st-${st}" style="left:${L}%;width:${W}%" title="${o.start} → ${o.finish} · факт ${o.fact}%${o.overdue?' · просрочено '+o.overdue:''}"><div class="gfill" style="width:${o.fact}%"></div></div></div>`;};
+  const html=GANTT.plots.map((p,i)=>{
+    const st=gPstat(p),chip=p.overdue?`<span class="gchip">−${p.delay}д·${p.overdue}</span>`:'';
+    const subs=p.sections.map(s=>{const ss=gSstat(s),sc=s.overdue?`<span class="gchip">−${s.maxdelay}д·${s.overdue}</span>`:'';
+      return `<div class="grow sub"><div class="glabel"><span class="gnm">${GSN[s.name]||s.name}<small>${s.n} раб.</small></span><span class="gfact st-${ss}">${s.fact}%</span>${sc}</div>${bar(s,ss)}</div>`;}).join('');
+    return `<div class="grow" data-i="${i}"><button class="glabel" aria-expanded="false" aria-controls="gs${i}"><span class="gchev">▸</span><span class="gnm">Пятно ${p.id}<small>${p.q}-я оч. · ${p.total} раб.</small></span><span class="gfact st-${st}">${p.fact}%</span>${chip}</button>${bar(p,st)}</div><div class="gsubs" id="gs${i}">${subs}</div>`;
+  }).join('');
+  document.getElementById('gbody').insertAdjacentHTML('beforeend',html);
+  document.querySelectorAll('.grow[data-i] .glabel').forEach(b=>b.addEventListener('click',()=>{
+    const s=document.getElementById('gs'+b.parentElement.dataset.i);b.setAttribute('aria-expanded',String(s.classList.toggle('open')));}));
+}
+renderGantt();
+
 // role routing
 const tabs=[...document.querySelectorAll('.roles button')];
 const VIEW={exec:'v-exec',rp:'v-rp',dir:'v-mgmt',ceo:'v-mgmt',owner:'v-mgmt'};
@@ -314,7 +416,9 @@ function pick(r){if(!VIEW[r])r='exec';
   if(VIEW[r]==='v-mgmt')renderMgmt(r);
   history.replaceState(null,'',location.pathname+'#'+r);}
 tabs.forEach(t=>t.addEventListener('click',()=>pick(t.dataset.r)));
-pick(location.hash.slice(1)||'exec');
+const _h0=location.hash.slice(1);
+if(_h0==='fullplan'){pick('dir');const _go=()=>{const _f=document.getElementById('fullplan');if(_f)_f.scrollIntoView();};setTimeout(_go,150);setTimeout(_go,500);window.addEventListener('load',_go);}
+else pick(_h0||'exec');
 </script>
 </body>
 </html>

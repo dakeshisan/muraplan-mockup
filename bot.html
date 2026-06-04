@@ -6,18 +6,18 @@
 <title>ATLAS · Флэш — мокап интерфейса</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bp:#0a2032; --bp2:#0e2a40; --line:rgba(120,190,210,.13);
-  --teal:#19b3b0; --gold:#e0a93f; --ink:#0e2233;
+  --bp:#102536; --bp2:#17324c; --line:rgba(170,160,140,.16);
+  --teal:#1b9c95; --gold:#CFB372; --ink:#0e2233;
   --tg-bg:#cfd8e0; --tg-bot:#ffffff; --tg-me:#e4fece; --tg-blue:#3390ec; --tg-gray:#707991;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  font-family:'Archivo',-apple-system,sans-serif;
+  font-family:'Jost','Futura PT','Futura',-apple-system,sans-serif;
   background:var(--bp);
-  color:#dce8ef;
+  color:#e7eef3;
   background-image:
     linear-gradient(var(--line) 1px,transparent 1px),
     linear-gradient(90deg,var(--line) 1px,transparent 1px),
@@ -30,23 +30,23 @@ body{
 
 /* header */
 header.top{margin-bottom:14px}
-.kicker{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.32em;color:var(--teal);text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.kicker{font-family:'Jost','Futura PT',sans-serif;font-size:12px;letter-spacing:.32em;color:var(--teal);text-transform:uppercase;display:flex;align-items:center;gap:10px}
 .kicker::before{content:"";width:34px;height:1px;background:var(--teal)}
-h1{font-weight:900;font-size:clamp(30px,5vw,56px);line-height:1.02;letter-spacing:-.02em;margin:14px 0 6px;color:#fff}
+h1{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:clamp(32px,5vw,56px);line-height:1.04;letter-spacing:.01em;margin:14px 0 6px;color:#fff}
 h1 .g{color:var(--gold)}
 .lead{font-size:16px;max-width:680px;color:#9fb6c6;line-height:1.5}
-.flowbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;font-family:'Space Mono',monospace;font-size:12.5px}
+.flowbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;font-family:'Jost','Futura PT',sans-serif;font-size:12.5px}
 .flowbar .node{padding:7px 13px;border:1px solid var(--line);border-radius:30px;background:rgba(255,255,255,.03);color:#bcd2e0}
 .flowbar .node b{color:var(--gold)}
 .flowbar .arr{color:var(--teal);align-self:center}
-.obs{margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:11.5px;color:#0e2233;background:var(--gold);padding:6px 12px;border-radius:6px;font-weight:700}
+.obs{margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-family:'Jost','Futura PT',sans-serif;font-size:11.5px;color:#0e2233;background:var(--gold);padding:6px 12px;border-radius:6px;font-weight:700}
 
 /* scenes grid */
 .scenes{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px 26px;margin-top:46px;align-items:start}
 .scene{position:relative}
-.tag{font-family:'Space Mono',monospace;font-size:11.5px;color:var(--teal);letter-spacing:.05em;margin-bottom:6px;display:flex;gap:8px;align-items:baseline}
+.tag{font-family:'Jost','Futura PT',sans-serif;font-size:11.5px;color:var(--teal);letter-spacing:.05em;margin-bottom:6px;display:flex;gap:8px;align-items:baseline}
 .tag .num{color:var(--gold);font-weight:700}
-.cap{font-family:'Space Mono',monospace;font-size:12px;color:#8ea7b8;line-height:1.5;margin-bottom:14px;min-height:34px}
+.cap{font-family:'Jost','Futura PT',sans-serif;font-size:12px;color:#8ea7b8;line-height:1.5;margin-bottom:14px;min-height:34px}
 .cap b{color:#dbe9f1}
 
 /* phone */
@@ -69,7 +69,7 @@ h1 .g{color:var(--gold)}
 .worki{padding:6px 0;border-bottom:1px solid #eef1f3;font-size:12px;display:flex;justify-content:space-between;gap:8px}
 .worki:last-child{border-bottom:none}
 .worki .wn{color:#1a1a1a}
-.worki .wm{white-space:nowrap;font-weight:700;font-family:'Space Mono',monospace;font-size:11px}
+.worki .wm{white-space:nowrap;font-weight:700;font-family:'Jost','Futura PT',sans-serif;font-size:11px}
 .lbl{display:inline-block;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:10px;font-family:-apple-system,sans-serif;vertical-align:middle}
 .l-late{background:#fde7e6;color:#c0392b} .l-stuck{background:#fff3da;color:#b9791b}
 .l-new{background:#e7f1fb;color:#2c7fc4} .l-ok{background:#e6f6ec;color:#1f9d57}
@@ -88,7 +88,7 @@ h1 .g{color:var(--gold)}
 .composer .ic{color:#7c8b96}
 
 /* footer */
-footer{margin-top:54px;border-top:1px solid var(--line);padding-top:20px;font-family:'Space Mono',monospace;font-size:11.5px;color:#7e98aa;line-height:1.6}
+footer{margin-top:54px;border-top:1px solid var(--line);padding-top:20px;font-family:'Jost','Futura PT',sans-serif;font-size:11.5px;color:#7e98aa;line-height:1.6}
 footer b{color:#b9d0de}
 .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .legend span{padding:4px 10px;border:1px solid var(--line);border-radius:20px}

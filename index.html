@@ -1,54 +1,63 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" style="color-scheme:light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#284157">
 <title>ATLAS · мокапы Фазы 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bp:#0a2032;--teal:#19b3b0;--gold:#e0a93f;--line:rgba(120,190,210,.14)}
+:root{
+  --bg:#F7F5EE;--card:#FBFBFB;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;
+  --line:#E0DDD3;--navy:#284157;--accent:#007484;--accent-d:#005763;--gold:#CFB372;--gold-d:#A88E48;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100vh;font-family:'Archivo',-apple-system,sans-serif;color:#dce8ef;
-  background:var(--bp);
-  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px),
-    radial-gradient(circle at 20% 15%,rgba(25,179,176,.12),transparent 45%),radial-gradient(circle at 85% 85%,rgba(224,169,63,.09),transparent 42%);
-  background-size:34px 34px,34px 34px,100% 100%,100% 100%;
-  display:flex;align-items:center;justify-content:center;padding:40px 22px;-webkit-font-smoothing:antialiased}
-.wrap{max-width:920px;width:100%}
-.kick{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.32em;color:var(--teal);text-transform:uppercase;display:flex;align-items:center;gap:10px}
-.kick::before{content:"";width:34px;height:1px;background:var(--teal)}
-.logo{display:flex;align-items:center;gap:13px;margin:16px 0 6px}
-.logo .m{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--teal),#0d7e7e);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px;color:#fff;box-shadow:0 8px 20px -6px rgba(25,179,176,.6)}
-h1{font-size:clamp(28px,5vw,46px);font-weight:900;letter-spacing:-.02em;line-height:1;color:#fff}
-h1 .g{color:var(--gold)}
-.lead{color:#9fb6c6;font-size:15px;margin-top:10px;max-width:620px;line-height:1.5}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
-.card{display:block;text-decoration:none;color:inherit;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:16px;padding:24px;transition:.2s;position:relative;overflow:hidden}
-.card:hover{background:rgba(25,179,176,.1);border-color:rgba(25,179,176,.4);transform:translateY(-3px)}
-.card .ic{font-size:30px;margin-bottom:14px}
-.card h2{font-size:19px;font-weight:800;color:#fff;margin-bottom:6px}
-.card .role{font-family:'Space Mono',monospace;font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;margin-bottom:11px}
-.card p{font-size:13px;color:#9fb6c6;line-height:1.5}
-.card .go{margin-top:15px;font-family:'Space Mono',monospace;font-size:12px;color:var(--teal);font-weight:700}
-.foot{margin-top:30px;font-family:'Space Mono',monospace;font-size:11.5px;color:#7e98aa;line-height:1.6;border-top:1px solid var(--line);padding-top:18px}
-.foot b{color:#b9d0de}
+body{min-height:100vh;font-family:'Jost','Futura PT','Futura',-apple-system,sans-serif;color:var(--ink);
+  background:var(--bg);
+  background-image:radial-gradient(circle at 18% 12%,rgba(0,116,132,.06),transparent 42%),radial-gradient(circle at 86% 88%,rgba(207,179,114,.10),transparent 44%);
+  display:flex;align-items:center;justify-content:center;padding:48px 22px;-webkit-font-smoothing:antialiased;font-feature-settings:"ss03","cv11"}
+.wrap{max-width:980px;width:100%}
+.kick{font-size:11.5px;letter-spacing:.26em;color:var(--gold-d);text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:11px}
+.kick::before{content:"";width:34px;height:1px;background:var(--accent)}
+.logo{display:flex;align-items:center;gap:14px;margin:18px 0 8px}
+.logo .m{width:50px;height:50px;border-radius:13px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:27px;font-family:'Cormorant',Georgia,serif;box-shadow:inset 0 0 0 1px rgba(207,179,114,.4)}
+h1{font-family:'Cormorant',Georgia,serif;font-size:clamp(32px,5.2vw,52px);font-weight:700;letter-spacing:.005em;line-height:1.02;color:var(--navy)}
+h1 .g{color:var(--gold-d)}
+.lead{color:var(--mut);font-size:15px;margin-top:12px;max-width:660px;line-height:1.55}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:36px}
+.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;transition:.18s;box-shadow:0 1px 2px rgba(30,30,30,.04)}
+.card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 14px 30px -16px rgba(40,65,87,.4)}
+.card .ic{font-size:28px;margin-bottom:13px}
+.card .role{font-size:11px;color:var(--gold-d);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:9px}
+.card h2{font-family:'Cormorant',Georgia,serif;font-size:23px;font-weight:700;color:var(--navy);margin-bottom:7px;line-height:1.05}
+.card p{font-size:13px;color:var(--mut);line-height:1.5}
+.card .go{margin-top:15px;font-size:12.5px;color:var(--accent-d);font-weight:600}
+.foot{margin-top:32px;font-size:12px;color:var(--faint);line-height:1.6;border-top:1px solid var(--line);padding-top:18px}
+.foot b{color:var(--mut)}
 @media(max-width:640px){.cards{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="kick">ATLAS · Фаза 1 · отслеживание стройки</div>
-  <div class="logo"><div class="m">M</div><h1>Сбор факта ГПР — <span class="g">мокапы</span></h1></div>
+  <div class="logo"><div class="m">A</div><h1>Сбор факта ГПР — <span class="g">мокапы</span></h1></div>
   <p class="lead">Прототипы для согласования. Бот Флэш собирает достоверный факт исполнения графика: начальник участка отмечает → РП подтверждает → директор акцептует. Данные условные по ЖК «Аура».</p>
   <div class="cards">
     <a class="card" href="web.html">
       <div class="ic">🖥</div>
       <div class="role">для РП · директора · PM</div>
       <h2>Веб-панель</h2>
-      <p>Рабочий пульт: сводка недели, контур (канбан), реестр работ, пятна и графики, назначения, журнал/аудит, встроенный дашборд ГПР.</p>
+      <p>Рабочий пульт по ролям: сводка недели, KPI, контур (канбан), пятна и графики, назначения, журнал. Со встроенным таймлайном ГПР.</p>
       <div class="go">Открыть панель →</div>
+    </a>
+    <a class="card" href="gpr.html">
+      <div class="ic">📊</div>
+      <div class="role">полный график</div>
+      <h2>План ГПР как в MS&nbsp;Project</h2>
+      <p>Весь загруженный график: пятно → раздел → работа, таблица + таймлайн, своды-«скобки», % факта, отставания и линия «сегодня».</p>
+      <div class="go">Открыть план →</div>
     </a>
     <a class="card" href="bot.html">
       <div class="ic">📱</div>

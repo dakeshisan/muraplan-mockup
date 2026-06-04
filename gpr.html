@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="ru" style="color-scheme:light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#284157">
+<title>ATLAS · Полный план ГПР (как MS Project) · ЖК «Аура»</title>
+<script>try{if(location.search.indexOf('embed')>-1)document.documentElement.className+=' embed';}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE;--card:#FBFBFB;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;
+  --line:#E0DDD3;--line2:#ECEAE2;--accent:#007484;--accent-d:#005763;--accent-soft:#E0EEF0;
+  --navy:#284157;--gold:#CFB372;--gold-d:#A88E48;--gold-soft:#EFE6CD;
+  --green:#2E8F5B;--green-bg:#E8F2EA;--green-bd:#BFE0CC;
+  --amber:#C98A2C;--amber-bg:#F4EAD4;
+  --red:#C8554C;--red-bg:#F6E7E2;--red-bd:#E9C3BB;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Jost','Futura PT','Futura',-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:13px;line-height:1.4;-webkit-font-smoothing:antialiased;font-feature-settings:"ss03","cv11"}
+.tnum{font-variant-numeric:tabular-nums}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
+
+/* header */
+.top{background:rgba(247,245,238,.9);border-bottom:1px solid var(--line);backdrop-filter:blur(12px);position:sticky;top:0;z-index:30}
+.top .row{max-width:1640px;margin:0 auto;padding:13px 22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px}
+.brand .lg{width:34px;height:34px;border-radius:9px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;font-family:'Cormorant',Georgia,serif;box-shadow:inset 0 0 0 1px rgba(207,179,114,.4)}
+.brand .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;letter-spacing:.02em;line-height:1;color:var(--navy)}
+.brand .sb{font-size:11.5px;color:var(--mut)}
+.top .back{margin-left:auto;font-size:13px;color:var(--mut);border:1px solid var(--line);background:var(--card);padding:8px 15px;border-radius:999px}
+.top .back:hover{border-color:var(--accent);color:var(--accent)}
+
+.wrap{max-width:1640px;margin:0 auto;padding:18px 22px 50px}
+h1.title{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:30px;color:var(--navy);line-height:1.05;margin-bottom:4px}
+.sub{font-size:13px;color:var(--mut);margin-bottom:16px}
+.sub b{color:var(--ink)}
+
+/* toolbar */
+.bar-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:13px}
+.tbtn{font-size:12.5px;font-weight:600;color:var(--ink);background:var(--card);border:1px solid var(--line);padding:8px 14px;border-radius:999px}
+.tbtn:hover{border-color:var(--accent);color:var(--accent)}
+.legend{display:flex;gap:13px;flex-wrap:wrap;align-items:center;font-size:11.5px;color:var(--mut);margin-left:auto}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:-1px}
+.legend .sep{color:#cdd6df}
+.legend .sumcap{display:inline-block;width:16px;height:6px;background:var(--navy);position:relative;vertical-align:0;margin-right:5px;border-radius:1px}
+
+/* MS-Project grid */
+.mpp{overflow:auto;max-height:78vh;border:1px solid var(--line);border-radius:14px;background:var(--card);box-shadow:0 1px 2px rgba(30,30,30,.04);position:relative}
+.mppgrid{width:max-content;min-width:100%}
+.SHEET_W{width:540px}
+.hd{display:flex;position:sticky;top:0;z-index:12;background:var(--card)}
+.hd .sh{position:sticky;left:0;z-index:14;background:var(--card);border-right:2px solid var(--line);border-bottom:1px solid var(--line)}
+.hd .tlh{position:relative;border-bottom:1px solid var(--line)}
+.cols{display:flex;height:44px;align-items:flex-end}
+.cols .c{font-size:10.5px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.05em;padding:0 8px 7px;border-left:1px solid var(--line2);white-space:nowrap;align-self:stretch;display:flex;align-items:flex-end}
+.cols .c.task{flex:1;border-left:none;padding-left:14px}
+.cols .c.r{justify-content:flex-end}
+/* year + month tiers */
+.tier-y{height:22px;position:relative;border-bottom:1px solid var(--line2)}
+.tier-y .yr{position:absolute;top:0;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--navy);border-left:1px solid var(--line)}
+.tier-m{height:22px;position:relative}
+.tier-m .mo{position:absolute;top:0;height:22px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--mut);border-left:1px solid var(--line2)}
+
+.bd{position:relative}
+.grid{position:absolute;top:0;bottom:0;z-index:0;pointer-events:none}
+.grid .gl{position:absolute;top:0;bottom:0;width:1px;background:var(--line2)}
+.grid .gl.yr{background:var(--line)}
+.grid .today{position:absolute;top:0;bottom:0;width:2px;background:var(--red);opacity:.8;transform:translateX(-1px)}
+.grid .today b{position:absolute;top:3px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:#fff;background:var(--red);border-radius:4px;padding:1px 5px;white-space:nowrap}
+
+.r{display:flex;height:25px;position:relative;z-index:1}
+.r:hover .s,.r:hover .t{background:#FAF7EF}
+.r.hide{display:none}
+.r .s{position:sticky;left:0;z-index:3;background:var(--card);display:flex;align-items:center;border-right:2px solid var(--line);border-bottom:1px solid var(--line2)}
+.r .t{position:relative;border-bottom:1px solid var(--line2)}
+/* sheet cells */
+.s .nmcell{flex:1;display:flex;align-items:center;gap:5px;min-width:0;padding-right:8px}
+.s .chev{width:11px;flex:none;font-size:9px;color:var(--faint);text-align:center;transition:transform .12s}
+.s .nm{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.r.l1 .nm{font-weight:700;color:var(--navy);font-size:12.5px}
+.r.l2 .nm{font-weight:600;color:var(--ink)}
+.r.l3 .nm{font-weight:400;color:var(--ink)}
+.s .cc{flex:none;font-size:11px;color:var(--mut);padding:0 8px;border-left:1px solid var(--line2);height:100%;display:flex;align-items:center;justify-content:flex-end}
+.s .cdur{width:48px}.s .cs{width:78px}.s .cf{width:78px}.s .cp{width:46px;font-weight:700}
+.cp.done{color:var(--green)}.cp.late{color:var(--red)}.cp.prog{color:var(--accent-d)}.cp.idle{color:var(--faint)}
+.r.collapsed .chev{transform:rotate(-90deg)}
+
+/* bars */
+.bar{position:absolute;top:6px;height:12px;border-radius:3px;border:1px solid;overflow:hidden}
+.bar .pf{position:absolute;left:0;top:0;bottom:0}
+.bar.done{background:var(--green-bg);border-color:var(--green-bd)}.bar.done .pf{background:var(--green)}
+.bar.prog{background:var(--accent-soft);border-color:#B6D6DA}.bar.prog .pf{background:var(--accent)}
+.bar.late{background:var(--red-bg);border-color:var(--red-bd)}.bar.late .pf{background:var(--red)}
+.bar.idle{background:transparent;border:1px dashed #CFC8BA}
+/* summary bracket */
+.sum{position:absolute;top:8px;height:7px;background:var(--navy);border-radius:1px}
+.sum.late{background:var(--red)}
+.sum::before,.sum::after{content:'';position:absolute;top:0;width:0;height:0;border-top:7px solid currentColor}
+.sum{color:var(--navy)}.sum.late{color:var(--red)}
+.sum::before{left:-1px;border-right:5px solid transparent}
+.sum::after{right:-1px;border-left:5px solid transparent}
+.barlbl{position:absolute;top:5px;font-size:9.5px;color:var(--mut);white-space:nowrap;pointer-events:none}
+
+.foot{font-size:11.5px;color:var(--faint);margin-top:14px;line-height:1.6}
+.foot b{color:var(--mut)}
+@media(max-width:760px){.title{font-size:24px}}
+/* режим встраивания в панель (iframe) — прячем собственную шапку и заголовок */
+html.embed .top,html.embed .title{display:none}
+html.embed .wrap{padding:10px 18px 16px}
+html.embed .mpp{max-height:76vh}
+</style>
+</head>
+<body>
+<div class="top"><div class="row">
+  <div class="brand"><div class="lg" aria-hidden="true">A</div><div><div class="nm">ATLAS</div><div class="sb">отслеживание стройки</div></div></div>
+  <a class="back" href="web.html#dir">← Панель руководства</a>
+</div></div>
+
+<div class="wrap">
+  <h1 class="title">Полный план ГПР — как в MS Project</h1>
+  <p class="sub" id="subline">ЖК «Аура» · загруженный график производства работ</p>
+
+  <div class="bar-tools">
+    <button class="tbtn" id="expandAll">Развернуть всё</button>
+    <button class="tbtn" id="toSections">Свернуть до разделов</button>
+    <button class="tbtn" id="toPlots">Свернуть до пятен</button>
+    <div class="legend">
+      <span><i style="background:var(--green)"></i>выполнено</span>
+      <span><i style="background:var(--accent)"></i>в работе</span>
+      <span><i style="background:var(--red)"></i>отставание</span>
+      <span><i style="background:transparent;border:1px dashed #CFC8BA"></i>не начато</span>
+      <span class="sep">·</span>
+      <span><span class="sumcap"></span>свод (пятно / раздел)</span>
+      <span class="sep">·</span><span style="color:var(--red);font-weight:600">| сегодня</span>
+    </div>
+  </div>
+
+  <div class="mpp" id="mpp">
+    <div class="mppgrid" id="mppgrid">
+      <div class="hd">
+        <div class="sh SHEET_W">
+          <div style="height:22px;border-bottom:1px solid var(--line2);display:flex;align-items:center;padding:0 14px;font-size:10px;font-weight:700;color:var(--gold-d);text-transform:uppercase;letter-spacing:.06em">План производства работ</div>
+          <div class="cols">
+            <span class="c task">Задача</span>
+            <span class="c cdur r" style="width:48px">Длит</span>
+            <span class="c cs" style="width:78px">Начало</span>
+            <span class="c cf" style="width:78px">Оконч.</span>
+            <span class="c cp r" style="width:46px">%</span>
+          </div>
+        </div>
+        <div class="tlh" id="tlh">
+          <div class="tier-y" id="tierY"></div>
+          <div class="tier-m" id="tierM"></div>
+        </div>
+      </div>
+      <div class="bd" id="bd">
+        <div class="grid" id="grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="foot" id="foot"></p>
+</div>
+
+<script>
+const D={"zk":"ЖК «Аура»","axis":{"min":"2025-02-13","max":"2026-10-05","today":"2026-06-04"},"plots":[{"id":3,"q":2,"plan":91,"fact":84,"start":"2025-06-24","finish":"2026-05-02","delay":48,"n":39,"sections":[{"name":"Общестроительные","full":"Общестроительные работы","start":"2025-06-24","finish":"2026-03-20","fact":100,"delay":0,"n":7,"tasks":[{"name":"Земляные работы","start":"2025-06-24","finish":"2025-07-28","days":34,"fact":100,"delay":0},{"name":"Бетонные работы до отм. 0,000","start":"2025-07-24","finish":"2025-09-08","days":46,"fact":100,"delay":0},{"name":"Железобетонный каркас отм. 0,000","start":"2025-09-09","finish":"2025-11-22","days":74,"fact":100,"delay":0},{"name":"Гидроизоляционные работы (фундамент, стен цокольного этажа)","start":"2025-10-24","finish":"2025-12-02","days":39,"fact":100,"delay":0},{"name":"Гидроизоляция кровли","start":"2025-11-23","finish":"2026-03-20","days":117,"fact":100,"delay":0},{"name":"Кладка стен","start":"2025-10-14","finish":"2025-11-17","days":34,"fact":100,"delay":0},{"name":"Фасад","start":"2025-11-18","finish":"2026-01-20","days":63,"fact":100,"delay":0}]},{"name":"Внутриотделочные + окна","full":"Внутриотделочные работы и монтаж окон","start":"2025-11-18","finish":"2026-04-16","fact":100,"delay":0,"n":10,"tasks":[{"name":"Перегородки ГКЛ","start":"2026-03-03","finish":"2026-03-20","days":17,"fact":100,"delay":0},{"name":"Устройство полов (стяжка)","start":"2025-12-03","finish":"2026-01-01","days":29,"fact":100,"delay":0},{"name":"Монтаж окон","start":"2025-11-18","finish":"2026-01-16","days":59,"fact":100,"delay":0},{"name":"Грунтовка, выравнивание шпаклевочными смесями поверхности стен и потолков под окраску","start":"2026-01-02","finish":"2026-01-31","days":29,"fact":100,"delay":0},{"name":"Отделочные работы в ЛК","start":"2026-02-21","finish":"2026-03-27","days":34,"fact":100,"delay":0},{"name":"Керамогранит (полы)","start":"2026-03-03","finish":"2026-03-27","days":24,"fact":100,"delay":0},{"name":"Покраска потолков","start":"2026-03-28","finish":"2026-04-11","days":14,"fact":100,"delay":0},{"name":"Нанесение декоративный штукатурки","start":"2026-03-03","finish":"2026-03-27","days":24,"fact":100,"delay":0},{"name":"Водоэмульсионная окраска МОП","start":"2026-03-13","finish":"2026-04-01","days":19,"fact":100,"delay":0},{"name":"Двери","start":"2026-03-18","finish":"2026-04-16","days":29,"fact":100,"delay":0}]},{"name":"Инженерные сети + лифт","full":"Инженерные сети, лифт, металлаконструкция","start":"2025-11-13","finish":"2026-04-21","fact":88,"delay":48,"n":14,"tasks":[{"name":"Металлаконструкции","start":"2026-03-28","finish":"2026-04-11","days":14,"fact":100,"delay":0},{"name":"Монтаж лифтов","start":"2025-11-29","finish":"2026-04-16","days":138,"fact":85,"delay":21},{"name":"Отопление","start":"2025-11-13","finish":"2026-03-27","days":134,"fact":95,"delay":7},{"name":"Вентиляция","start":"2025-11-13","finish":"2025-12-12","days":29,"fact":100,"delay":0},{"name":"Хоз. питьевой водопровод","start":"2025-11-13","finish":"2026-03-27","days":134,"fact":95,"delay":7},{"name":"Канализация бытовая","start":"2025-11-13","finish":"2025-11-27","days":14,"fact":100,"delay":0},{"name":"Канализация ливневая","start":"2025-11-29","finish":"2026-01-30","days":62,"fact":100,"delay":0},{"name":"Электромонтажная работа","start":"2025-11-13","finish":"2026-04-21","days":159,"fact":96,"delay":6},{"name":"Установка этажных щитов","start":"2026-03-23","finish":"2026-04-21","days":29,"fact":100,"delay":0},{"name":"Установка светильников","start":"2026-02-16","finish":"2026-03-17","days":29,"fact":100,"delay":0},{"name":"Монтаж оборудования (АПС)","start":"2025-11-18","finish":"2026-04-11","days":144,"fact":100,"delay":0},{"name":"Видеонаблюдение","start":"2025-11-18","finish":"2026-04-11","days":144,"fact":67,"delay":48},{"name":"Домофоны","start":"2025-11-18","finish":"2026-04-11","days":144,"fact":67,"delay":48},{"name":"Навигация","start":"2026-04-07","finish":"2026-04-16","days":9,"fact":0,"delay":9}]},{"name":"Благоустройство","full":"Благоустройство","start":"2026-03-14","finish":"2026-05-02","fact":5,"delay":19,"n":8,"tasks":[{"name":"Вертикальная планировка","start":"2026-03-14","finish":"2026-03-28","days":14,"fact":40,"delay":8},{"name":"Бордюры и поребрики","start":"2026-03-29","finish":"2026-04-17","days":19,"fact":0,"delay":19},{"name":"Брусчатка","start":"2026-03-29","finish":"2026-04-17","days":19,"fact":0,"delay":19},{"name":"Асфальтирование","start":"2026-03-29","finish":"2026-04-17","days":19,"fact":0,"delay":19},{"name":"Озеление","start":"2026-04-18","finish":"2026-05-02","days":14,"fact":0,"delay":14},{"name":"МАФы","start":"2026-04-18","finish":"2026-04-27","days":9,"fact":0,"delay":9},{"name":"Наружное освещение","start":"2026-04-18","finish":"2026-05-02","days":14,"fact":0,"delay":14},{"name":"Полив","start":"2026-03-29","finish":"2026-04-07","days":9,"fact":0,"delay":9}]}]},{"id":4,"q":2,"plan":91,"fact":83,"start":"2025-02-13","finish":"2026-05-09","delay":38,"n":39,"sections":[{"name":"Общестроительные","full":"Общестроительные работы","start":"2025-07-24","finish":"2026-04-01","fact":98,"delay":7,"n":7,"tasks":[{"name":"Земляные работы","start":"2025-07-24","finish":"2025-08-12","days":19,"fact":100,"delay":0},{"name":"Бетонные работы до отм. 0,000","start":"2025-08-23","finish":"2025-10-08","days":46,"fact":100,"delay":0},{"name":"Железобетонный каркас отм. 0,000","start":"2025-10-09","finish":"2025-12-22","days":74,"fact":100,"delay":0},{"name":"Гидроизоляционные работы (фундамент, стен цокольного этажа)","start":"2025-11-23","finish":"2026-01-01","days":39,"fact":100,"delay":0},{"name":"Гидроизоляция кровли","start":"2025-12-23","finish":"2026-03-30","days":97,"fact":100,"delay":0},{"name":"Кладка стен","start":"2025-11-13","finish":"2025-12-17","days":34,"fact":100,"delay":0},{"name":"Фасад","start":"2025-12-18","finish":"2026-04-01","days":104,"fact":93,"delay":7}]},{"name":"Внутриотделочные + окна","full":"Внутриотделочные работы и монтаж окон","start":"2025-12-18","finish":"2026-05-06","fact":100,"delay":0,"n":10,"tasks":[{"name":"Перегородки ГКЛ","start":"2026-02-16","finish":"2026-03-05","days":17,"fact":100,"delay":0},{"name":"Устройство полов (стяжка)","start":"2026-01-17","finish":"2026-02-15","days":29,"fact":100,"delay":0},{"name":"Монтаж окон","start":"2025-12-18","finish":"2026-02-15","days":59,"fact":100,"delay":0},{"name":"Грунтовка, выравнивание шпаклевочными смесями поверхности стен и потолков под окраску","start":"2026-02-16","finish":"2026-03-17","days":29,"fact":100,"delay":0},{"name":"Отделочные работы в ЛК","start":"2026-02-16","finish":"2026-03-22","days":34,"fact":100,"delay":0},{"name":"Керамогранит (полы)","start":"2026-03-18","finish":"2026-04-11","days":24,"fact":100,"delay":0},{"name":"Покраска потолков","start":"2026-04-12","finish":"2026-04-26","days":14,"fact":100,"delay":0},{"name":"Нанесение декоративный штукатурки","start":"2026-03-18","finish":"2026-04-11","days":24,"fact":100,"delay":0},{"name":"Водоэмульсионная окраска МОП","start":"2026-04-02","finish":"2026-04-21","days":19,"fact":100,"delay":0},{"name":"Двери","start":"2026-02-16","finish":"2026-05-06","days":79,"fact":100,"delay":0}]},{"name":"Инженерные сети + лифт","full":"Инженерные сети, лифт, металлаконструкция","start":"2025-02-13","finish":"2026-05-06","fact":91,"delay":38,"n":14,"tasks":[{"name":"Металлаконструкции","start":"2025-12-23","finish":"2026-04-06","days":104,"fact":100,"delay":0},{"name":"Монтаж лифтов","start":"2025-12-29","finish":"2026-05-06","days":128,"fact":79,"delay":27},{"name":"Отопление","start":"2025-12-13","finish":"2026-05-01","days":139,"fact":94,"delay":8},{"name":"Вентиляция","start":"2025-12-13","finish":"2026-01-11","days":29,"fact":100,"delay":0},{"name":"Хоз. питьевой водопровод","start":"2025-12-13","finish":"2026-05-01","days":139,"fact":94,"delay":8},{"name":"Канализация бытовая","start":"2025-02-13","finish":"2025-12-27","days":317,"fact":100,"delay":0},{"name":"Канализация ливневая","start":"2025-12-29","finish":"2026-04-21","days":113,"fact":100,"delay":0},{"name":"Электромонтажная работа","start":"2025-12-13","finish":"2026-04-21","days":129,"fact":96,"delay":5},{"name":"Установка этажных щитов","start":"2026-03-23","finish":"2026-04-21","days":29,"fact":100,"delay":0},{"name":"Установка светильников","start":"2026-01-22","finish":"2026-02-20","days":29,"fact":100,"delay":0},{"name":"Монтаж оборудования (АПС)","start":"2025-12-18","finish":"2026-04-11","days":114,"fact":100,"delay":0},{"name":"Видеонаблюдение","start":"2025-12-18","finish":"2026-04-11","days":114,"fact":67,"delay":38},{"name":"Домофоны","start":"2025-12-18","finish":"2026-04-11","days":114,"fact":67,"delay":38},{"name":"Навигация","start":"2026-04-22","finish":"2026-05-01","days":9,"fact":0,"delay":9}]},{"name":"Благоустройство","full":"Благоустройство","start":"2026-03-16","finish":"2026-05-09","fact":3,"delay":19,"n":8,"tasks":[{"name":"Вертикальная планировка","start":"2026-03-16","finish":"2026-03-30","days":14,"fact":30,"delay":10},{"name":"Бордюры и поребрики","start":"2026-03-31","finish":"2026-04-19","days":19,"fact":0,"delay":19},{"name":"Брусчатка","start":"2026-03-31","finish":"2026-04-19","days":19,"fact":0,"delay":19},{"name":"Асфальтирование","start":"2026-03-31","finish":"2026-04-19","days":19,"fact":0,"delay":19},{"name":"Озеление","start":"2026-04-20","finish":"2026-05-09","days":19,"fact":0,"delay":19},{"name":"МАФы","start":"2026-04-20","finish":"2026-04-29","days":9,"fact":0,"delay":9},{"name":"Наружное освещение","start":"2026-04-20","finish":"2026-05-04","days":14,"fact":0,"delay":14},{"name":"Полив","start":"2026-03-31","finish":"2026-04-09","days":9,"fact":0,"delay":9}]}]},{"id":5,"q":3,"plan":10,"fact":10,"start":"2026-01-25","finish":"2026-09-10","delay":10,"n":39,"sections":[{"name":"Общестроительные","full":"Общестроительные работы","start":"2026-01-25","finish":"2026-08-11","fact":50,"delay":10,"n":7,"tasks":[{"name":"Земляные работы","start":"2026-01-25","finish":"2026-02-28","days":34,"fact":100,"delay":0},{"name":"Бетонные работы до отм. 0,000","start":"2026-02-14","finish":"2026-04-01","days":46,"fact":100,"delay":0},{"name":"Железобетонный каркас отм. 0,000","start":"2026-04-02","finish":"2026-06-25","days":84,"fact":55,"delay":10},{"name":"Гидроизоляционные работы (фундамент, стен цокольного этажа)","start":"2026-04-30","finish":"2026-05-20","days":20,"fact":100,"delay":0},{"name":"Гидроизоляция кровли","start":"2026-06-26","finish":"2026-07-26","days":30,"fact":0,"delay":0},{"name":"Кладка стен","start":"2026-06-01","finish":"2026-07-06","days":35,"fact":0,"delay":0},{"name":"Фасад","start":"2026-06-26","finish":"2026-08-11","days":46,"fact":0,"delay":0}]},{"name":"Внутриотделочные + окна","full":"Внутриотделочные работы и монтаж окон","start":"2026-06-25","finish":"2026-09-10","fact":0,"delay":0,"n":9,"tasks":[{"name":"Перегородки ГКЛ","start":"2026-07-25","finish":"2026-08-11","days":17,"fact":0,"delay":0},{"name":"Устройство полов (стяжка)","start":"2026-07-16","finish":"2026-08-02","days":17,"fact":0,"delay":0},{"name":"Монтаж окон","start":"2026-06-25","finish":"2026-07-18","days":23,"fact":0,"delay":0},{"name":"Грунтовка, выравнивание шпаклевочными смесями поверхности стен и потолков под окраску","start":"2026-07-25","finish":"2026-08-11","days":17,"fact":0,"delay":0},{"name":"Отделочные работы в ЛК","start":"2026-07-25","finish":"2026-08-11","days":17,"fact":0,"delay":0},{"name":"Керамогранит (полы)","start":"2026-08-03","finish":"2026-08-20","days":17,"fact":0,"delay":0},{"name":"Нанесение декоративный штукатурки","start":"2026-08-03","finish":"2026-08-26","days":23,"fact":0,"delay":0},{"name":"Водоэмульсионная окраска МОП","start":"2026-08-06","finish":"2026-08-29","days":23,"fact":0,"delay":0},{"name":"Двери","start":"2026-07-01","finish":"2026-09-10","days":71,"fact":0,"delay":0}]},{"name":"Инженерные сети + лифт","full":"Инженерные сети, лифт, металлаконструкция","start":"2026-06-25","finish":"2026-09-10","fact":0,"delay":0,"n":14,"tasks":[{"name":"Металлаконструкции","start":"2026-06-26","finish":"2026-09-05","days":71,"fact":0,"delay":0},{"name":"Монтаж лифтов","start":"2026-07-02","finish":"2026-08-29","days":58,"fact":0,"delay":0},{"name":"Отопление","start":"2026-06-25","finish":"2026-07-30","days":35,"fact":0,"delay":0},{"name":"Вентиляция","start":"2026-07-01","finish":"2026-07-25","days":24,"fact":0,"delay":0},{"name":"Хоз. питьевой водопровод","start":"2026-06-25","finish":"2026-08-04","days":40,"fact":0,"delay":0},{"name":"Канализация бытовая","start":"2026-06-25","finish":"2026-07-09","days":14,"fact":0,"delay":0},{"name":"Канализация ливневая","start":"2026-06-26","finish":"2026-08-16","days":51,"fact":0,"delay":0},{"name":"Электромонтажная работа","start":"2026-06-25","finish":"2026-07-30","days":35,"fact":0,"delay":0},{"name":"Установка этажных щитов","start":"2026-07-01","finish":"2026-08-14","days":44,"fact":0,"delay":0},{"name":"Установка светильников","start":"2026-07-01","finish":"2026-09-10","days":71,"fact":0,"delay":0},{"name":"Монтаж оборудования (АПС)","start":"2026-06-25","finish":"2026-09-01","days":68,"fact":0,"delay":0},{"name":"Видеонаблюдение","start":"2026-06-25","finish":"2026-07-19","days":24,"fact":0,"delay":0},{"name":"Домофоны","start":"2026-06-25","finish":"2026-07-19","days":24,"fact":0,"delay":0},{"name":"Навигация","start":"2026-08-22","finish":"2026-08-31","days":9,"fact":0,"delay":0}]},{"name":"Благоустройство","full":"Благоустройство","start":"2026-07-26","finish":"2026-09-03","fact":0,"delay":0,"n":8,"tasks":[{"name":"Вертикальная планировка","start":"2026-07-26","finish":"2026-08-09","days":14,"fact":0,"delay":0},{"name":"Бордюры и поребрики","start":"2026-08-10","finish":"2026-08-24","days":14,"fact":0,"delay":0},{"name":"Брусчатка","start":"2026-08-10","finish":"2026-08-24","days":14,"fact":0,"delay":0},{"name":"Асфальтирование","start":"2026-08-25","finish":"2026-08-29","days":4,"fact":0,"delay":0},{"name":"Озеление","start":"2026-08-10","finish":"2026-08-29","days":19,"fact":0,"delay":0},{"name":"МАФы","start":"2026-08-25","finish":"2026-09-03","days":9,"fact":0,"delay":0},{"name":"Наружное освещение","start":"2026-08-10","finish":"2026-08-24","days":14,"fact":0,"delay":0},{"name":"Полив","start":"2026-08-10","finish":"2026-08-19","days":9,"fact":0,"delay":0}]}]},{"id":6,"q":3,"plan":10,"fact":10,"start":"2026-01-25","finish":"2026-09-10","delay":9,"n":38,"sections":[{"name":"Общестроительные","full":"Общестроительные работы","start":"2026-01-25","finish":"2026-08-11","fact":50,"delay":9,"n":7,"tasks":[{"name":"Земляные работы","start":"2026-01-25","finish":"2026-02-28","days":34,"fact":100,"delay":0},{"name":"Бетонные работы до отм. 0,000","start":"2026-02-14","finish":"2026-04-01","days":46,"fact":100,"delay":0},{"name":"Железобетонный каркас отм. 0,000","start":"2026-04-02","finish":"2026-06-25","days":84,"fact":56,"delay":9},{"name":"Гидроизоляционные работы (фундамент, стен цокольного этажа)","start":"2026-04-30","finish":"2026-05-20","days":20,"fact":100,"delay":0},{"name":"Гидроизоляция кровли","start":"2026-06-26","finish":"2026-07-26","days":30,"fact":0,"delay":0},{"name":"Кладка стен","start":"2026-06-01","finish":"2026-07-06","days":35,"fact":0,"delay":0},{"name":"Фасад","start":"2026-06-26","finish":"2026-08-11","days":46,"fact":0,"delay":0}]},{"name":"Внутриотделочные + окна","full":"Внутриотделочные работы и монтаж окон","start":"2026-06-25","finish":"2026-09-10","fact":0,"delay":0,"n":10,"tasks":[{"name":"Перегородки ГКЛ","start":"2026-07-25","finish":"2026-08-11","days":17,"fact":0,"delay":0},{"name":"Устройство полов (стяжка)","start":"2026-07-16","finish":"2026-08-02","days":17,"fact":0,"delay":0},{"name":"Монтаж окон","start":"2026-06-25","finish":"2026-07-18","days":23,"fact":0,"delay":0},{"name":"Грунтовка, выравнивание шпаклевочными смесями поверхности стен и потолков под окраску","start":"2026-07-25","finish":"2026-08-11","days":17,"fact":0,"delay":0},{"name":"Отделочные работы в ЛК","start":"2026-07-25","finish":"2026-08-11","days":17,"fact":0,"delay":0},{"name":"Керамогранит (полы)","start":"2026-08-03","finish":"2026-08-20","days":17,"fact":0,"delay":0},{"name":"Покраска потолков","start":"2026-08-06","finish":"2026-08-23","days":17,"fact":0,"delay":0},{"name":"Нанесение декоративный штукатурки","start":"2026-08-03","finish":"2026-08-26","days":23,"fact":0,"delay":0},{"name":"Водоэмульсионная окраска МОП","start":"2026-08-06","finish":"2026-08-29","days":23,"fact":0,"delay":0},{"name":"Двери","start":"2026-07-01","finish":"2026-09-10","days":71,"fact":0,"delay":0}]},{"name":"Инженерные сети + лифт","full":"Инженерные сети, лифт, металлаконструкция","start":"2026-06-25","finish":"2026-09-10","fact":0,"delay":0,"n":13,"tasks":[{"name":"Металлаконструкции","start":"2026-06-26","finish":"2026-09-05","days":71,"fact":0,"delay":0},{"name":"Монтаж лифтов","start":"2026-07-02","finish":"2026-08-29","days":58,"fact":0,"delay":0},{"name":"Отопление","start":"2026-06-25","finish":"2026-07-30","days":35,"fact":0,"delay":0},{"name":"Вентиляция","start":"2026-07-01","finish":"2026-07-25","days":24,"fact":0,"delay":0},{"name":"Хоз. питьевой водопровод","start":"2026-06-25","finish":"2026-08-04","days":40,"fact":0,"delay":0},{"name":"Канализация бытовая","start":"2026-06-25","finish":"2026-07-09","days":14,"fact":0,"delay":0},{"name":"Канализация ливневая","start":"2026-06-26","finish":"2026-08-16","days":51,"fact":0,"delay":0},{"name":"Электромонтажная работа","start":"2026-06-25","finish":"2026-07-30","days":35,"fact":0,"delay":0},{"name":"Установка этажных щитов","start":"2026-07-01","finish":"2026-08-14","days":44,"fact":0,"delay":0},{"name":"Установка светильников","start":"2026-07-01","finish":"2026-09-10","days":71,"fact":0,"delay":0},{"name":"Монтаж оборудования (АПС)","start":"2026-06-25","finish":"2026-09-01","days":68,"fact":0,"delay":0},{"name":"Видеонаблюдение","start":"2026-06-25","finish":"2026-07-19","days":24,"fact":0,"delay":0},{"name":"Навигация","start":"2026-08-22","finish":"2026-08-31","days":9,"fact":0,"delay":0}]},{"name":"Благоустройство","full":"Благоустройство","start":"2026-07-26","finish":"2026-09-03","fact":0,"delay":0,"n":8,"tasks":[{"name":"Вертикальная планировка","start":"2026-07-26","finish":"2026-08-09","days":14,"fact":0,"delay":0},{"name":"Бордюры и поребрики","start":"2026-08-10","finish":"2026-08-24","days":14,"fact":0,"delay":0},{"name":"Брусчатка","start":"2026-08-10","finish":"2026-08-24","days":14,"fact":0,"delay":0},{"name":"Асфальтирование","start":"2026-08-25","finish":"2026-08-29","days":4,"fact":0,"delay":0},{"name":"Озеление","start":"2026-08-10","finish":"2026-08-29","days":19,"fact":0,"delay":0},{"name":"МАФы","start":"2026-08-25","finish":"2026-09-03","days":9,"fact":0,"delay":0},{"name":"Наружное освещение","start":"2026-08-10","finish":"2026-08-24","days":14,"fact":0,"delay":0},{"name":"Полив","start":"2026-08-10","finish":"2026-08-19","days":9,"fact":0,"delay":0}]}]},{"id":7,"q":4,"plan":10,"fact":10,"start":"2026-01-25","finish":"2026-10-05","delay":13,"n":39,"sections":[{"name":"Общестроительные","full":"Общестроительные работы","start":"2026-01-25","finish":"2026-09-12","fact":49,"delay":13,"n":7,"tasks":[{"name":"Земляные работы","start":"2026-01-25","finish":"2026-04-06","days":71,"fact":100,"delay":0},{"name":"Бетонные работы до отм. 0,000","start":"2026-02-14","finish":"2026-04-04","days":49,"fact":100,"delay":0},{"name":"Железобетонный каркас отм. 0,000","start":"2026-04-05","finish":"2026-07-27","days":113,"fact":35,"delay":13},{"name":"Гидроизоляционные работы (фундамент, стен цокольного этажа)","start":"2026-05-03","finish":"2026-05-23","days":20,"fact":100,"delay":0},{"name":"Гидроизоляция кровли","start":"2026-07-28","finish":"2026-08-27","days":30,"fact":0,"delay":0},{"name":"Кладка стен","start":"2026-06-22","finish":"2026-07-27","days":35,"fact":0,"delay":0},{"name":"Фасад","start":"2026-07-28","finish":"2026-09-12","days":46,"fact":0,"delay":0}]},{"name":"Внутриотделочные + окна","full":"Внутриотделочные работы и монтаж окон","start":"2026-07-16","finish":"2026-10-01","fact":0,"delay":0,"n":10,"tasks":[{"name":"Перегородки ГКЛ","start":"2026-08-15","finish":"2026-09-01","days":17,"fact":0,"delay":0},{"name":"Устройство полов (стяжка)","start":"2026-08-06","finish":"2026-08-23","days":17,"fact":0,"delay":0},{"name":"Монтаж окон","start":"2026-07-16","finish":"2026-08-08","days":23,"fact":0,"delay":0},{"name":"Грунтовка, выравнивание шпаклевочными смесями поверхности стен и потолков под окраску","start":"2026-08-15","finish":"2026-09-01","days":17,"fact":0,"delay":0},{"name":"Отделочные работы в ЛК","start":"2026-08-15","finish":"2026-09-01","days":17,"fact":0,"delay":0},{"name":"Керамогранит (полы)","start":"2026-08-24","finish":"2026-09-10","days":17,"fact":0,"delay":0},{"name":"Покраска потолков","start":"2026-08-27","finish":"2026-09-13","days":17,"fact":0,"delay":0},{"name":"Нанесение декоративный штукатурки","start":"2026-08-24","finish":"2026-09-16","days":23,"fact":0,"delay":0},{"name":"Водоэмульсионная окраска МОП","start":"2026-08-27","finish":"2026-09-19","days":23,"fact":0,"delay":0},{"name":"Двери","start":"2026-07-22","finish":"2026-10-01","days":71,"fact":0,"delay":0}]},{"name":"Инженерные сети + лифт","full":"Инженерные сети, лифт, металлаконструкция","start":"2026-07-16","finish":"2026-10-01","fact":0,"delay":0,"n":14,"tasks":[{"name":"Металлаконструкции","start":"2026-07-28","finish":"2026-09-26","days":60,"fact":0,"delay":0},{"name":"Монтаж лифтов","start":"2026-08-03","finish":"2026-09-19","days":47,"fact":0,"delay":0},{"name":"Отопление","start":"2026-07-16","finish":"2026-08-20","days":35,"fact":0,"delay":0},{"name":"Вентиляция","start":"2026-07-22","finish":"2026-08-15","days":24,"fact":0,"delay":0},{"name":"Хоз. питьевой водопровод","start":"2026-07-16","finish":"2026-08-25","days":40,"fact":0,"delay":0},{"name":"Канализация бытовая","start":"2026-07-16","finish":"2026-07-30","days":14,"fact":0,"delay":0},{"name":"Канализация ливневая","start":"2026-07-28","finish":"2026-09-17","days":51,"fact":0,"delay":0},{"name":"Электромонтажная работа","start":"2026-07-16","finish":"2026-08-20","days":35,"fact":0,"delay":0},{"name":"Установка этажных щитов","start":"2026-07-22","finish":"2026-10-01","days":71,"fact":0,"delay":0},{"name":"Установка светильников","start":"2026-07-22","finish":"2026-10-01","days":71,"fact":0,"delay":0},{"name":"Монтаж оборудования (АПС)","start":"2026-07-16","finish":"2026-09-22","days":68,"fact":0,"delay":0},{"name":"Видеонаблюдение","start":"2026-07-16","finish":"2026-09-28","days":74,"fact":0,"delay":0},{"name":"Домофоны","start":"2026-07-16","finish":"2026-09-28","days":74,"fact":0,"delay":0},{"name":"Навигация","start":"2026-09-12","finish":"2026-09-21","days":9,"fact":0,"delay":0}]},{"name":"Благоустройство","full":"Благоустройство","start":"2026-08-27","finish":"2026-10-05","fact":0,"delay":0,"n":8,"tasks":[{"name":"Вертикальная планировка","start":"2026-08-27","finish":"2026-09-10","days":14,"fact":0,"delay":0},{"name":"Бордюры и поребрики","start":"2026-09-11","finish":"2026-09-25","days":14,"fact":0,"delay":0},{"name":"Брусчатка","start":"2026-09-11","finish":"2026-09-25","days":14,"fact":0,"delay":0},{"name":"Асфальтирование","start":"2026-09-26","finish":"2026-09-30","days":4,"fact":0,"delay":0},{"name":"Озеление","start":"2026-09-11","finish":"2026-09-30","days":19,"fact":0,"delay":0},{"name":"МАФы","start":"2026-10-01","finish":"2026-10-05","days":4,"fact":0,"delay":0},{"name":"Наружное освещение","start":"2026-09-11","finish":"2026-09-25","days":14,"fact":0,"delay":0},{"name":"Полив","start":"2026-09-11","finish":"2026-09-20","days":9,"fact":0,"delay":0}]}]},{"id":8,"q":4,"plan":10,"fact":10,"start":"2026-01-25","finish":"2026-10-05","delay":11,"n":38,"sections":[{"name":"Общестроительные","full":"Общестроительные работы","start":"2026-01-25","finish":"2026-09-12","fact":56,"delay":0,"n":6,"tasks":[{"name":"Земляные работы","start":"2026-01-25","finish":"2026-04-06","days":71,"fact":100,"delay":0},{"name":"Бетонные работы до отм. 0,000","start":"2026-02-14","finish":"2026-04-04","days":49,"fact":100,"delay":0},{"name":"Гидроизоляционные работы (фундамент, стен цокольного этажа)","start":"2026-05-03","finish":"2026-05-23","days":20,"fact":100,"delay":0},{"name":"Гидроизоляция кровли","start":"2026-07-28","finish":"2026-08-27","days":30,"fact":0,"delay":0},{"name":"Кладка стен","start":"2026-06-22","finish":"2026-07-27","days":35,"fact":0,"delay":0},{"name":"Фасад","start":"2026-07-28","finish":"2026-09-12","days":46,"fact":0,"delay":0}]},{"name":"Внутриотделочные + окна","full":"Внутриотделочные работы и монтаж окон","start":"2026-07-16","finish":"2026-10-01","fact":0,"delay":0,"n":10,"tasks":[{"name":"Перегородки ГКЛ","start":"2026-08-15","finish":"2026-09-01","days":17,"fact":0,"delay":0},{"name":"Устройство полов (стяжка)","start":"2026-08-06","finish":"2026-08-23","days":17,"fact":0,"delay":0},{"name":"Монтаж окон","start":"2026-07-16","finish":"2026-08-08","days":23,"fact":0,"delay":0},{"name":"Грунтовка, выравнивание шпаклевочными смесями поверхности стен и потолков под окраску","start":"2026-08-15","finish":"2026-09-01","days":17,"fact":0,"delay":0},{"name":"Отделочные работы в ЛК","start":"2026-08-15","finish":"2026-09-01","days":17,"fact":0,"delay":0},{"name":"Керамогранит (полы)","start":"2026-08-24","finish":"2026-09-10","days":17,"fact":0,"delay":0},{"name":"Покраска потолков","start":"2026-08-27","finish":"2026-09-13","days":17,"fact":0,"delay":0},{"name":"Нанесение декоративный штукатурки","start":"2026-08-24","finish":"2026-09-16","days":23,"fact":0,"delay":0},{"name":"Водоэмульсионная окраска МОП","start":"2026-08-27","finish":"2026-09-19","days":23,"fact":0,"delay":0},{"name":"Двери","start":"2026-07-22","finish":"2026-10-01","days":71,"fact":0,"delay":0}]},{"name":"Инженерные сети + лифт","full":"Инженерные сети, лифт, металлаконструкция","start":"2026-07-16","finish":"2026-10-01","fact":0,"delay":0,"n":14,"tasks":[{"name":"Металлаконструкции","start":"2026-07-28","finish":"2026-09-26","days":60,"fact":0,"delay":0},{"name":"Монтаж лифтов","start":"2026-08-03","finish":"2026-09-19","days":47,"fact":0,"delay":0},{"name":"Отопление","start":"2026-07-16","finish":"2026-08-20","days":35,"fact":0,"delay":0},{"name":"Вентиляция","start":"2026-07-22","finish":"2026-08-15","days":24,"fact":0,"delay":0},{"name":"Хоз. питьевой водопровод","start":"2026-07-16","finish":"2026-08-25","days":40,"fact":0,"delay":0},{"name":"Канализация бытовая","start":"2026-07-16","finish":"2026-07-30","days":14,"fact":0,"delay":0},{"name":"Канализация ливневая","start":"2026-07-28","finish":"2026-09-17","days":51,"fact":0,"delay":0},{"name":"Электромонтажная работа","start":"2026-07-16","finish":"2026-08-20","days":35,"fact":0,"delay":0},{"name":"Установка этажных щитов","start":"2026-07-22","finish":"2026-10-01","days":71,"fact":0,"delay":0},{"name":"Установка светильников","start":"2026-07-22","finish":"2026-10-01","days":71,"fact":0,"delay":0},{"name":"Монтаж оборудования (АПС)","start":"2026-07-16","finish":"2026-09-22","days":68,"fact":0,"delay":0},{"name":"Видеонаблюдение","start":"2026-07-16","finish":"2026-09-28","days":74,"fact":0,"delay":0},{"name":"Домофоны","start":"2026-07-16","finish":"2026-09-28","days":74,"fact":0,"delay":0},{"name":"Навигация","start":"2026-09-12","finish":"2026-09-21","days":9,"fact":0,"delay":0}]},{"name":"Благоустройство","full":"Благоустройство","start":"2026-08-27","finish":"2026-10-05","fact":0,"delay":0,"n":7,"tasks":[{"name":"Вертикальная планировка","start":"2026-08-27","finish":"2026-09-10","days":14,"fact":0,"delay":0},{"name":"Бордюры и поребрики","start":"2026-09-11","finish":"2026-09-25","days":14,"fact":0,"delay":0},{"name":"Брусчатка","start":"2026-09-11","finish":"2026-09-25","days":14,"fact":0,"delay":0},{"name":"Асфальтирование","start":"2026-09-26","finish":"2026-09-30","days":4,"fact":0,"delay":0},{"name":"Озеление","start":"2026-09-11","finish":"2026-09-30","days":19,"fact":0,"delay":0},{"name":"МАФы","start":"2026-10-01","finish":"2026-10-05","days":4,"fact":0,"delay":0},{"name":"Наружное освещение","start":"2026-09-11","finish":"2026-09-25","days":14,"fact":0,"delay":0}]}]}]};
+(function(){
+const A=D.axis,MIN=Date.parse(A.min),MAX=Date.parse(A.max),DAY=86400000,TODAY=Date.parse(A.today);
+const PXD=2.25, SHEET=540;
+const W=Math.round((MAX-MIN)/DAY*PXD);
+const X=iso=>Math.round((Date.parse(iso)-MIN)/DAY*PXD);
+const MON=['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+const fmt=iso=>{const[y,m,d]=iso.split('-');return d+'.'+m+'.'+y.slice(2);};
+
+// width plumbing
+document.querySelectorAll('.SHEET_W').forEach(e=>e.style.width=SHEET+'px');
+document.getElementById('tlh').style.width=W+'px';
+document.getElementById('grid').style.left=SHEET+'px';
+document.getElementById('grid').style.width=W+'px';
+
+// ----- time header tiers + gridlines -----
+let ty='',tm='',gl='';
+let cur=Date.UTC(new Date(MIN).getUTCFullYear(),new Date(MIN).getUTCMonth(),1);
+const years={};
+while(cur<=MAX){
+  const dt=new Date(cur),y=dt.getUTCFullYear(),m=dt.getUTCMonth();
+  const next=Date.UTC(y,m+1,1);
+  const a=Math.max(cur,MIN),b=Math.min(next,MAX);
+  const left=(a-MIN)/DAY*PXD,width=(b-a)/DAY*PXD;
+  tm+=`<div class="mo" style="left:${left}px;width:${width}px">${MON[m]}</div>`;
+  gl+=`<div class="gl${m===0?' yr':''}" style="left:${left}px"></div>`;
+  years[y]=years[y]||{left:left,width:0};years[y].width+=width;
+  cur=next;
+}
+Object.keys(years).forEach(y=>{ty+=`<div class="yr" style="left:${years[y].left}px;width:${years[y].width}px">${y}</div>`;});
+document.getElementById('tierY').innerHTML=ty;
+document.getElementById('tierM').innerHTML=tm;
+const tx=(TODAY-MIN)/DAY*PXD;
+gl+=`<div class="today" style="left:${tx}px"><b>сегодня</b></div>`;
+document.getElementById('grid').innerHTML=gl;
+
+// ----- build rows -----
+const rows=[];
+D.plots.forEach(p=>{
+  const pid='p'+p.id;
+  rows.push({id:pid,lvl:1,anc:[],summary:true,name:'Пятно '+p.id+' · '+p.q+'-я очередь',start:p.start,finish:p.finish,fact:p.fact,delay:p.delay,n:p.n});
+  p.sections.forEach((s,si)=>{
+    const sid=pid+'_'+si;
+    rows.push({id:sid,lvl:2,anc:[pid],summary:true,name:s.name,start:s.start,finish:s.finish,fact:s.fact,delay:s.delay,n:s.n});
+    s.tasks.forEach((t,ti)=>{
+      rows.push({id:sid+'_'+ti,lvl:3,anc:[pid,sid],summary:false,name:t.name,start:t.start,finish:t.finish,fact:t.fact,delay:t.delay,days:t.days});
+    });
+  });
+});
+function tstat(r){if(r.fact>=100)return'done';if(r.delay>0)return'late';if(r.fact>0)return'prog';return'idle';}
+
+const bd=document.getElementById('bd');
+const frag=[];
+rows.forEach(r=>{
+  const L=X(r.start),Wd=Math.max(2,X(r.finish)-L);
+  const st=tstat(r);
+  const indent=8+(r.lvl-1)*15;
+  const chev=r.summary?`<span class="chev">▾</span>`:`<span class="chev"></span>`;
+  let timeline;
+  if(r.summary){
+    timeline=`<div class="sum ${r.delay>0?'late':''}" style="left:${L}px;width:${Wd}px" title="${fmt(r.start)} → ${fmt(r.finish)} · ${r.fact}%"></div>`;
+    if(Wd>34) timeline+=`<span class="barlbl" style="left:${L+Wd+6}px">${r.fact}%${r.delay>0?' · −'+r.delay+'д':''}</span>`;
+  }else{
+    const pf=st==='idle'?'':`<div class="pf" style="width:${r.fact}%"></div>`;
+    timeline=`<div class="bar ${st}" style="left:${L}px;width:${Wd}px" title="${r.name} · ${fmt(r.start)} → ${fmt(r.finish)} · факт ${r.fact}%${r.delay>0?' · просрочка '+r.delay+' дн':''}">${pf}</div>`;
+    timeline+=`<span class="barlbl" style="left:${L+Wd+6}px">${r.fact}%${r.delay>0?' <b style="color:var(--red)">−'+r.delay+'д</b>':''}</span>`;
+  }
+  frag.push(`<div class="r l${r.lvl}" data-id="${r.id}" data-anc="${r.anc.join(',')}">
+    <div class="s SHEET_W">
+      <div class="nmcell" style="padding-left:${indent}px">${chev}<span class="nm" title="${r.name}">${r.name}</span></div>
+      <span class="cc cdur" style="width:48px">${r.days?r.days+'д':''}</span>
+      <span class="cc cs" style="width:78px">${fmt(r.start)}</span>
+      <span class="cc cf" style="width:78px">${fmt(r.finish)}</span>
+      <span class="cc cp ${st}" style="width:46px">${r.fact}%</span>
+    </div>
+    <div class="t" style="width:${W}px">${timeline}</div>
+  </div>`);
+});
+bd.insertAdjacentHTML('beforeend',frag.join(''));
+document.querySelectorAll('.r .s').forEach(e=>e.style.width=SHEET+'px');
+document.querySelectorAll('.r .t').forEach(e=>e.style.width=W+'px');
+
+// ----- collapse logic -----
+const collapsed=new Set();
+function applyVis(){
+  document.querySelectorAll('.r').forEach(row=>{
+    const anc=(row.dataset.anc||'').split(',').filter(Boolean);
+    row.classList.toggle('hide',anc.some(a=>collapsed.has(a)));
+    row.classList.toggle('collapsed',collapsed.has(row.dataset.id));
+  });
+}
+document.querySelectorAll('.r').forEach(row=>{
+  const sum=row.classList.contains('l1')||row.classList.contains('l2');
+  if(!sum)return;
+  row.querySelector('.s').addEventListener('click',()=>{
+    const id=row.dataset.id;
+    if(collapsed.has(id))collapsed.delete(id);else collapsed.add(id);
+    applyVis();
+  });
+});
+function setLevel(maxOpen){ // collapse summaries deeper than maxOpen
+  collapsed.clear();
+  document.querySelectorAll('.r').forEach(row=>{
+    const lvl=row.classList.contains('l1')?1:row.classList.contains('l2')?2:3;
+    if(row.classList.contains('l1')&&maxOpen<1)collapsed.add(row.dataset.id);
+    if(row.classList.contains('l2')&&maxOpen<2)collapsed.add(row.dataset.id);
+  });
+  applyVis();
+}
+document.getElementById('expandAll').onclick=()=>{collapsed.clear();applyVis();};
+document.getElementById('toSections').onclick=()=>setLevel(2); // показать пятна+разделы, работы скрыть
+document.getElementById('toPlots').onclick=()=>setLevel(1);     // только пятна
+applyVis(); // default: всё развёрнуто
+
+// counts
+const nplots=D.plots.length, nworks=D.plots.reduce((a,p)=>a+p.n,0);
+document.getElementById('subline').innerHTML=`<b>${D.zk}</b> · загруженный график производства работ · <b>${nplots}</b> пятен · <b>${nworks}</b> работ · ось ${fmt(A.min)} – ${fmt(A.max)}`;
+document.getElementById('foot').innerHTML=`Полоса = плановый срок задачи, заливка = % факта; своды (пятно / раздел) показаны «скобкой» MS Project. Связи-предшественники в выгрузке ГПР отсутствуют — стрелки зависимостей не отображаются. Клик по своду — свернуть/развернуть ветку. Данные ГПР ЖК «Аура».`;
+})();
+</script>
+</body>
+</html>
