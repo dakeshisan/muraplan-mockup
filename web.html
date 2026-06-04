@@ -12,7 +12,7 @@
 :root{
   --bg:#f1f4f7;--card:#fff;--ink:#1e2a37;--mut:#64748b;--faint:#94a3b2;
   --line:#e6ebf1;--accent:#1f8f8a;--accent-d:#177571;--accent-soft:#e7f4f3;
-  --green:#2f9e63;--green-bg:#e7f5ee;--amber:#cf8a2c;--amber-bg:#fbf0dd;--red:#d2544b;--red-bg:#fbe9e7;--blue:#3576b8;--blue-bg:#e8f1fa;
+  --green:#2f9e63;--green-bg:#e7f5ee;--amber:#cf8a2c;--amber-bg:#fbf0dd;--red:#d2544b;--red-bg:#fbe9e7;--blue:#3576b8;--blue-bg:#e8f1fa;--violet:#7a52c4;--violet-bg:#efe9fb;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Archivo',-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
@@ -20,93 +20,89 @@ body{font-family:'Archivo',-apple-system,'Segoe UI',Roboto,sans-serif;background
 button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
 :where(button,a,select):focus-visible{outline:none;box-shadow:0 0 0 3px rgba(31,143,138,.4);border-radius:8px}
 
-/* topbar */
 .top{background:#11253b;color:#fff;position:sticky;top:0;z-index:20}
-.top .row{max-width:1080px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.top .row{max-width:1120px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:11px}
 .brand .lg{width:32px;height:32px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px}
-.brand .nm{font-weight:700;font-size:16px}
-.brand .sb{font-size:11.5px;color:#8ba0b3}
+.brand .nm{font-weight:700;font-size:16px}.brand .sb{font-size:11.5px;color:#8ba0b3}
 .top .meta{margin-left:auto;font-size:12.5px;color:#9fb2c4}.top .meta b{color:#fff;font-weight:600}
-/* role segmented control */
 .roles{background:#0c1d30;border-top:1px solid rgba(255,255,255,.07)}
-.roles .row{max-width:1080px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto}
-.roles button{padding:13px 16px;color:#9fb2c4;font-size:13.5px;font-weight:600;white-space:nowrap;border-bottom:2px solid transparent}
+.roles .row{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;gap:2px;overflow-x:auto}
+.roles button{padding:12px 15px;color:#9fb2c4;font-size:13.5px;font-weight:600;white-space:nowrap;border-bottom:2px solid transparent}
 .roles button .who{display:block;font-size:10.5px;font-weight:500;color:#7990a4;margin-top:2px}
 .roles button[aria-selected="true"]{color:#fff;border-bottom-color:var(--accent)}
 .roles button[aria-selected="true"] .who{color:var(--accent)}
-.roles button:hover[aria-selected="false"]{color:#cdd9e3}
+.roles .grp{align-self:center;font-size:10px;color:#5f7governs;color:#5d7287;text-transform:uppercase;letter-spacing:.08em;padding:0 8px;white-space:nowrap}
 
-.wrap{max-width:1080px;margin:0 auto;padding:26px 24px 60px}
+.wrap{max-width:1120px;margin:0 auto;padding:24px 24px 60px}
 .view{display:none}.view.on{display:block}
 @media(prefers-reduced-motion:no-preference){.view.on{animation:f .2s ease}@keyframes f{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}}
-.rolehint{font-size:13px;color:var(--mut);margin-bottom:22px;padding:11px 15px;background:var(--accent-soft);border-radius:10px;border:1px solid #d3e9e7}
+.rolehint{font-size:13px;color:var(--mut);margin-bottom:20px;padding:11px 15px;background:var(--accent-soft);border-radius:10px;border:1px solid #d3e9e7}
 .rolehint b{color:var(--accent-d)}
-h2.sec{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:26px 2px 14px}
+.obsnote{font-size:12px;color:var(--amber);background:var(--amber-bg);border:1px solid #f0dcb4;border-radius:8px;padding:7px 12px;display:inline-block;margin-bottom:18px}
+h2.sec{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:24px 2px 13px;display:flex;align-items:center;gap:10px}
 h2.sec:first-of-type{margin-top:0}
 
-/* generic cards */
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px}
-.badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:20px}
-.b-green{background:var(--green-bg);color:var(--green)}.b-amber{background:var(--amber-bg);color:var(--amber)}.b-red{background:var(--red-bg);color:var(--red)}.b-blue{background:var(--blue-bg);color:var(--blue)}
-.btn{font-size:13px;font-weight:600;padding:9px 16px;border-radius:9px;border:1px solid var(--line);color:var(--mut)}
-.btn:hover{background:var(--bg)}
-.btn.pri{background:var(--accent);color:#fff;border-color:var(--accent)}.btn.pri:hover{background:var(--accent-d)}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px}
+.b-green{background:var(--green-bg);color:var(--green)}.b-amber{background:var(--amber-bg);color:var(--amber)}.b-red{background:var(--red-bg);color:var(--red)}.b-blue{background:var(--blue-bg);color:var(--blue)}.b-violet{background:var(--violet-bg);color:var(--violet)}.b-gray{background:#eef1f4;color:var(--mut)}
+.btn{font-size:13px;font-weight:600;padding:9px 15px;border-radius:9px;border:1px solid var(--line);color:var(--mut)}
+.btn:hover{background:var(--bg)}.btn.pri{background:var(--accent);color:#fff;border-color:var(--accent)}.btn.pri:hover{background:var(--accent-d)}
 .btn.ok{color:var(--green);border-color:#bfe3cd}.btn.ok:hover{background:var(--green-bg)}
 
-/* KPI strip */
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(176px,1fr));gap:12px}
 .kpi{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:16px 18px;border-top:3px solid var(--accent)}
-.kpi.g{border-top-color:var(--green)}.kpi.a{border-top-color:var(--amber)}.kpi.r{border-top-color:var(--red)}
+.kpi.g{border-top-color:var(--green)}.kpi.a{border-top-color:var(--amber)}.kpi.r{border-top-color:var(--red)}.kpi.v{border-top-color:var(--violet)}
 .kpi .l{font-size:12px;color:var(--mut);margin-bottom:8px}
-.kpi .v{font-size:26px;font-weight:700;line-height:1}.kpi .v small{font-size:14px;color:var(--faint);font-weight:600}
+.kpi .v{font-size:25px;font-weight:700;line-height:1}.kpi .v small{font-size:13px;color:var(--faint);font-weight:600}
 .kpi .h{font-size:11.5px;color:var(--faint);margin-top:7px}
+.spark{display:flex;align-items:flex-end;gap:3px;height:26px;margin-top:9px}
+.spark i{flex:1;background:var(--accent);border-radius:2px 2px 0 0;opacity:.8}
 
-/* owner verdict */
-.verdict{padding:26px 28px}
-.verdict .r1{display:flex;align-items:center;gap:14px}
-.sdot{width:13px;height:13px;border-radius:50%}.sdot.a{background:var(--amber);box-shadow:0 0 0 5px var(--amber-bg)}
-.verdict h1{font-size:25px;font-weight:700;letter-spacing:-.01em}
-.verdict p{font-size:15px;color:var(--mut);margin-top:11px;max-width:52ch}.verdict p b{color:var(--ink);font-weight:600}
-.decide{display:flex;flex-direction:column;gap:10px}
-.drow{display:flex;align-items:center;gap:15px;padding:16px 18px}
-.drow .bar{width:3px;align-self:stretch;border-radius:3px}.drow.r .bar{background:var(--red)}.drow.a .bar{background:var(--amber)}.drow.g .bar{background:var(--green)}
-.drow .bd{flex:1;min-width:0}.drow .t{font-size:14.5px;font-weight:600}.drow .s{font-size:12.5px;color:var(--mut);margin-top:2px}
-.cta{display:flex;gap:11px;margin-top:20px;flex-wrap:wrap}
-.cta .btn{padding:13px 22px;font-size:14.5px}.cta .pri{flex:1;min-width:200px}
-.ctxstrip{display:flex;gap:22px;flex-wrap:wrap;margin-top:22px;font-size:13px;color:var(--mut)}.ctxstrip b{color:var(--ink);font-weight:700}
+/* week cycle strip */
+.cycle{display:flex;align-items:center;gap:0;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:6px;margin-bottom:20px;overflow:hidden}
+.cstep{flex:1;text-align:center;padding:10px 8px;border-radius:9px;font-size:12.5px;color:var(--faint)}
+.cstep b{display:block;font-size:13.5px;color:var(--mut);font-weight:600}
+.cstep.now{background:var(--accent-soft);color:var(--accent-d)}.cstep.now b{color:var(--accent-d)}
+.cstep.done{color:var(--green)}.cstep.done b{color:var(--green)}
+.carrow{color:var(--faint);font-size:13px;padding:0 4px}
 
-/* portfolio (ceo) */
-.plots{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:13px}
-.plot{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:16px}
+/* kanban */
+.kbtools{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:13px;align-items:center}
+.kbtools .f{font-size:12px;border:1px solid var(--line);background:var(--card);padding:6px 12px;border-radius:8px;color:var(--mut)}
+.kbtools .f[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.kan{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.kcol{background:#eef1f5;border-radius:13px;padding:11px;display:flex;flex-direction:column;gap:9px;min-width:0}
+.kcol .kh{font-size:12px;font-weight:700;color:var(--mut);display:flex;justify-content:space-between;padding:3px 4px}
+.kcol .kh .c{color:var(--faint)}
+.kc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 12px;min-width:0}
+.kc .kt{font-size:13px;font-weight:600;margin-bottom:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kc .km{font-size:11.5px;color:var(--mut);display:flex;justify-content:space-between;gap:6px}
+.kc .km .pf{font-weight:600;color:var(--ink)}
+.kc .row2{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:6px}
+.kc .contr{font-size:11px;color:var(--faint);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kc .mark{font-size:12px;font-weight:600;color:var(--accent);border:1px solid #cfe6e4;border-radius:7px;padding:5px 9px;white-space:nowrap}
+.kc .mark:hover{background:var(--accent-soft)}
+
+/* list rows */
+.list{overflow:hidden}
+.lrow{display:flex;align-items:center;gap:13px;padding:13px 17px;border-bottom:1px solid var(--line)}
+.lrow:last-child{border-bottom:none}.lrow .bd{flex:1;min-width:0}.lrow .t{font-weight:600}.lrow .s{font-size:12.5px;color:var(--mut);margin-top:2px}
+.lrow .meta{font-size:12.5px;color:var(--faint);white-space:nowrap}.acts{display:flex;gap:7px}
+
+.plots{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}
+.plot{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px}
 .plot .ph{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:11px}
 .plot .pn{font-weight:700;font-size:15px}.plot .pq{font-size:11.5px;color:var(--faint)}
 .bw{height:7px;border-radius:5px;background:var(--line);position:relative;overflow:hidden}.bw .f{position:absolute;left:0;top:0;bottom:0;border-radius:5px}
 .bl{display:flex;justify-content:space-between;font-size:11.5px;color:var(--mut);margin-top:7px}
-/* rows list */
-.list{overflow:hidden}
-.lrow{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line)}
-.lrow:last-child{border-bottom:none}.lrow .bd{flex:1;min-width:0}.lrow .t{font-weight:600}.lrow .s{font-size:12.5px;color:var(--mut);margin-top:2px}
-.lrow .meta{font-size:12.5px;color:var(--faint);white-space:nowrap}
-.acts{display:flex;gap:7px}
 
-.linkrow{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap}
+.cta{display:flex;gap:11px;margin-top:20px;flex-wrap:wrap}.cta .btn{padding:12px 20px;font-size:14px}.cta .pri{flex:1;min-width:200px}
+.linkrow{margin-top:24px;display:flex;gap:10px;flex-wrap:wrap}
 .linkrow a{font-size:13px;color:var(--mut);text-decoration:none;padding:10px 15px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
 .linkrow a:hover{border-color:var(--accent);color:var(--accent)}
-.foot{margin-top:26px;font-size:12px;color:var(--faint);line-height:1.6}
-
-/* bot mock */
-.botcard{max-width:380px;margin:0 auto;background:#0c1d30;border-radius:22px;padding:8px}
-.botscr{background:#cfd8e0;border-radius:16px;overflow:hidden}
-.both{background:#527da3;color:#fff;padding:13px;display:flex;gap:9px;align-items:center}
-.botav{width:30px;height:30px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
-.botbody{padding:13px;display:flex;flex-direction:column;gap:8px;min-height:300px}
-.bmsg{background:#fff;border-radius:13px;border-bottom-left-radius:4px;padding:9px 12px;font-size:12.5px;max-width:90%;box-shadow:0 1px 1px rgba(0,0,0,.08)}
-.bk{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-top:5px}
-.bk span{background:#fff;color:var(--blue);text-align:center;padding:8px 4px;border-radius:8px;font-size:12px;font-weight:600}
-.bk span.s{background:var(--blue);color:#fff}
-
-@media(max-width:560px){.verdict h1{font-size:21px}.wrap{padding:20px 14px 50px}}
+.foot{margin-top:24px;font-size:12px;color:var(--faint);line-height:1.6}
+@media(max-width:820px){.kan{grid-template-columns:1fr}.cycle{flex-wrap:wrap}}
 </style>
 </head>
 <body>
@@ -116,120 +112,169 @@ h2.sec:first-of-type{margin-top:0}
       <div class="meta">ЖК «Аура» · неделя <b>01–07.06</b></div>
     </div>
     <div class="roles"><div class="row" role="tablist" aria-label="Роль">
-      <button role="tab" aria-selected="true" data-r="owner">Собственник<span class="who">наблюдает · решает</span></button>
-      <button role="tab" aria-selected="false" data-r="ceo">CEO<span class="who">управляет стройблоком</span></button>
+      <span class="grp">Исполнители</span>
+      <button role="tab" aria-selected="true" data-r="exec">Прораб / НУ<span class="who">задачи · отметка · KPI</span></button>
+      <button role="tab" aria-selected="false" data-r="rp">РП<span class="who">подтверждает работы</span></button>
+      <span class="grp">Управление</span>
       <button role="tab" aria-selected="false" data-r="dir">Директор<span class="who">акцептует своды</span></button>
-      <button role="tab" aria-selected="false" data-r="rp">Руководитель проекта<span class="who">подтверждает работы</span></button>
-      <button role="tab" aria-selected="false" data-r="nu">Начальник участка<span class="who">вводит факт · бот</span></button>
+      <button role="tab" aria-selected="false" data-r="ceo">CEO<span class="who">портфель</span></button>
+      <button role="tab" aria-selected="false" data-r="owner">Собственник<span class="who">надзор</span></button>
     </div></div>
   </div>
 
   <div class="wrap">
 
-    <!-- OWNER -->
-    <section class="view on" id="v-owner" role="tabpanel" tabindex="-1">
-      <p class="rolehint"><b>Экран собственника.</b> Один взгляд: под контролем или нет и что решить. Рутину держат CEO и директор — здесь только то, что дошло до тебя.</p>
-      <div class="card verdict">
-        <div class="r1"><span class="sdot a" aria-hidden="true"></span><h1>Стройка требует внимания</h1></div>
-        <p>Готовность за неделю <b>+6%</b>, идёт штатно. Но <b>3 работы</b> дошли до твоего решения — директор не закрыл сам.</p>
-      </div>
-      <h2 class="sec">Что решить</h2>
-      <div class="decide">
-        <div class="card drow r"><span class="bar" aria-hidden="true"></span><div class="bd"><div class="t">Видеонаблюдение стоит 2 недели</div><div class="s">Пятно 3 · РП вернул как недостоверное</div></div><span class="badge b-red">риск приписки</span><button class="btn">К директору</button></div>
-        <div class="card drow a"><span class="bar" aria-hidden="true"></span><div class="bd"><div class="t">Монтаж лифтов — отставание 27 дней</div><div class="s">Пятно 3 · за неделю +11%, но срок горит</div></div><span class="badge b-amber">срок</span><button class="btn">Открыть</button></div>
-        <div class="card drow g"><span class="bar" aria-hidden="true"></span><div class="bd"><div class="t">Фасад закрыт на 100%</div><div class="s">Пятно 3 · фото и акт есть</div></div><span class="badge b-green">готово</span><button class="btn ok">Принять</button></div>
-      </div>
-      <div class="cta"><button class="btn pri">Принять неделю</button><button class="btn">Вернуть директору</button></div>
-      <div class="ctxstrip"><span>Достоверность факта <b class="tnum">74%</b></span><span>Лаг закрытия актов <b class="tnum">9 дн</b></span><span>Просрочено <b class="tnum">35 / 232</b></span></div>
-    </section>
+    <!-- ИСПОЛНИТЕЛЬ: ПРОРАБ / НУ -->
+    <section class="view on" id="v-exec" role="tabpanel" tabindex="-1">
+      <p class="rolehint"><b>Экран прораба / начальника участка.</b> Понедельник — задачи на неделю; пятница-суббота — отметка сделанного; дальше считается недельный KPI. Канбан по типам работ, подрядчики, динамика.</p>
+      <span class="obsnote">● KPI в наблюдательном режиме — на премию пока не влияет (включится в Фазе 2 после оцифровки)</span>
 
-    <!-- CEO -->
-    <section class="view" id="v-ceo" role="tabpanel" tabindex="-1">
-      <p class="rolehint"><b>Экран CEO.</b> Управление стройблоком: готовность портфеля, где директор «причесал» свод и что эскалировано. Это твой рабочий контроль над директором.</p>
-      <h2 class="sec">Портфель за неделю</h2>
+      <div class="cycle">
+        <div class="cstep done"><b>Пн</b>задание выдано</div><span class="carrow">→</span>
+        <div class="cstep done"><b>Вт–Чт</b>работа идёт</div><span class="carrow">→</span>
+        <div class="cstep now"><b>Пт–Сб ›</b>отметить сделанное</div><span class="carrow">→</span>
+        <div class="cstep"><b>Вс</b>недельный KPI</div>
+      </div>
+
+      <h2 class="sec">Моя выработка</h2>
       <div class="kpis">
-        <div class="kpi g"><div class="l">Готовность портфеля</div><div class="v tnum">+6<small>%</small></div><div class="h">6 пятен · прирост за неделю</div></div>
-        <div class="kpi r"><div class="l">Просрочено работ</div><div class="v tnum">35<small> / 232</small></div><div class="h">макс. 48 дн</div></div>
-        <div class="kpi a"><div class="l">Расхождения факт↔акцепт</div><div class="v tnum">1</div><div class="h">директор не закрыл аномалию</div></div>
-        <div class="kpi"><div class="l">Достоверность</div><div class="v tnum">74<small>%</small></div><div class="h">лаг актов 9 дн</div></div>
+        <div class="kpi g"><div class="l">Недельный KPI</div><div class="v tnum">86<small>%</small></div><div class="h">исполнение задания недели</div></div>
+        <div class="kpi a"><div class="l">Месячный план</div><div class="v tnum">72<small>%</small></div><div class="h">до коэффициента ×1.2 — ещё 28%</div></div>
+        <div class="kpi"><div class="l">Качество (дефекты A)</div><div class="v tnum">0</div><div class="h">гейт пройден</div></div>
+        <div class="kpi"><div class="l">Динамика, 5 недель</div><div class="v tnum">↑</div><div class="spark" aria-label="динамика недель"><i style="height:55%"></i><i style="height:62%"></i><i style="height:58%"></i><i style="height:74%"></i><i style="height:86%"></i></div></div>
       </div>
-      <h2 class="sec">Готовность по пятнам</h2>
-      <div class="plots" id="ceoplots"></div>
-      <h2 class="sec">Контроль директора — требует внимания CEO</h2>
+
+      <h2 class="sec">Задачи недели · канбан</h2>
+      <div class="kbtools" role="group" aria-label="Тип работ">
+        <button class="f" data-t="all" aria-pressed="true">Все типы</button>
+        <button class="f" data-t="Общестрой" aria-pressed="false">Общестрой</button>
+        <button class="f" data-t="Отделка" aria-pressed="false">Отделка</button>
+        <button class="f" data-t="Инженерка" aria-pressed="false">Инженерка</button>
+        <button class="f" data-t="Благоустр." aria-pressed="false">Благоустр.</button>
+      </div>
+      <div class="kan" id="kan">
+        <div class="kcol" data-col="todo"><div class="kh"><span>К выполнению</span><span class="c" data-c>0</span></div></div>
+        <div class="kcol" data-col="prog"><div class="kh"><span>В работе</span><span class="c" data-c>0</span></div></div>
+        <div class="kcol" data-col="done"><div class="kh"><span>Сделано · отметить</span><span class="c" data-c>0</span></div></div>
+      </div>
+
+      <h2 class="sec">Критическое — требует внимания</h2>
       <div class="card list">
-        <div class="lrow"><span class="badge b-red">расхождение</span><div class="bd"><div class="t">Видеонаблюдение · П3 — директор не закрыл возврат РП</div><div class="s">2 недели без движения · сырой факт расходится с акцептом</div></div><button class="btn">Разобрать</button></div>
-        <div class="lrow"><span class="badge b-amber">аномалия</span><div class="bd"><div class="t">Монтаж лифтов · П3 — скачок +11% при отставании 27 дн</div><div class="s">принято директором · фото есть</div></div><span class="meta">ок</span></div>
-        <div class="lrow"><span class="badge b-blue">лаг</span><div class="bd"><div class="t">Акты Рэмбо отстают на 9 дн (медиана)</div><div class="s">подрядчики тянут закрытие — кассовый сигнал</div></div><button class="btn">К финансам</button></div>
+        <div class="lrow"><span class="badge b-red">просрочено</span><div class="bd"><div class="t">Монтаж лифтов — отставание 27 дней</div><div class="s">Инженерка · ТОО ЛифтМонтаж · нужен план наверстывания</div></div></div>
+        <div class="lrow"><span class="badge b-red">просрочено</span><div class="bd"><div class="t">Видеонаблюдение — стоит 2 недели</div><div class="s">Инженерка · подрядчик не вышел</div></div></div>
+        <div class="lrow"><span class="badge b-violet">от руководства</span><div class="bd"><div class="t">Подготовить фронт под лифты к 10.06</div><div class="s">поручение РП на планёрке 01.06</div></div><button class="btn">Взять</button></div>
       </div>
     </section>
 
-    <!-- DIRECTOR -->
-    <section class="view" id="v-dir" role="tabpanel" tabindex="-1">
-      <p class="rolehint"><b>Экран директора.</b> Рабочий стол: своды пятен ждут твоего акцепта, аномалии — твоё решение. Каждую неделю — обязательный акцепт (это твой KPI).</p>
-      <h2 class="sec">Своды недели на акцепт</h2>
-      <div class="card list">
-        <div class="lrow"><div class="bd"><div class="t">Пятно 3 — свод недели</div><div class="s">4 работы · подтв. РП · 1 аномалия в красной зоне</div></div><div class="acts"><button class="btn">Открыть</button><button class="btn pri">Акцепт</button></div></div>
-        <div class="lrow"><div class="bd"><div class="t">Пятно 4 — свод недели</div><div class="s">3 работы · подтв. РП · без аномалий</div></div><div class="acts"><button class="btn ok">Акцептовано ✓</button></div></div>
-        <div class="lrow"><div class="bd"><div class="t">Пятна 5–8 — старт работ</div><div class="s">ранняя стадия · 6 активных работ</div></div><div class="acts"><button class="btn">Открыть</button><button class="btn pri">Акцепт</button></div></div>
-      </div>
-      <h2 class="sec">Красная зона — твоё решение</h2>
-      <div class="card list">
-        <div class="lrow"><span class="badge b-red">0 движения</span><div class="bd"><div class="t">Видеонаблюдение · П3</div><div class="s">возвращено РП · 2 недели без прогресса</div></div><div class="acts"><button class="btn">К РП</button><button class="btn">Принять как есть</button></div></div>
-        <div class="lrow"><span class="badge b-amber">скачок +11%</span><div class="bd"><div class="t">Монтаж лифтов · П3</div><div class="s">отставание 27 дн · фото приложено</div></div><div class="acts"><button class="btn ok">Акцепт</button></div></div>
-        <div class="lrow"><span class="badge b-green">100% + фото</span><div class="bd"><div class="t">Фасад · П3</div><div class="s">подтв. РП · акт Рэмбо есть</div></div><div class="acts"><button class="btn ok">Акцепт</button></div></div>
-      </div>
-    </section>
-
-    <!-- RP -->
+    <!-- РП -->
     <section class="view" id="v-rp" role="tabpanel" tabindex="-1">
-      <p class="rolehint"><b>Экран руководителя проекта.</b> Ты на объекте — подтверждаешь то, что ввели начальники участков, или возвращаешь. Это физическая проверка факта.</p>
-      <h2 class="sec">Ждут твоего подтверждения · Пятна 3–4</h2>
+      <p class="rolehint"><b>Экран руководителя проекта.</b> Ты на объекте — подтверждаешь то, что отметили прорабы и начальники участков, или возвращаешь. Это физическая проверка факта.</p>
+      <h2 class="sec">Ждут подтверждения · Пятна 3–4</h2>
       <div class="card list">
-        <div class="lrow"><span class="badge b-green">фото</span><div class="bd"><div class="t">Фасад · П3 — 93 → 100%</div><div class="s">ввёл Асхат Б. · фото приложено</div></div><div class="acts"><button class="btn ok">Подтвердить</button><button class="btn">Вернуть</button></div></div>
-        <div class="lrow"><span class="badge b-amber">проверить</span><div class="bd"><div class="t">Видеонаблюдение · П3 — 67%</div><div class="s">ввёл Асхат Б. · 2 недели без движения</div></div><div class="acts"><button class="btn ok">Подтвердить</button><button class="btn">Вернуть</button></div></div>
-        <div class="lrow"><span class="badge b-green">фото</span><div class="bd"><div class="t">Хоз. водопровод · П4 — 94 → 100%</div><div class="s">ввёл Дамир Е. · фото приложено</div></div><div class="acts"><button class="btn ok">Подтвердить</button><button class="btn">Вернуть</button></div></div>
-        <div class="lrow"><div class="bd"><div class="t">Электромонтаж · П4 — 96 → 98%</div><div class="s">ввёл Дамир Е. · без фото</div></div><div class="acts"><button class="btn ok">Подтвердить</button><button class="btn">Вернуть</button></div></div>
+        <div class="lrow"><span class="badge b-green">фото</span><div class="bd"><div class="t">Фасад · П3 — 93 → 100%</div><div class="s">отметил Асхат Б. · ИП Дана · фото есть</div></div><div class="acts"><button class="btn ok">Подтвердить</button><button class="btn">Вернуть</button></div></div>
+        <div class="lrow"><span class="badge b-amber">проверить</span><div class="bd"><div class="t">Видеонаблюдение · П3 — 67%</div><div class="s">отметил Асхат Б. · 2 недели без движения</div></div><div class="acts"><button class="btn ok">Подтвердить</button><button class="btn">Вернуть</button></div></div>
+        <div class="lrow"><span class="badge b-green">фото</span><div class="bd"><div class="t">Хоз. водопровод · П4 — 94 → 100%</div><div class="s">отметил Дамир Е. · ИП Сантех · фото есть</div></div><div class="acts"><button class="btn ok">Подтвердить</button><button class="btn">Вернуть</button></div></div>
+        <div class="lrow"><div class="bd"><div class="t">Электромонтаж · П4 — 96 → 98%</div><div class="s">отметил Дамир Е. · без фото</div></div><div class="acts"><button class="btn ok">Подтвердить</button><button class="btn">Вернуть</button></div></div>
       </div>
       <div class="cta"><button class="btn pri">Подтвердить всё с фото</button><button class="btn">Свод директору →</button></div>
     </section>
 
-    <!-- NU (bot) -->
-    <section class="view" id="v-nu" role="tabpanel" tabindex="-1">
-      <p class="rolehint"><b>Начальник участка работает в Telegram, не в вебе.</b> Бот Флэш раз в неделю присылает короткий список активных работ — отметить % одним тапом. Это его весь интерфейс.</p>
-      <div class="botcard"><div class="botscr">
-        <div class="both"><div class="botav" aria-hidden="true">Ф</div><div><div style="font-weight:700;font-size:13px">Флэш · ГПР</div><div style="font-size:10.5px;opacity:.85">бот · Аура</div></div></div>
-        <div class="botbody">
-          <div class="bmsg"><b>🔧 Монтаж лифтов</b><br>П3 · план 100% к 06.05 · факт 79%<br>Какой % сейчас?
-            <div class="bk"><span>79%</span><span>85%</span><span class="s">90%</span><span>95%</span><span>100%</span><span>свой</span></div>
-          </div>
-          <div class="bmsg">Принято: <b>90%</b> (+11%). Для 100% нужно фото. ✅</div>
-        </div>
-      </div></div>
-      <div class="linkrow" style="justify-content:center"><a href="bot.html">Открыть все 5 экранов бота →</a></div>
+    <!-- УПРАВЛЕНИЕ: директор / CEO / собственник (почти одинаковый) -->
+    <section class="view" id="v-mgmt" role="tabpanel" tabindex="-1">
+      <p class="rolehint" id="mgmt-hint"></p>
+      <span class="obsnote">● Наблюдательный режим — KPI считается, на премию пока не влияет</span>
+
+      <h2 class="sec"><span id="mgmt-scope">Объект</span> за неделю</h2>
+      <div class="kpis">
+        <div class="kpi g"><div class="l">Готовность</div><div class="v tnum">+6<small>%</small></div><div class="h">прирост факта за неделю</div></div>
+        <div class="kpi r"><div class="l">Просрочено работ</div><div class="v tnum">35<small> / 232</small></div><div class="h">макс. 48 дн</div></div>
+        <div class="kpi a"><div class="l">Достоверность</div><div class="v tnum">74<small>%</small></div><div class="h">лаг актов 9 дн</div></div>
+        <div class="kpi v" id="mgmt-kpi4"><div class="l">Расхождения факт↔акцепт</div><div class="v tnum">1</div><div class="h">директор не закрыл</div></div>
+      </div>
+
+      <h2 class="sec">Критические показатели</h2>
+      <div class="card list">
+        <div class="lrow"><span class="badge b-red">просрочка</span><div class="bd"><div class="t">Монтаж лифтов · П3 — 27 дней</div><div class="s">критический путь · фронт готов, подрядчик тянет</div></div><span class="meta">Инженерка</span></div>
+        <div class="lrow"><span class="badge b-red">стоит</span><div class="bd"><div class="t">Видеонаблюдение · П3 — 0 движения 2 нед</div><div class="s">возвращено РП как недостоверное</div></div><span class="meta">Инженерка</span></div>
+        <div class="lrow"><span class="badge b-violet">задача руководства</span><div class="bd"><div class="t">Решить по подрядчику лифтов до 10.06</div><div class="s">эскалация с планёрки</div></div><button class="btn">Открыть</button></div>
+      </div>
+
+      <h2 class="sec" id="mgmt-grid-h">Готовность по пятнам</h2>
+      <div class="plots" id="mgmtplots"></div>
+
+      <div class="cta" id="mgmt-cta"></div>
     </section>
 
     <div class="linkrow">
-      <a href="web_full.html">Полная рабочая панель (все вкладки) →</a>
+      <a href="bot.html">Экраны бота (НУ в поле) →</a>
+      <a href="web_full.html">Полная рабочая панель →</a>
       <a href="atamura_aura_gpr_dashboard.html">Дашборд ГПР →</a>
     </div>
-    <p class="foot">Наблюдательный режим — на премии не влияет. Один продукт, разные интерфейсы по роли: каждый видит только свои задачи. Данные условные по ЖК «Аура», имена вымышленные.</p>
+    <p class="foot">Один продукт, разные интерфейсы по роли: исполнители (прораб/НУ) видят свои задачи и выработку; управленцы (директор/CEO/собственник) — почти одинаковый обзор, разница в масштабе и правах. Данные условные по ЖК «Аура», имена вымышленные.</p>
   </div>
 
 <script>
-const NAMES={owner:'Собственник',ceo:'CEO',dir:'Директор',rp:'Руководитель проекта',nu:'Начальник участка'};
-const tabs=[...document.querySelectorAll('.roles button')];
-function pick(r){if(!NAMES[r])r='owner';
-  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+r));
-  tabs.forEach(t=>t.setAttribute('aria-selected',String(t.dataset.r===r)));
-  history.replaceState(null,'',location.pathname+'#'+r);}
-tabs.forEach(t=>t.addEventListener('click',()=>pick(t.dataset.r)));
-pick(location.hash.slice(1)||'owner');
+// kanban data: задачи недели прораба/НУ
+const TASKS=[
+  {t:'Кладка стен 6 этаж',type:'Общестрой',c:'ИП КазСтройБлок',pf:'40→70%',col:'prog'},
+  {t:'Фасад',type:'Общестрой',c:'ИП Дана',pf:'93→100%',col:'done'},
+  {t:'Стяжка полов',type:'Отделка',c:'ИП Абдрахманов',pf:'0→0%',col:'todo'},
+  {t:'Перегородки ГКЛ',type:'Отделка',c:'своя бригада',pf:'0→25%',col:'prog'},
+  {t:'Монтаж окон',type:'Отделка',c:'ТОО Окна',pf:'89→100%',col:'done'},
+  {t:'Монтаж лифтов',type:'Инженерка',c:'ТОО ЛифтМонтаж',pf:'79→79%',col:'todo',late:1},
+  {t:'Отопление',type:'Инженерка',c:'ИП Жылу',pf:'94→97%',col:'prog'},
+  {t:'Хоз. водопровод',type:'Инженерка',c:'ИП Сантех',pf:'94→100%',col:'done'},
+  {t:'Озеленение',type:'Благоустр.',c:'не назначен',pf:'0→0%',col:'todo'},
+  {t:'Бордюры',type:'Благоустр.',c:'своя бригада',pf:'0→15%',col:'prog'},
+];
+const typeColor={'Общестрой':'b-blue','Отделка':'b-amber','Инженерка':'b-violet','Благоустр.':'b-green'};
+let curType='all';
+function renderKan(){
+  ['todo','prog','done'].forEach(col=>{
+    const box=document.querySelector(`[data-col="${col}"]`);
+    [...box.querySelectorAll('.kc')].forEach(n=>n.remove());
+    const items=TASKS.filter(x=>x.col===col&&(curType==='all'||x.type===curType));
+    box.querySelector('[data-c]').textContent=items.length;
+    items.forEach(x=>{const d=document.createElement('div');d.className='kc';
+      d.innerHTML=`<div class="kt">${x.t}</div><div class="km"><span class="badge ${typeColor[x.type]}">${x.type}</span><span class="pf">${x.pf}</span></div>
+      <div class="row2"><span class="contr">${x.late?'⚠ ':''}${x.c}</span>${col==='done'?'<span class="mark">Отметить ✓</span>':col==='prog'?'<span class="mark">Обновить %</span>':'<span class="mark">Начать</span>'}</div>`;
+      box.appendChild(d);});
+  });
+}
+document.querySelectorAll('.kbtools .f').forEach(b=>b.addEventListener('click',()=>{curType=b.dataset.t;
+  document.querySelectorAll('.kbtools .f').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderKan();}));
+renderKan();
 
+// management role variants (almost identical)
+const MGMT={
+  dir:{hint:'<b>Экран директора по строительству.</b> Обзор объекта, критические показатели и своды на акцепт. Каждую неделю — обязательный акцепт (это твой KPI).',scope:'Объект',kpi4:['Своды на акцепт','2','Пятна 3 и 5–8 ждут'],cta:'<button class="btn pri">Акцептовать свод недели</button><button class="btn">Вернуть РП</button>'},
+  ceo:{hint:'<b>Экран CEO.</b> Тот же обзор, но по всему стройблоку: портфель пятен, критические показатели и контроль директора (где он причесал свод).',scope:'Портфель',kpi4:['Расхождения факт↔акцепт','1','директор не закрыл'],cta:'<button class="btn">Разобрать с директором</button>'},
+  owner:{hint:'<b>Экран собственника.</b> Тот же обзор для надзора: всё под контролем или нет. Решения принимают CEO и директор — тебе видно и доступен сырой факт.',scope:'Портфель',kpi4:['Выход из операционки','1 ч/нед','было 6 ч/нед'],cta:'<button class="btn pri">Принять неделю</button><button class="btn">Запросить разбор у CEO</button>'},
+};
 const PLOTS=[{id:3,q:2,plan:91,fact:84},{id:4,q:2,plan:91,fact:83},{id:5,q:3,plan:10,fact:10},{id:6,q:3,plan:10,fact:10},{id:7,q:4,plan:10,fact:10},{id:8,q:4,plan:10,fact:10}];
 const col=v=>v>=80?'var(--green)':v>=40?'var(--amber)':'var(--blue)';
-document.getElementById('ceoplots').innerHTML=PLOTS.map(p=>`<div class="plot"><div class="ph"><div class="pn">Пятно ${p.id}</div><div class="pq">${p.q}-я оч.</div></div>
-  <div class="bw"><div class="f" style="width:${p.fact}%;background:${col(p.fact)}"></div></div>
-  <div class="bl"><span>факт <b class="tnum" style="color:${col(p.fact)}">${p.fact}%</b></span><span class="tnum">план ${p.plan}% · −${p.plan-p.fact}</span></div></div>`).join('');
+function renderMgmt(role){const m=MGMT[role];
+  document.getElementById('mgmt-hint').innerHTML=m.hint;
+  document.getElementById('mgmt-scope').textContent=m.scope;
+  const k=document.getElementById('mgmt-kpi4');k.querySelector('.l').textContent=m.kpi4[0];k.querySelector('.v').textContent=m.kpi4[1];k.querySelector('.h').textContent=m.kpi4[2];
+  document.getElementById('mgmt-cta').innerHTML=m.cta;
+  const showPlots=role==='dir'?PLOTS.slice(0,1).concat(PLOTS.slice(2)):PLOTS;
+  document.getElementById('mgmt-grid-h').textContent=role==='dir'?'Пятна объекта':'Готовность по пятнам';
+  document.getElementById('mgmtplots').innerHTML=PLOTS.map(p=>`<div class="plot"><div class="ph"><div class="pn">Пятно ${p.id}</div><div class="pq">${p.q}-я оч.</div></div>
+    <div class="bw"><div class="f" style="width:${p.fact}%;background:${col(p.fact)}"></div></div>
+    <div class="bl"><span>факт <b class="tnum" style="color:${col(p.fact)}">${p.fact}%</b></span><span class="tnum">план ${p.plan}% · −${p.plan-p.fact}</span></div></div>`).join('');
+}
+
+// role routing
+const tabs=[...document.querySelectorAll('.roles button')];
+const VIEW={exec:'v-exec',rp:'v-rp',dir:'v-mgmt',ceo:'v-mgmt',owner:'v-mgmt'};
+function pick(r){if(!VIEW[r])r='exec';
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id===VIEW[r]));
+  tabs.forEach(t=>t.setAttribute('aria-selected',String(t.dataset.r===r)));
+  if(VIEW[r]==='v-mgmt')renderMgmt(r);
+  history.replaceState(null,'',location.pathname+'#'+r);}
+tabs.forEach(t=>t.addEventListener('click',()=>pick(t.dataset.r)));
+pick(location.hash.slice(1)||'exec');
 </script>
 </body>
 </html>
