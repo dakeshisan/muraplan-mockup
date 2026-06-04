@@ -58,6 +58,30 @@ h2.sec:first-of-type{margin-top:0}
 .kpi .h{font-size:11.5px;color:var(--faint);margin-top:7px}
 .spark{display:flex;align-items:flex-end;gap:3px;height:26px;margin-top:9px}
 .spark i{flex:1;background:var(--accent);border-radius:2px 2px 0 0;opacity:.8}
+/* gamified KPI */
+.gamewrap{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.gcard{padding:18px 20px;overflow:hidden}
+.ring{position:relative;width:84px;height:84px;float:left;margin:0 16px 6px 0}
+.ringv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ringv b{font-size:19px;font-weight:700}.ringv span{font-size:10px;color:var(--mut)}
+.gcard .t{font-weight:700;font-size:14px;margin-bottom:5px}.gcard .s{font-size:12.5px;color:var(--mut)}.gcard .s b{color:var(--ink)}
+.track{height:12px;border-radius:7px;background:var(--line);position:relative;margin:13px 0 10px;overflow:hidden}
+.track .fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:7px}
+.track .goal{position:absolute;right:7px;top:-2px;font-size:11px;font-weight:700;color:#fff;mix-blend-mode:difference}
+.badges{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:12px;margin-bottom:12px}
+.bdg{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:13px;font-weight:600}
+.bdg span{display:block;font-size:11.5px;color:var(--faint);font-weight:500;margin-top:3px}
+.bdg.ok{border-color:#bfe3cd;background:var(--green-bg)}
+.formula{padding:16px 20px}
+.formula .ft{font-weight:700;font-size:13px;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.formula .info{font-size:11.5px;color:var(--accent);font-weight:600}
+.frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--mut);background:var(--bg);padding:11px 14px;border-radius:9px}
+.frow .b1{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:4px 9px;font-weight:600;color:var(--ink)}
+.frow b{color:var(--amber);font-weight:700}
+.gates{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.gates span{font-size:11.5px;color:var(--green);background:var(--green-bg);border-radius:7px;padding:5px 10px;font-weight:600}
+.expl{font-size:12px;color:var(--mut);margin-top:12px;line-height:1.6;padding-top:11px;border-top:1px solid var(--line)}.expl b{color:var(--ink);font-weight:600}
+@media(max-width:700px){.gamewrap{grid-template-columns:1fr}}
 
 /* week cycle strip */
 .cycle{display:flex;align-items:center;gap:0;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:6px;margin-bottom:20px;overflow:hidden}
@@ -136,12 +160,28 @@ h2.sec:first-of-type{margin-top:0}
         <div class="cstep"><b>Вс</b>недельный KPI</div>
       </div>
 
-      <h2 class="sec">Моя выработка</h2>
-      <div class="kpis">
-        <div class="kpi g"><div class="l">Недельный KPI</div><div class="v tnum">86<small>%</small></div><div class="h">исполнение задания недели</div></div>
-        <div class="kpi a"><div class="l">Месячный план</div><div class="v tnum">72<small>%</small></div><div class="h">до коэффициента ×1.2 — ещё 28%</div></div>
-        <div class="kpi"><div class="l">Качество (дефекты A)</div><div class="v tnum">0</div><div class="h">гейт пройден</div></div>
-        <div class="kpi"><div class="l">Динамика, 5 недель</div><div class="v tnum">↑</div><div class="spark" aria-label="динамика недель"><i style="height:55%"></i><i style="height:62%"></i><i style="height:58%"></i><i style="height:74%"></i><i style="height:86%"></i></div></div>
+      <h2 class="sec">Моя премия за неделю <span class="pill">наблюдательно · поощрение</span></h2>
+      <div class="gamewrap">
+        <div class="card gcard">
+          <div class="ring"><svg viewBox="0 0 84 84" width="84" height="84" aria-hidden="true"><circle cx="42" cy="42" r="36" fill="none" stroke="#e6ebf1" stroke-width="9"/><circle cx="42" cy="42" r="36" fill="none" stroke="var(--green)" stroke-width="9" stroke-linecap="round" stroke-dasharray="226" stroke-dashoffset="32" transform="rotate(-90 42 42)"/></svg><div class="ringv"><b class="tnum">86%</b><span>неделя</span></div></div>
+          <div class="t">Недельный KPI · исполнение задания</div><div class="s">Закрытый выданный фронт в срок. Осталось закрыть <b>2 работы</b> до 100% недели.</div>
+        </div>
+        <div class="card gcard">
+          <div class="t">Месячный план → коэффициент ×1.2</div>
+          <div class="track"><div class="fill" style="width:72%"></div><span class="goal">72% → 100%</span></div>
+          <div class="s">Добей месяц до 100% — премия за месяц <b>×1.2</b>. Перевыполнение сверх 100% объёмом деньгами не премируется (кап).</div>
+        </div>
+      </div>
+      <div class="badges">
+        <div class="bdg">🔥 Серия: <b>4 недели</b> подряд ≥85%<span>считается по подтверждённому РП факту, не по самоотметке</span></div>
+        <div class="bdg">🏗 Грейд: <b>Специалист</b><span>до «Старшего» — стабильный KPI ещё ~2 мес</span></div>
+        <div class="bdg ok">✓ Качество <b>×1.0</b><span>0 дефектов класса A — премия не урезана</span></div>
+      </div>
+      <div class="card formula">
+        <div class="ft">Как считается моя премия<span class="info">пул × KPI-скор × качество</span></div>
+        <div class="frow"><span class="b1">Пул недели</span> × <span class="b1">KPI 0.86</span> × <span class="b1">качество 1.0</span> = <b>наблюдательно (деньгами — в Фазе 2)</b></div>
+        <div class="gates"><span>✓ дефекты A: нет</span><span>✓ отчётность достоверна</span><span>✓ ОТиТБ чисто</span></div>
+        <div class="expl">Считается <b>только то, чем ты управляешь</b>: закрытый фронт в срок и качество подряда в своей зоне. Простой не по твоей вине и срыв из-за чужого подряда/непоставки — по коду причины, премию <b>не режут</b>. Недельный план задаёт ГПР сверху (не занижается под лёгкое перевыполнение). Премия <b>зарабатывается</b> — оклад не трогается (≥75%), это не штраф.</div>
       </div>
 
       <h2 class="sec">Задачи недели · канбан</h2>
