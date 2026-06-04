@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MuraPlan · Флэш — мокап интерфейса</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bp:#0a2032; --bp2:#0e2a40; --line:rgba(120,190,210,.13);
+  --teal:#19b3b0; --gold:#e0a93f; --ink:#0e2233;
+  --tg-bg:#cfd8e0; --tg-bot:#ffffff; --tg-me:#e4fece; --tg-blue:#3390ec; --tg-gray:#707991;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Archivo',-apple-system,sans-serif;
+  background:var(--bp);
+  color:#dce8ef;
+  background-image:
+    linear-gradient(var(--line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line) 1px,transparent 1px),
+    radial-gradient(circle at 18% 12%, rgba(25,179,176,.10), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(224,169,63,.08), transparent 40%);
+  background-size:34px 34px,34px 34px,100% 100%,100% 100%;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1340px;margin:0 auto;padding:40px 26px 70px}
+
+/* header */
+header.top{margin-bottom:14px}
+.kicker{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.32em;color:var(--teal);text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.kicker::before{content:"";width:34px;height:1px;background:var(--teal)}
+h1{font-weight:900;font-size:clamp(30px,5vw,56px);line-height:1.02;letter-spacing:-.02em;margin:14px 0 6px;color:#fff}
+h1 .g{color:var(--gold)}
+.lead{font-size:16px;max-width:680px;color:#9fb6c6;line-height:1.5}
+.flowbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;font-family:'Space Mono',monospace;font-size:12.5px}
+.flowbar .node{padding:7px 13px;border:1px solid var(--line);border-radius:30px;background:rgba(255,255,255,.03);color:#bcd2e0}
+.flowbar .node b{color:var(--gold)}
+.flowbar .arr{color:var(--teal);align-self:center}
+.obs{margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:11.5px;color:#0e2233;background:var(--gold);padding:6px 12px;border-radius:6px;font-weight:700}
+
+/* scenes grid */
+.scenes{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px 26px;margin-top:46px;align-items:start}
+.scene{position:relative}
+.tag{font-family:'Space Mono',monospace;font-size:11.5px;color:var(--teal);letter-spacing:.05em;margin-bottom:6px;display:flex;gap:8px;align-items:baseline}
+.tag .num{color:var(--gold);font-weight:700}
+.cap{font-family:'Space Mono',monospace;font-size:12px;color:#8ea7b8;line-height:1.5;margin-bottom:14px;min-height:34px}
+.cap b{color:#dbe9f1}
+
+/* phone */
+.phone{background:#0c0c0e;border-radius:34px;padding:9px;box-shadow:0 30px 60px -20px rgba(0,0,0,.7),0 0 0 1px rgba(120,190,210,.12),0 0 40px -12px rgba(25,179,176,.25);max-width:330px;margin:0 auto}
+.screen{background:var(--tg-bg);border-radius:26px;overflow:hidden;position:relative}
+.notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:22px;background:#0c0c0e;border-radius:0 0 16px 16px;z-index:5}
+.tghead{background:#527da3;color:#fff;padding:26px 12px 9px;display:flex;align-items:center;gap:9px}
+.avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#c98a2a);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:#3a2a08;flex-shrink:0}
+.tgname{font-size:14.5px;font-weight:700;line-height:1.1}
+.tgsub{font-size:11px;opacity:.8}
+.chat{padding:12px 11px 8px;display:flex;flex-direction:column;gap:8px;min-height:430px;
+  background-image:radial-gradient(circle at 30% 20%,rgba(255,255,255,.5),transparent 40%);}
+.msg{max-width:88%;padding:8px 11px;border-radius:13px;font-size:12.6px;line-height:1.42;font-family:-apple-system,'Segoe UI',Roboto,sans-serif;position:relative;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+.bot{background:var(--tg-bot);align-self:flex-start;border-bottom-left-radius:4px;color:#1a1a1a}
+.me{background:var(--tg-me);align-self:flex-end;border-bottom-right-radius:4px;color:#1a1a1a}
+.time{font-size:9.5px;color:var(--tg-gray);float:right;margin:6px 0 -2px 8px}
+.me .time{color:#5aa54a}
+.ttl{font-weight:700;margin-bottom:3px}
+.sys{align-self:center;background:rgba(60,90,120,.55);color:#fff;font-size:10.5px;padding:3px 11px;border-radius:12px;font-family:-apple-system,sans-serif}
+.worki{padding:6px 0;border-bottom:1px solid #eef1f3;font-size:12px;display:flex;justify-content:space-between;gap:8px}
+.worki:last-child{border-bottom:none}
+.worki .wn{color:#1a1a1a}
+.worki .wm{white-space:nowrap;font-weight:700;font-family:'Space Mono',monospace;font-size:11px}
+.lbl{display:inline-block;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:10px;font-family:-apple-system,sans-serif;vertical-align:middle}
+.l-late{background:#fde7e6;color:#c0392b} .l-stuck{background:#fff3da;color:#b9791b}
+.l-new{background:#e7f1fb;color:#2c7fc4} .l-ok{background:#e6f6ec;color:#1f9d57}
+/* inline keyboard */
+.kb{display:grid;gap:5px;margin-top:7px}
+.kb.c2{grid-template-columns:1fr 1fr} .kb.c3{grid-template-columns:1fr 1fr 1fr}
+.key{background:var(--tg-bot);color:var(--tg-blue);text-align:center;padding:9px 4px;border-radius:9px;font-size:12px;font-weight:600;font-family:-apple-system,sans-serif;box-shadow:0 1px 1px rgba(0,0,0,.07)}
+.key.act{background:var(--tg-blue);color:#fff}
+.key.warn{color:#c0392b} .key.ok{color:#1f9d57}
+.kbfull{width:100%;align-self:stretch}
+.photo{height:78px;border-radius:9px;margin-top:6px;background:
+  repeating-linear-gradient(45deg,#dfe6ea,#dfe6ea 9px,#d5dde2 9px,#d5dde2 18px);
+  display:flex;align-items:center;justify-content:center;color:#7c8b96;font-size:11px;font-family:-apple-system,sans-serif}
+.composer{display:flex;align-items:center;gap:8px;padding:8px 11px;background:#fff;border-top:1px solid #e6e9ec}
+.composer .ph{flex:1;color:#9aa6b0;font-size:12px;font-family:-apple-system,sans-serif}
+.composer .ic{color:#7c8b96}
+
+/* footer */
+footer{margin-top:54px;border-top:1px solid var(--line);padding-top:20px;font-family:'Space Mono',monospace;font-size:11.5px;color:#7e98aa;line-height:1.6}
+footer b{color:#b9d0de}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.legend span{padding:4px 10px;border:1px solid var(--line);border-radius:20px}
+@media(max-width:700px){.flowbar{font-size:11px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="kicker">MuraPlan · Фаза 1 · бот Флэш</div>
+    <h1>Как выглядит <span class="g">сбор факта ГПР</span><br>в Telegram</h1>
+    <p class="lead">Еженедельный контур: начальник участка отмечает факт по активным работам → руководитель проекта подтверждает → директор акцептует «красную зону». Экраны на данных ЖК «Аура», пятно 3. Имена условные.</p>
+    <div class="flowbar">
+      <span class="node"><b>ПН</b> Флэш → НУ: задание</span><span class="arr">→</span>
+      <span class="node">НУ вводит % + причина/фото</span><span class="arr">→</span>
+      <span class="node"><b>СР</b> РП ✓ / вернуть</span><span class="arr">→</span>
+      <span class="node"><b>ЧТ</b> директор: акцепт</span><span class="arr">→</span>
+      <span class="node">дашборд + показатели</span>
+    </div>
+    <div class="obs">● НАБЛЮДАТЕЛЬНЫЙ РЕЖИМ — на премии не влияет</div>
+  </header>
+
+  <section class="scenes">
+
+    <!-- 1 -->
+    <div class="scene">
+      <div class="tag"><span class="num">01</span> ПОНЕДЕЛЬНИК · НАЧАЛЬНИК УЧАСТКА</div>
+      <div class="cap">Бот сам собрал <b>только активные работы недели + застрявшие</b> — не все 39, а 4. НУ не тонет в списке.</div>
+      <div class="phone"><div class="screen"><div class="notch"></div>
+        <div class="tghead"><div class="avatar">Ф</div><div><div class="tgname">Флэш · ГПР</div><div class="tgsub">бот · Аура</div></div></div>
+        <div class="chat">
+          <div class="sys">понедельник, 1 июня</div>
+          <div class="msg bot"><div class="ttl">🟢 Доброе утро, Асхат!</div>Задание на неделю <b>01–07.06</b>, Пятно 3 (2 очередь). Отметьте факт по 4 работам:
+            <div style="margin-top:7px">
+              <div class="worki"><span class="wn">🔧 Монтаж лифтов <span class="lbl l-late">−27 дн</span></span><span class="wm">79%</span></div>
+              <div class="worki"><span class="wn">🔧 Видеонаблюдение <span class="lbl l-stuck">застряло</span></span><span class="wm">67%</span></div>
+              <div class="worki"><span class="wn">🌳 Озеленение <span class="lbl l-new">старт</span></span><span class="wm">0%</span></div>
+              <div class="worki"><span class="wn">🧱 Фасад</span><span class="wm">93%</span></div>
+            </div>
+            <span class="time">09:00</span>
+          </div>
+          <div class="kb"><div class="key act kbfull">▶︎ Отметить факт</div></div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 2 -->
+    <div class="scene">
+      <div class="tag"><span class="num">02</span> ВВОД ФАКТА · БЕЗ КЛАВИАТУРЫ</div>
+      <div class="cap">Карточка работы: план, срок, текущий факт. <b>Кнопки %</b> — один тап, без печати.</div>
+      <div class="phone"><div class="screen"><div class="notch"></div>
+        <div class="tghead"><div class="avatar">Ф</div><div><div class="tgname">Флэш · ГПР</div><div class="tgsub">бот · Аура</div></div></div>
+        <div class="chat">
+          <div class="msg bot"><div class="ttl">🔧 Монтаж лифтов</div>Пятно 3 · Инженерные сети<br>План: <b>100%</b> к 06.05 · отставание <b>27 дн</b><br>Текущий факт: <b>79%</b><br><br>Какой % готовности сейчас?
+            <div class="kb c3" style="margin-top:8px">
+              <div class="key">79%</div><div class="key">85%</div><div class="key act">90%</div>
+              <div class="key">95%</div><div class="key">100%</div><div class="key">свой %</div>
+            </div>
+          </div>
+          <div class="msg me">90% <span class="time">10:14 ✓✓</span></div>
+          <div class="msg bot">Принято: <b>90%</b> (+11% за неделю).<br>Коротко — что мешает закрыть на 100%?
+            <div class="kb"><div class="key kbfull">Добавить комментарий / фото</div><div class="key act kbfull">✓ Готово, дальше</div></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 3 -->
+    <div class="scene">
+      <div class="tag"><span class="num">03</span> ДОСТОВЕРНОСТЬ · ПРИЧИНА И ФОТО</div>
+      <div class="cap">Для <b>0%</b> — обязательна причина-код (управленческий сигнал). Для <b>100%</b> — фото.</div>
+      <div class="phone"><div class="screen"><div class="notch"></div>
+        <div class="tghead"><div class="avatar">Ф</div><div><div class="tgname">Флэш · ГПР</div><div class="tgsub">бот · Аура</div></div></div>
+        <div class="chat">
+          <div class="msg bot"><div class="ttl">🌳 Озеленение · 0%</div>Работа стартует на этой неделе, факта нет. Почему не начали?
+            <div class="kb c2" style="margin-top:8px">
+              <div class="key warn">Нет фронта</div><div class="key">Нет материала</div>
+              <div class="key act">Ждём смежников</div><div class="key">Нет людей</div>
+              <div class="key">Погода</div><div class="key">Не моя</div>
+            </div>
+          </div>
+          <div class="msg me">Ждём смежников <span class="time">10:18 ✓✓</span></div>
+          <div class="msg bot">Зафиксировано: <b>0% · ждём смежников</b>. Передам РП — пусть подтолкнёт по фронту. ✅</div>
+          <div class="sys">— фото для перехода в 100% —</div>
+          <div class="msg bot"><div class="ttl">🧱 Фасад → 100%</div>Финальные % требуют фото. Пришлите снимок участка:
+            <div class="photo">📷 фото с объекта</div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 4 -->
+    <div class="scene">
+      <div class="tag"><span class="num">04</span> СРЕДА · РУКОВОДИТЕЛЬ ПРОЕКТА</div>
+      <div class="cap">РП почти всегда на объекте — его «✓» это <b>физическая проверка</b>, не кабинетная. Может вернуть.</div>
+      <div class="phone"><div class="screen"><div class="notch"></div>
+        <div class="tghead"><div class="avatar">Ф</div><div><div class="tgname">Флэш · ГПР</div><div class="tgsub">бот · РП Марат</div></div></div>
+        <div class="chat">
+          <div class="sys">среда, 3 июня</div>
+          <div class="msg bot"><div class="ttl">📋 Свод по Пятну 3</div>4 позиции от Асхата ждут подтверждения:
+            <div style="margin-top:6px">
+              <div class="worki"><span class="wn">Монтаж лифтов 79→<b>90%</b> 📷</span><span class="wm" style="color:#1f9d57">✓ можно</span></div>
+              <div class="worki"><span class="wn">Видеонаблюдение <b>67%</b> <span class="lbl l-stuck">0 движения</span></span><span class="wm" style="color:#b9791b">?</span></div>
+              <div class="worki"><span class="wn">Озеленение 0% · ждём смежников</span><span class="wm">—</span></div>
+              <div class="worki"><span class="wn">Фасад 93→<b>100%</b> 📷</span><span class="wm" style="color:#1f9d57">✓</span></div>
+            </div>
+            <div class="kb c2" style="margin-top:8px"><div class="key ok">✓ Подтвердить всё</div><div class="key warn">↩ Вернуть позицию</div></div>
+          </div>
+          <div class="msg me">Видеонаблюдение — верни, 2 недели без движения <span class="time">14:20 ✓✓</span></div>
+          <div class="msg bot">↩ «Видеонаблюдение» возвращено Асхату с пометкой. Остальные 3 — подтверждены. ✅</div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="scene">
+      <div class="tag"><span class="num">05</span> ЧЕТВЕРГ · ДИРЕКТОР ПО СТРОИТЕЛЬСТВУ</div>
+      <div class="cap">Не 232 работы, а <b>только «красная зона»</b>: скачки, 100% без фото, застрявшее, возвраты. + лаг актов Рэмбо.</div>
+      <div class="phone"><div class="screen"><div class="notch"></div>
+        <div class="tghead"><div class="avatar">Ф</div><div><div class="tgname">Флэш · ГПР</div><div class="tgsub">бот · Директор</div></div></div>
+        <div class="chat">
+          <div class="sys">четверг, 4 июня</div>
+          <div class="msg bot"><div class="ttl">🔺 Красная зона · Аура</div>Свод недели подтверждён РП. Внимания требуют <b>3 из 232</b> работ:
+            <div style="margin-top:6px">
+              <div class="worki"><span class="wn">⚡ Фасад П3 — скачок 93→100%</span><span class="wm" style="color:#1f9d57">фото ✓</span></div>
+              <div class="worki"><span class="wn">🛑 Видеонаблюдение П3</span><span class="wm" style="color:#c0392b">возврат РП</span></div>
+              <div class="worki"><span class="wn">🐢 Монтаж лифтов П3 −27дн</span><span class="wm" style="color:#b9791b">+11%</span></div>
+            </div>
+          </div>
+          <div class="msg bot">📈 Готовность недели: <b>+6%</b><br>⏱ Лаг актов (Рэмбо): медиана <b>9 дн</b><br>📷 Подтверждено фото/актом: <b>74%</b>
+            <div class="kb c2" style="margin-top:8px"><div class="key act">✓ Акцептовать свод</div><div class="key warn">↩ Вернуть РП</div></div>
+            <div class="kb" style="margin-top:5px"><div class="key kbfull">📊 Открыть полный дашборд</div></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+  </section>
+
+  <footer>
+    <b>Это мокап для согласования</b> — не финальный UI. Реальные экраны соберём при реализации (бот на python-telegram-bot, как ферма).<br>
+    Данные условные по ЖК «Аура», пятно 3. Контур и слои достоверности — по спеке MuraPlan Фазы 1.
+    <div class="legend">
+      <span>🟢 активные недели</span><span>застрявшее</span><span>причина-код для 0%</span>
+      <span>фото для 100%</span><span>РП = физпроверка</span><span>директор = красная зона</span><span>лаг Рэмбо</span>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

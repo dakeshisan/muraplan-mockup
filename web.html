@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MuraPlan · веб-панель — мокап</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0e2a40; --navy2:#143553; --teal:#13a3a3; --teal-d:#0d7e7e; --gold:#d9a441;
+  --bg:#eef2f6; --card:#fff; --ink:#16263a; --mut:#6c8196; --line:#e3e9ef;
+  --green:#1f9d57; --amber:#e0922f; --red:#d6453d; --redbg:#fcebea; --bluebg:#e9f2fb; --blue:#2c7fc4;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Archivo',-apple-system,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+.mono{font-family:'Space Mono',monospace}
+.app{display:grid;grid-template-columns:228px 1fr;min-height:100vh}
+
+.side{background:linear-gradient(180deg,var(--navy),#0a2235);color:#cfe0ec;padding:18px 14px;display:flex;flex-direction:column;gap:4px}
+.brand{display:flex;align-items:center;gap:10px;padding:6px 8px 16px}
+.logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--teal),var(--teal-d));display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:17px;box-shadow:0 4px 12px -3px rgba(19,163,163,.6)}
+.brand .nm{font-weight:800;font-size:16px;color:#fff;letter-spacing:-.01em}
+.brand .sb{font-size:10.5px;color:#7fa0b8;font-family:'Space Mono',monospace}
+.nav{display:flex;flex-direction:column;gap:2px;margin-top:6px}
+.nav a{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:9px;color:#aec5d6;text-decoration:none;font-size:13.5px;font-weight:500;cursor:pointer;user-select:none}
+.nav a .i{width:17px;text-align:center;opacity:.85}
+.nav a.on{background:rgba(19,163,163,.16);color:#fff;font-weight:600;box-shadow:inset 0 0 0 1px rgba(19,163,163,.3)}
+.nav a:hover:not(.on){background:rgba(255,255,255,.05)}
+.side .foot{margin-top:auto;padding:11px;border-radius:10px;background:rgba(255,255,255,.05);font-size:11.5px;color:#9fb8c9}
+.side .foot b{color:var(--teal)}
+.dot-on{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:5px;box-shadow:0 0 6px var(--green)}
+
+.main{padding:0 0 40px}
+.top{background:var(--card);border-bottom:1px solid var(--line);padding:14px 26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+.top h1{font-size:17px;font-weight:800}
+.sel{font-family:'Space Mono',monospace;font-size:12px;color:var(--ink);background:var(--bg);border:1px solid var(--line);padding:6px 12px;border-radius:8px}
+.sel b{color:var(--teal-d)}
+.top .right{margin-left:auto;display:flex;gap:10px;align-items:center}
+.obs{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:#5a4410;background:var(--gold);padding:6px 11px;border-radius:7px}
+.who{display:flex;align-items:center;gap:8px;font-size:13px}
+.who .av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#c98a2a);color:#3a2a08;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+
+.body{padding:22px 26px}
+.view{display:none}.view.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.h2{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--mut);margin:26px 4px 13px;display:flex;align-items:center;gap:9px}
+.h2.first{margin-top:4px}
+.h2 .pill{font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;color:var(--teal-d);background:#e3f4f4;padding:2px 8px;border-radius:20px;letter-spacing:0}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.kpi{background:var(--card);border-radius:13px;padding:15px 17px;box-shadow:0 2px 10px rgba(20,40,60,.05);border-top:3px solid var(--teal)}
+.kpi.g{border-top-color:var(--green)} .kpi.a{border-top-color:var(--amber)} .kpi.r{border-top-color:var(--red)} .kpi.gold{border-top-color:var(--gold)}
+.kpi .l{font-size:11.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em;font-weight:600;margin-bottom:7px}
+.kpi .v{font-size:27px;font-weight:900;line-height:1}
+.kpi .v small{font-size:14px;color:var(--mut);font-weight:700}
+.kpi .h{font-size:11.5px;color:var(--mut);margin-top:6px}
+.kpi .h b{color:var(--green)} .kpi .h b.r{color:var(--red)}
+
+.kan{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.col{background:#e7edf2;border-radius:13px;padding:11px;display:flex;flex-direction:column;gap:9px}
+.col .ch{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);display:flex;justify-content:space-between;padding:3px 4px}
+.col .ch .cnt{background:#fff;color:var(--ink);border-radius:20px;padding:0 8px;font-family:'Space Mono',monospace;font-size:11px}
+.col.done .ch{color:var(--green)}
+.tk{background:var(--card);border-radius:10px;padding:10px 11px;box-shadow:0 1px 4px rgba(20,40,60,.07);border-left:3px solid var(--teal)}
+.tk.late{border-left-color:var(--red)} .tk.stuck{border-left-color:var(--amber)} .tk.ok{border-left-color:var(--green)} .tk.new{border-left-color:var(--blue)}
+.tk .wn{font-size:13px;font-weight:700;margin-bottom:3px}
+.tk .meta{font-size:11px;color:var(--mut);display:flex;justify-content:space-between;gap:6px;font-family:'Space Mono',monospace}
+.tk .pf{font-weight:700}
+.tk .chips{margin-top:7px;display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px}
+.c-late{background:var(--redbg);color:var(--red)} .c-stuck{background:#fff3da;color:#b9791b}
+.c-photo{background:#e6f6ec;color:var(--green)} .c-reason{background:var(--bluebg);color:var(--blue)} .c-act{background:#efe9fb;color:#7d4bbf}
+.tk .acts{margin-top:8px;display:flex;gap:6px}
+.btn{flex:1;text-align:center;font-size:11.5px;font-weight:700;padding:6px;border-radius:7px;cursor:pointer}
+.btn.ok{background:var(--green);color:#fff} .btn.ret{background:#fff;color:var(--red);border:1px solid #f0c8c5}
+
+.rz{background:var(--card);border-radius:13px;box-shadow:0 2px 10px rgba(20,40,60,.05);overflow:hidden;border:1px solid #f3d9d6}
+.rz .rzh{background:var(--redbg);padding:11px 16px;font-weight:800;font-size:13.5px;color:var(--red);display:flex;justify-content:space-between;align-items:center}
+.rz .rzh .mono{font-size:11px;color:var(--mut)}
+.rzrow{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line);font-size:13px}
+.rzrow:last-child{border-bottom:none}
+.rzrow .ico{font-size:16px}.rzrow .txt{flex:1}.rzrow .txt .s{font-size:11.5px;color:var(--mut)}
+.rzrow .tag2{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px}
+.t-up{background:#e6f6ec;color:var(--green)} .t-ret{background:var(--redbg);color:var(--red)} .t-slow{background:#fff3da;color:#b9791b}
+.rzbar{display:flex;gap:8px;padding:12px 16px;background:#faf6ee;border-top:1px solid #f0e6cf;align-items:center;flex-wrap:wrap}
+.rzbar .m{font-family:'Space Mono',monospace;font-size:12px}.rzbar .m b{color:var(--teal-d)}
+.rzbar .sp{margin-left:auto;display:flex;gap:8px}
+.bigbtn{font-size:12.5px;font-weight:700;padding:8px 16px;border-radius:8px;cursor:pointer}
+.bigbtn.ok{background:var(--teal);color:#fff;box-shadow:0 3px 10px -3px rgba(19,163,163,.6)}
+.bigbtn.ret{background:#fff;color:var(--red);border:1px solid #f0c8c5}
+
+.tbl-card{background:var(--card);border-radius:13px;box-shadow:0 2px 10px rgba(20,40,60,.05);overflow:hidden}
+.tbar{display:flex;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line);flex-wrap:wrap;align-items:center}
+.tbar .f{font-family:'Space Mono',monospace;font-size:11.5px;border:1px solid var(--line);background:var(--bg);padding:5px 11px;border-radius:7px;color:var(--mut)}
+.tbar .f.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.tbar .cnt{margin-left:auto;font-family:'Space Mono',monospace;font-size:11.5px;color:var(--mut)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead th{text-align:left;padding:11px 14px;background:#f4f7fa;color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.04em;font-weight:700;border-bottom:2px solid var(--line);white-space:nowrap}
+tbody td{padding:10px 14px;border-bottom:1px solid #f1f4f7}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#f8fafb}
+.pct{font-family:'Space Mono',monospace;font-weight:700}
+.src{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.s-rp{background:#e6f6ec;color:var(--green)} .s-pend{background:#fff3da;color:#b9791b} .s-ret{background:var(--redbg);color:var(--red)} .s-nu{background:var(--bluebg);color:var(--blue)} .s-done{background:#eef1f3;color:var(--mut)}
+
+/* plots cards */
+.plots{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.plot{background:var(--card);border-radius:13px;padding:16px 18px;box-shadow:0 2px 10px rgba(20,40,60,.05)}
+.plot .ph{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:11px}
+.plot .pn{font-size:16px;font-weight:800}.plot .pq{font-family:'Space Mono',monospace;font-size:11px;color:var(--mut)}
+.bar{height:9px;border-radius:6px;background:#eef1f4;overflow:hidden;margin:4px 0 3px;position:relative}
+.bar .fill{height:100%;border-radius:6px}
+.barlab{display:flex;justify-content:space-between;font-size:11px;color:var(--mut);font-family:'Space Mono',monospace}
+.plot .st{display:flex;gap:14px;margin-top:12px;font-size:12px}
+.plot .st b{font-family:'Space Mono',monospace}
+.plot .st .late{color:var(--red)}.plot .st .act{color:var(--blue)}
+
+/* assignments / timeline */
+.tl{background:var(--card);border-radius:13px;box-shadow:0 2px 10px rgba(20,40,60,.05);padding:6px 0}
+.ev{display:flex;gap:13px;padding:11px 18px;border-bottom:1px solid #f1f4f7;font-size:13px;align-items:flex-start}
+.ev:last-child{border-bottom:none}
+.ev .t{font-family:'Space Mono',monospace;font-size:11px;color:var(--mut);white-space:nowrap;padding-top:2px;min-width:74px}
+.ev .ic{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.i-nu{background:var(--bluebg)} .i-rp{background:#e6f6ec} .i-dir{background:#efe9fb} .i-bot{background:#fff3da} .i-act{background:#e3f4f4}
+.ev .d b{font-weight:700}.ev .d .s{font-size:11.5px;color:var(--mut)}
+.chk{color:var(--green);font-weight:700}.no{color:var(--red);font-weight:700}
+
+.foot2{margin:26px;font-family:'Space Mono',monospace;font-size:11.5px;color:var(--mut);line-height:1.6}
+.foot2 b{color:var(--ink)}
+.frame{background:var(--card);border-radius:13px;box-shadow:0 2px 10px rgba(20,40,60,.05);overflow:hidden}
+.frame iframe{width:100%;height:760px;border:0;display:block}
+.note{font-family:'Space Mono',monospace;font-size:11.5px;color:var(--mut);margin:0 4px 12px}
+@media(max-width:1080px){.kan{grid-template-columns:1fr 1fr}.app{grid-template-columns:1fr}.side{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="side">
+    <div class="brand"><div class="logo">M</div><div><div class="nm">MuraPlan</div><div class="sb">отслеживание стройки</div></div></div>
+    <nav class="nav" id="nav">
+      <a class="on" data-v="svodka" data-t="Сводка недели"><span class="i">▦</span> Сводка недели</a>
+      <a data-v="kontur" data-t="Контур недели"><span class="i">⟳</span> Контур недели</a>
+      <a data-v="reestr" data-t="Реестр работ"><span class="i">▤</span> Реестр работ</a>
+      <a data-v="pyatna" data-t="Пятна и графики"><span class="i">◫</span> Пятна и графики</a>
+      <a data-v="naznach" data-t="Назначения"><span class="i">◉</span> Назначения</a>
+      <a data-v="jrnl" data-t="Журнал / аудит"><span class="i">⎙</span> Журнал / аудит</a>
+      <a data-v="dash" data-t="Дашборд ГПР"><span class="i">📊</span> Дашборд ГПР</a>
+    </nav>
+    <div class="foot"><span class="dot-on"></span>Бот <b>Флэш</b> на связи<br><span class="mono" style="font-size:10px">сбор факта · Аура · 6 НУ</span></div>
+  </aside>
+
+  <div class="main">
+    <div class="top">
+      <h1 id="ttl">Сводка недели</h1>
+      <span class="sel">Объект: <b>ЖК «Аура»</b> ▾</span>
+      <span class="sel">Неделя: <b>01–07.06</b> ▾</span>
+      <div class="right">
+        <span class="obs">● НАБЛЮДАТЕЛЬНЫЙ РЕЖИМ</span>
+        <div class="who"><div class="av">Д</div><span>Директор<br><span class="mono" style="font-size:10px;color:var(--mut)">Олжас С.</span></span></div>
+      </div>
+    </div>
+
+    <div class="body">
+
+      <!-- ===== СВОДКА ===== -->
+      <section class="view on" id="v-svodka">
+        <div class="h2 first">Показатели недели <span class="pill">наблюдательно</span></div>
+        <div class="kpis">
+          <div class="kpi g"><div class="l">Готовность недели</div><div class="v">+6<small>%</small></div><div class="h">прирост факта за 01–07.06</div></div>
+          <div class="kpi r"><div class="l">Просрочено работ</div><div class="v">35 <small>/ 232</small></div><div class="h"><b class="r">15%</b> · макс. 48 дн</div></div>
+          <div class="kpi a"><div class="l">Ждут подтверждения</div><div class="v">4 <small>поз.</small></div><div class="h">у РП: 3 · возвращено: 1</div></div>
+          <div class="kpi gold"><div class="l">Лаг актов (Рэмбо)</div><div class="v">9 <small>дн</small></div><div class="h">медиана факт → АВР</div></div>
+          <div class="kpi"><div class="l">Достоверность</div><div class="v">74<small>%</small></div><div class="h">с фото / актом / физпроверкой</div></div>
+        </div>
+        <div class="h2">Контур недели <span class="pill">НУ → РП → директор</span></div>
+        <div class="kan">
+          <div class="col"><div class="ch"><span>Ввёл НУ</span><span class="cnt">2</span></div>
+            <div class="tk late"><div class="wn">Монтаж лифтов</div><div class="meta"><span>П3 · Инженерка</span><span class="pf">79→90%</span></div><div class="chips"><span class="chip c-late">−27 дн</span><span class="chip c-photo">📷 фото</span></div></div>
+            <div class="tk new"><div class="wn">Озеленение</div><div class="meta"><span>П3 · Благоустр.</span><span class="pf">0%</span></div><div class="chips"><span class="chip c-reason">ждём смежников</span></div></div></div>
+          <div class="col"><div class="ch"><span>На подтв. РП</span><span class="cnt">1</span></div>
+            <div class="tk ok"><div class="wn">Фасад</div><div class="meta"><span>П3 · Общестрой</span><span class="pf">93→100%</span></div><div class="chips"><span class="chip c-photo">📷 фото</span></div>
+              <div class="acts"><span class="btn ok">✓ Подтвердить</span><span class="btn ret">↩ Вернуть</span></div></div></div>
+          <div class="col"><div class="ch"><span>Акцепт директора</span><span class="cnt">1</span></div>
+            <div class="tk late"><div class="wn">Монтаж лифтов</div><div class="meta"><span>П3 · подтв. РП</span><span class="pf">90%</span></div><div class="chips"><span class="chip c-late">скачок +11%</span></div>
+              <div class="acts"><span class="btn ok">✓ Акцепт</span><span class="btn ret">↩ РП</span></div></div></div>
+          <div class="col done"><div class="ch"><span>✓ Закрыто</span><span class="cnt">1</span></div>
+            <div class="tk stuck"><div class="wn">Видеонаблюдение</div><div class="meta"><span>П3 · возврат</span><span class="pf">67%</span></div><div class="chips"><span class="chip c-stuck">0 движения 2 нед</span></div></div></div>
+        </div>
+        <div class="h2">🔺 Красная зона — требует решения директора</div>
+        <div class="rz">
+          <div class="rzh"><span>3 из 232 работ за неделю</span><span class="mono">только аномалии, не весь список</span></div>
+          <div class="rzrow"><span class="ico">⚡</span><div class="txt">Фасад · Пятно 3 — скачок 93→100%<div class="s">фото приложено, подтверждено РП</div></div><span class="tag2 t-up">фото ✓</span></div>
+          <div class="rzrow"><span class="ico">🛑</span><div class="txt">Видеонаблюдение · Пятно 3 — 0 движения 2 недели<div class="s">возвращено РП начальнику участка</div></div><span class="tag2 t-ret">возврат РП</span></div>
+          <div class="rzrow"><span class="ico">🐢</span><div class="txt">Монтаж лифтов · Пятно 3 — отставание 27 дн<div class="s">+11% за неделю, ждёт акцепта</div></div><span class="tag2 t-slow">+11%</span></div>
+          <div class="rzbar"><span class="m">Готовность недели <b>+6%</b></span><span class="m">· Лаг Рэмбо <b>9 дн</b></span><span class="m">· Достоверность <b>74%</b></span>
+            <span class="sp"><span class="bigbtn ret">↩ Вернуть РП</span><span class="bigbtn ok">✓ Акцептовать свод недели</span></span></div>
+        </div>
+      </section>
+
+      <!-- ===== КОНТУР ===== -->
+      <section class="view" id="v-kontur">
+        <div class="note">Все активные работы недели по всем пятнам в движении по статусам. Карточки переходят слева направо; «возврат» отбрасывает влево.</div>
+        <div class="kan">
+          <div class="col"><div class="ch"><span>Ввёл НУ</span><span class="cnt">5</span></div>
+            <div class="tk late"><div class="wn">Монтаж лифтов</div><div class="meta"><span>П3 · Инженерка</span><span class="pf">79→90%</span></div><div class="chips"><span class="chip c-photo">📷</span></div></div>
+            <div class="tk new"><div class="wn">Озеленение</div><div class="meta"><span>П3 · Благоустр.</span><span class="pf">0%</span></div><div class="chips"><span class="chip c-reason">ждём смежников</span></div></div>
+            <div class="tk ok"><div class="wn">Отопление</div><div class="meta"><span>П4 · Инженерка</span><span class="pf">94→97%</span></div></div>
+            <div class="tk new"><div class="wn">Бордюры</div><div class="meta"><span>П5 · Благоустр.</span><span class="pf">0→15%</span></div></div>
+            <div class="tk ok"><div class="wn">ЖБ каркас 4 эт.</div><div class="meta"><span>П7 · Общестрой</span><span class="pf">35→55%</span></div><div class="chips"><span class="chip c-photo">📷</span></div></div></div>
+          <div class="col"><div class="ch"><span>На подтв. РП</span><span class="cnt">3</span></div>
+            <div class="tk ok"><div class="wn">Фасад</div><div class="meta"><span>П3 · Общестрой</span><span class="pf">93→100%</span></div><div class="chips"><span class="chip c-photo">📷</span></div>
+              <div class="acts"><span class="btn ok">✓ Подтвердить</span><span class="btn ret">↩</span></div></div>
+            <div class="tk ok"><div class="wn">Хоз. водопровод</div><div class="meta"><span>П4 · Инженерка</span><span class="pf">94→100%</span></div><div class="chips"><span class="chip c-photo">📷</span></div>
+              <div class="acts"><span class="btn ok">✓ Подтвердить</span><span class="btn ret">↩</span></div></div>
+            <div class="tk late"><div class="wn">Электромонтаж</div><div class="meta"><span>П4 · Инженерка</span><span class="pf">96→98%</span></div>
+              <div class="acts"><span class="btn ok">✓ Подтвердить</span><span class="btn ret">↩</span></div></div></div>
+          <div class="col"><div class="ch"><span>Акцепт директора</span><span class="cnt">2</span></div>
+            <div class="tk late"><div class="wn">Монтаж лифтов</div><div class="meta"><span>П3 · подтв. РП</span><span class="pf">90%</span></div><div class="chips"><span class="chip c-late">скачок +11%</span></div>
+              <div class="acts"><span class="btn ok">✓ Акцепт</span><span class="btn ret">↩ РП</span></div></div>
+            <div class="tk ok"><div class="wn">Фасад П4</div><div class="meta"><span>П4 · подтв. РП</span><span class="pf">93→100%</span></div><div class="chips"><span class="chip c-act">акт Рэмбо</span></div>
+              <div class="acts"><span class="btn ok">✓ Акцепт</span><span class="btn ret">↩ РП</span></div></div></div>
+          <div class="col done"><div class="ch"><span>✓ Закрыто</span><span class="cnt">1</span></div>
+            <div class="tk stuck"><div class="wn">Видеонаблюдение</div><div class="meta"><span>П3 · возврат</span><span class="pf">67%</span></div><div class="chips"><span class="chip c-stuck">0 движения</span></div></div></div>
+        </div>
+      </section>
+
+      <!-- ===== РЕЕСТР ===== -->
+      <section class="view" id="v-reestr">
+        <div class="tbl-card">
+          <div class="tbar"><span class="f on">Все пятна</span><span class="f">П3</span><span class="f">П4</span><span class="f">П5–8</span><span class="f">Просроченные</span><span class="f">Ждут подтв.</span><span class="cnt">показано 14 из 232</span></div>
+          <table>
+            <thead><tr><th>Пятно</th><th>Работа</th><th>Раздел</th><th>План</th><th>Факт</th><th>Δ дн.</th><th>Источник факта</th><th>Статус</th></tr></thead>
+            <tbody>
+              <tr><td><b>3</b></td><td>Монтаж лифтов</td><td>Инженерка</td><td class="pct">100%</td><td class="pct" style="color:var(--amber)">90%</td><td class="pct" style="color:var(--red)">27</td><td>НУ + 📷</td><td><span class="src s-pend">акцепт директора</span></td></tr>
+              <tr><td><b>3</b></td><td>Видеонаблюдение</td><td>Инженерка</td><td class="pct">100%</td><td class="pct" style="color:var(--red)">67%</td><td class="pct" style="color:var(--red)">38</td><td>НУ</td><td><span class="src s-ret">возвращено РП</span></td></tr>
+              <tr><td><b>3</b></td><td>Озеленение</td><td>Благоустр.</td><td class="pct">100%</td><td class="pct" style="color:var(--red)">0%</td><td class="pct">0</td><td>НУ · «ждём смежников»</td><td><span class="src s-nu">ввёл НУ</span></td></tr>
+              <tr><td><b>3</b></td><td>Фасад</td><td>Общестрой</td><td class="pct">100%</td><td class="pct" style="color:var(--green)">100%</td><td class="pct">0</td><td>НУ + 📷 + акт <span class="mono" style="font-size:10px;color:var(--mut)">(лаг 9д)</span></td><td><span class="src s-rp">подтв. РП</span></td></tr>
+              <tr><td><b>4</b></td><td>Отопление</td><td>Инженерка</td><td class="pct">100%</td><td class="pct" style="color:var(--amber)">97%</td><td class="pct" style="color:var(--red)">8</td><td>НУ</td><td><span class="src s-nu">ввёл НУ</span></td></tr>
+              <tr><td><b>4</b></td><td>Хоз. питьевой водопровод</td><td>Инженерка</td><td class="pct">100%</td><td class="pct" style="color:var(--green)">100%</td><td class="pct" style="color:var(--red)">8</td><td>НУ + 📷</td><td><span class="src s-pend">на подтв. РП</span></td></tr>
+              <tr><td><b>4</b></td><td>Электромонтажная работа</td><td>Инженерка</td><td class="pct">100%</td><td class="pct" style="color:var(--amber)">98%</td><td class="pct" style="color:var(--red)">5</td><td>НУ</td><td><span class="src s-pend">на подтв. РП</span></td></tr>
+              <tr><td><b>4</b></td><td>Фасад</td><td>Общестрой</td><td class="pct">100%</td><td class="pct" style="color:var(--green)">100%</td><td class="pct">0</td><td>НУ + акт Рэмбо</td><td><span class="src s-pend">акцепт директора</span></td></tr>
+              <tr><td><b>5</b></td><td>ЖБ каркас до 0.000</td><td>Общестрой</td><td class="pct">67%</td><td class="pct" style="color:var(--amber)">55%</td><td class="pct" style="color:var(--red)">10</td><td>НУ + 📷</td><td><span class="src s-done">закрыто</span></td></tr>
+              <tr><td><b>5</b></td><td>Бордюры и поребрики</td><td>Благоустр.</td><td class="pct">15%</td><td class="pct" style="color:var(--amber)">15%</td><td class="pct">0</td><td>НУ</td><td><span class="src s-nu">ввёл НУ</span></td></tr>
+              <tr><td><b>6</b></td><td>Земляные работы</td><td>Общестрой</td><td class="pct">100%</td><td class="pct" style="color:var(--green)">100%</td><td class="pct">0</td><td>НУ + 📷</td><td><span class="src s-done">закрыто</span></td></tr>
+              <tr><td><b>7</b></td><td>ЖБ каркас 4 этаж</td><td>Общестрой</td><td class="pct">47%</td><td class="pct" style="color:var(--amber)">55%</td><td class="pct" style="color:var(--green)">опереж.</td><td>НУ + 📷</td><td><span class="src s-nu">ввёл НУ</span></td></tr>
+              <tr><td><b>7</b></td><td>Бетонные работы до 0.000</td><td>Общестрой</td><td class="pct">100%</td><td class="pct" style="color:var(--green)">100%</td><td class="pct">0</td><td>НУ + акт Рэмбо</td><td><span class="src s-done">закрыто</span></td></tr>
+              <tr><td><b>8</b></td><td>ЖБ каркас до 0.000</td><td>Общестрой</td><td class="pct">47%</td><td class="pct" style="color:var(--amber)">37%</td><td class="pct" style="color:var(--red)">11</td><td>НУ</td><td><span class="src s-nu">ввёл НУ</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== ПЯТНА ===== -->
+      <section class="view" id="v-pyatna">
+        <div class="note">6 пятен ЖК «Аура», очереди 2–4. Сводная готовность из отчёта; активные/просроченные — расчёт по работам недели.</div>
+        <div class="plots" id="plots"></div>
+      </section>
+
+      <!-- ===== НАЗНАЧЕНИЯ ===== -->
+      <section class="view" id="v-naznach">
+        <div class="note">Шаг 0 пилота: кто за какой участок отвечает, кто подтверждает, кто замещает. ✓ — активировал бота и дал согласие на ПДн.</div>
+        <div class="tbl-card">
+          <table>
+            <thead><tr><th>Пятно / очередь</th><th>Начальник участка</th><th>Telegram</th><th>Руководитель проекта</th><th>Заместитель</th><th>Согласие ПДн</th></tr></thead>
+            <tbody>
+              <tr><td><b>Пятно 3</b> · оч.2</td><td>Асхат Б.</td><td><span class="chk">✓ активирован</span></td><td>Марат К.</td><td>Ербол Т.</td><td><span class="chk">✓ подписано</span></td></tr>
+              <tr><td><b>Пятно 4</b> · оч.2</td><td>Дамир Е.</td><td><span class="chk">✓ активирован</span></td><td>Марат К.</td><td>Ербол Т.</td><td><span class="chk">✓ подписано</span></td></tr>
+              <tr><td><b>Пятно 5</b> · оч.3</td><td>Нурлан С.</td><td><span class="chk">✓ активирован</span></td><td>Айдос Ж.</td><td>—</td><td><span class="no">ожидается</span></td></tr>
+              <tr><td><b>Пятно 6</b> · оч.3</td><td>Нурлан С.</td><td><span class="chk">✓ активирован</span></td><td>Айдос Ж.</td><td>—</td><td><span class="no">ожидается</span></td></tr>
+              <tr><td><b>Пятно 7</b> · оч.4</td><td>Қанат М.</td><td><span class="no">не активирован</span></td><td>Айдос Ж.</td><td>—</td><td><span class="no">ожидается</span></td></tr>
+              <tr><td><b>Пятно 8</b> · оч.4</td><td>Қанат М.</td><td><span class="no">не активирован</span></td><td>Айдос Ж.</td><td>—</td><td><span class="no">ожидается</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note" style="margin-top:14px">Директор по строительству: <b style="color:var(--ink)">Олжас С.</b> · акцептует своды по всем 6 пятнам. Бот рассылает задания только активированным НУ.</div>
+      </section>
+
+      <!-- ===== ЖУРНАЛ ===== -->
+      <section class="view" id="v-jrnl">
+        <div class="note">Каждое изменение факта/подтверждения логируется (кто · когда · что) — доказательная база достоверности.</div>
+        <div class="tl">
+          <div class="ev"><span class="t">04.06 14:32</span><span class="ic i-dir">Д</span><div class="d"><b>Директор Олжас С.</b> акцептовал свод недели по Пятну 4 <div class="s">3 работы · готовность +5%</div></div></div>
+          <div class="ev"><span class="t">04.06 11:08</span><span class="ic i-act">⏱</span><div class="d"><b>Рэмбо:</b> принят АВР по «Фасад · П3» <div class="s">факт зафиксирован 26.05 → акт 04.06 · лаг 9 дн · подтверждение задним числом</div></div></div>
+          <div class="ev"><span class="t">03.06 14:20</span><span class="ic i-rp">Р</span><div class="d"><b>РП Марат К.</b> вернул «Видеонаблюдение · П3» Асхату <div class="s">причина: 0 движения 2 недели — проверить реальность</div></div></div>
+          <div class="ev"><span class="t">03.06 13:55</span><span class="ic i-rp">Р</span><div class="d"><b>РП Марат К.</b> подтвердил «Фасад · П3» 100% <div class="s">фото сверено · физпроверка на объекте</div></div></div>
+          <div class="ev"><span class="t">02.06 10:18</span><span class="ic i-nu">Н</span><div class="d"><b>НУ Асхат Б.</b> отметил «Озеленение · П3» 0% <div class="s">причина-код: «ждём смежников»</div></div></div>
+          <div class="ev"><span class="t">02.06 10:14</span><span class="ic i-nu">Н</span><div class="d"><b>НУ Асхат Б.</b> отметил «Монтаж лифтов · П3» 79 → 90% <div class="s">+11% · фото приложено</div></div></div>
+          <div class="ev"><span class="t">01.06 09:00</span><span class="ic i-bot">Ф</span><div class="d"><b>Флэш</b> разослал задания недели <div class="s">6 НУ · 18 активных работ · 12 застрявших (cold-start лимит)</div></div></div>
+        </div>
+      </section>
+
+      <!-- ===== ДАШБОРД ===== -->
+      <section class="view" id="v-dash">
+        <div class="note">Read-only дашборд ГПР (план/факт/отставание по всем работам) — встроен из существующего генератора. Открывается и отдельной ссылкой.</div>
+        <div class="frame"><iframe src="atamura_aura_gpr_dashboard.html" title="Дашборд ГПР Аура"></iframe></div>
+      </section>
+
+    </div>
+
+    <div class="foot2"><b>Мокап веб-панели для согласования</b> — не финальный UI. Кликай вкладки слева. Веб = пульт для РП / директора / PM; бот Флэш — для НУ в поле. Данные условные по ЖК «Аура». Имена НУ/РП вымышленные.</div>
+  </div>
+
+</div>
+
+<script>
+// plot cards
+const PLOTS=[
+  {id:3,q:2,plan:91,fact:84,act:2,late:15},{id:4,q:2,plan:91,fact:83,act:3,late:16},
+  {id:5,q:3,plan:10,fact:10,act:2,late:1},{id:6,q:3,plan:10,fact:10,act:2,late:1},
+  {id:7,q:4,plan:10,fact:10,act:1,late:1},{id:8,q:4,plan:10,fact:10,act:0,late:1},
+];
+const col=v=>v>=80?'#1f9d57':v>=40?'#e0922f':'#2c7fc4';
+document.getElementById('plots').innerHTML=PLOTS.map(p=>{
+  const gap=p.plan-p.fact;
+  return `<div class="plot"><div class="ph"><div><div class="pn">Пятно ${p.id}</div></div><div class="pq">${p.q}-я очередь</div></div>
+    <div class="bar"><div class="fill" style="width:${p.plan}%;background:#cdd9e3"></div></div>
+    <div class="bar" style="margin-top:-12px;background:transparent"><div class="fill" style="width:${p.fact}%;background:${col(p.fact)}"></div></div>
+    <div class="barlab"><span>факт <b style="color:${col(p.fact)}">${p.fact}%</b></span><span>план ${p.plan}% · разрыв −${gap}</span></div>
+    <div class="st"><span class="act">активных: <b>${p.act}</b></span><span class="late">просрочено: <b>${p.late}</b></span></div></div>`;
+}).join('');
+
+// nav
+const nav=document.getElementById('nav'), ttl=document.getElementById('ttl');
+nav.addEventListener('click',e=>{
+  const a=e.target.closest('a'); if(!a)return;
+  nav.querySelectorAll('a').forEach(x=>x.classList.remove('on')); a.classList.add('on');
+  document.querySelectorAll('.view').forEach(s=>s.classList.remove('on'));
+  document.getElementById('v-'+a.dataset.v).classList.add('on');
+  ttl.textContent=a.dataset.t;
+  window.scrollTo(0,0);
+});
+</script>
+</body>
+</html>
