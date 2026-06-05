@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#284157">
-<title>ATLAS · экран начальника участка (упрощённый мокап)</title>
+<title>ATLAS · экран начальника участка</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F7F5EE;--card:#FBFBFB;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;--line:#E0DDD3;
+  --bg:#F7F5EE;--card:#FBFBFB;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;--line:#E0DDD3;--line2:#ECEAE2;
   --accent:#007484;--accent-d:#005763;--accent-soft:#E0EEF0;--navy:#284157;--gold:#CFB372;--gold-d:#A88E48;
   --green:#2E8F5B;--green-bg:#E8F2EA;--amber:#C98A2C;--amber-bg:#F4EAD4;--red:#C8554C;--red-bg:#F6E7E2;
   --shadow:0 10px 30px -16px rgba(40,65,87,.45);
@@ -21,55 +21,51 @@ body{font-family:'Jost','Futura PT',-apple-system,'Segoe UI',sans-serif;backgrou
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:12px}
 .tnum{font-variant-numeric:tabular-nums}
-.wrap{max-width:1060px;margin:0 auto;padding:0 14px 40px}
-.grid{display:grid;grid-template-columns:1fr;gap:0 26px}
-@media(min-width:860px){.grid{grid-template-columns:1.18fr 1fr;align-items:start}.col-main,.col-side{min-width:0}}
+.wrap{max-width:980px;margin:0 auto;padding:0 14px 44px}
 
-.top{position:sticky;top:0;z-index:10;background:rgba(247,245,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin:0 -14px 16px;padding:12px 18px;display:flex;align-items:center;gap:12px}
+/* header */
+.top{position:sticky;top:0;z-index:10;background:rgba(247,245,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin:0 -14px 14px;padding:12px 18px;display:flex;align-items:center;gap:12px}
 .top .lg{width:34px;height:34px;border-radius:9px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;font-family:'Cormorant',Georgia,serif;flex:none;box-shadow:inset 0 0 0 1px rgba(207,179,114,.4)}
 .top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:21px;color:var(--navy);line-height:1}
-.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:var(--mut);font-weight:500;letter-spacing:0}
+.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:var(--mut);font-weight:500}
 .top .me{margin-left:auto;display:flex;align-items:center;gap:9px}
 .top .me .who{text-align:right;font-size:12px;font-weight:700;line-height:1.1}
 .top .me .who small{display:block;font-weight:500;color:var(--mut);font-size:10.5px}
 .top .me .av{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:none}
 
 .lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin:22px 4px 11px}
-.lbl .n{margin-left:auto;font-weight:700;color:var(--accent-d);text-transform:none;letter-spacing:0;font-size:12.5px}
+.lbl .n{margin-left:auto;font-weight:600;color:var(--accent-d);text-transform:none;letter-spacing:0;font-size:12.5px}
+.obschip{display:inline-block;font-size:11px;color:var(--amber);background:var(--amber-bg);border:1px solid #f0dcb4;border-radius:999px;padding:4px 11px;font-weight:600;margin-bottom:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 2px rgba(30,30,30,.04)}
 
-/* hero: что отметить */
-.work{background:var(--card);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
-.work .hd{padding:18px 20px 0}
-.wtag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;border-radius:999px;padding:4px 11px;margin-bottom:10px}
-.wtag.work-on{background:var(--accent-soft);color:var(--accent-d)}
-.wtag.late{background:var(--red-bg);color:var(--red)}
-.wname{font-size:23px;font-weight:700;letter-spacing:-.01em;line-height:1.1}
-.wmeta{font-size:14px;color:var(--mut);font-weight:600;margin-top:5px}
-.wplan{display:flex;align-items:baseline;gap:8px;margin:14px 20px 0;font-size:13px;color:var(--mut);font-weight:600}
-/* план vs факт по ГПР */
-.gpr{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:15px 18px;margin-bottom:8px}
+/* цикл недели */
+.cycle{display:flex;align-items:stretch;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:7px;box-shadow:0 1px 2px rgba(30,30,30,.04);overflow:hidden}
+.cstep{flex:1;text-align:center;padding:9px 6px;border-radius:9px;font-size:11.5px;color:var(--faint);min-width:0}
+.cstep b{display:block;font-size:12.5px;color:var(--mut);font-weight:700;margin-bottom:1px}
+.cstep.done{color:var(--green)}.cstep.done b{color:var(--green)}
+.cstep.now{background:var(--accent-soft);color:var(--accent-d)}.cstep.now b{color:var(--accent-d)}
+
+/* ГПР план/факт */
 .gpr-hd{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:11px}
-.gpr-hd .gt{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--faint)}
 .gpr-hd .gtot{font-size:14px;font-weight:600;color:var(--mut)}
-.gpr-hd .gtot b{color:var(--ink);font-weight:800}
-.gpr-hd .gtot .lag{color:var(--red);font-weight:800}
+.gpr-hd .gtot b{color:var(--ink);font-weight:800}.gpr-hd .gtot .lag{color:var(--red);font-weight:800}
+.gpr-body{padding:15px 18px}
 .grow2{display:flex;align-items:center;gap:11px;padding:5px 0}
-.grow2 .gn{flex:none;width:124px;font-size:13px;font-weight:600}
+.grow2 .gn{flex:none;width:130px;font-size:13px;font-weight:600}
 .grow2 .gbar{flex:1;height:9px;border-radius:6px;background:#e8eef3;position:relative;min-width:0}
 .grow2 .gbar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
 .grow2 .gbar .pm{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--navy)}
-.grow2 .gv{flex:none;width:86px;text-align:right;font-size:12.5px;font-weight:700;color:var(--mut);font-variant-numeric:tabular-nums}
+.grow2 .gv{flex:none;width:90px;text-align:right;font-size:12.5px;font-weight:700;color:var(--mut)}
 .grow2 .gv b{color:var(--red)}
 .gpr-lg{font-size:11px;color:var(--faint);font-weight:600;margin-top:9px}
-.pfbar{height:7px;border-radius:5px;background:#e8eef3;position:relative;margin:9px 20px 0}
-.pfbar i{display:block;height:100%;border-radius:5px;background:var(--accent)}
-.pfbar .pm{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--navy);border-radius:1px}
-/* канбан «мои работы» */
-.kan{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:8px}
+
+/* канбан */
+.kan{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
 .kcol{background:#edefea;border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:8px;min-width:0}
 .kcol .kh{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);display:flex;justify-content:space-between;padding:3px 4px}
 .kcol .kh .c{color:var(--faint)}
-.kc{background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 12px}
+.kc{background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 12px;cursor:pointer}
+.kc:active{transform:translateY(1px)}
 .kc .kt{font-size:13px;font-weight:700;line-height:1.25}
 .kc .km{font-size:11px;color:var(--faint);font-weight:600;margin-top:3px}
 .kc .kp{display:flex;align-items:center;justify-content:space-between;margin-top:9px;gap:6px}
@@ -77,64 +73,54 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .kc .ktag{font-size:10px;font-weight:700;border-radius:6px;padding:2px 7px;white-space:nowrap}
 .kc.late{border-color:#e9c3bb}.kc.late .ktag{background:var(--red-bg);color:var(--red)}
 .kc.done{border-color:#bfe0cc}.kc.done .kpct{color:var(--green)}.kc.done .ktag{background:var(--green-bg);color:var(--green)}
-@media(max-width:640px){.kan{grid-template-columns:1fr}}
-.wplan .cur{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
-.wplan .cur small{font-size:15px;color:var(--faint)}
-.ask{font-size:14px;font-weight:700;margin:16px 20px 9px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 20px}
-.chip{padding:13px 0;border-radius:13px;font-weight:800;font-size:15px;border:1.5px solid var(--line);background:#fff;color:var(--ink);flex:1;min-width:62px;text-align:center}
-.chip:active{transform:translateY(1px)}
-.chip.done{flex-basis:100%;border-color:#bfe0cc;color:var(--green);background:var(--green-bg)}
-.chip.stuck{flex-basis:100%;border-color:#e9c3bb;color:var(--red)}
-.chip.stuck:active{background:var(--red-bg)}
-.sub2{font-size:12px;color:var(--faint);text-align:center;padding:11px 20px 20px;font-weight:600}
-/* причина / фото после выбора */
-.after{padding:4px 20px 20px}
-.after .q{font-size:13.5px;font-weight:700;margin-bottom:10px}
-.reasons{display:flex;flex-wrap:wrap;gap:7px}
-.reason{font-size:13px;font-weight:600;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;color:var(--ink)}
-.reason:active{background:var(--red-bg);border-color:#e9c3bb}
-.photo{display:flex;align-items:center;gap:11px;background:var(--green-bg);border:1px solid #bfe0cc;border-radius:14px;padding:14px 16px;font-weight:700;color:var(--green);font-size:14px}
-.photo .e{font-size:22px}
-.savebtn{display:block;width:calc(100% - 40px);margin:14px 20px 4px;background:var(--accent);color:#fff;font-weight:800;font-size:16px;padding:15px;border-radius:14px;text-align:center}
-.savebtn:active{background:var(--accent-d)}
-.done-all{padding:34px 22px;text-align:center}
-.done-all .e{font-size:42px}
-.done-all .t{font-size:19px;font-weight:800;margin:8px 0 5px}
-.done-all .s{font-size:14px;color:var(--mut);font-weight:600;line-height:1.5}
+.kmark{margin-top:10px;padding-top:10px;border-top:1px solid var(--line2);display:flex;flex-wrap:wrap;gap:6px}
+.chip{flex:1;min-width:54px;padding:9px 0;border-radius:9px;font-weight:800;font-size:13px;border:1.5px solid var(--line);background:#fff;text-align:center}
+.chip.ok{flex-basis:100%;border-color:#bfe0cc;color:var(--green);background:var(--green-bg)}
+.chip.stk{flex-basis:100%;border-color:#e9c3bb;color:var(--red)}
+.kc .saved{margin-top:9px;font-size:12px;font-weight:700;color:var(--green)}
 
-/* моя неделя */
-.week{background:linear-gradient(135deg,#2f4a63,var(--navy));color:#fff;border-radius:20px;padding:20px;box-shadow:var(--shadow)}
-.week .cap{font-size:12.5px;font-weight:700;color:#9fc0d6;text-transform:uppercase;letter-spacing:.05em}
-.week .big{font-size:27px;font-weight:800;letter-spacing:-.01em;margin:3px 0 1px}
-.week .big b{color:var(--gold)}
-.wbar{height:10px;border-radius:6px;background:rgba(255,255,255,.15);margin:13px 0 8px;overflow:hidden}
-.wbar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),#3fb6ac)}
-.wrow{display:flex;align-items:center;gap:9px;font-size:13px;color:#cfe0ec;font-weight:600;margin-top:11px}
-.wrow .badge{background:rgba(217,164,65,.16);border:1px solid rgba(207,179,114,.45);border-radius:999px;padding:5px 11px;font-weight:700;color:#fff}
-.wnote{font-size:11.5px;color:#9fc0d6;margin-top:13px;font-weight:600}
-
-/* что застряло */
-.stuck-list{background:var(--card);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
-.srow{display:flex;align-items:center;gap:13px;padding:15px 18px;border-bottom:1px solid var(--line)}
-.srow:last-child{border-bottom:none}
-.srow .dot{width:9px;height:9px;border-radius:50%;background:var(--red);flex:none}
-.srow .bd{flex:1;min-width:0}
-.srow .t{font-weight:700;font-size:14.5px}
-.srow .s{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:2px}
-.srow .tell{font-size:12.5px;font-weight:700;color:var(--accent-d);border:1.5px solid #b8d9dc;border-radius:999px;padding:8px 13px;white-space:nowrap}
-.srow .tell:active{background:var(--accent-soft)}
-/* что впереди — планирование */
-.ahead{background:var(--card);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
-.arow{display:flex;gap:13px;padding:13px 17px;border-bottom:1px solid var(--line)}
-.arow:last-child{border-bottom:none}
+/* что впереди */
+.ahead .arow{display:flex;gap:13px;padding:13px 17px;border-bottom:1px solid var(--line)}
+.ahead .arow:last-child{border-bottom:none}
 .arow .when{flex:none;width:66px;font-size:12.5px;font-weight:800;color:var(--accent-d);line-height:1.15}
 .arow .when small{display:block;font-weight:600;color:var(--faint);font-size:10px;margin-top:1px}
-.arow .bd{min-width:0}
-.arow .bd .t{font-weight:700;font-size:14.5px}
+.arow .bd .t{font-weight:700;font-size:14px}
 .arow .bd .prep{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:3px;line-height:1.4}
 .arow .bd .prep b{color:var(--ink)}
-.note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:18px;line-height:1.5}
+
+/* моя неделя · KPI */
+.kpi{padding:18px 20px}
+.ring{position:relative;width:78px;height:78px;float:left;margin:0 16px 8px 0}
+.ringv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ringv b{font-size:18px;font-weight:800}.ringv span{font-size:9.5px;color:var(--mut)}
+.kpi .t{font-weight:700;font-size:14px;margin-bottom:4px}.kpi .s{font-size:12.5px;color:var(--mut);line-height:1.5}.kpi .s b{color:var(--ink)}
+.track{height:11px;border-radius:7px;background:var(--line2);position:relative;margin:14px 0 7px;overflow:hidden}
+.track .fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:7px}
+.coef{font-size:12.5px;color:var(--mut);font-weight:600}.coef b{color:var(--ink)}
+.badges{display:grid;grid-template-columns:1fr;gap:8px;margin-top:14px}
+.bdg{border:1px solid var(--line);border-radius:11px;padding:10px 13px;font-size:13px;font-weight:700}
+.bdg span{display:block;font-size:11px;color:var(--faint);font-weight:500;margin-top:2px}
+.bdg.ok{border-color:#bfe0cc;background:var(--green-bg)}
+.formula{margin-top:14px;background:var(--bg);border-radius:11px;padding:12px 14px}
+.formula .frow{font-size:13px;color:var(--mut);font-weight:600;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.formula .b1{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:3px 8px;font-weight:700;color:var(--ink)}
+.formula .res{color:var(--gold-d);font-weight:800}
+.gates{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.gates span{font-size:11px;color:var(--green);background:var(--green-bg);border-radius:7px;padding:4px 9px;font-weight:600}
+.kpi .note2{font-size:11.5px;color:var(--faint);margin-top:11px;line-height:1.5;border-top:1px solid var(--line2);padding-top:10px}
+
+/* что застряло */
+.stuck-list .srow{display:flex;align-items:center;gap:13px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.stuck-list .srow:last-child{border-bottom:none}
+.srow .dot{width:9px;height:9px;border-radius:50%;background:var(--red);flex:none}
+.srow .dot.task{background:var(--gold)}
+.srow .bd{flex:1;min-width:0}.srow .t{font-weight:700;font-size:14px}.srow .s{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:2px}
+.srow .tell{font-size:12.5px;font-weight:700;color:var(--accent-d);border:1.5px solid #b8d9dc;border-radius:999px;padding:8px 13px;white-space:nowrap}
+
+.grid{display:grid;grid-template-columns:1fr;gap:0 26px}
+@media(min-width:860px){.grid{grid-template-columns:1fr 1fr;align-items:start}}
+.note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:20px;line-height:1.5}
+@media(max-width:640px){.kan{grid-template-columns:1fr}.cycle{flex-wrap:wrap}.cstep{flex-basis:46%}}
 </style>
 </head>
 <body>
@@ -146,11 +132,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <div class="me"><div class="who">Асхат Б.<small>НУ · Пятно 3</small></div><div class="av">А</div></div>
   </div>
 
-  <div class="gpr">
-    <div class="gpr-hd">
-      <div class="gt">ГПР участка · план / факт</div>
-      <div class="gtot">Пятно 3 · факт <b>84%</b> · план <b>91%</b> · <span class="lag">отставание −7%</span></div>
-    </div>
+  <span class="obschip" title="KPI считается, но на премию пока не влияет — включится в Фазе 2">наблюдательный режим</span>
+
+  <!-- ЦИКЛ НЕДЕЛИ -->
+  <div class="cycle">
+    <div class="cstep done"><b>Пн</b>задание выдано</div>
+    <div class="cstep done"><b>Вт–Чт</b>работа идёт</div>
+    <div class="cstep now"><b>Пт–Сб ›</b>отметить факт</div>
+    <div class="cstep"><b>Вс</b>недельный KPI</div>
+  </div>
+
+  <!-- ГПР ПЛАН/ФАКТ -->
+  <div class="lbl">ГПР участка · план / факт</div>
+  <div class="card gpr-body">
+    <div class="gpr-hd"><div class="gtot">Пятно 3 · факт <b>84%</b> · план <b>91%</b> · <span class="lag">отставание −7%</span></div></div>
     <div class="grow2"><span class="gn">Общестрой</span><span class="gbar"><i style="width:100%"></i><span class="pm" style="left:100%"></span></span><span class="gv">100 / 100</span></div>
     <div class="grow2"><span class="gn">Отделка</span><span class="gbar"><i style="width:100%"></i><span class="pm" style="left:100%"></span></span><span class="gv">100 / 100</span></div>
     <div class="grow2"><span class="gn">Инженерка</span><span class="gbar"><i style="width:86%"></i><span class="pm" style="left:95%"></span></span><span class="gv">86 / 95 <b>−9</b></span></div>
@@ -158,124 +153,97 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <div class="gpr-lg">Заливка = факт · ▎ метка = план по графику · красным — отставание</div>
   </div>
 
-  <!-- КАНБАН: мои работы по статусу -->
-  <div class="lbl">Мои работы · по статусу <span class="n">тап по карточке — отметить</span></div>
-  <div class="kan">
-    <div class="kcol"><div class="kh"><span>К выполнению</span><span class="c">2</span></div>
-      <div class="kc"><div class="kt">Стяжка полов · 6 эт.</div><div class="km">Отделка · своя бригада</div><div class="kp"><span class="kpct">0%</span></div></div>
-      <div class="kc"><div class="kt">Озеленение</div><div class="km">Благоустройство</div><div class="kp"><span class="kpct">0%</span></div></div>
-    </div>
-    <div class="kcol"><div class="kh"><span>В работе</span><span class="c">3</span></div>
-      <div class="kc late"><div class="kt">Монтаж лифтов</div><div class="km">Инженерка · ТОО ЛифтМонтаж</div><div class="kp"><span class="kpct">79%</span><span class="ktag late">−27 д</span></div></div>
-      <div class="kc"><div class="kt">Перегородки ГКЛ · 6 эт.</div><div class="km">Отделка</div><div class="kp"><span class="kpct">25%</span></div></div>
-      <div class="kc stuck late"><div class="kt">Видеонаблюдение</div><div class="km">Инженерка · подрядчик</div><div class="kp"><span class="kpct">67%</span><span class="ktag late">стоит</span></div></div>
-    </div>
-    <div class="kcol"><div class="kh"><span>Сделано</span><span class="c">2</span></div>
-      <div class="kc done"><div class="kt">Фасад</div><div class="km">Общестрой · ИП Дана</div><div class="kp"><span class="kpct">100%</span><span class="ktag done">✓</span></div></div>
-      <div class="kc done"><div class="kt">Монтаж окон</div><div class="km">Отделка · ТОО Окна</div><div class="kp"><span class="kpct">100%</span><span class="ktag done">✓</span></div></div>
-    </div>
-  </div>
+  <!-- КАНБАН: отметка факта -->
+  <div class="lbl">Мои работы · отметить факт <span class="n" id="kleft">тап по карточке → %</span></div>
+  <div class="kan" id="kan"></div>
 
   <div class="grid">
-  <div class="col-main">
-  <!-- 1. ЧТО ОТМЕТИТЬ -->
-  <div class="lbl">Отметить факт · пятница <span class="n" id="left">осталось 5</span></div>
-  <div class="work" id="work"></div>
+    <div class="col-a">
+      <!-- ЧТО ВПЕРЕДИ -->
+      <div class="lbl">Что впереди · подготовить</div>
+      <div class="card ahead">
+        <div class="arow"><div class="when">с 10.06<small>через нед.</small></div><div class="bd"><div class="t">Перегородки ГКЛ · 7–8 эт.</div><div class="prep">подготовить: <b>материал ГКЛ + бригада</b></div></div></div>
+        <div class="arow"><div class="when">с 16.06</div><div class="bd"><div class="t">Стяжка полов · 6–8 эт.</div><div class="prep">нужен <b>фронт от каркаса</b> — проверить с РП</div></div></div>
+        <div class="arow"><div class="when">с 24.06</div><div class="bd"><div class="t">Благоустройство: бордюры, брусчатка</div><div class="prep">заранее: <b>подрядчик + вывоз грунта</b></div></div></div>
+        <div class="arow"><div class="when">июль</div><div class="bd"><div class="t">Озеленение, МАФы</div><div class="prep">подать <b>заявку на материалы</b> уже сейчас</div></div></div>
+      </div>
 
-  <!-- 1b. ЧТО ВПЕРЕДИ -->
-  <div class="lbl">Что впереди · подготовить</div>
-  <div class="ahead">
-    <div class="arow"><div class="when">с 10.06<small>через нед.</small></div><div class="bd"><div class="t">Перегородки ГКЛ · 7–8 эт.</div><div class="prep">подготовить: <b>материал ГКЛ + бригада</b></div></div></div>
-    <div class="arow"><div class="when">с 16.06</div><div class="bd"><div class="t">Стяжка полов · 6–8 эт.</div><div class="prep">нужен <b>фронт от каркаса</b> — проверить с РП</div></div></div>
-    <div class="arow"><div class="when">с 24.06</div><div class="bd"><div class="t">Благоустройство: бордюры, брусчатка</div><div class="prep">заранее: <b>подрядчик + вывоз грунта</b></div></div></div>
-    <div class="arow"><div class="when">июль</div><div class="bd"><div class="t">Озеленение, МАФы</div><div class="prep">подать <b>заявку на материалы</b> уже сейчас</div></div></div>
-  </div>
+      <!-- ЧТО ЗАСТРЯЛО -->
+      <div class="lbl">Что застряло · нужно решить</div>
+      <div class="card stuck-list">
+        <div class="srow"><span class="dot"></span><div class="bd"><div class="t">Видеонаблюдение — стоит 2 недели</div><div class="s">подрядчик не вышел · фронт готов</div></div><button class="tell">Сообщить РП</button></div>
+        <div class="srow"><span class="dot"></span><div class="bd"><div class="t">Монтаж лифтов — нужен фронт</div><div class="s">ждём смежников по шахте</div></div><button class="tell">Сообщить РП</button></div>
+        <div class="srow"><span class="dot task"></span><div class="bd"><div class="t">Поручение РП: подготовить фронт под лифты к 10.06</div><div class="s">с планёрки 01.06</div></div><button class="tell">Взять</button></div>
+      </div>
+    </div>
+
+    <div class="col-b">
+      <!-- МОЯ НЕДЕЛЯ · KPI -->
+      <div class="lbl">Моя неделя · KPI</div>
+      <div class="card kpi">
+        <div class="ring"><svg viewBox="0 0 78 78" width="78" height="78" aria-hidden="true"><circle cx="39" cy="39" r="33" fill="none" stroke="#e6ebf1" stroke-width="8"/><circle cx="39" cy="39" r="33" fill="none" stroke="var(--green)" stroke-width="8" stroke-linecap="round" stroke-dasharray="207" stroke-dashoffset="29" transform="rotate(-90 39 39)"/></svg><div class="ringv"><b class="tnum">86%</b><span>неделя</span></div></div>
+        <div class="t">Недельный KPI · исполнение задания</div>
+        <div class="s">Закрытый выданный фронт в срок. Осталось закрыть <b>2 работы</b> до 100% недели.</div>
+        <div class="track"><div class="fill" style="width:72%"></div></div>
+        <div class="coef">Месяц <b>72% → 100%</b> даёт коэффициент <b>×1.2</b>. Перевыполнение объёмом сверх 100% не премируется (кап).</div>
+        <div class="badges">
+          <div class="bdg">🔥 Серия: <b>4 недели</b> подряд ≥85%<span>считается по подтверждённому РП факту, не по самоотметке</span></div>
+          <div class="bdg">🏗 Грейд: <b>Специалист</b><span>до «Старшего» — стабильный KPI ещё ~2 мес</span></div>
+          <div class="bdg ok">✓ Качество <b>×1.0</b><span>0 дефектов класса A — премия не урезана</span></div>
+        </div>
+        <div class="formula">
+          <div class="frow"><span class="b1">Пул недели</span> × <span class="b1">KPI 0.86</span> × <span class="b1">качество 1.0</span> = <span class="res">наблюдательно (деньги — Фаза 2)</span></div>
+          <div class="gates"><span>✓ дефекты A: нет</span><span>✓ отчётность достоверна</span><span>✓ ОТиТБ чисто</span></div>
+        </div>
+        <div class="note2">Считается только то, чем ты управляешь: закрытый фронт в срок и качество в своей зоне. Простой не по твоей вине и срыв из-за чужого подряда — по коду причины, премию <b>не режут</b>. Оклад не трогается (≥75%) — премия зарабатывается, это не штраф.</div>
+      </div>
+    </div>
   </div>
 
-  <div class="col-side">
-  <!-- 2. МОЯ НЕДЕЛЯ -->
-  <div class="lbl">Моя неделя</div>
-  <div class="week">
-    <div class="cap">Выполнено из задания недели</div>
-    <div class="big tnum"><b id="wdone">6</b> из 8 работ</div>
-    <div class="wbar"><i id="wfill" style="width:75%"></i></div>
-    <div class="wrow"><span class="badge">недельный KPI 86%</span><span>🔥 серия 4 недели ≥85%</span></div>
-    <div class="wnote">Наблюдательно — на премию пока не влияет. В Фазе 2 это твоя премия за неделю.</div>
-  </div>
-
-  <!-- 3. ЧТО ЗАСТРЯЛО -->
-  <div class="lbl">Что застряло · нужно решить</div>
-  <div class="stuck-list">
-    <div class="srow"><span class="dot"></span><div class="bd"><div class="t">Видеонаблюдение — стоит 2 недели</div><div class="s">подрядчик не вышел · фронт готов</div></div><button class="tell">Сообщить РП</button></div>
-    <div class="srow"><span class="dot"></span><div class="bd"><div class="t">Монтаж лифтов — нужен фронт</div><div class="s">ждём смежников по шахте</div></div><button class="tell">Сообщить РП</button></div>
-  </div>
-  </div><!-- /col-side -->
-  </div><!-- /grid -->
-
-  <div class="note">Упрощённый мокап экрана начальника участка (НУ) — он отмечает факт по всему участку. Данные условные по ЖК «Аура», Пятно 3.</div>
+  <div class="note">Экран начальника участка — он отмечает факт по всему участку. Данные условные по ЖК «Аура», Пятно 3.</div>
 </div>
 
 <script>
-// активные работы недели для отметки (НУ, Пятно 3) — демо
 const WORKS=[
-  {name:'Монтаж лифтов',sec:'Инженерка · ТОО ЛифтМонтаж',plan:'план 100% к 16.04',cur:79,planNow:90,late:'−27 дн'},
-  {name:'Отопление',sec:'Инженерка · ИП Жылу',plan:'план 100% к 27.03',cur:94,planNow:97},
-  {name:'Перегородки ГКЛ · 6 этаж',sec:'Отделка · своя бригада',plan:'к 20.03',cur:25,planNow:30},
-  {name:'Видеонаблюдение',sec:'Инженерка · подрядчик',plan:'к 11.04',cur:67,planNow:95,stuck:true},
-  {name:'Фасад',sec:'Общестрой · ИП Дана',plan:'к 20.01',cur:93,planNow:100},
+  {name:'Стяжка полов · 6 эт.',sec:'Отделка · своя бригада',cur:0,col:'todo'},
+  {name:'Озеленение',sec:'Благоустройство',cur:0,col:'todo'},
+  {name:'Монтаж лифтов',sec:'Инженерка · ТОО ЛифтМонтаж',cur:79,col:'prog',tag:'−27 д',late:1},
+  {name:'Перегородки ГКЛ · 6 эт.',sec:'Отделка',cur:25,col:'prog'},
+  {name:'Видеонаблюдение',sec:'Инженерка · подрядчик',cur:67,col:'prog',tag:'стоит',late:1},
+  {name:'Фасад',sec:'Общестрой · ИП Дана',cur:100,col:'done'},
+  {name:'Монтаж окон',sec:'Отделка · ТОО Окна',cur:100,col:'done'},
 ];
-let i=0;
-const el=document.getElementById('work'),left=document.getElementById('left');
-function chipsFor(c){
-  // ближайшие шаги % вверх от текущего + готово + стоит
-  let opts=[];
-  for(let v=Math.ceil((c.cur+1)/5)*5; v<100 && opts.length<3; v+=5) opts.push(v);
-  let h=opts.map(v=>`<button class="chip" onclick="pick(${v})">${v}%</button>`).join('');
-  h+=`<button class="chip done" onclick="pick(100)">✓ Готово · 100%</button>`;
-  h+=`<button class="chip stuck" onclick="stuck()">⚠ Стоит · нет движения</button>`;
-  return h;
+const COLS=[['todo','К выполнению'],['prog','В работе'],['done','Сделано']];
+let openIdx=null;
+function chips(idx,cur){
+  let opts=[];for(let v=Math.ceil((cur+1)/5)*5; v<100 && opts.length<3; v+=5) opts.push(v);
+  return opts.map(v=>`<button class="chip" onclick="mark(event,${idx},${v})">${v}%</button>`).join('')
+    +`<button class="chip ok" onclick="mark(event,${idx},100)">✓ Готово 100%</button>`
+    +`<button class="chip stk" onclick="mark(event,${idx},-1)">⚠ Стоит · причина</button>`;
 }
-function render(){
-  if(i>=WORKS.length){
-    el.innerHTML=`<div class="done-all"><div class="e">✓</div><div class="t">Задание на неделю отмечено</div><div class="s">РП подтвердит факт — придёт уведомление. Спасибо!</div></div>`;
-    left.textContent='готово';return;
-  }
-  const c=WORKS[i];
-  left.textContent='осталось '+(WORKS.length-i);
-  el.innerHTML=`
-    <div class="hd">
-      <span class="wtag ${c.late?'late':'work-on'}">${c.late?'⚠ просрочка '+c.late:'в работе'}</span>
-      <div class="wname">${c.name}</div>
-      <div class="wmeta">${c.sec}</div>
-    </div>
-    <div class="wplan"><span class="cur tnum">${c.cur}<small>%</small></span><span>факт · по графику сегодня <b>${c.planNow}%</b>${c.cur<c.planNow?` · <b style="color:var(--red)">отставание −${c.planNow-c.cur}%</b>`:` · <b style="color:var(--green)">в графике</b>`}</span></div>
-    <div class="pfbar"><i style="width:${c.cur}%"></i><span class="pm" style="left:${c.planNow}%"></span></div>
-    <div class="ask">Сколько готово сейчас?</div>
-    <div class="chips" id="chips">${chipsFor(c)}</div>
-    <div class="sub2">Жми кнопку — клавиатура не нужна</div>`;
+function card(w,idx){
+  const tag = w.saved?`<span class="ktag done">отмечено ✓</span>`:(w.tag?`<span class="ktag late">${w.tag}</span>`:(w.col==='done'?`<span class="ktag done">✓</span>`:''));
+  const mk = openIdx===idx?`<div class="kmark">${chips(idx,w.cur)}</div>`:'';
+  return `<div class="kc ${w.col}${w.late?' late':''}" onclick="openCard(${idx})">
+    <div class="kt">${w.name}</div><div class="km">${w.sec}</div>
+    <div class="kp"><span class="kpct">${w.cur}%</span>${tag}</div>${mk}</div>`;
 }
-function pick(v){
-  const c=WORKS[i];
-  let extra = v>=100
-    ? `<div class="photo"><span class="e">📷</span>Для 100% приложи фото — нажми «Сохранить»</div>`
-    : `<div class="q">Отметить <b>${c.name}</b>: ${c.cur}% → <b style="color:var(--accent-d)">${v}%</b></div>`;
-  document.getElementById('chips').outerHTML=`<div class="after">${extra}<button class="savebtn" onclick="next()">Сохранить и дальше →</button></div>`;
-  document.querySelector('.sub2')?.remove();
+function renderKan(){
+  document.getElementById('kan').innerHTML=COLS.map(([key,title])=>{
+    const items=WORKS.map((w,idx)=>({w,idx})).filter(o=>o.w.col===key);
+    return `<div class="kcol"><div class="kh"><span>${title}</span><span class="c">${items.length}</span></div>${items.map(({w,idx})=>card(w,idx)).join('')}</div>`;
+  }).join('');
 }
-function stuck(){
-  document.getElementById('chips').outerHTML=`<div class="after"><div class="q">Почему стоит? (отметь причину — уйдёт РП)</div>
-    <div class="reasons">
-      <button class="reason" onclick="next()">нет фронта</button>
-      <button class="reason" onclick="next()">нет материала</button>
-      <button class="reason" onclick="next()">нет людей/подрядчика</button>
-      <button class="reason" onclick="next()">нет проекта/ПТО</button>
-      <button class="reason" onclick="next()">погода</button>
-      <button class="reason" onclick="next()">не моя работа</button>
-    </div><button class="savebtn" onclick="next()">Сохранить и дальше →</button></div>`;
-  document.querySelector('.sub2')?.remove();
+function openCard(idx){openIdx=(openIdx===idx?null:idx);renderKan();}
+function mark(e,idx,v){
+  e.stopPropagation();
+  const w=WORKS[idx];
+  if(v===-1){w.saved=true;openIdx=null;renderKan();return;}
+  w.cur=v;w.saved=true;w.tag=null;w.late=0;
+  w.col = v>=100?'done':'prog';
+  openIdx=null;renderKan();
 }
-function next(){i++;render();window.scrollTo({top:0,behavior:'smooth'});}
-render();
+renderKan();
 </script>
 </body>
 </html>
