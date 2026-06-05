@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#284157">
+<title>ATLAS · экран прораба (упрощённый мокап)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE;--card:#FBFBFB;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;--line:#E0DDD3;
+  --accent:#007484;--accent-d:#005763;--accent-soft:#E0EEF0;--navy:#284157;--gold:#CFB372;--gold-d:#A88E48;
+  --green:#2E8F5B;--green-bg:#E8F2EA;--amber:#C98A2C;--amber-bg:#F4EAD4;--red:#C8554C;--red-bg:#F6E7E2;
+  --shadow:0 10px 30px -16px rgba(40,65,87,.45);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{color-scheme:light}
+body{font-family:'Jost','Futura PT',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;-webkit-tap-highlight-color:transparent;font-feature-settings:"ss03","cv11"}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:12px}
+.tnum{font-variant-numeric:tabular-nums}
+.wrap{max-width:560px;margin:0 auto;padding:0 14px 40px}
+
+.top{position:sticky;top:0;z-index:10;background:rgba(247,245,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin:0 -14px 16px;padding:12px 18px;display:flex;align-items:center;gap:12px}
+.top .lg{width:34px;height:34px;border-radius:9px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;font-family:'Cormorant',Georgia,serif;flex:none;box-shadow:inset 0 0 0 1px rgba(207,179,114,.4)}
+.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:21px;color:var(--navy);line-height:1}
+.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:var(--mut);font-weight:500;letter-spacing:0}
+.top .me{margin-left:auto;display:flex;align-items:center;gap:9px}
+.top .me .who{text-align:right;font-size:12px;font-weight:700;line-height:1.1}
+.top .me .who small{display:block;font-weight:500;color:var(--mut);font-size:10.5px}
+.top .me .av{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:none}
+
+.lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin:22px 4px 11px}
+.lbl .n{margin-left:auto;font-weight:700;color:var(--accent-d);text-transform:none;letter-spacing:0;font-size:12.5px}
+
+/* hero: что отметить */
+.work{background:var(--card);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.work .hd{padding:18px 20px 0}
+.wtag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;border-radius:999px;padding:4px 11px;margin-bottom:10px}
+.wtag.work-on{background:var(--accent-soft);color:var(--accent-d)}
+.wtag.late{background:var(--red-bg);color:var(--red)}
+.wname{font-size:23px;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.wmeta{font-size:14px;color:var(--mut);font-weight:600;margin-top:5px}
+.wplan{display:flex;align-items:baseline;gap:8px;margin:14px 20px 0;font-size:13px;color:var(--mut);font-weight:600}
+.wplan .cur{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
+.wplan .cur small{font-size:15px;color:var(--faint)}
+.ask{font-size:14px;font-weight:700;margin:16px 20px 9px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 20px}
+.chip{padding:13px 0;border-radius:13px;font-weight:800;font-size:15px;border:1.5px solid var(--line);background:#fff;color:var(--ink);flex:1;min-width:62px;text-align:center}
+.chip:active{transform:translateY(1px)}
+.chip.done{flex-basis:100%;border-color:#bfe0cc;color:var(--green);background:var(--green-bg)}
+.chip.stuck{flex-basis:100%;border-color:#e9c3bb;color:var(--red)}
+.chip.stuck:active{background:var(--red-bg)}
+.sub2{font-size:12px;color:var(--faint);text-align:center;padding:11px 20px 20px;font-weight:600}
+/* причина / фото после выбора */
+.after{padding:4px 20px 20px}
+.after .q{font-size:13.5px;font-weight:700;margin-bottom:10px}
+.reasons{display:flex;flex-wrap:wrap;gap:7px}
+.reason{font-size:13px;font-weight:600;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:9px 13px;color:var(--ink)}
+.reason:active{background:var(--red-bg);border-color:#e9c3bb}
+.photo{display:flex;align-items:center;gap:11px;background:var(--green-bg);border:1px solid #bfe0cc;border-radius:14px;padding:14px 16px;font-weight:700;color:var(--green);font-size:14px}
+.photo .e{font-size:22px}
+.savebtn{display:block;width:calc(100% - 40px);margin:14px 20px 4px;background:var(--accent);color:#fff;font-weight:800;font-size:16px;padding:15px;border-radius:14px;text-align:center}
+.savebtn:active{background:var(--accent-d)}
+.done-all{padding:34px 22px;text-align:center}
+.done-all .e{font-size:42px}
+.done-all .t{font-size:19px;font-weight:800;margin:8px 0 5px}
+.done-all .s{font-size:14px;color:var(--mut);font-weight:600;line-height:1.5}
+
+/* моя неделя */
+.week{background:linear-gradient(135deg,#2f4a63,var(--navy));color:#fff;border-radius:20px;padding:20px;box-shadow:var(--shadow)}
+.week .cap{font-size:12.5px;font-weight:700;color:#9fc0d6;text-transform:uppercase;letter-spacing:.05em}
+.week .big{font-size:27px;font-weight:800;letter-spacing:-.01em;margin:3px 0 1px}
+.week .big b{color:var(--gold)}
+.wbar{height:10px;border-radius:6px;background:rgba(255,255,255,.15);margin:13px 0 8px;overflow:hidden}
+.wbar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),#3fb6ac)}
+.wrow{display:flex;align-items:center;gap:9px;font-size:13px;color:#cfe0ec;font-weight:600;margin-top:11px}
+.wrow .badge{background:rgba(217,164,65,.16);border:1px solid rgba(207,179,114,.45);border-radius:999px;padding:5px 11px;font-weight:700;color:#fff}
+.wnote{font-size:11.5px;color:#9fc0d6;margin-top:13px;font-weight:600}
+
+/* что застряло */
+.stuck-list{background:var(--card);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.srow{display:flex;align-items:center;gap:13px;padding:15px 18px;border-bottom:1px solid var(--line)}
+.srow:last-child{border-bottom:none}
+.srow .dot{width:9px;height:9px;border-radius:50%;background:var(--red);flex:none}
+.srow .bd{flex:1;min-width:0}
+.srow .t{font-weight:700;font-size:14.5px}
+.srow .s{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:2px}
+.srow .tell{font-size:12.5px;font-weight:700;color:var(--accent-d);border:1.5px solid #b8d9dc;border-radius:999px;padding:8px 13px;white-space:nowrap}
+.srow .tell:active{background:var(--accent-soft)}
+.note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:18px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="lg">A</div>
+    <div class="nm">ATLAS<small>моё задание · стройка</small></div>
+    <div class="me"><div class="who">Асхат Б.<small>НУ · Пятно 3</small></div><div class="av">А</div></div>
+  </div>
+
+  <!-- 1. ЧТО ОТМЕТИТЬ -->
+  <div class="lbl">Отметить факт · пятница <span class="n" id="left">осталось 5</span></div>
+  <div class="work" id="work"></div>
+
+  <!-- 2. МОЯ НЕДЕЛЯ -->
+  <div class="lbl">Моя неделя</div>
+  <div class="week">
+    <div class="cap">Выполнено из задания недели</div>
+    <div class="big tnum"><b id="wdone">6</b> из 8 работ</div>
+    <div class="wbar"><i id="wfill" style="width:75%"></i></div>
+    <div class="wrow"><span class="badge">недельный KPI 86%</span><span>🔥 серия 4 недели ≥85%</span></div>
+    <div class="wnote">Наблюдательно — на премию пока не влияет. В Фазе 2 это твоя премия за неделю.</div>
+  </div>
+
+  <!-- 3. ЧТО ЗАСТРЯЛО -->
+  <div class="lbl">Что застряло · нужно решить</div>
+  <div class="stuck-list">
+    <div class="srow"><span class="dot"></span><div class="bd"><div class="t">Видеонаблюдение — стоит 2 недели</div><div class="s">подрядчик не вышел · фронт готов</div></div><button class="tell">Сообщить РП</button></div>
+    <div class="srow"><span class="dot"></span><div class="bd"><div class="t">Монтаж лифтов — нужен фронт</div><div class="s">ждём смежников по шахте</div></div><button class="tell">Сообщить РП</button></div>
+  </div>
+
+  <div class="note">Упрощённый мокап экрана прораба/НУ. Данные условные по ЖК «Аура», Пятно 3.</div>
+</div>
+
+<script>
+// активные работы недели для отметки (НУ, Пятно 3) — демо
+const WORKS=[
+  {name:'Монтаж лифтов',sec:'Инженерка · ТОО ЛифтМонтаж',plan:'план 100% к 16.04',cur:79,late:'−27 дн'},
+  {name:'Отопление',sec:'Инженерка · ИП Жылу',plan:'план 100% к 27.03',cur:94},
+  {name:'Перегородки ГКЛ · 6 этаж',sec:'Отделка · своя бригада',plan:'к 20.03',cur:25},
+  {name:'Видеонаблюдение',sec:'Инженерка · подрядчик',plan:'к 11.04',cur:67,stuck:true},
+  {name:'Фасад',sec:'Общестрой · ИП Дана',plan:'к 20.01',cur:93},
+];
+let i=0;
+const el=document.getElementById('work'),left=document.getElementById('left');
+function chipsFor(c){
+  // ближайшие шаги % вверх от текущего + готово + стоит
+  let opts=[];
+  for(let v=Math.ceil((c.cur+1)/5)*5; v<100 && opts.length<3; v+=5) opts.push(v);
+  let h=opts.map(v=>`<button class="chip" onclick="pick(${v})">${v}%</button>`).join('');
+  h+=`<button class="chip done" onclick="pick(100)">✓ Готово · 100%</button>`;
+  h+=`<button class="chip stuck" onclick="stuck()">⚠ Стоит · нет движения</button>`;
+  return h;
+}
+function render(){
+  if(i>=WORKS.length){
+    el.innerHTML=`<div class="done-all"><div class="e">✓</div><div class="t">Задание на неделю отмечено</div><div class="s">РП подтвердит факт — придёт уведомление. Спасибо!</div></div>`;
+    left.textContent='готово';return;
+  }
+  const c=WORKS[i];
+  left.textContent='осталось '+(WORKS.length-i);
+  el.innerHTML=`
+    <div class="hd">
+      <span class="wtag ${c.late?'late':'work-on'}">${c.late?'⚠ просрочка '+c.late:'в работе'}</span>
+      <div class="wname">${c.name}</div>
+      <div class="wmeta">${c.sec}</div>
+    </div>
+    <div class="wplan"><span class="cur tnum">${c.cur}<small>%</small></span><span>сейчас · ${c.plan}</span></div>
+    <div class="ask">Сколько готово сейчас?</div>
+    <div class="chips" id="chips">${chipsFor(c)}</div>
+    <div class="sub2">Жми кнопку — клавиатура не нужна</div>`;
+}
+function pick(v){
+  const c=WORKS[i];
+  let extra = v>=100
+    ? `<div class="photo"><span class="e">📷</span>Для 100% приложи фото — нажми «Сохранить»</div>`
+    : `<div class="q">Отметить <b>${c.name}</b>: ${c.cur}% → <b style="color:var(--accent-d)">${v}%</b></div>`;
+  document.getElementById('chips').outerHTML=`<div class="after">${extra}<button class="savebtn" onclick="next()">Сохранить и дальше →</button></div>`;
+  document.querySelector('.sub2')?.remove();
+}
+function stuck(){
+  document.getElementById('chips').outerHTML=`<div class="after"><div class="q">Почему стоит? (отметь причину — уйдёт РП)</div>
+    <div class="reasons">
+      <button class="reason" onclick="next()">нет фронта</button>
+      <button class="reason" onclick="next()">нет материала</button>
+      <button class="reason" onclick="next()">нет людей/подрядчика</button>
+      <button class="reason" onclick="next()">нет проекта/ПТО</button>
+      <button class="reason" onclick="next()">погода</button>
+      <button class="reason" onclick="next()">не моя работа</button>
+    </div><button class="savebtn" onclick="next()">Сохранить и дальше →</button></div>`;
+  document.querySelector('.sub2')?.remove();
+}
+function next(){i++;render();window.scrollTo({top:0,behavior:'smooth'});}
+render();
+</script>
+</body>
+</html>
