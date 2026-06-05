@@ -46,6 +46,18 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .wname{font-size:23px;font-weight:700;letter-spacing:-.01em;line-height:1.1}
 .wmeta{font-size:14px;color:var(--mut);font-weight:600;margin-top:5px}
 .wplan{display:flex;align-items:baseline;gap:8px;margin:14px 20px 0;font-size:13px;color:var(--mut);font-weight:600}
+/* план vs факт по ГПР */
+.uchastok{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:13px 17px 15px;margin-bottom:6px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.uchastok .ut{font-size:13.5px;font-weight:700}
+.uchastok .upf{font-size:13px;font-weight:600;color:var(--mut);margin-left:auto}
+.uchastok .upf b{color:var(--ink);font-weight:800}
+.uchastok .upf .lag{color:var(--red);font-weight:800}
+.dbar{flex-basis:100%;height:10px;border-radius:6px;background:#e8eef3;position:relative;margin-top:5px}
+.dbar .fact{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.dbar .plan{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--navy);border-radius:1px}
+.pfbar{height:7px;border-radius:5px;background:#e8eef3;position:relative;margin:9px 20px 0}
+.pfbar i{display:block;height:100%;border-radius:5px;background:var(--accent)}
+.pfbar .pm{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--navy);border-radius:1px}
 .wplan .cur{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
 .wplan .cur small{font-size:15px;color:var(--faint)}
 .ask{font-size:14px;font-weight:700;margin:16px 20px 9px}
@@ -114,6 +126,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <div class="me"><div class="who">Асхат Б.<small>НУ · Пятно 3</small></div><div class="av">А</div></div>
   </div>
 
+  <div class="uchastok">
+    <div class="ut">Участок · Пятно 3</div>
+    <div class="upf">факт <b>84%</b> · план <b>91%</b> · <span class="lag">−7%</span></div>
+    <div class="dbar"><i class="fact" style="width:84%"></i><span class="plan" style="left:91%"></span></div>
+  </div>
+
   <div class="grid">
   <div class="col-main">
   <!-- 1. ЧТО ОТМЕТИТЬ -->
@@ -156,11 +174,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <script>
 // активные работы недели для отметки (НУ, Пятно 3) — демо
 const WORKS=[
-  {name:'Монтаж лифтов',sec:'Инженерка · ТОО ЛифтМонтаж',plan:'план 100% к 16.04',cur:79,late:'−27 дн'},
-  {name:'Отопление',sec:'Инженерка · ИП Жылу',plan:'план 100% к 27.03',cur:94},
-  {name:'Перегородки ГКЛ · 6 этаж',sec:'Отделка · своя бригада',plan:'к 20.03',cur:25},
-  {name:'Видеонаблюдение',sec:'Инженерка · подрядчик',plan:'к 11.04',cur:67,stuck:true},
-  {name:'Фасад',sec:'Общестрой · ИП Дана',plan:'к 20.01',cur:93},
+  {name:'Монтаж лифтов',sec:'Инженерка · ТОО ЛифтМонтаж',plan:'план 100% к 16.04',cur:79,planNow:90,late:'−27 дн'},
+  {name:'Отопление',sec:'Инженерка · ИП Жылу',plan:'план 100% к 27.03',cur:94,planNow:97},
+  {name:'Перегородки ГКЛ · 6 этаж',sec:'Отделка · своя бригада',plan:'к 20.03',cur:25,planNow:30},
+  {name:'Видеонаблюдение',sec:'Инженерка · подрядчик',plan:'к 11.04',cur:67,planNow:95,stuck:true},
+  {name:'Фасад',sec:'Общестрой · ИП Дана',plan:'к 20.01',cur:93,planNow:100},
 ];
 let i=0;
 const el=document.getElementById('work'),left=document.getElementById('left');
@@ -186,7 +204,8 @@ function render(){
       <div class="wname">${c.name}</div>
       <div class="wmeta">${c.sec}</div>
     </div>
-    <div class="wplan"><span class="cur tnum">${c.cur}<small>%</small></span><span>сейчас · ${c.plan}</span></div>
+    <div class="wplan"><span class="cur tnum">${c.cur}<small>%</small></span><span>факт · по графику сегодня <b>${c.planNow}%</b>${c.cur<c.planNow?` · <b style="color:var(--red)">отставание −${c.planNow-c.cur}%</b>`:` · <b style="color:var(--green)">в графике</b>`}</span></div>
+    <div class="pfbar"><i style="width:${c.cur}%"></i><span class="pm" style="left:${c.planNow}%"></span></div>
     <div class="ask">Сколько готово сейчас?</div>
     <div class="chips" id="chips">${chipsFor(c)}</div>
     <div class="sub2">Жми кнопку — клавиатура не нужна</div>`;
