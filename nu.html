@@ -64,6 +64,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .pfbar{height:7px;border-radius:5px;background:#e8eef3;position:relative;margin:9px 20px 0}
 .pfbar i{display:block;height:100%;border-radius:5px;background:var(--accent)}
 .pfbar .pm{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--navy);border-radius:1px}
+/* канбан «мои работы» */
+.kan{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:8px}
+.kcol{background:#edefea;border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.kcol .kh{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);display:flex;justify-content:space-between;padding:3px 4px}
+.kcol .kh .c{color:var(--faint)}
+.kc{background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 12px}
+.kc .kt{font-size:13px;font-weight:700;line-height:1.25}
+.kc .km{font-size:11px;color:var(--faint);font-weight:600;margin-top:3px}
+.kc .kp{display:flex;align-items:center;justify-content:space-between;margin-top:9px;gap:6px}
+.kc .kpct{font-size:16px;font-weight:800}
+.kc .ktag{font-size:10px;font-weight:700;border-radius:6px;padding:2px 7px;white-space:nowrap}
+.kc.late{border-color:#e9c3bb}.kc.late .ktag{background:var(--red-bg);color:var(--red)}
+.kc.done{border-color:#bfe0cc}.kc.done .kpct{color:var(--green)}.kc.done .ktag{background:var(--green-bg);color:var(--green)}
+@media(max-width:640px){.kan{grid-template-columns:1fr}}
 .wplan .cur{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.02em}
 .wplan .cur small{font-size:15px;color:var(--faint)}
 .ask{font-size:14px;font-weight:700;margin:16px 20px 9px}
@@ -142,6 +156,24 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <div class="grow2"><span class="gn">Инженерка</span><span class="gbar"><i style="width:86%"></i><span class="pm" style="left:95%"></span></span><span class="gv">86 / 95 <b>−9</b></span></div>
     <div class="grow2"><span class="gn">Благоустройство</span><span class="gbar"><i style="width:5%"></i><span class="pm" style="left:40%"></span></span><span class="gv">5 / 40 <b>−35</b></span></div>
     <div class="gpr-lg">Заливка = факт · ▎ метка = план по графику · красным — отставание</div>
+  </div>
+
+  <!-- КАНБАН: мои работы по статусу -->
+  <div class="lbl">Мои работы · по статусу <span class="n">тап по карточке — отметить</span></div>
+  <div class="kan">
+    <div class="kcol"><div class="kh"><span>К выполнению</span><span class="c">2</span></div>
+      <div class="kc"><div class="kt">Стяжка полов · 6 эт.</div><div class="km">Отделка · своя бригада</div><div class="kp"><span class="kpct">0%</span></div></div>
+      <div class="kc"><div class="kt">Озеленение</div><div class="km">Благоустройство</div><div class="kp"><span class="kpct">0%</span></div></div>
+    </div>
+    <div class="kcol"><div class="kh"><span>В работе</span><span class="c">3</span></div>
+      <div class="kc late"><div class="kt">Монтаж лифтов</div><div class="km">Инженерка · ТОО ЛифтМонтаж</div><div class="kp"><span class="kpct">79%</span><span class="ktag late">−27 д</span></div></div>
+      <div class="kc"><div class="kt">Перегородки ГКЛ · 6 эт.</div><div class="km">Отделка</div><div class="kp"><span class="kpct">25%</span></div></div>
+      <div class="kc stuck late"><div class="kt">Видеонаблюдение</div><div class="km">Инженерка · подрядчик</div><div class="kp"><span class="kpct">67%</span><span class="ktag late">стоит</span></div></div>
+    </div>
+    <div class="kcol"><div class="kh"><span>Сделано</span><span class="c">2</span></div>
+      <div class="kc done"><div class="kt">Фасад</div><div class="km">Общестрой · ИП Дана</div><div class="kp"><span class="kpct">100%</span><span class="ktag done">✓</span></div></div>
+      <div class="kc done"><div class="kt">Монтаж окон</div><div class="km">Отделка · ТОО Окна</div><div class="kp"><span class="kpct">100%</span><span class="ktag done">✓</span></div></div>
+    </div>
   </div>
 
   <div class="grid">
