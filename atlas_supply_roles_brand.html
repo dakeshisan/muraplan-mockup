@@ -381,6 +381,19 @@ h2.sec:first-of-type{margin-top:0}
         <div class="abcrow C"><div class="lt">C</div><div><div class="nm"><b>Отделка, благоустройство</b> · 130+ позиций</div><div class="bar"><i style="width:6%"></i></div></div><div class="pct">6%</div></div>
       </div>
 
+      <h2 class="sec">Портфель · диаграмма Ганта <span class="pill">срывы поставок по пятнам</span></h2>
+      <div class="card gantt">
+        <div class="glegend">
+          <span><i style="background:var(--green)"></i>в окне / принят</span>
+          <span><i style="background:var(--blue)"></i>в пути</span>
+          <span><i style="background:var(--amber)"></i>ждёт ТЗ / на согл.</span>
+          <span><i style="background:var(--red)"></i>срыв → стоп фронта</span>
+          <span style="color:var(--accent-d)">◆ приход материала к сроку</span>
+        </div>
+        <div class="ghead"><div>Работа · пятно</div><div class="gscale" id="gscale2"></div><div style="text-align:right">Статус поставки</div></div>
+        <div id="gbody2"></div>
+      </div>
+
       <div class="cta" id="mgmt-cta"></div>
     </section>
 
@@ -479,6 +492,31 @@ document.getElementById('gbody').innerHTML=GANTT.map(g=>{
     <div class="gstat" style="color:${stC[g.st]}">${g.lbl}</div>
   </div>`;
 }).join('');
+
+// ——— Портфельный Гант (управление): срывы поставок по пятнам ———
+const GANTT_MGMT=[
+  {w:'Видеонабл./Домофоны',p:3,s:1,e:14,need:1,st:'srv',lbl:'срыв −48д'},
+  {w:'Видеонабл./Домофоны',p:4,s:1,e:16,need:1,st:'srv',lbl:'срыв −38д'},
+  {w:'Монтаж лифтов',p:3,s:5,e:20,need:5,st:'srv',lbl:'крит. путь −27д'},
+  {w:'Благоустройство',p:3,s:13,e:28,need:13,st:'warn',lbl:'фронт 0% · ждёт ТЗ'},
+  {w:'Благоустройство',p:4,s:13,e:28,need:13,st:'warn',lbl:'фронт 0%'},
+  {w:'Фасад',p:3,s:9,e:28,need:10,st:'transit',lbl:'утеплитель в пути'},
+  {w:'Электромонтаж',p:4,s:14,e:28,need:14,st:'warn',lbl:'кабель +6% эталон'},
+  {w:'Ж/Б каркас',p:5,s:10,e:24,need:12,st:'ok',lbl:'бетон в окне'},
+  {w:'Отделка МОП',p:4,s:18,e:28,need:18,st:'ok',lbl:'на согласовании'},
+];
+const g2=document.getElementById('gscale2'),gb2=document.getElementById('gbody2');
+if(g2&&gb2){
+  g2.innerHTML=gticks.map(d=>`<span style="left:${gpct(d)}%">${d} июн</span>`).join('');
+  gb2.innerHTML=GANTT_MGMT.map(g=>{
+    const lines=gticks.map(d=>`<div class="gline" style="left:${gpct(d)}%"></div>`).join('');
+    return `<div class="grow"><div class="gwork">${g.w} <span>· П${g.p}</span></div>
+      <div class="gtrack">${lines}<div class="gtoday" style="left:${gpct(7)}%" title="сегодня 07.06"></div>
+        <div class="gbar${g.st==='srv'?' crit':''}" style="left:${gpct(g.s)}%;width:${gpct(g.e)-gpct(g.s)}%"></div>
+        <div class="gmark ${g.st}" style="left:${gpct(g.need)}%" title="приход к ${g.need}.06"></div></div>
+      <div class="gstat" style="color:${stC[g.st]}">${g.lbl}</div></div>`;
+  }).join('');
+}
 
 // ——— Очередь согласований (руководитель снабжения) ———
 const APPROVE=[
