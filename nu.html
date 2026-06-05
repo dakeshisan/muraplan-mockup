@@ -47,14 +47,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .wmeta{font-size:14px;color:var(--mut);font-weight:600;margin-top:5px}
 .wplan{display:flex;align-items:baseline;gap:8px;margin:14px 20px 0;font-size:13px;color:var(--mut);font-weight:600}
 /* план vs факт по ГПР */
-.uchastok{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:13px 17px 15px;margin-bottom:6px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.uchastok .ut{font-size:13.5px;font-weight:700}
-.uchastok .upf{font-size:13px;font-weight:600;color:var(--mut);margin-left:auto}
-.uchastok .upf b{color:var(--ink);font-weight:800}
-.uchastok .upf .lag{color:var(--red);font-weight:800}
-.dbar{flex-basis:100%;height:10px;border-radius:6px;background:#e8eef3;position:relative;margin-top:5px}
-.dbar .fact{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
-.dbar .plan{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--navy);border-radius:1px}
+.gpr{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:15px 18px;margin-bottom:8px}
+.gpr-hd{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:11px}
+.gpr-hd .gt{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--faint)}
+.gpr-hd .gtot{font-size:14px;font-weight:600;color:var(--mut)}
+.gpr-hd .gtot b{color:var(--ink);font-weight:800}
+.gpr-hd .gtot .lag{color:var(--red);font-weight:800}
+.grow2{display:flex;align-items:center;gap:11px;padding:5px 0}
+.grow2 .gn{flex:none;width:124px;font-size:13px;font-weight:600}
+.grow2 .gbar{flex:1;height:9px;border-radius:6px;background:#e8eef3;position:relative;min-width:0}
+.grow2 .gbar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.grow2 .gbar .pm{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--navy)}
+.grow2 .gv{flex:none;width:86px;text-align:right;font-size:12.5px;font-weight:700;color:var(--mut);font-variant-numeric:tabular-nums}
+.grow2 .gv b{color:var(--red)}
+.gpr-lg{font-size:11px;color:var(--faint);font-weight:600;margin-top:9px}
 .pfbar{height:7px;border-radius:5px;background:#e8eef3;position:relative;margin:9px 20px 0}
 .pfbar i{display:block;height:100%;border-radius:5px;background:var(--accent)}
 .pfbar .pm{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--navy);border-radius:1px}
@@ -126,10 +132,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <div class="me"><div class="who">Асхат Б.<small>НУ · Пятно 3</small></div><div class="av">А</div></div>
   </div>
 
-  <div class="uchastok">
-    <div class="ut">Участок · Пятно 3</div>
-    <div class="upf">факт <b>84%</b> · план <b>91%</b> · <span class="lag">−7%</span></div>
-    <div class="dbar"><i class="fact" style="width:84%"></i><span class="plan" style="left:91%"></span></div>
+  <div class="gpr">
+    <div class="gpr-hd">
+      <div class="gt">ГПР участка · план / факт</div>
+      <div class="gtot">Пятно 3 · факт <b>84%</b> · план <b>91%</b> · <span class="lag">отставание −7%</span></div>
+    </div>
+    <div class="grow2"><span class="gn">Общестрой</span><span class="gbar"><i style="width:100%"></i><span class="pm" style="left:100%"></span></span><span class="gv">100 / 100</span></div>
+    <div class="grow2"><span class="gn">Отделка</span><span class="gbar"><i style="width:100%"></i><span class="pm" style="left:100%"></span></span><span class="gv">100 / 100</span></div>
+    <div class="grow2"><span class="gn">Инженерка</span><span class="gbar"><i style="width:86%"></i><span class="pm" style="left:95%"></span></span><span class="gv">86 / 95 <b>−9</b></span></div>
+    <div class="grow2"><span class="gn">Благоустройство</span><span class="gbar"><i style="width:5%"></i><span class="pm" style="left:40%"></span></span><span class="gv">5 / 40 <b>−35</b></span></div>
+    <div class="gpr-lg">Заливка = факт · ▎ метка = план по графику · красным — отставание</div>
   </div>
 
   <div class="grid">
