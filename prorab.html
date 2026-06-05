@@ -92,6 +92,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .srow .s{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:2px}
 .srow .tell{font-size:12.5px;font-weight:700;color:var(--accent-d);border:1.5px solid #b8d9dc;border-radius:999px;padding:8px 13px;white-space:nowrap}
 .srow .tell:active{background:var(--accent-soft)}
+/* что впереди — планирование */
+.ahead{background:var(--card);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.arow{display:flex;gap:13px;padding:13px 17px;border-bottom:1px solid var(--line)}
+.arow:last-child{border-bottom:none}
+.arow .when{flex:none;width:66px;font-size:12.5px;font-weight:800;color:var(--accent-d);line-height:1.15}
+.arow .when small{display:block;font-weight:600;color:var(--faint);font-size:10px;margin-top:1px}
+.arow .bd{min-width:0}
+.arow .bd .t{font-weight:700;font-size:14.5px}
+.arow .bd .prep{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:3px;line-height:1.4}
+.arow .bd .prep b{color:var(--ink)}
 .note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:18px;line-height:1.5}
 </style>
 </head>
@@ -109,6 +119,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <!-- 1. ЧТО ОТМЕТИТЬ -->
   <div class="lbl">Отметить факт · пятница <span class="n" id="left">осталось 5</span></div>
   <div class="work" id="work"></div>
+
+  <!-- 1b. ЧТО ВПЕРЕДИ -->
+  <div class="lbl">Что впереди · подготовить</div>
+  <div class="ahead">
+    <div class="arow"><div class="when">с 10.06<small>через нед.</small></div><div class="bd"><div class="t">Перегородки ГКЛ · 7–8 эт.</div><div class="prep">подготовить: <b>материал ГКЛ + бригада</b></div></div></div>
+    <div class="arow"><div class="when">с 16.06</div><div class="bd"><div class="t">Стяжка полов · 6–8 эт.</div><div class="prep">нужен <b>фронт от каркаса</b> — проверить с РП</div></div></div>
+    <div class="arow"><div class="when">с 24.06</div><div class="bd"><div class="t">Благоустройство: бордюры, брусчатка</div><div class="prep">заранее: <b>подрядчик + вывоз грунта</b></div></div></div>
+    <div class="arow"><div class="when">июль</div><div class="bd"><div class="t">Озеленение, МАФы</div><div class="prep">подать <b>заявку на материалы</b> уже сейчас</div></div></div>
+  </div>
   </div>
 
   <div class="col-side">
