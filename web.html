@@ -42,6 +42,24 @@ button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
 .rolehint{font-size:13px;color:var(--mut);margin-bottom:20px;padding:11px 15px;background:var(--accent-soft);border-radius:10px;border:1px solid #d3e9e7}
 .rolehint b{color:var(--accent-d)}
 .obsnote{font-size:12px;color:var(--amber);background:var(--amber-bg);border:1px solid #f0dcb4;border-radius:8px;padding:7px 12px;display:inline-block;margin-bottom:18px}
+/* юзабилити: верхняя строка роли+режим, сводка недели, сворачиваемый полный план */
+.mgmt-top{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;margin-bottom:14px}
+.mgmt-top .rolehint{margin-bottom:0;flex:1;min-width:240px}
+.obschip{flex:none;align-self:flex-start;font-size:11px;color:var(--amber);background:var(--amber-bg);border:1px solid #f0dcb4;border-radius:999px;padding:5px 12px;font-weight:600;white-space:nowrap;cursor:help}
+.weekline{display:flex;gap:9px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:12px;padding:12px 15px;margin-bottom:22px;font-size:13.5px;line-height:1.5;color:var(--mut);box-shadow:0 1px 2px rgba(30,30,30,.04)}
+.weekline::before{content:"›";color:var(--accent);font-weight:700;font-size:17px;line-height:1.15;flex:none}
+.weekline b{color:var(--ink);font-weight:600}
+.kpi[title]{cursor:help}
+.fpd{margin-top:8px;border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden;box-shadow:0 1px 2px rgba(30,30,30,.04)}
+.fpsum{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 18px}
+.fpsum::-webkit-details-marker{display:none}
+.fpttl{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint)}
+.fptag{font-size:12.5px;font-weight:600;color:var(--accent-d);white-space:nowrap}
+.fptag::before{content:"раскрыть полный план ▸"}
+.fpd[open] .fptag::before{content:"свернуть ▴";color:var(--mut)}
+.fpsum:hover .fptag{color:var(--accent)}
+.fpd[open] .fpsum{border-bottom:1px solid var(--line)}
+.fpd .mppframe{border:none;border-radius:0;margin-top:0}
 h2.sec{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:24px 2px 13px;display:flex;align-items:center;gap:10px}
 h2.sec:first-of-type{margin-top:0}
 
@@ -265,15 +283,19 @@ button.glabel{cursor:pointer}button.glabel:hover{background:var(--bg)}
 
     <!-- УПРАВЛЕНИЕ: директор / CEO / собственник (почти одинаковый) -->
     <section class="view" id="v-mgmt" role="tabpanel" tabindex="-1">
-      <p class="rolehint" id="mgmt-hint"></p>
-      <span class="obsnote">● Наблюдательный режим — KPI считается, на премию пока не влияет</span>
+      <div class="mgmt-top">
+        <p class="rolehint" id="mgmt-hint"></p>
+        <span class="obschip" title="KPI считается, но на премию пока не влияет — включится в Фазе 2, после оцифровки">наблюдательный режим</span>
+      </div>
+
+      <div class="weekline" id="mgmt-week"></div>
 
       <h2 class="sec"><span id="mgmt-scope">Объект</span> за неделю</h2>
       <div class="kpis">
-        <div class="kpi g"><div class="l">Готовность</div><div class="v tnum">+6<small>%</small></div><div class="h">прирост факта за неделю</div></div>
-        <div class="kpi r"><div class="l">Просрочено работ</div><div class="v tnum">35<small> / 232</small></div><div class="h">макс. 48 дн</div></div>
-        <div class="kpi a"><div class="l">Достоверность</div><div class="v tnum">74<small>%</small></div><div class="h">лаг актов 9 дн</div></div>
-        <div class="kpi v" id="mgmt-kpi4"><div class="l">Расхождения факт↔акцепт</div><div class="v tnum">1</div><div class="h">директор не закрыл</div></div>
+        <div class="kpi g" title="Насколько факт продвинулся за неделю — прирост % готовности по подтверждённому факту"><div class="l">Готовность</div><div class="v tnum">+6<small>%</small></div><div class="h">прирост факта за неделю</div></div>
+        <div class="kpi r" title="Работы, где факт отстал от планового срока. В скобках — из общего числа работ объекта"><div class="l">Просрочено работ</div><div class="v tnum">35<small> / 232</small></div><div class="h">макс. 48 дн</div></div>
+        <div class="kpi a" title="Доля факта, подтверждённого фото или независимым сигналом (акты Рэмбо, смены). Лаг актов — задержка подтверждения задним числом"><div class="l">Достоверность</div><div class="v tnum">74<small>%</small></div><div class="h">лаг актов 9 дн</div></div>
+        <div class="kpi v" id="mgmt-kpi4" title="Где свод расходится с сырым фактом НУ/РП — сигнал для CEO, не цель директора"><div class="l">Расхождения факт↔акцепт</div><div class="v tnum">1</div><div class="h">директор не закрыл</div></div>
       </div>
 
       <h2 class="sec">Критические показатели</h2>
@@ -301,13 +323,12 @@ button.glabel{cursor:pointer}button.glabel:hover{background:var(--bg)}
         <p class="ghint">Это управленческий свод. Клик по пятну — разрез по разделам. <a href="#fullplan" style="color:var(--accent-d);font-weight:600;white-space:nowrap">Полный план ГПР — все 232 работы, ниже на странице ↓</a></p>
       </div>
 
-      <h2 class="sec" id="mgmt-grid-h">Готовность по пятнам</h2>
-      <div class="plots" id="mgmtplots"></div>
-
       <div class="cta" id="mgmt-cta"></div>
 
-      <h2 class="sec" id="fullplan">Полный план ГПР · все работы (как MS Project)</h2>
-      <iframe class="mppframe" src="gpr.html?embed=1" title="Полный план ГПР — как в MS Project" loading="lazy"></iframe>
+      <details class="fpd" id="fullplan">
+        <summary class="fpsum"><span class="fpttl">Полный план ГПР · все работы (как MS Project)</span><span class="fptag"></span></summary>
+        <iframe class="mppframe" src="gpr.html?embed=1" title="Полный план ГПР — как в MS Project" loading="lazy"></iframe>
+      </details>
     </section>
 
     <div class="linkrow">
@@ -353,22 +374,22 @@ renderKan();
 
 // management role variants (almost identical)
 const MGMT={
-  dir:{hint:'<b>Экран директора по строительству.</b> Обзор объекта, критические показатели и своды на акцепт. Каждую неделю — обязательный акцепт (это твой KPI).',scope:'Объект',kpi4:['Своды на акцепт','2','Пятна 3 и 5–8 ждут'],cta:'<button class="btn pri">Акцептовать свод недели</button><button class="btn">Вернуть РП</button>'},
-  ceo:{hint:'<b>Экран CEO.</b> Тот же обзор, но по всему стройблоку: портфель пятен, критические показатели и контроль директора (где он причесал свод).',scope:'Портфель',kpi4:['Расхождения факт↔акцепт','1','директор не закрыл'],cta:'<button class="btn">Разобрать с директором</button>'},
-  owner:{hint:'<b>Экран собственника.</b> Тот же обзор для надзора: всё под контролем или нет. Решения принимают CEO и директор — тебе видно и доступен сырой факт.',scope:'Портфель',kpi4:['Выход из операционки','1 ч/нед','было 6 ч/нед'],cta:'<button class="btn pri">Принять неделю</button><button class="btn">Запросить разбор у CEO</button>'},
+  dir:{hint:'<b>Экран директора по строительству.</b> Обзор объекта, критическая зона и своды на акцепт. Еженедельный акцепт — твоя обязанность (KPI).',scope:'Объект',kpi4:['Своды на акцепт','2','Пятна 3 и 5–8 ждут'],
+    week:'<b>Неделя:</b> готовность +6% · 35 работ в просрочке, критично — монтаж лифтов (−27 д) · <b>2 свода ждут твоего акцепта</b>.',
+    cta:'<button class="btn pri">Акцептовать свод недели</button><button class="btn">Вернуть РП</button>'},
+  ceo:{hint:'<b>Экран CEO.</b> Тот же обзор по всему стройблоку: портфель, критическая зона и контроль директора (где причесал свод).',scope:'Портфель',kpi4:['Расхождения факт↔акцепт','1','директор не закрыл'],
+    week:'<b>Неделя:</b> готовность +6% · 35 в просрочке (лифты −27 д) · <b>1 свод причёсан</b> — расхождение факт↔акцепт у директора, разобрать.',
+    cta:'<button class="btn">Разобрать с директором</button>'},
+  owner:{hint:'<b>Экран собственника.</b> Надзор: всё под контролем или нет. Решения — на CEO и директоре; сырой факт виден по запросу.',scope:'Портфель',kpi4:['Выход из операционки','1 ч/нед','было 6 ч/нед'],
+    week:'<b>Неделя:</b> готовность +6% · 35 в просрочке · операционка под CEO. Твоё время на ручной контроль: <b>1 ч/нед</b> (было 6).',
+    cta:'<button class="btn pri">Принять неделю</button><button class="btn">Запросить разбор у CEO</button>'},
 };
-const PLOTS=[{id:3,q:2,plan:91,fact:84},{id:4,q:2,plan:91,fact:83},{id:5,q:3,plan:10,fact:10},{id:6,q:3,plan:10,fact:10},{id:7,q:4,plan:10,fact:10},{id:8,q:4,plan:10,fact:10}];
-const col=v=>v>=80?'var(--green)':v>=40?'var(--amber)':'var(--blue)';
 function renderMgmt(role){const m=MGMT[role];
   document.getElementById('mgmt-hint').innerHTML=m.hint;
+  document.getElementById('mgmt-week').innerHTML=m.week;
   document.getElementById('mgmt-scope').textContent=m.scope;
   const k=document.getElementById('mgmt-kpi4');k.querySelector('.l').textContent=m.kpi4[0];k.querySelector('.v').textContent=m.kpi4[1];k.querySelector('.h').textContent=m.kpi4[2];
   document.getElementById('mgmt-cta').innerHTML=m.cta;
-  const showPlots=role==='dir'?PLOTS.slice(0,1).concat(PLOTS.slice(2)):PLOTS;
-  document.getElementById('mgmt-grid-h').textContent=role==='dir'?'Пятна объекта':'Готовность по пятнам';
-  document.getElementById('mgmtplots').innerHTML=PLOTS.map(p=>`<div class="plot"><div class="ph"><div class="pn">Пятно ${p.id}</div><div class="pq">${p.q}-я оч.</div></div>
-    <div class="bw"><div class="f" style="width:${p.fact}%;background:${col(p.fact)}"></div></div>
-    <div class="bl"><span>факт <b class="tnum" style="color:${col(p.fact)}">${p.fact}%</b></span><span class="tnum">план ${p.plan}% · −${p.plan-p.fact}</span></div></div>`).join('');
 }
 
 // ===== Таймлайн ГПР (Гант) — реальные агрегаты ЖК «Аура» =====
@@ -417,8 +438,10 @@ function pick(r){if(!VIEW[r])r='exec';
   history.replaceState(null,'',location.pathname+'#'+r);}
 tabs.forEach(t=>t.addEventListener('click',()=>pick(t.dataset.r)));
 const _h0=location.hash.slice(1);
-if(_h0==='fullplan'){pick('dir');const _go=()=>{const _f=document.getElementById('fullplan');if(_f)_f.scrollIntoView();};setTimeout(_go,150);setTimeout(_go,500);window.addEventListener('load',_go);}
+const _openFP=()=>{const _f=document.getElementById('fullplan');if(_f){_f.open=true;_f.scrollIntoView();}};
+if(_h0==='fullplan'){pick('dir');setTimeout(_openFP,150);setTimeout(_openFP,500);window.addEventListener('load',_openFP);}
 else pick(_h0||'exec');
+document.querySelectorAll('a[href="#fullplan"]').forEach(a=>a.addEventListener('click',()=>{const f=document.getElementById('fullplan');if(f)f.open=true;}));
 </script>
 </body>
 </html>
