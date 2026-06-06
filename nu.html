@@ -64,15 +64,25 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .pf b{color:var(--ink);font-weight:800}
 .gpr{margin-top:16px}
 
-/* ГПР bars */
-.grow{display:flex;align-items:center;gap:11px;padding:6px 0}
-.grow .gn{flex:none;width:122px;font-size:12.5px;font-weight:600}
-.grow .gbar{flex:1;height:8px;border-radius:6px;background:#e7edf2;position:relative;min-width:0}
-.grow .gbar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
-.grow .gbar .pm{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--navy)}
-.grow .gv{flex:none;width:80px;text-align:right;font-size:12px;font-weight:700;color:var(--mut)}
-.grow .gv b{color:var(--red)}
-.gleg{font-size:11px;color:var(--faint);font-weight:600;margin-top:11px}
+/* ГПР: сводка пятна (план/факт явно) + разделы (полоса = план, заливка = факт) */
+.gtop{display:flex;gap:9px;margin-bottom:6px}
+.gstat{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:10px 8px;text-align:center}
+.gstat .gl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--faint)}
+.gstat .gn{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:30px;line-height:1;margin-top:2px;color:var(--navy)}
+.gstat .gn.fact{color:var(--accent-d)}
+.gstat .gn.lag{color:var(--red)}
+.gstat .gn .gu{font-family:'Jost',sans-serif;font-size:12px;font-weight:600;color:var(--faint)}
+.srow2{display:flex;align-items:center;gap:11px;padding:7px 0}
+.srow2 .gnm{flex:none;width:116px;font-size:12.5px;font-weight:600;line-height:1.15}
+.srow2 .gnm small{display:block;font-size:10px;color:var(--faint);font-weight:600;margin-top:1px}
+.gtrack{flex:1;height:11px;border-radius:6px;background:#e7edf2;position:relative;min-width:0;overflow:hidden}
+.gtrack .gfill{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.gtrack .gfill.done{background:linear-gradient(90deg,var(--green),#36a86a)}
+.gtrack .gfill.late{background:linear-gradient(90deg,var(--red),#d8736b)}
+.gpf{flex:none;width:70px;text-align:right;font-size:13.5px;font-weight:800}
+.gpf small{display:block;font-size:10px;font-weight:700;color:var(--faint)}
+.gpf small.lag{color:var(--red)}.gpf small.ok{color:var(--green)}
+.gleg{font-size:11px;color:var(--faint);font-weight:600;margin-top:11px;line-height:1.45}
 
 /* канбан */
 .khint{font-weight:600;color:var(--accent-d)}
@@ -180,13 +190,17 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <span class="st now">→ сейчас: отметить факт</span>
       <span class="st">· далее KPI в вс</span>
     </div>
-    <div class="big"><span class="lagnum tnum">−7%</span><span class="pf">факт <b>84%</b> · план <b>91%</b> · отставание участка</span></div>
+    <div class="gtop">
+      <div class="gstat"><div class="gl">Факт</div><div class="gn fact tnum">84%</div></div>
+      <div class="gstat"><div class="gl">План</div><div class="gn tnum">91%</div></div>
+      <div class="gstat"><div class="gl">Отставание</div><div class="gn lag tnum">48<span class="gu"> дн</span></div></div>
+    </div>
     <div class="gpr">
-      <div class="grow"><span class="gn">Общестрой</span><span class="gbar"><i style="width:100%"></i><span class="pm" style="left:100%"></span></span><span class="gv">100 / 100</span></div>
-      <div class="grow"><span class="gn">Отделка</span><span class="gbar"><i style="width:100%"></i><span class="pm" style="left:100%"></span></span><span class="gv">100 / 100</span></div>
-      <div class="grow"><span class="gn">Инженерка</span><span class="gbar"><i style="width:86%"></i><span class="pm" style="left:95%"></span></span><span class="gv">86 / 95 <b>−9</b></span></div>
-      <div class="grow"><span class="gn">Благоустройство</span><span class="gbar"><i style="width:5%"></i><span class="pm" style="left:40%"></span></span><span class="gv">5 / 40 <b>−35</b></span></div>
-      <div class="gleg">Заливка = факт · ▎ метка = план по графику · красным — отставание</div>
+      <div class="srow2"><div class="gnm">Общестрой<small>7 работ</small></div><div class="gtrack"><div class="gfill done" style="width:100%"></div></div><div class="gpf">100%<small class="ok">в срок</small></div></div>
+      <div class="srow2"><div class="gnm">Отделка + окна<small>10 работ</small></div><div class="gtrack"><div class="gfill done" style="width:100%"></div></div><div class="gpf">100%<small class="ok">в срок</small></div></div>
+      <div class="srow2"><div class="gnm">Инженерка + лифт<small>14 работ</small></div><div class="gtrack"><div class="gfill late" style="width:88%"></div></div><div class="gpf">88%<small class="lag">−48 дн</small></div></div>
+      <div class="srow2"><div class="gnm">Благоустройство<small>8 работ</small></div><div class="gtrack"><div class="gfill late" style="width:5%"></div></div><div class="gpf">5%<small class="lag">−19 дн</small></div></div>
+      <div class="gleg">полоса = план (100% к сроку) · заливка = факт · красным — отставание по графику</div>
     </div>
   </div>
 
@@ -248,7 +262,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 const WORKS=[
   {name:'Стяжка полов · 6 эт.',sec:'Отделка · своя бригада',cur:0,col:'todo'},
   {name:'Озеленение',sec:'Благоустройство',cur:0,col:'todo'},
-  {name:'Монтаж лифтов',sec:'Инженерка · ТОО ЛифтМонтаж',cur:79,col:'prog',tag:'−27 д',late:1},
+  {name:'Монтаж лифтов',sec:'Инженерка · ТОО ЛифтМонтаж',cur:85,col:'prog',tag:'−21 д',late:1},
   {name:'Перегородки ГКЛ · 6 эт.',sec:'Отделка',cur:25,col:'prog'},
   {name:'Видеонаблюдение',sec:'Инженерка · подрядчик',cur:67,col:'prog',tag:'стоит',late:1},
   {name:'Фасад',sec:'Общестрой · ИП Дана',cur:100,col:'done'},
