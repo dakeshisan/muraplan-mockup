@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#284157">
+<meta name="robots" content="noindex,nofollow">
+<title>ATLAS · портфель объектов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;--line:#E6E2D7;--line2:#EFEDE5;
+  --accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--navy:#284157;--navy-d:#1d3142;
+  --gold:#CFB372;--gold-d:#A88E48;
+  --green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-bg:#F7E7E2;
+  --shadow:0 14px 34px -20px rgba(40,65,87,.55);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{color-scheme:light}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;-webkit-tap-highlight-color:transparent;font-feature-settings:"ss03","cv11"}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:12px}
+.tnum{font-variant-numeric:tabular-nums}
+.wrap{max-width:620px;margin:0 auto;padding:0 14px 40px}
+
+/* header */
+.top{position:sticky;top:0;z-index:10;background:linear-gradient(120deg,var(--navy),var(--navy-d));color:#fff;margin:0 -14px 16px;padding:13px 18px;display:flex;align-items:center;gap:12px}
+.top .lg{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;font-family:'Cormorant',Georgia,serif;flex:none}
+.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;line-height:1}
+.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px}
+.top .me{margin-left:auto;display:flex;align-items:center;gap:9px}
+.top .me .who{text-align:right;font-size:12px;font-weight:700;line-height:1.1}
+.top .me .who small{display:block;font-weight:500;color:#9db4c6;font-size:10.5px}
+.top .me .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:none}
+
+.card{background:var(--card);border-radius:20px;box-shadow:var(--shadow)}
+.lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:22px 4px 11px}
+.lbl .n{margin-left:auto;font-weight:600;color:var(--accent-d);text-transform:none;letter-spacing:0;font-size:12.5px}
+
+/* сводка */
+.sum{padding:16px 16px;display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.sst{background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:11px 8px;text-align:center}
+.sst .sn{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:27px;line-height:1;color:var(--navy)}
+.sst .sn.lag{color:var(--red)}
+.sst .sn small{font-family:'Jost',sans-serif;font-size:12px;font-weight:600;color:var(--faint)}
+.sst .sl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--faint);margin-top:5px;line-height:1.2}
+@media(max-width:520px){.sum{grid-template-columns:repeat(2,1fr)}}
+
+/* сегменты */
+.seg{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 4px;margin:4px 2px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.seg::-webkit-scrollbar{display:none}
+.seg button{flex:none;font-size:12.5px;font-weight:700;color:var(--mut);background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px;white-space:nowrap}
+.seg button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* карточки объектов */
+.cards{display:flex;flex-direction:column;gap:11px}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:17px;box-shadow:0 6px 18px -14px rgba(40,65,87,.5);padding:15px 16px}
+.pcard.tap{cursor:pointer}
+.pcard.tap:active{transform:translateY(1px)}
+.pc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.pc-nm{font-size:15.5px;font-weight:700;line-height:1.2}
+.pc-nm small{display:block;font-size:11.5px;color:var(--faint);font-weight:600;margin-top:3px}
+.pc-pct{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:30px;line-height:.9;color:var(--accent-d)}
+.pc-pct span{font-family:'Jost',sans-serif;font-size:14px;font-weight:600;color:var(--faint)}
+.pc-bar{height:9px;border-radius:6px;background:#e7edf2;overflow:hidden;margin:12px 0 11px}
+.pc-bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.pc-bar i.late{background:linear-gradient(90deg,var(--red),#d8736b)}
+.pc-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pc-due{font-size:12.5px;font-weight:700;color:var(--mut)}
+.chip2{font-size:11px;font-weight:800;border-radius:999px;padding:4px 11px;white-space:nowrap}
+.chip2.ok{background:var(--green-bg);color:var(--green)}
+.chip2.late{background:var(--red-bg);color:var(--red)}
+.chip2.launch{background:#FBF5E6;color:var(--gold-d);border:1px solid #E7D4A6}
+.pc-go{font-size:12px;font-weight:700;color:var(--accent-d)}
+
+/* запуск — степпер стадий */
+.stages{display:flex;align-items:flex-start;margin:13px 0 12px}
+.stages .stg{flex:1;text-align:center;position:relative}
+.stages .stg::before{content:"";position:absolute;top:6px;left:-50%;width:100%;height:3px;background:var(--line)}
+.stages .stg:first-child::before{display:none}
+.stages .stg.pass::before,.stages .stg.on::before{background:var(--gold)}
+.stages .sdot{display:block;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--line);margin:0 auto;position:relative;z-index:1}
+.stages .stg.pass .sdot{background:var(--gold);border-color:var(--gold)}
+.stages .stg.on .sdot{border-color:var(--gold-d);background:#fff;box-shadow:0 0 0 3px #F5EAD0}
+.stages .sn{display:block;font-size:9.5px;font-weight:700;color:var(--mut);margin-top:6px;line-height:1.15}
+.stages .stg.on .sn,.stages .stg.pass .sn{color:var(--gold-d)}
+
+/* операционные */
+.pc-metric{font-size:13.5px;font-weight:800;color:var(--accent-d);text-align:right;white-space:nowrap}
+.pc-sub{font-size:12px;color:var(--mut);font-weight:600;margin-top:8px;line-height:1.4}
+
+.hide{display:none}
+.note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:24px;line-height:1.55}
+.note a{color:var(--accent-d);font-weight:700;text-decoration:none}
+
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(22px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:14px;font-size:13px;font-weight:700;box-shadow:0 16px 36px -12px rgba(40,65,87,.65);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.2,.8,.3,1),opacity .28s;z-index:60;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast b{color:var(--gold)}
+
+@media(prefers-reduced-motion:no-preference){
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .wrap>*{opacity:0;animation:rise .5s cubic-bezier(.2,.7,.3,1) forwards}
+  .wrap>:nth-child(1){animation-delay:0s}.wrap>:nth-child(2){animation-delay:.05s}
+  .wrap>:nth-child(3){animation-delay:.1s}.wrap>:nth-child(4){animation-delay:.15s}
+  .wrap>:nth-child(5){animation-delay:.2s}.wrap>:nth-child(6){animation-delay:.25s}
+  .wrap>:nth-child(7){animation-delay:.3s}.wrap>:nth-child(8){animation-delay:.35s}
+  .wrap>:nth-child(9){animation-delay:.4s}.wrap>:nth-child(10){animation-delay:.45s}
+  .wrap>:nth-child(11){animation-delay:.5s}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="lg">A</div>
+    <div class="nm">ATLAS<small>портфель объектов</small></div>
+    <div class="me"><div class="who">Нурлан А.<small>собственник</small></div><div class="av">Н</div></div>
+  </div>
+
+  <!-- СВОДКА -->
+  <div class="lbl">Сводка по компании <span class="n">все объекты</span></div>
+  <div class="card sum">
+    <div class="sst"><div class="sn tnum">7</div><div class="sl">объектов</div></div>
+    <div class="sst"><div class="sn tnum">52<small>%</small></div><div class="sl">ср. готовность строек</div></div>
+    <div class="sst"><div class="sn tnum" style="font-size:21px;line-height:1.25">Аура<br><small style="font-size:12px">30.09</small></div><div class="sl">ближайшая сдача</div></div>
+    <div class="sst"><div class="sn lag tnum">2</div><div class="sl">в красной зоне</div></div>
+  </div>
+
+  <!-- СЕГМЕНТЫ -->
+  <div class="seg" id="seg">
+    <button class="on" data-f="all" onclick="filt('all',this)">Все</button>
+    <button data-f="build" onclick="filt('build',this)">🏗 Строится · 4</button>
+    <button data-f="launch" onclick="filt('launch',this)">🚀 Запуск · 3</button>
+    <button data-f="ops" onclick="filt('ops',this)">📦 Операционные</button>
+  </div>
+
+  <!-- СТРОИТСЯ -->
+  <div class="lbl grp" data-g="build">🏗 Строится <span class="n">ГПР · план/факт</span></div>
+  <div class="cards grp" data-g="build" id="build"></div>
+
+  <!-- ЗАПУСК -->
+  <div class="lbl grp" data-g="launch">🚀 Запуск <span class="n">преднулевой цикл</span></div>
+  <div class="cards grp" data-g="launch" id="launch"></div>
+
+  <!-- ОПЕРАЦИОННЫЕ -->
+  <div class="lbl grp" data-g="ops">📦 Операционные потоки <span class="n">не по объектам</span></div>
+  <div class="cards grp" data-g="ops" id="ops"></div>
+
+  <div class="note">Портфель ATLAS · уровень компании. Тап по объекту → внутрь (объект → участок). Данные условные. <a href="index.html">← все мокапы</a></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const BUILD=[
+  {nm:'ЖК «Аура»',      sub:'Алатау · 4 пятна',     pct:88, due:'сдача 30.09.26',   risk:'отставание −48 дн', rk:'late', href:'nu.html'},
+  {nm:'ЖК «Көктем»',    sub:'Бостандык · 5 пятен',  pct:62, due:'сдача II кв. 27',  risk:'в графике',         rk:'ok'},
+  {nm:'ЖК «Сарыарка»',  sub:'Турксиб · 3 пятна',    pct:41, due:'сдача IV кв. 27',  risk:'риск срыва',        rk:'late'},
+  {nm:'ЖК «Жетісу»',    sub:'Наурызбай · 6 пятен',  pct:18, due:'сдача 2028',       risk:'в графике',         rk:'ok'},
+];
+const STAGES=['Земля','Разреш.','ПИР','Смета','Старт'];
+const LAUNCH=[
+  {nm:'ЖК «Алатау Парк»', sub:'преднулевой цикл', stage:2, start:'старт стройки III кв. 26'},
+  {nm:'ЖК «Тұран»',       sub:'преднулевой цикл', stage:3, start:'старт стройки IV кв. 26'},
+  {nm:'ЖК «Нұра»',        sub:'преднулевой цикл', stage:1, start:'старт стройки I кв. 27'},
+];
+const OPS=[
+  {ic:'📦', nm:'Снабжение материалов', metric:'34 заявки', sub:'в срок 86% · просрочено 5 · по всем стройкам', href:'atlas_supply_roles_brand.html'},
+  {ic:'🏢', nm:'Закуп офиса / АХО',     metric:'7 закупок', sub:'мебель, техника, расходники · 2 на согласовании'},
+];
+
+const $=id=>document.getElementById(id);
+let toastT;
+function toast(m){const e=$('toast');e.innerHTML=m;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),2200);}
+function go(href){location.href=href;}
+function soon(){toast('Экран объекта — <b>в работе</b>');}
+
+function buildCard(c){
+  const click=c.href?`onclick="go('${c.href}')"`:`onclick="soon()"`;
+  return `<div class="pcard tap" ${click}>
+    <div class="pc-top"><div class="pc-nm">${c.nm}<small>${c.sub}</small></div><div class="pc-pct tnum">${c.pct}<span>%</span></div></div>
+    <div class="pc-bar"><i class="${c.rk==='late'?'late':''}" style="width:${c.pct}%"></i></div>
+    <div class="pc-foot"><span class="pc-due">${c.due}</span><span class="chip2 ${c.rk}">${c.risk}</span></div>
+  </div>`;
+}
+function launchCard(c){
+  const stg=STAGES.map((s,i)=>`<div class="stg ${i<c.stage?'pass':''}${i===c.stage?' on':''}"><span class="sdot"></span><span class="sn">${s}</span></div>`).join('');
+  return `<div class="pcard tap" onclick="soon()">
+    <div class="pc-top"><div class="pc-nm">${c.nm}<small>${c.sub}</small></div><span class="chip2 launch">запуск</span></div>
+    <div class="stages">${stg}</div>
+    <div class="pc-foot"><span class="pc-due">${c.start}</span><span class="pc-go">подробнее ›</span></div>
+  </div>`;
+}
+function opsCard(c){
+  const click=c.href?`onclick="go('${c.href}')"`:`onclick="soon()"`;
+  return `<div class="pcard tap" ${click}>
+    <div class="pc-top"><div class="pc-nm">${c.ic} ${c.nm}</div><div class="pc-metric">${c.metric}</div></div>
+    <div class="pc-sub">${c.sub}${c.href?' · <b style="color:var(--accent-d)">открыть пульт ›</b>':''}</div>
+  </div>`;
+}
+function filt(f,btn){
+  document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b===btn));
+  document.querySelectorAll('.grp').forEach(el=>{
+    el.classList.toggle('hide', !(f==='all'||el.dataset.g===f));
+  });
+}
+
+$('build').innerHTML=BUILD.map(buildCard).join('');
+$('launch').innerHTML=LAUNCH.map(launchCard).join('');
+$('ops').innerHTML=OPS.map(opsCard).join('');
+</script>
+</body>
+</html>

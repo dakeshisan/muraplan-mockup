@@ -35,6 +35,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .top .me .who small{display:block;font-weight:500;color:#9db4c6;font-size:10.5px}
 .top .me .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:none}
 
+/* хлебные крошки */
+.crumbs{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12px;font-weight:600;color:var(--mut);margin:-2px 4px 14px}
+.crumbs a{color:var(--accent-d);font-weight:700;text-decoration:none}
+.crumbs a:active{opacity:.6}
+.crumbs .sep{color:var(--faint)}
+.crumbs b{color:var(--ink)}
+
 /* section label */
 .lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:24px 4px 11px}
 .lbl .n{margin-left:auto;font-weight:600;color:var(--accent-d);text-transform:none;letter-spacing:0;font-size:12.5px}
@@ -282,6 +289,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <div class="nm">ATLAS<small>моё рабочее место · стройка</small></div>
     <div class="me"><div class="who">Асхат Б.<small>НУ · Пятно 3</small></div><div class="av">А</div></div>
   </div>
+
+  <!-- ХЛЕБНЫЕ КРОШКИ -->
+  <div class="crumbs"><a href="portfolio.html">‹ Портфель</a><span class="sep">·</span><a href="gpr.html?plot=3">ЖК «Аура»</a><span class="sep">▸</span><b>Пятно 3</b></div>
 
   <!-- ПРОФИЛЬ-ПРОГРЕСС -->
   <div class="card hero">
