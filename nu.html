@@ -70,6 +70,33 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .hchip b{display:block;font-size:18px;font-weight:800;color:var(--navy);line-height:1.1}
 .hchip span{display:block;font-size:10px;color:var(--faint);font-weight:600;margin-top:3px;line-height:1.2}
 
+/* ===== ОБЩАЯ ЦЕЛЬ КОМАНДЫ ===== */
+.goal{padding:18px 20px;background:linear-gradient(160deg,#fff, #fbfaf4)}
+.goalhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.goaltitle{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:25px;line-height:1.02;color:var(--navy);margin-top:2px}
+.goaldate{flex:none;text-align:right}
+.goaldate b{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:24px;color:var(--accent-d);line-height:1}
+.goaldate span{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--faint);margin-top:2px}
+.goalbar{position:relative;height:26px;border-radius:9px;background:#e7edf2;overflow:hidden;margin:14px 0 8px}
+.goalbar i{position:absolute;left:0;top:0;bottom:0;border-radius:9px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.goalbar .goalpct{position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:800;color:var(--navy);z-index:1}
+.goalsub{font-size:12px;color:var(--mut);font-weight:600;line-height:1.45}
+.goalsub b{color:var(--ink)}
+.plots{display:flex;flex-direction:column;gap:8px}
+.plotrow{display:flex;align-items:center;gap:10px}
+.plotrow .pn{flex:none;width:96px;font-size:12px;font-weight:700}
+.plotrow .pn small{color:var(--gold-d);font-weight:800}
+.plotrow .pt{flex:1;height:8px;border-radius:5px;background:#e7edf2;overflow:hidden;min-width:0}
+.plotrow .pt i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.plotrow .pt i.pdone{background:linear-gradient(90deg,var(--green),#36a86a)}
+.plotrow .pt i.pyou{background:linear-gradient(90deg,var(--gold),var(--gold-d))}
+.plotrow .pv{flex:none;width:42px;text-align:right;font-size:12px;font-weight:800}
+.goalyou{margin-top:14px;background:linear-gradient(135deg,#FBF5E6,#F5EAD0);border:1px solid #E7D4A6;border-radius:13px;padding:11px 13px;font-size:12.5px;font-weight:700;color:var(--gold-d);line-height:1.45}
+.goalyou b{color:var(--ink)}
+.goalreward{margin-top:9px;display:flex;align-items:center;gap:10px;background:var(--accent-soft);border-radius:13px;padding:11px 13px;font-size:12.5px;font-weight:700;color:var(--accent-d);line-height:1.4}
+.goalreward .e{font-size:18px;flex:none}
+.ach .a.wide{grid-column:1/-1}
+
 /* состояние участка (ГПР) */
 .state{padding:18px 20px}
 .cyc{font-size:12.5px;color:var(--mut);font-weight:600;line-height:1.55;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:4px 10px}
@@ -240,6 +267,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .wrap>:nth-child(16){animation-delay:.6s}
   .wrap>:nth-child(17){animation-delay:.64s}
   .wrap>:nth-child(18){animation-delay:.68s}
+  .wrap>:nth-child(19){animation-delay:.72s}
+  .wrap>:nth-child(20){animation-delay:.76s}
 }
 
 @media(max-width:560px){.kan{grid-template-columns:1fr}.route .rn{font-size:9px}}
@@ -270,6 +299,26 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <div class="hchip"><b>🔥 4</b><span>недели серии</span></div>
       <div class="hchip"><b>🏅 #2</b><span>лига · достоверность</span></div>
     </div>
+  </div>
+
+  <!-- ОБЩАЯ ЦЕЛЬ КОМАНДЫ -->
+  <div class="lbl">Общая цель команды <span class="n">все участки — к сдаче</span></div>
+  <div class="card goal">
+    <div class="goalhead">
+      <div><div class="cap">Финиш · ЖК «Аура»</div><div class="goaltitle">Сдать объект в срок</div></div>
+      <div class="goaldate"><b class="tnum">30.09</b><span>срок сдачи</span></div>
+    </div>
+    <div class="goalbar"><i style="width:88%"></i><span class="goalpct tnum">88%</span></div>
+    <div class="goalsub">Готовность объекта · цель <b>100%</b>. До сдачи <b>~116 дней</b>. Каждая работа, закрытая в срок, двигает этот % — финиш общий.</div>
+    <div class="cap" style="margin:16px 0 9px">Участки идут к сдаче вместе</div>
+    <div class="plots">
+      <div class="plotrow"><div class="pn">Пятно 1</div><div class="pt"><i class="pdone" style="width:100%"></i></div><div class="pv" style="color:var(--green)">100%</div></div>
+      <div class="plotrow"><div class="pn">Пятно 2</div><div class="pt"><i style="width:96%"></i></div><div class="pv">96%</div></div>
+      <div class="plotrow"><div class="pn">Пятно 3 <small>· ты</small></div><div class="pt"><i class="pyou" style="width:84%"></i></div><div class="pv" style="color:var(--gold-d)">84%</div></div>
+      <div class="plotrow"><div class="pn">Пятно 4</div><div class="pt"><i style="width:71%"></i></div><div class="pv">71%</div></div>
+    </div>
+    <div class="goalyou">🎯 Твой вклад: <b>Пятно 3 — ~22% объёма объекта</b>. Закроешь инженерку и лифты — снимешь главный риск сдачи всего ЖК.</div>
+    <div class="goalreward"><span class="e">🏁</span><div>Сдадим в срок всей командой → бейдж <b>«Объект сдан»</b> и общий бонусный пул (Фаза 2)</div></div>
   </div>
 
   <!-- ГПР УЧАСТКА · ПЛАН/ФАКТ -->
@@ -406,6 +455,7 @@ const ACH=[
   {ic:'📦',t:'Запасливый',d:'материалы заказаны за 2 недели',p:[2,3]},
   {ic:'⏱',t:'Раньше срока',d:'сдать раздел до плановой даты',p:[0,1]},
   {ic:'🏗',t:'Старший',d:'достичь следующего грейда',p:[64,100]},
+  {ic:'🏁',t:'Объект сдан',d:'сдать ЖК «Аура» в срок всей командой — общая цель',p:[88,100],wide:true},
 ];
 const QUESTS=[
   {t:'Закрыть 2 работы недели до вс',s:'→ закроет неделю на 100%',xp:60,k:'time',done:false,auto:'close2'},
@@ -434,10 +484,11 @@ function renderXPB(){
 /* ===== render: достижения ===== */
 function renderAch(){
   $('ach').innerHTML=ACH.map(a=>{
-    if(a.got) return `<div class="a got"><div class="ai">${a.ic}</div><div class="at">${a.t}</div><div class="ad">${a.d}</div></div>`;
+    const w=a.wide?' wide':'';
+    if(a.got) return `<div class="a got${w}"><div class="ai">${a.ic}</div><div class="at">${a.t}</div><div class="ad">${a.d}</div></div>`;
     const pc=Math.round(a.p[0]/a.p[1]*100);
     const txt=a.p[1]===100?`${a.p[0]}%`:`${a.p[0]} из ${a.p[1]}`;
-    return `<div class="a lock"><div class="ai">${a.ic}</div><div class="at">${a.t}</div><div class="ad">${a.d}</div><div class="ap"><i style="width:${pc}%"></i></div><div class="apn">${txt}</div></div>`;
+    return `<div class="a lock${w}"><div class="ai">${a.ic}</div><div class="at">${a.t}</div><div class="ad">${a.d}</div><div class="ap"><i style="width:${pc}%"></i></div><div class="apn">${txt}</div></div>`;
   }).join('');
 }
 
