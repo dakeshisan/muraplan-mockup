@@ -49,6 +49,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .dt[open]>summary{border-bottom:1px solid var(--line)}
 .dt[open]>summary::after{transform:rotate(180deg)}
 .dt .body{padding:14px 15px}
+.fp .body{padding:0}
+.fpframe{width:100%;height:72vh;border:0;display:block;background:var(--bg)}
 
 /* состояние участка */
 .state{padding:18px 20px}
@@ -167,6 +169,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .wrap>:nth-child(10){animation-delay:.36s}
   .wrap>:nth-child(11){animation-delay:.4s}
   .wrap>:nth-child(12){animation-delay:.44s}
+  .wrap>:nth-child(13){animation-delay:.48s}
+  .wrap>:nth-child(14){animation-delay:.52s}
 }
 
 @media(max-width:560px){.kan{grid-template-columns:1fr}}
@@ -255,7 +259,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </details>
   </div>
 
-  <div class="note">Экран начальника участка — он отмечает факт по всему участку. Данные условные · ЖК «Аура», Пятно 3.</div>
+  <!-- ПОЛНЫЙ ПЛАН ГПР (раскрывается) -->
+  <div class="lbl">Полный план ГПР · Пятно 3 <span class="n">как MS Project</span></div>
+  <details class="dt fp">
+    <summary>Раскрыть полный план — все работы участка по срокам</summary>
+    <div class="body"><iframe class="fpframe" src="gpr.html?embed=1&amp;plot=3" title="Полный план ГПР · Пятно 3" loading="lazy"></iframe></div>
+  </details>
+
+  <div class="note">Экран начальника участка — он отмечает факт по всему участку. Полный план ниже — план/факт по срокам, как в MS Project. Данные условные · ЖК «Аура», Пятно 3.</div>
 </div>
 
 <script>
