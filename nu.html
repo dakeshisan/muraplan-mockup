@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#284157">
 <meta name="robots" content="noindex,nofollow">
-<title>ATLAS · экран начальника участка</title>
+<title>ATLAS · рабочее место начальника участка</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -52,21 +52,32 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .fp .body{padding:0}
 .fpframe{width:100%;height:72vh;border:0;display:block;background:var(--bg)}
 
-/* состояние участка */
+/* ===== ПРОФИЛЬ-ПРОГРЕСС (hero) ===== */
+.hero{padding:16px 18px;margin-top:4px}
+.htop{display:flex;gap:15px;align-items:center}
+.ring{position:relative;width:74px;height:74px;flex:none}
+.ringv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ringv b{font-size:19px;font-weight:800}.ringv span{font-size:9px;color:var(--mut)}
+.hgrade{min-width:0;flex:1}
+.hgrade .cap{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint)}
+.hgrade .gname{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:27px;line-height:1;color:var(--navy);margin-top:2px}
+.hgrade .gbar{height:8px;border-radius:5px;background:#EAD9AE;margin:9px 0 6px;overflow:hidden}
+.hgrade .gbar i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--gold),#e6cf94)}
+.hgrade .gnext{font-size:11.5px;color:var(--mut);font-weight:600;line-height:1.4}
+.hgrade .gnext b{color:var(--gold-d)}
+.hchips{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}
+.hchip{background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:10px 6px;text-align:center}
+.hchip b{display:block;font-size:18px;font-weight:800;color:var(--navy);line-height:1.1}
+.hchip span{display:block;font-size:10px;color:var(--faint);font-weight:600;margin-top:3px;line-height:1.2}
+
+/* состояние участка (ГПР) */
 .state{padding:18px 20px}
 .cyc{font-size:12.5px;color:var(--mut);font-weight:600;line-height:1.55;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:4px 10px}
 .cyc .st{white-space:nowrap}
 .cyc .ok{color:var(--green);font-weight:700}
 .cyc .now{color:var(--accent-d);font-weight:800}
 .cap{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);margin-bottom:7px}
-.big{display:flex;align-items:baseline;gap:13px;flex-wrap:wrap}
-.lagnum{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:48px;line-height:.85;color:var(--red);letter-spacing:-.01em}
-.lagnum.good{color:var(--green)}
-.pf{font-size:14px;font-weight:600;color:var(--mut)}
-.pf b{color:var(--ink);font-weight:800}
-.gpr{margin-top:16px}
-
-/* ГПР: сводка пятна (план/факт явно) + разделы (полоса = план, заливка = факт) */
+.gpr{margin-top:4px}
 .gtop{display:flex;gap:9px;margin-bottom:6px}
 .gstat{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:10px 8px;text-align:center}
 .gstat .gl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--faint)}
@@ -85,6 +96,19 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .gpf small{display:block;font-size:10px;font-weight:700;color:var(--faint)}
 .gpf small.lag{color:var(--red)}.gpf small.ok{color:var(--green)}
 .gleg{font-size:11px;color:var(--faint);font-weight:600;margin-top:11px;line-height:1.45}
+
+/* ===== ЦЕЛИ НЕДЕЛИ (quests) ===== */
+.quests .q{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line2);cursor:pointer}
+.quests .q:last-child{border-bottom:none}
+.quests .q:active{background:#fbfaf5}
+.quests .q .box{flex:none;width:24px;height:24px;border-radius:8px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;background:#fff;transition:.15s}
+.quests .q.done .box{background:var(--green);border-color:var(--green)}
+.quests .q .qb{flex:1;min-width:0}
+.quests .q .qt{font-weight:700;font-size:13.5px;line-height:1.25}
+.quests .q.done .qt{color:var(--faint);text-decoration:line-through}
+.quests .q .qs{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:2px}
+.quests .q .qxp{flex:none;font-size:11px;font-weight:800;color:var(--gold-d);background:#FBF5E6;border:1px solid #E7D4A6;border-radius:999px;padding:4px 9px;white-space:nowrap}
+.qsum{padding:12px 18px;font-size:12px;font-weight:700;color:var(--accent-d);background:var(--accent-soft);display:flex;justify-content:space-between;align-items:center;gap:8px}
 
 /* канбан */
 .khint{font-weight:600;color:var(--accent-d)}
@@ -105,15 +129,17 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .chip{flex:1;min-width:52px;padding:9px 0;border-radius:9px;font-weight:800;font-size:13px;border:1.5px solid var(--line);background:#fff;text-align:center;color:var(--accent-d)}
 .chip.ok{flex-basis:100%;border-color:#bfe0cc;color:var(--green);background:var(--green-bg)}
 .chip.stk{flex-basis:100%;border-color:#e9c3bb;color:var(--red)}
+@keyframes pop{0%{transform:scale(1)}35%{transform:scale(1.05)}100%{transform:scale(1)}}
+.kc.cele{animation:pop .42s ease;border-color:var(--gold)!important;box-shadow:0 0 0 3px #F5EAD0}
 
 /* что впереди */
 .ahead .arow{display:flex;gap:13px;padding:13px 18px;border-bottom:1px solid var(--line2)}
-.ahead .arow:last-child{border-bottom:none}
 .arow .when{flex:none;width:64px;font-size:12.5px;font-weight:800;color:var(--accent-d);line-height:1.15}
 .arow .when small{display:block;font-weight:600;color:var(--faint);font-size:10px;margin-top:1px}
 .arow .bd .t{font-weight:700;font-size:13.5px}
 .arow .bd .prep{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:3px;line-height:1.4}
 .arow .bd .prep b{color:var(--ink)}
+.aheadfoot{padding:11px 18px;font-size:11.5px;font-weight:700;color:var(--gold-d);background:linear-gradient(135deg,#FBF5E6,#F5EAD0);border-top:1px solid #E7D4A6;line-height:1.4}
 
 /* что застряло */
 .stuck .srow{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line2)}
@@ -124,22 +150,56 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .srow .tell{font-size:12.5px;font-weight:700;color:var(--accent-d);border:1.5px solid #b8d9dc;border-radius:999px;padding:8px 13px;white-space:nowrap}
 .srow .tell:active{background:var(--accent-soft)}
 
-/* KPI */
+/* ===== ПРОГРЕСС И НАГРАДЫ ===== */
 .kpi{padding:18px 20px}
-.kpi .head{display:flex;gap:16px;align-items:center}
-.ring{position:relative;width:74px;height:74px;flex:none}
-.ringv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.ringv b{font-size:19px;font-weight:800}.ringv span{font-size:9px;color:var(--mut)}
-.kpi .ht{font-weight:700;font-size:14px}
-.kpi .hs{font-size:12.5px;color:var(--mut);line-height:1.45;margin-top:4px}.kpi .hs b{color:var(--ink)}
-.zone{display:flex;align-items:center;gap:10px;border-radius:13px;padding:11px 14px;font-weight:700;font-size:13.5px;margin-top:15px;background:var(--green-bg);color:var(--green)}
+.zone{display:flex;align-items:center;gap:10px;border-radius:13px;padding:11px 14px;font-weight:700;font-size:13.5px;background:var(--green-bg);color:var(--green);line-height:1.35}
 .zone .e{font-size:18px;flex:none}
-.carrot{background:linear-gradient(135deg,#FBF5E6,#F5EAD0);border:1px solid #E7D4A6;border-radius:16px;padding:14px 16px;margin-top:13px}
+
+/* маршрут мастера */
+.route{display:flex;align-items:flex-start;margin:6px 0 2px}
+.route .stp{flex:1;text-align:center;position:relative}
+.route .stp::before{content:"";position:absolute;top:10px;left:-50%;width:100%;height:3px;background:var(--line)}
+.route .stp:first-child::before{display:none}
+.route .stp.pass::before,.route .stp.on::before{background:var(--gold)}
+.route .dot{width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid var(--line);margin:0 auto;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--faint)}
+.route .stp.pass .dot{background:var(--gold);border-color:var(--gold);color:#fff}
+.route .stp.on .dot{border-color:var(--gold);color:var(--gold-d);box-shadow:0 0 0 4px #F5EAD0}
+.route .rn{font-size:10px;font-weight:700;margin-top:7px;color:var(--mut);line-height:1.2}
+.route .stp.on .rn{color:var(--gold-d)}
+.route .stp.pass .rn{color:var(--gold-d)}
+
+/* достижения */
+.ach{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.ach .a{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}
+.ach .a.got{border-color:#E7D4A6;background:linear-gradient(135deg,#FBF5E6,#F5EAD0)}
+.ach .a.lock{opacity:.78;filter:grayscale(.35)}
+.ach .a .ai{font-size:22px;line-height:1}
+.ach .a .at{font-size:12.5px;font-weight:800;margin-top:6px;line-height:1.15}
+.ach .a.got .at::after{content:" ✓";color:var(--green)}
+.ach .a .ad{font-size:11px;color:var(--mut);font-weight:600;margin-top:3px;line-height:1.3}
+.ach .a .ap{height:6px;border-radius:4px;background:var(--line2);margin-top:9px;overflow:hidden}
+.ach .a .ap i{display:block;height:100%;background:var(--gold);border-radius:4px}
+.ach .a .apn{font-size:10px;font-weight:700;color:var(--faint);margin-top:5px}
+
+/* награда (carrot) */
+.carrot{background:linear-gradient(135deg,#FBF5E6,#F5EAD0);border:1px solid #E7D4A6;border-radius:16px;padding:14px 16px;margin-top:16px}
 .carrot .t{font-size:14px;font-weight:800;color:var(--ink)}.carrot .t b{color:var(--gold-d)}
 .carrot .bar{height:9px;border-radius:6px;background:#EAD9AE;margin:11px 0 8px;overflow:hidden}
 .carrot .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--gold),#e6cf94)}
 .carrot .s{font-size:12px;color:var(--gold-d);font-weight:600;line-height:1.5}
-.badges{display:grid;gap:8px;margin-top:4px}
+
+/* очки — разбор */
+.xpb{display:flex;flex-direction:column;gap:9px}
+.xpb .xr{display:flex;align-items:center;gap:10px}
+.xpb .xr .xn{flex:none;width:120px;font-size:12px;font-weight:700;line-height:1.15}
+.xpb .xr .xn small{display:block;font-size:9.5px;color:var(--faint);font-weight:600}
+.xpb .xr .xt{flex:1;height:9px;border-radius:5px;background:var(--line2);overflow:hidden;min-width:0}
+.xpb .xr .xt i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.xpb .xr .xv{flex:none;width:46px;text-align:right;font-size:13px;font-weight:800;color:var(--accent-d)}
+.xptot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:11px;border-top:1px solid var(--line);font-weight:800;font-size:13px;color:var(--mut)}
+.xptot b{font-family:'Cormorant',Georgia,serif;font-size:25px;color:var(--gold-d)}
+
+.badges{display:grid;gap:8px;margin-top:14px}
 .bdg{border:1px solid var(--line);border-radius:12px;padding:10px 13px;font-size:13px;font-weight:700}
 .bdg span{display:block;font-size:11px;color:var(--faint);font-weight:500;margin-top:2px}
 .bdg.ok{border-color:#bfe0cc;background:var(--green-bg)}
@@ -152,6 +212,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .note2{font-size:11.5px;color:var(--faint);margin-top:12px;line-height:1.55}.note2 b{color:var(--mut)}
 
 .note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:22px;line-height:1.55}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(22px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:14px;font-size:13px;font-weight:700;box-shadow:0 16px 36px -12px rgba(40,65,87,.65);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.2,.8,.3,1),opacity .28s;z-index:60;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast b{color:var(--gold)}
 
 /* reveal */
 @media(prefers-reduced-motion:no-preference){
@@ -171,9 +236,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .wrap>:nth-child(12){animation-delay:.44s}
   .wrap>:nth-child(13){animation-delay:.48s}
   .wrap>:nth-child(14){animation-delay:.52s}
+  .wrap>:nth-child(15){animation-delay:.56s}
+  .wrap>:nth-child(16){animation-delay:.6s}
+  .wrap>:nth-child(17){animation-delay:.64s}
+  .wrap>:nth-child(18){animation-delay:.68s}
 }
 
-@media(max-width:560px){.kan{grid-template-columns:1fr}}
+@media(max-width:560px){.kan{grid-template-columns:1fr}.route .rn{font-size:9px}}
 </style>
 </head>
 <body>
@@ -181,8 +250,26 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <div class="top">
     <div class="lg">A</div>
-    <div class="nm">ATLAS<small>моё задание · стройка</small></div>
+    <div class="nm">ATLAS<small>моё рабочее место · стройка</small></div>
     <div class="me"><div class="who">Асхат Б.<small>НУ · Пятно 3</small></div><div class="av">А</div></div>
+  </div>
+
+  <!-- ПРОФИЛЬ-ПРОГРЕСС -->
+  <div class="card hero">
+    <div class="htop">
+      <div class="ring"><svg viewBox="0 0 78 78" width="74" height="74" aria-hidden="true"><circle cx="39" cy="39" r="33" fill="none" stroke="#e6ebf1" stroke-width="8"/><circle cx="39" cy="39" r="33" fill="none" stroke="var(--green)" stroke-width="8" stroke-linecap="round" stroke-dasharray="207" stroke-dashoffset="29" transform="rotate(-90 39 39)"/></svg><div class="ringv"><b class="tnum">86%</b><span>неделя</span></div></div>
+      <div class="hgrade">
+        <div class="cap">Грейд · маршрут мастера</div>
+        <div class="gname">Специалист</div>
+        <div class="gbar"><i style="width:64%"></i></div>
+        <div class="gnext">до <b>«Старшего»</b> — держи KPI ещё ~2 мес</div>
+      </div>
+    </div>
+    <div class="hchips">
+      <div class="hchip"><b class="tnum" id="hxp">430</b><span>очки недели</span></div>
+      <div class="hchip"><b>🔥 4</b><span>недели серии</span></div>
+      <div class="hchip"><b>🏅 #2</b><span>лига · достоверность</span></div>
+    </div>
   </div>
 
   <!-- ГПР УЧАСТКА · ПЛАН/ФАКТ -->
@@ -208,6 +295,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     </div>
   </div>
 
+  <!-- ЦЕЛИ НЕДЕЛИ -->
+  <div class="lbl">Цели недели <span class="n">очки за выполнение</span></div>
+  <div class="card quests"><div id="quests"></div><div class="qsum" id="qsum"></div></div>
+
   <!-- КАНБАН: отметка факта -->
   <div class="lbl">Мои работы · отметить факт <span class="n"><span class="khint">тап по карточке → %</span></span></div>
   <div class="kan" id="kan"></div>
@@ -219,32 +310,47 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <div class="arow"><div class="when">с 16.06</div><div class="bd"><div class="t">Стяжка полов · 6–8 эт.</div><div class="prep">нужен <b>фронт от каркаса</b> — проверить с РП</div></div></div>
     <div class="arow"><div class="when">с 24.06</div><div class="bd"><div class="t">Благоустройство: бордюры, брусчатка</div><div class="prep">заранее: <b>подрядчик + вывоз грунта</b></div></div></div>
     <div class="arow"><div class="when">июль</div><div class="bd"><div class="t">Озеленение, МАФы</div><div class="prep">подать <b>заявку на материалы</b> уже сейчас</div></div></div>
+    <div class="aheadfoot">📦 Подготовил заранее (материал · бригада · фронт) → очки «План» и бейдж «Запасливый». Планирование — половина срока.</div>
   </div>
 
   <!-- ЧТО ЗАСТРЯЛО -->
   <div class="lbl">Что застряло · нужно решить</div>
   <div class="card stuck">
-    <div class="srow"><span class="dot"></span><div class="bd"><div class="t">Видеонаблюдение — стоит 2 недели</div><div class="s">подрядчик не вышел · фронт готов</div></div><button class="tell">Сообщить РП</button></div>
-    <div class="srow"><span class="dot"></span><div class="bd"><div class="t">Монтаж лифтов — нужен фронт</div><div class="s">ждём смежников по шахте</div></div><button class="tell">Сообщить РП</button></div>
-    <div class="srow"><span class="dot task"></span><div class="bd"><div class="t">Поручение РП: подготовить фронт под лифты к 10.06</div><div class="s">с планёрки 01.06</div></div><button class="tell">Взять</button></div>
+    <div class="srow"><span class="dot"></span><div class="bd"><div class="t">Видеонаблюдение — стоит 2 недели</div><div class="s">подрядчик не вышел · фронт готов</div></div><button class="tell" onclick="proact(this,'Сообщил РП · видеонаблюдение')">Сообщить РП</button></div>
+    <div class="srow"><span class="dot"></span><div class="bd"><div class="t">Монтаж лифтов — нужен фронт</div><div class="s">ждём смежников по шахте</div></div><button class="tell" onclick="proact(this,'Сообщил РП · монтаж лифтов')">Сообщить РП</button></div>
+    <div class="srow"><span class="dot task"></span><div class="bd"><div class="t">Поручение РП: подготовить фронт под лифты к 10.06</div><div class="s">с планёрки 01.06</div></div><button class="tell" onclick="proact(this,'Поручение взято в работу')">Взять</button></div>
   </div>
 
-  <!-- МОЯ НЕДЕЛЯ · KPI -->
-  <div class="lbl">Моя неделя · KPI <span class="obs" title="KPI считается, но на премию пока не влияет — включится в Фазе 2">наблюдательный режим</span></div>
+  <!-- ПРОГРЕСС И НАГРАДЫ -->
+  <div class="lbl">Прогресс и награды <span class="obs" title="Очки и грейд считаются, но на премию пока не влияют — деньги включатся в Фазе 2">наблюдательный режим</span></div>
   <div class="card kpi">
-    <div class="head">
-      <div class="ring"><svg viewBox="0 0 78 78" width="74" height="74" aria-hidden="true"><circle cx="39" cy="39" r="33" fill="none" stroke="#e6ebf1" stroke-width="8"/><circle cx="39" cy="39" r="33" fill="none" stroke="var(--green)" stroke-width="8" stroke-linecap="round" stroke-dasharray="207" stroke-dashoffset="29" transform="rotate(-90 39 39)"/></svg><div class="ringv"><b class="tnum">86%</b><span>неделя</span></div></div>
-      <div><div class="ht">Недельный KPI · исполнение задания</div><div class="hs">Закрыто <b>86%</b> выданного фронта в срок. Осталось <b>2 работы</b> до 100% недели.</div></div>
+    <div class="zone"><span class="e">✓</span><div>В зелёной зоне — задание идёт в график, серия 🔥 4 недели держится</div></div>
+
+    <div class="cap" style="margin:18px 0 0">Маршрут мастера</div>
+    <div class="route">
+      <div class="stp pass"><div class="dot">✓</div><div class="rn">Стажёр</div></div>
+      <div class="stp on"><div class="dot">★</div><div class="rn">Специалист</div></div>
+      <div class="stp"><div class="dot">3</div><div class="rn">Старший</div></div>
+      <div class="stp"><div class="dot">4</div><div class="rn">Мастер</div></div>
+      <div class="stp"><div class="dot">5</div><div class="rn">Эксперт</div></div>
     </div>
-    <div class="zone"><span class="e">✓</span><div>В зелёной зоне — задание идёт в график</div></div>
+    <div class="note2" style="margin-top:9px">Грейд растёт за <b>стабильный KPI в срок</b>, <b>0 дефектов</b> и <b>достоверный факт</b>. Следующий — «Старший»: ещё ~2 мес серии ≥85%.</div>
+
+    <div class="cap" style="margin:20px 0 9px">Достижения</div>
+    <div class="ach" id="ach"></div>
+
     <div class="carrot">
       <div class="t">Месяц на коэффициент <b>×1.2</b> — закрыто <b>72%</b> из 100%</div>
       <div class="bar"><i style="width:72%"></i></div>
-      <div class="s">дойдёшь до 100% за месяц → <b>×1.2 ко всему пулу</b>. Перевыполнение объёмом сверх 100% не премируется (кап).</div>
+      <div class="s">дойдёшь до 100% за месяц → <b>×1.2 ко всему пулу</b> (в Фазе 2). Перевыполнение объёмом сверх 100% не премируется (кап).</div>
     </div>
+
     <details class="dt">
-      <summary>Подробнее: как считается KPI</summary>
+      <summary>Подробнее: очки недели и как считается KPI</summary>
       <div class="body">
+        <div class="cap" style="margin-bottom:10px">Очки недели — из чего сложились</div>
+        <div class="xpb" id="xpb"></div>
+        <div class="xptot"><span>Итого за неделю</span><b class="tnum" id="xptot">430</b></div>
         <div class="badges">
           <div class="bdg">🔥 Серия: <b>4 недели</b> подряд ≥85%<span>считается по подтверждённому РП факту, не по самоотметке</span></div>
           <div class="bdg">🏗 Грейд: <b>Специалист</b><span>до «Старшего» — стабильный KPI ещё ~2 мес</span></div>
@@ -254,7 +360,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
           <div class="frow"><span class="b1">Пул недели</span> × <span class="b1">KPI 0.86</span> × <span class="b1">качество 1.0</span> = <span class="res">наблюдательно · деньги в Фазе 2</span></div>
           <div class="gates"><span>✓ дефекты A: нет</span><span>✓ отчётность достоверна</span><span>✓ ОТиТБ чисто</span></div>
         </div>
-        <div class="note2">Считается только то, чем ты управляешь: закрытый фронт в срок и качество в своей зоне. Простой не по твоей вине и срыв из-за чужого подряда — по коду причины, премию <b>не режут</b>. Оклад не трогается (≥75%) — премия зарабатывается, это не штраф.</div>
+        <div class="note2">Считается только то, чем ты управляешь: закрытый фронт в срок и качество в своей зоне. Простой не по твоей вине и срыв из-за чужого подряда — по коду причины, премию <b>не режут</b>. Оклад не трогается (≥75%) — премия зарабатывается, это не штраф. Очки и грейд — про мастерство и признание; деньги включатся в Фазе 2.</div>
       </div>
     </details>
   </div>
@@ -266,10 +372,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <div class="body"><iframe class="fpframe" src="gpr.html?embed=1&amp;plot=3" title="Полный план ГПР · Пятно 3" loading="lazy"></iframe></div>
   </details>
 
-  <div class="note">Экран начальника участка — он отмечает факт по всему участку. Полный план ниже — план/факт по срокам, как в MS Project. Данные условные · ЖК «Аура», Пятно 3.</div>
+  <div class="note">Рабочее место начальника участка: отметить факт, видеть цели и прогресс, планировать наперёд. Полный план ниже — план/факт по срокам, как в MS Project. Данные условные · ЖК «Аура», Пятно 3.</div>
 </div>
 
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
+/* ===== канбан: работы ===== */
 const WORKS=[
   {name:'Стяжка полов · 6 эт.',sec:'Отделка · своя бригада',cur:0,col:'todo'},
   {name:'Озеленение',sec:'Благоустройство',cur:0,col:'todo'},
@@ -280,7 +389,68 @@ const WORKS=[
   {name:'Монтаж окон',sec:'Отделка · ТОО Окна',cur:100,col:'done'},
 ];
 const COLS=[['todo','К выполнению'],['prog','В работе'],['done','Сделано']];
-let openIdx=null;
+let openIdx=null, closed=0;
+
+/* ===== игровое состояние ===== */
+const GAME={weekXP:0};
+const XP=[
+  {k:'time', n:'В срок', s:'закрытый фронт', v:180},
+  {k:'qual', n:'Качество', s:'0 дефектов класса A', v:120},
+  {k:'plan', n:'План', s:'материалы/фронт заранее', v:80},
+  {k:'trust',n:'Достоверность', s:'факт подтверждён РП', v:50},
+];
+const ACH=[
+  {ic:'🔥',t:'На серии',d:'4 недели подряд ≥85%',got:true},
+  {ic:'🛡',t:'Без брака',d:'месяц без дефектов класса A',got:true},
+  {ic:'🤝',t:'Достоверный',d:'10 отметок подтверждены РП',p:[7,10]},
+  {ic:'📦',t:'Запасливый',d:'материалы заказаны за 2 недели',p:[2,3]},
+  {ic:'⏱',t:'Раньше срока',d:'сдать раздел до плановой даты',p:[0,1]},
+  {ic:'🏗',t:'Старший',d:'достичь следующего грейда',p:[64,100]},
+];
+const QUESTS=[
+  {t:'Закрыть 2 работы недели до вс',s:'→ закроет неделю на 100%',xp:60,k:'time',done:false,auto:'close2'},
+  {t:'Подтвердить факт у РП по всем отметкам',s:'достоверный факт',xp:30,k:'trust',done:false},
+  {t:'Подготовить фронт под лифты к 10.06',s:'поручение РП с планёрки 01.06',xp:40,k:'plan',done:false},
+  {t:'Заказать материал ГКЛ (перегородки 7–8 эт.)',s:'к работам с 10.06',xp:30,k:'plan',done:false},
+];
+
+/* ===== helpers ===== */
+const $=id=>document.getElementById(id);
+const xpTotal=()=>XP.reduce((a,x)=>a+x.v,0);
+let toastT;
+function toast(msg){const el=$('toast');el.innerHTML=msg;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2200);}
+function addXP(k,n,msg){const x=XP.find(p=>p.k===k);if(x)x.v=Math.max(0,x.v+n);GAME.weekXP=xpTotal();renderHero();renderXPB();if(msg)toast(msg);}
+
+/* ===== render: профиль ===== */
+function renderHero(){$('hxp').textContent=GAME.weekXP;}
+
+/* ===== render: очки-разбор ===== */
+function renderXPB(){
+  const mx=Math.max(...XP.map(x=>x.v),1);
+  $('xpb').innerHTML=XP.map(x=>`<div class="xr"><div class="xn">${x.n}<small>${x.s}</small></div><div class="xt"><i style="width:${Math.round(x.v/mx*100)}%"></i></div><div class="xv tnum">${x.v}</div></div>`).join('');
+  $('xptot').textContent=xpTotal();
+}
+
+/* ===== render: достижения ===== */
+function renderAch(){
+  $('ach').innerHTML=ACH.map(a=>{
+    if(a.got) return `<div class="a got"><div class="ai">${a.ic}</div><div class="at">${a.t}</div><div class="ad">${a.d}</div></div>`;
+    const pc=Math.round(a.p[0]/a.p[1]*100);
+    const txt=a.p[1]===100?`${a.p[0]}%`:`${a.p[0]} из ${a.p[1]}`;
+    return `<div class="a lock"><div class="ai">${a.ic}</div><div class="at">${a.t}</div><div class="ad">${a.d}</div><div class="ap"><i style="width:${pc}%"></i></div><div class="apn">${txt}</div></div>`;
+  }).join('');
+}
+
+/* ===== render: цели недели ===== */
+function renderQuests(){
+  $('quests').innerHTML=QUESTS.map((q,i)=>`<div class="q${q.done?' done':''}" onclick="toggleQuest(${i})"><div class="box">${q.done?'✓':''}</div><div class="qb"><div class="qt">${q.t}</div><div class="qs">${q.s}</div></div><div class="qxp">+${q.xp} XP</div></div>`).join('');
+  const done=QUESTS.filter(q=>q.done).length;
+  $('qsum').innerHTML=`<span>Выполнено ${done} из ${QUESTS.length}</span><span>${done===QUESTS.length?'🎉 неделя закрыта!':'добей до конца недели'}</span>`;
+}
+function toggleQuest(i){const q=QUESTS[i];q.done=!q.done;addXP(q.k,q.done?q.xp:-q.xp,q.done?`🎯 Цель выполнена · <b>+${q.xp} XP</b>`:'Цель снята');renderQuests();}
+function checkClose(){const q=QUESTS.find(x=>x.auto==='close2');if(q&&!q.done&&closed>=2){q.done=true;addXP(q.k,q.xp,`🎯 Цель «2 работы» выполнена · <b>+${q.xp} XP</b>`);renderQuests();}}
+
+/* ===== канбан ===== */
 function chips(idx,cur){
   let opts=[];for(let v=Math.ceil((cur+1)/5)*5; v<100 && opts.length<3; v+=5) opts.push(v);
   return opts.map(v=>`<button class="chip" onclick="mark(event,${idx},${v})">${v}%</button>`).join('')
@@ -290,26 +460,36 @@ function chips(idx,cur){
 function card(w,idx){
   const tag = w.saved?`<span class="ktag done">отмечено ✓</span>`:(w.tag?`<span class="ktag late">${w.tag}</span>`:(w.col==='done'?`<span class="ktag done">✓</span>`:''));
   const mk = openIdx===idx?`<div class="kmark">${chips(idx,w.cur)}</div>`:'';
-  return `<div class="kc ${w.col}${w.late?' late':''}" onclick="openCard(${idx})">
+  return `<div class="kc ${w.col}${w.late?' late':''}" data-idx="${idx}" onclick="openCard(${idx})">
     <div class="kt">${w.name}</div><div class="km">${w.sec}</div>
-    <div class="kp"><span class="kpct">${w.cur}%</span>${tag}</div>${mk}</div>`;
+    <div class="kp"><span class="kpct tnum">${w.cur}%</span>${tag}</div>${mk}</div>`;
 }
 function renderKan(){
-  document.getElementById('kan').innerHTML=COLS.map(([key,title])=>{
+  $('kan').innerHTML=COLS.map(([key,title])=>{
     const items=WORKS.map((w,idx)=>({w,idx})).filter(o=>o.w.col===key);
     return `<div class="kcol"><div class="kh"><span>${title}</span><span class="c">${items.length}</span></div>${items.map(({w,idx})=>card(w,idx)).join('')}</div>`;
   }).join('');
 }
 function openCard(idx){openIdx=(openIdx===idx?null:idx);renderKan();}
+function celebrate(idx){const el=document.querySelector('.kc[data-idx="'+idx+'"]');if(el){el.classList.add('cele');setTimeout(()=>el.classList.remove('cele'),440);}}
 function mark(e,idx,v){
   e.stopPropagation();
   const w=WORKS[idx];
-  if(v===-1){w.saved=true;openIdx=null;renderKan();return;}
+  if(v===-1){w.saved=true;openIdx=null;renderKan();addXP('trust',5,'⚠ Причина отправлена РП · <b>+5 XP</b>');return;}
+  const wasDone=w.col==='done';
   w.cur=v;w.saved=true;w.tag=null;w.late=0;
   w.col = v>=100?'done':'prog';
   openIdx=null;renderKan();
+  if(v>=100 && !wasDone){closed++;addXP('time',25,'✓ Готово · факт у РП · <b>+25 XP</b>');celebrate(idx);checkClose();}
+  else{addXP('time',10,'Факт отправлен РП · <b>+10 XP</b>');}
 }
-renderKan();
+
+/* ===== «что застряло» — проактивность ===== */
+function proact(btn,msg){btn.textContent='✓ отправлено';btn.style.color='var(--green)';btn.style.borderColor='#bfe0cc';btn.disabled=true;addXP('trust',15,'🤝 '+msg+' · <b>+15 XP</b>');}
+
+/* ===== init ===== */
+GAME.weekXP=xpTotal();
+renderKan();renderQuests();renderAch();renderHero();renderXPB();
 </script>
 </body>
 </html>
