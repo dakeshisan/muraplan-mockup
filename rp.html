@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#284157">
+<meta name="robots" content="noindex,nofollow">
+<title>ATLAS · пульт РП</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;--line:#E6E2D7;--line2:#EFEDE5;
+  --accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--navy:#284157;--navy-d:#1d3142;
+  --gold:#CFB372;--gold-d:#A88E48;
+  --green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-bg:#F7E7E2;--amber:#C98A2C;--amber-bg:#F4EAD4;
+  --shadow:0 14px 34px -20px rgba(40,65,87,.55);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{color-scheme:light}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;-webkit-tap-highlight-color:transparent;font-feature-settings:"ss03","cv11"}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:12px}
+.tnum{font-variant-numeric:tabular-nums}
+.wrap{max-width:620px;margin:0 auto;padding:0 14px 40px}
+
+.top{position:sticky;top:0;z-index:10;background:linear-gradient(120deg,var(--navy),var(--navy-d));color:#fff;margin:0 -14px 14px;padding:13px 18px;display:flex;align-items:center;gap:12px}
+.top .lg{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;font-family:'Cormorant',Georgia,serif;flex:none}
+.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;line-height:1}
+.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px}
+.top .me{margin-left:auto;display:flex;align-items:center;gap:9px}
+.top .me .who{text-align:right;font-size:12px;font-weight:700;line-height:1.1}
+.top .me .who small{display:block;font-weight:500;color:#9db4c6;font-size:10.5px}
+.top .me .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:none}
+
+.crumbs{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12px;font-weight:600;color:var(--mut);margin:-2px 4px 14px}
+.crumbs a{color:var(--accent-d);font-weight:700;text-decoration:none}
+.crumbs .sep{color:var(--faint)}
+.crumbs b{color:var(--ink)}
+
+.card{background:var(--card);border-radius:20px;box-shadow:var(--shadow)}
+.lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:22px 4px 11px}
+.lbl .n{margin-left:auto;font-weight:600;color:var(--accent-d);text-transform:none;letter-spacing:0;font-size:12.5px}
+.obs{font-size:11px;font-weight:600;border-radius:999px;padding:4px 11px;background:var(--accent-soft);color:var(--accent-d);text-transform:none;letter-spacing:0;margin-left:auto}
+
+/* сводка */
+.sum{padding:15px 14px;display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.sst{background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:10px 6px;text-align:center}
+.sst .sn{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:26px;line-height:1;color:var(--navy)}
+.sst .sn.g{color:var(--green)}.sst .sn.r{color:var(--red)}.sst .sn.a{color:var(--gold-d)}
+.sst .sn small{font-family:'Jost',sans-serif;font-size:12px;font-weight:600;color:var(--faint)}
+.sst .sl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;color:var(--faint);margin-top:5px;line-height:1.15}
+@media(max-width:520px){.sum{grid-template-columns:repeat(2,1fr)}}
+
+/* подтверждение факта */
+.conf{padding:16px 18px}
+.conf .meter{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.conf .ring{position:relative;width:64px;height:64px;flex:none}
+.conf .ringv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.conf .ringv b{font-size:16px;font-weight:800}.conf .ringv span{font-size:8.5px;color:var(--mut)}
+.conf .mt{font-size:13px;font-weight:700}.conf .ms{font-size:12px;color:var(--mut);font-weight:600;margin-top:3px;line-height:1.4}.conf .ms b{color:var(--ink)}
+.q{display:flex;align-items:center;gap:11px;padding:12px 0;border-top:1px solid var(--line2)}
+.q .qb{flex:1;min-width:0}
+.q .qt{font-size:13.5px;font-weight:700;line-height:1.2}
+.q .qm{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:3px}
+.q .qm .ph{color:var(--green);font-weight:700}.q .qm .warn{color:var(--amber);font-weight:700}
+.q .acts{display:flex;gap:6px;flex:none}
+.q .ok{font-size:12px;font-weight:800;color:var(--green);border:1.5px solid #bfe0cc;background:var(--green-bg);border-radius:999px;padding:7px 12px;white-space:nowrap}
+.q .bk{font-size:12px;font-weight:700;color:var(--mut);border:1.5px solid var(--line);border-radius:999px;padding:7px 11px;white-space:nowrap}
+.q .ok:active,.q .bk:active{transform:translateY(1px)}
+.conf .allcta{width:100%;margin-top:13px;background:var(--accent);color:#fff;font-weight:800;font-size:13.5px;border-radius:13px;padding:13px;text-align:center}
+.conf .allcta:active{background:var(--accent-d)}
+.conf .empty{text-align:center;color:var(--green);font-weight:700;font-size:13.5px;padding:16px 0 4px}
+
+/* красная зона */
+.risk .rr{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line2)}
+.risk .rr:last-child{border-bottom:none}
+.risk .dot{width:9px;height:9px;border-radius:50%;background:var(--red);flex:none}
+.risk .dot.a{background:var(--gold)}
+.risk .bd{flex:1;min-width:0}.risk .t{font-weight:700;font-size:13.5px}.risk .s{font-size:12px;color:var(--mut);font-weight:600;margin-top:2px}
+.risk .esc{font-size:12px;font-weight:700;color:var(--accent-d);border:1.5px solid #b8d9dc;border-radius:999px;padding:8px 12px;white-space:nowrap}
+.risk .esc:active{background:var(--accent-soft)}
+
+/* команда НУ */
+.team .nu{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line2);cursor:pointer}
+.team .nu:last-child{border-bottom:none}
+.team .nu:active{background:#fbfaf5}
+.team .av{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:14px;background:linear-gradient(135deg,var(--accent),var(--accent-d))}
+.team .bd{flex:1;min-width:0}
+.team .t{font-weight:700;font-size:13.5px}.team .t small{color:var(--faint);font-weight:600}
+.team .s{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:2px;display:flex;gap:9px;flex-wrap:wrap}
+.team .s .trust{color:var(--accent-d);font-weight:700}
+.team .kpi{flex:none;text-align:right}
+.team .kpi b{font-family:'Cormorant',Georgia,serif;font-size:22px;font-weight:700;color:var(--navy);line-height:1}
+.team .kpi span{display:block;font-size:9.5px;color:var(--faint);font-weight:700;text-transform:uppercase;margin-top:2px}
+
+/* очереди */
+.ques{padding:6px 18px 14px}
+.qline{display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid var(--line2)}
+.qline:last-child{border-bottom:none}
+.qline .qn{flex:none;width:104px;font-size:12.5px;font-weight:700}
+.qline .qn small{display:block;font-size:10px;color:var(--faint);font-weight:600}
+.qline .qt{flex:1;height:8px;border-radius:5px;background:#e7edf2;overflow:hidden;min-width:0}
+.qline .qt i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.qline .qt i.fin{background:linear-gradient(90deg,var(--green),#36a86a)}
+.qline .qv{flex:none;width:38px;text-align:right;font-weight:800;font-size:12.5px}
+
+/* поручения */
+.tasks .tr{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line2)}
+.tasks .tr:last-child{border-bottom:none}
+.tasks .ic{flex:none;font-size:16px}
+.tasks .bd{flex:1;min-width:0}.tasks .t{font-weight:700;font-size:13px}.tasks .s{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:2px}
+.tasks .st{flex:none;font-size:10.5px;font-weight:800;border-radius:999px;padding:4px 10px;background:var(--accent-soft);color:var(--accent-d)}
+
+.note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:22px;line-height:1.55}
+.note a{color:var(--accent-d);font-weight:700;text-decoration:none}
+
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(22px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:14px;font-size:13px;font-weight:700;box-shadow:0 16px 36px -12px rgba(40,65,87,.65);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.2,.8,.3,1),opacity .28s;z-index:60;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast b{color:var(--gold)}
+
+@media(prefers-reduced-motion:no-preference){
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .wrap>*{opacity:0;animation:rise .5s cubic-bezier(.2,.7,.3,1) forwards}
+  .wrap>:nth-child(1){animation-delay:0s}.wrap>:nth-child(2){animation-delay:.05s}
+  .wrap>:nth-child(3){animation-delay:.1s}.wrap>:nth-child(4){animation-delay:.15s}
+  .wrap>:nth-child(5){animation-delay:.2s}.wrap>:nth-child(6){animation-delay:.25s}
+  .wrap>:nth-child(7){animation-delay:.3s}.wrap>:nth-child(8){animation-delay:.35s}
+  .wrap>:nth-child(9){animation-delay:.4s}.wrap>:nth-child(10){animation-delay:.45s}
+  .wrap>:nth-child(11){animation-delay:.5s}.wrap>:nth-child(12){animation-delay:.55s}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="lg">A</div>
+    <div class="nm">ATLAS<small>пульт руководителя проекта</small></div>
+    <div class="me"><div class="who">Ерлан С.<small>РП · Аура</small></div><div class="av">Е</div></div>
+  </div>
+
+  <div class="crumbs"><a href="portfolio.html">‹ Портфель</a><span class="sep">·</span><b>ЖК «Аура»</b><span class="sep">·</span>пульт РП</div>
+
+  <!-- СВОДКА -->
+  <div class="lbl">Аура за неделю <span class="obs" title="KPI считается, но на премию пока не влияет — Фаза 2">наблюдательный режим</span></div>
+  <div class="card sum">
+    <div class="sst"><div class="sn g tnum">+6<small>%</small></div><div class="sl">готовность / нед</div></div>
+    <div class="sst"><div class="sn r tnum">35</div><div class="sl">просрочено работ</div></div>
+    <div class="sst"><div class="sn a tnum">74<small>%</small></div><div class="sl">достоверность факта</div></div>
+    <div class="sst"><div class="sn tnum" id="s-wait">4</div><div class="sl">ждут подтверждения</div></div>
+  </div>
+
+  <!-- ПОДТВЕРЖДЕНИЕ ФАКТА -->
+  <div class="lbl">Подтвердить факт <span class="n">твоя проверка на объекте</span></div>
+  <div class="card conf">
+    <div class="meter">
+      <div class="ring"><svg viewBox="0 0 68 68" width="64" height="64" aria-hidden="true"><circle cx="34" cy="34" r="28" fill="none" stroke="#e6ebf1" stroke-width="7"/><circle cx="34" cy="34" r="28" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-dasharray="176" stroke-dashoffset="46" transform="rotate(-90 34 34)"/></svg><div class="ringv"><b class="tnum">74%</b><span>достов.</span></div></div>
+      <div><div class="mt">Достоверность факта — твоя ось KPI</div><div class="ms">Подтверждаешь физически то, что отметили НУ. <b>Достоверный факт</b> = по нему считается их премия (не самоотметка). Сегодня подтверждено: <b id="m-done">0</b>.</div></div>
+    </div>
+    <div id="queue"></div>
+    <button class="allcta" id="allcta" onclick="confAll()">✓ Подтвердить всё с фото</button>
+  </div>
+
+  <!-- КРАСНАЯ ЗОНА -->
+  <div class="lbl">Красная зона · риск срыва</div>
+  <div class="card risk">
+    <div class="rr"><span class="dot"></span><div class="bd"><div class="t">Монтаж лифтов · блок 3 — −48 дн</div><div class="s">критический путь · фронт готов, подрядчик тянет</div></div><button class="esc" onclick="esc(this,'Эскалировано директору · лифты')">Эскалировать</button></div>
+    <div class="rr"><span class="dot"></span><div class="bd"><div class="t">Видеонаблюдение · блок 3 — стоит 2 нед</div><div class="s">возвращено как недостоверное · подрядчик не вышел</div></div><button class="esc" onclick="esc(this,'Эскалировано · видеонаблюдение')">Эскалировать</button></div>
+    <div class="rr"><span class="dot a"></span><div class="bd"><div class="t">Благоустройство · блок 3 — −19 дн</div><div class="s">фронт от смежников не передан</div></div><button class="esc" onclick="esc(this,'Запрошен фронт у смежников')">Решить</button></div>
+  </div>
+
+  <!-- КОМАНДА НУ -->
+  <div class="lbl">Моя команда · начальники участка <span class="n">тап → участок</span></div>
+  <div class="card team">
+    <div class="nu" onclick="location.href='nu.html'">
+      <div class="av">А</div>
+      <div class="bd"><div class="t">Асхат Б. <small>· блок 3 (2 оч)</small></div><div class="s"><span>🔥 4 нед серии</span><span class="trust">достоверность 92%</span></div></div>
+      <div class="kpi"><b class="tnum">86%</b><span>KPI нед</span></div>
+    </div>
+    <div class="nu" onclick="soon()">
+      <div class="av" style="background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy)">Д</div>
+      <div class="bd"><div class="t">Дамир Е. <small>· блок 4 (2 оч)</small></div><div class="s"><span>🔥 2 нед серии</span><span class="trust">достоверность 78%</span></div></div>
+      <div class="kpi"><b class="tnum">81%</b><span>KPI нед</span></div>
+    </div>
+  </div>
+
+  <!-- ОЧЕРЕДИ -->
+  <div class="lbl">Очереди «Ауры» <span class="n">блок = «пятно» в ГПР</span></div>
+  <div class="card ques">
+    <div class="qline"><div class="qn">2 очередь<small>блоки 3, 4</small></div><div class="qt"><i style="width:84%"></i></div><div class="qv">84%</div></div>
+    <div class="qline"><div class="qn">3 очередь<small>блоки 5, 6</small></div><div class="qt"><i style="width:10%"></i></div><div class="qv">10%</div></div>
+    <div class="qline"><div class="qn">4 очередь<small>блоки 7, 8</small></div><div class="qt"><i style="width:10%"></i></div><div class="qv">10%</div></div>
+  </div>
+
+  <!-- ПОРУЧЕНИЯ -->
+  <div class="lbl">Поручения и эскалации</div>
+  <div class="card tasks">
+    <div class="tr"><span class="ic">📤</span><div class="bd"><div class="t">Подготовить фронт под лифты к 10.06 → Асхату Б.</div><div class="s">выдано на планёрке 01.06</div></div><span class="st">выдано</span></div>
+    <div class="tr"><span class="ic">⤴</span><div class="bd"><div class="t">Решить по подрядчику лифтов до 10.06</div><div class="s">эскалация директору · блок 3</div></div><span class="st">у директора</span></div>
+  </div>
+
+  <div class="note">Пульт руководителя проекта · ЖК «Аура» (очереди 2–4, блоки 3–8). Подтверждение факта — физическая проверка, источник «достоверности». Данные условные. <a href="portfolio.html">← Портфель</a></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const QUEUE=[
+  {w:'Фасад', blk:'блок 3', who:'Асхат Б. · ИП Дана', pf:'93 → 100%', photo:true},
+  {w:'Видеонаблюдение', blk:'блок 3', who:'Асхат Б.', pf:'67%', warn:'2 недели без движения'},
+  {w:'Хоз. водопровод', blk:'блок 4', who:'Дамир Е. · ИП Сантех', pf:'94 → 100%', photo:true},
+  {w:'Электромонтаж', blk:'блок 4', who:'Дамир Е.', pf:'96 → 98%'},
+];
+let done=0;
+const $=id=>document.getElementById(id);
+let toastT;
+function toast(m){const e=$('toast');e.innerHTML=m;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),2200);}
+function soon(){toast('Экран участка Дамира — <b>в работе</b>');}
+
+function render(){
+  const host=$('queue');
+  if(!QUEUE.length){host.innerHTML='<div class="empty">✓ Всё подтверждено — свод можно отдавать директору</div>';$('allcta').style.display='none';}
+  else{
+    host.innerHTML=QUEUE.map((q,i)=>{
+      const tag=q.photo?'<span class="ph">фото есть</span>':(q.warn?`<span class="warn">${q.warn}</span>`:'без фото');
+      return `<div class="q"><div class="qb"><div class="qt">${q.w} · ${q.blk} — ${q.pf}</div><div class="qm">отметил ${q.who} · ${tag}</div></div>
+        <div class="acts"><button class="ok" onclick="conf(${i},1)">Подтвердить</button><button class="bk" onclick="conf(${i},0)">Вернуть</button></div></div>`;
+    }).join('');
+    $('allcta').style.display='block';
+  }
+  $('s-wait').textContent=QUEUE.length;
+  $('m-done').textContent=done;
+}
+function conf(i,ok){
+  const q=QUEUE[i];
+  if(ok){done++;toast(`✓ Подтверждено · ${q.w} (${q.blk}) · <b>+достоверность</b>`);}
+  else{toast(`↩ Возвращено НУ · ${q.w} — переотметить`);}
+  QUEUE.splice(i,1);render();
+}
+function confAll(){
+  const n=QUEUE.filter(q=>q.photo).length;
+  for(let i=QUEUE.length-1;i>=0;i--){if(QUEUE[i].photo){QUEUE.splice(i,1);done++;}}
+  toast(`✓ Подтверждено с фото: <b>${n}</b> · остались на ручную проверку`);render();
+}
+function esc(btn,msg){btn.textContent='✓ отправлено';btn.style.color='var(--green)';btn.style.borderColor='#bfe0cc';btn.disabled=true;toast('⤴ '+msg);}
+render();
+</script>
+</body>
+</html>
