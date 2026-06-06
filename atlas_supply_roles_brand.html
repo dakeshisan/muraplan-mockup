@@ -14,7 +14,7 @@
   --bg:#F7F5EE;--card:#FBFBFB;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#9C9486;
   --line:#E0DDD3;--line-soft:#ECEAE2;
   --accent:#007484;--accent-d:#005763;--accent-soft:#E0EEF0;
-  --gold:#CFB372;--gold-soft:#EFE6CD;--gold-deep:#A88E48;
+  --gold:#CFB372;--gold-soft:#EFE6CD;--gold-deep:#A88E48;--gold-ink:#7A5E1E;
   --navy:#284157;--navy-d:#1A2B3A;
   --green:#3E9B66;--green-bg:#E7F1E7;--amber:#C07A1E;--amber-bg:#F5E9D2;--red:#C7544A;--red-bg:#F6E4DF;--blue:#3C6E8B;--blue-bg:#E4ECF1;--violet:#7A66A6;--violet-bg:#ECE7F3;
 }
@@ -43,14 +43,14 @@ button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
 .wrap{max-width:1180px;margin:0 auto;padding:26px 28px 64px}
 .view{display:none}.view.on{display:block}
 @media(prefers-reduced-motion:no-preference){.view.on{animation:f .2s ease}@keyframes f{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}}
-.eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:10px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:10px}
 .rolehint{font-size:13px;color:var(--mut);margin-bottom:16px;padding:13px 17px;background:#fff;border-radius:14px;border:1px solid var(--line)}
 .rolehint b{color:var(--accent-d);font-weight:600}
 .obsnote{font-size:12px;color:#8a6420;background:var(--gold-soft);border:1px solid #e2d2a6;border-radius:10px;padding:9px 14px;display:block;margin-bottom:20px}
 .obsnote b{color:#6f4e12}
 h2.sec{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:var(--faint);margin:26px 2px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 h2.sec:first-of-type{margin-top:0}
-.pill{font-size:10.5px;font-weight:600;color:var(--gold-deep);background:var(--gold-soft);border-radius:999px;padding:3px 10px;text-transform:none;letter-spacing:.01em}
+.pill{font-size:10.5px;font-weight:600;color:var(--gold-ink);background:var(--gold-soft);border-radius:999px;padding:3px 10px;text-transform:none;letter-spacing:.01em}
 
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px}
 .badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px}
@@ -87,19 +87,28 @@ h2.sec:first-of-type{margin-top:0}
 .step{flex:1;text-align:center;font-size:11px;font-weight:600;padding:8px 5px;border-radius:999px;background:var(--line-soft);color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .step.done{background:var(--accent-soft);color:var(--accent-d)}
 .step.now{background:var(--gold);color:#1E1E1E}
-.bignum{font-family:'Cormorant',Georgia,serif;font-size:36px;font-weight:700;color:var(--gold-deep);line-height:1;margin:8px 0}.bignum small{font-size:15px;font-family:'Jost',sans-serif;color:var(--faint);font-weight:600}
+.bignum{font-family:'Cormorant',Georgia,serif;font-size:36px;font-weight:700;color:var(--gold-ink);line-height:1;margin:8px 0}.bignum small{font-size:15px;font-family:'Jost',sans-serif;color:var(--faint);font-weight:600}
 .nextstep{margin-top:11px;font-size:12px;font-weight:600;color:var(--accent-d);background:var(--accent-soft);border-radius:11px;padding:9px 13px;line-height:1.5}
 .formula{padding:18px 22px}
 .formula .ft{font-weight:600;font-size:13.5px;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .formula .info{font-size:11.5px;color:var(--accent);font-weight:600}
 .frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--mut);background:var(--bg);padding:12px 15px;border-radius:12px}
 .frow .b1{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:4px 10px;font-weight:600;color:var(--ink)}
-.frow b{color:var(--gold-deep);font-weight:700}
+.frow b{color:var(--gold-ink);font-weight:700}
 .frow.sub{margin-top:8px;font-size:12px;background:#F2EFE5;color:var(--mut)}
 .gates{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
 .gates span{font-size:11.5px;color:var(--green);background:var(--green-bg);border-radius:9px;padding:5px 11px;font-weight:600}
 .expl{font-size:12px;color:var(--mut);margin-top:12px;line-height:1.6;padding-top:11px;border-top:1px solid var(--line)}.expl b{color:var(--ink);font-weight:600}
 @media(max-width:700px){.gamewrap{grid-template-columns:1fr}}
+
+/* supply workspace — очередь по крайнему сроку заявки */
+.wsbar{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:14px}
+.wsseg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;border-left:3px solid var(--accent)}
+.wsseg.g{border-left-color:var(--green)}.wsseg.a{border-left-color:var(--amber)}.wsseg.r{border-left-color:var(--red)}.wsseg.b{border-left-color:var(--blue)}
+.wsseg .n{font-family:'Cormorant',Georgia,serif;font-size:27px;font-weight:700;line-height:1}
+.wsseg .l{font-size:11.5px;color:var(--mut);margin-top:5px;line-height:1.3}
+#wsqueue .lrow .pf{min-width:150px;text-align:right}
+@media(max-width:700px){.wsbar{grid-template-columns:1fr 1fr}}
 
 /* week cycle strip */
 .cycle{display:flex;align-items:center;gap:0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:7px;margin-bottom:20px;overflow:hidden}
@@ -121,7 +130,7 @@ h2.sec:first-of-type{margin-top:0}
 .kc.srv{border-color:#e2b3ac;box-shadow:inset 3px 0 0 var(--red)}
 .kc .kt{font-size:13px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px}
 .kc .kt .abc{font-size:9.5px;font-weight:700;color:var(--faint);border:1px solid var(--line);border-radius:6px;padding:1px 5px}
-.kc .kt .abc.A{color:var(--gold-deep);border-color:#e2d2a6;background:var(--gold-soft)}
+.kc .kt .abc.A{color:var(--gold-ink);border-color:#e2d2a6;background:var(--gold-soft)}
 .kc .km{font-size:11.5px;color:var(--mut);display:flex;justify-content:space-between;gap:6px;align-items:center}
 .kc .km .qf{font-weight:600;color:var(--ink)}
 .kc .br{font-size:11.5px;color:var(--mut);margin-top:6px;line-height:1.45}.kc .br b{color:var(--ink);font-weight:600}
@@ -227,6 +236,11 @@ h2.sec:first-of-type{margin-top:0}
         <div class="cstep now"><b>Пт–Сб ›</b>отметить приход</div><span class="carrow">→</span>
         <div class="cstep"><b>Вс</b>недельный KPI</div>
       </div>
+
+      <h2 class="sec">Очередь на сегодня <span class="pill">крайний срок заявки · материал до старта работ</span></h2>
+      <p class="rolehint" style="margin-bottom:14px">Сначала — <b>что обработать сегодня</b>, чтобы материал был на пятне <b>до старта работ</b>. Сортировка по крайнему сроку заявки: <b>заказать-до = нужно к сроку − срок поставки</b>. Красное — фронт уже под угрозой.</p>
+      <div class="wsbar" id="wsbar"></div>
+      <div class="card list sched" id="wsqueue"></div>
 
       <h2 class="sec">Мой KPI за неделю <span class="pill">наблюдательно · поощрение</span></h2>
       <div class="gamewrap">
@@ -425,6 +439,44 @@ const REQS=[
 ];
 const typeColor={'Бетон-арматура':'b-blue','Инженерка':'b-violet','Отделочные':'b-amber','Благоустр.':'b-green'};
 const winColor=w=>!w?'':/срыв|риск/.test(w)?'b-red':/ранний/.test(w)?'b-gray':/принят/.test(w)?'b-green':'b-blue';
+
+// ——— Рабочее пространство снабженца: «материал на объекте до старта работ» ———
+const TODAY=7; // 07.06 — «сегодня» (как линия в Ганте)
+const dnum=s=>{const m=/^(\d{1,2})\.(\d{1,2})/.exec(s||'');return m?+m[1]:null;};
+const LEAD={'Бетон B25 (товарный)':5,'Арматура А500С ⌀12':5,'Газоблок D500':3,'Утеплитель фасадный':5,'ЦПС М150':4,'Окна ПВХ':10,'Керамогранит':7,'Кабель ВВГнг 3×2.5':6,'Труба PP-R ⌀25':6,'Лифтовое оборудование':90,'Камеры + домофоны':45,'Бордюрный камень':7,'Брусчатка':7,'Саженцы + грунт':5};
+function timeOf(x){const nd=dnum(x.need);if(nd==null)return null;const lead=LEAD[x.mat]??5;const orderBy=nd-lead;return{nd,lead,orderBy,slack:orderBy-TODAY};}
+// SLA обработки самой заявки: сколько дней в текущей стадии vs норматив (согласование ≤3, оплата/логистика ≤4)
+const AGED={'Камеры + домофоны':48,'Бордюрный камень':6,'Брусчатка':6,'Саженцы + грунт':4,'Кабель ВВГнг 3×2.5':2,'Керамогранит':1,'Труба PP-R ⌀25':1,'Бетон B25 (товарный)':2,'Арматура А500С ⌀12':2,'Утеплитель фасадный':3,'ЦПС М150':3,'Лифтовое оборудование':3,'Газоблок D500':0,'Окна ПВХ':0};
+const SLA={req:3,pay:4};
+function agedOf(x){const d=AGED[x.mat]??0;const sla=SLA[x.col]??99;return{d,sla,breach:x.col!=='arr'&&d>sla};}
+function riskOf(x){const t=timeOf(x);
+  if(x.col==='arr')return{k:'done',cls:'b-green',badge:'на объекте',rank:9,t};
+  if(x.srv||/срыв/.test(x.win||''))return{k:'srv',cls:'b-red',badge:'срыв → стоп фронта',rank:0,t};
+  if(x.hold)return{k:'hold',cls:'b-violet',badge:'ждёт ТЗ · '+x.hold,rank:1,t};
+  if(x.col==='pay')return(x.late||/риск/.test(x.win||''))?{k:'late',cls:'b-amber',badge:'доставка с риском',rank:2,t}:{k:'transit',cls:'b-blue',badge:'в пути · в окне',rank:4,t};
+  if(t&&t.slack<0)return{k:'over',cls:'b-red',badge:'просрочка заказа '+(-t.slack)+' дн',rank:1,t};
+  if(t&&t.slack<=2)return{k:'risk',cls:'b-amber',badge:'заказать срочно · до '+t.orderBy+'.06',rank:3,t};
+  return{k:'ok',cls:'b-green',badge:'заказать до '+(t?t.orderBy:'?')+'.06 · запас '+(t?t.slack:'?')+' дн',rank:5,t};
+}
+function renderStatusbar(){
+  const el=document.getElementById('wsbar');if(!el)return;
+  const c=k=>REQS.filter(x=>riskOf(x).k===k).length;
+  const segs=[['g',c('done'),'материал на объекте'],['b',c('transit')+c('ok'),'в окне · по сроку'],['a',c('hold')+c('late')+c('risk'),'под риском · обработать'],['r',c('srv')+c('over'),'срыв → стоп фронта']];
+  el.innerHTML=segs.map(s=>`<div class="wsseg ${s[0]}"><div class="n tnum">${s[1]}</div><div class="l">${s[2]}</div></div>`).join('');
+}
+function renderQueue(){
+  const el=document.getElementById('wsqueue');if(!el)return;
+  const q=REQS.map(x=>({x,r:riskOf(x)})).filter(o=>o.r.rank<=3).sort((a,b)=>(a.r.rank-b.r.rank)||((a.r.t?a.r.t.slack:0)-(b.r.t?b.r.t.slack:0)));
+  const act={srv:'Эскалация',hold:'Запросить ТЗ',over:'Заказать сейчас',late:'План Б',risk:'Заказать'};
+  const right=(x,r)=>r.k==='srv'?(x.win||'не законтрактовано'):r.k==='hold'?('ждёт '+x.hold):r.k==='late'?(x.win||'ETA с риском'):r.t?('старт работ '+r.t.nd+'.06 · '+(r.t.slack>=0?'запас '+r.t.slack:'просрочка '+(-r.t.slack))+' дн'):'';
+  const inp=REQS.filter(x=>x.col!=='arr').length,ovd=REQS.filter(x=>agedOf(x).breach).length;
+  el.innerHTML=`<div class="lrow" style="background:var(--gold-soft)"><span class="badge b-amber">⏱ SLA обработки</span><div class="bd"><div class="s"><b>${inp-ovd}/${inp}</b> заявок обрабатываются в срок · <b style="color:var(--red)">${ovd}</b> просрочены (норматив согласования ≤3 дн) — заявка не должна залёживаться</div></div></div>`+q.map(({x,r})=>`<div class="lrow">
+    <span class="badge ${r.cls}">${r.badge}</span>
+    <div class="bd"><div class="t">${x.mat} <span style="color:var(--faint);font-weight:500">· ${x.qty}</span></div>
+      <div class="s">→ <b>${x.work}</b> · П${x.plot} · нужен к <b>${x.need}</b> · поставка ~${(timeOf(x)||{}).lead||'?'} дн · обработка ${agedOf(x).d}д${agedOf(x).breach?' <b style="color:var(--red)">⚠ SLA</b>':''}</div></div>
+    <span class="pf">${right(x,r)}</span><button class="btn">${act[r.k]||'Открыть'}</button></div>`).join('')
+    +`<div class="lrow" style="background:var(--bg)"><div class="bd"><div class="s">Остальные <b>${REQS.length-q.length}</b> — в пути, на объекте или с запасом. Цель рабочего дня: <b>0 в красном</b>, материал на пятне до старта работ.</div></div></div>`;
+}
 let curType='all';
 function renderKan(){
   ['req','pay','arr'].forEach(col=>{
@@ -439,6 +491,8 @@ function renderKan(){
       if(x.price==='over')chips.push('<span class="chip b-red">+6% к эталону</span>');
       if(x.hold)chips.push(`<span class="chip b-violet">ждёт ТЗ · ${x.hold}</span>`);
       if(x.win)chips.push(`<span class="chip ${winColor(x.win)}">${x.win}</span>`);
+      if(x.col==='req'&&!x.hold&&!x.srv){const rq=riskOf(x);chips.push(`<span class="chip ${rq.cls}">${rq.badge}</span>`);}
+      if(x.col!=='arr'){const ag=agedOf(x);chips.push(`<span class="chip ${ag.breach?'b-red':'b-gray'}">⏱ ${ag.d}д в стадии${ag.breach?' › SLA':''}</span>`);}
       d.innerHTML=`<div class="kt"><span class="abc ${x.abc}">${x.abc}</span>${x.mat}</div>
         <div class="km"><span class="badge ${typeColor[x.type]}">${x.type}</span><span class="qf">${x.qty}</span></div>
         <div class="br">→ <b>${x.work}</b> · П${x.plot} · к <b>${x.need}</b></div>
@@ -542,7 +596,7 @@ const MGMT={
   owner:{eye:'Надзор · эффективность оборотки',hint:'<b>Экран собственника.</b> Тот же обзор для надзора: обеспеченность и эффективность оборотки. Решения — у CEO и директора; тебе виден сырой факт прихода (Хранитель) для проверки.',scope:'Портфель',kpi4:['Замороженная оборотка','~28 млн ₸','ранний завоз / запас · условно'],cta:'<button class="btn gold">Принять неделю</button><button class="btn">Запросить разбор у CEO</button>'},
 };
 const PLOTS=[{id:3,q:2,cov:78,risk:3},{id:4,q:2,cov:75,risk:2},{id:5,q:3,cov:62,risk:1},{id:6,q:3,cov:55,risk:1},{id:7,q:4,cov:28,risk:0},{id:8,q:4,cov:25,risk:0}];
-const col=v=>v>=75?'var(--green)':v>=50?'var(--gold-deep)':'var(--blue)';
+const col=v=>v>=75?'var(--green)':v>=50?'var(--gold-deep)':'var(--blue)';const colT=v=>v>=75?'var(--green)':v>=50?'var(--gold-ink)':'var(--blue)';
 function renderMgmt(role){const m=MGMT[role];
   document.getElementById('mgmt-eyebrow').textContent=m.eye;
   document.getElementById('mgmt-hint').innerHTML=m.hint;
@@ -552,7 +606,7 @@ function renderMgmt(role){const m=MGMT[role];
   document.getElementById('mgmt-grid-h').textContent=role==='dir'?'Обеспеченность пятен объекта':'Обеспеченность по пятнам';
   document.getElementById('mgmtplots').innerHTML=PLOTS.map(p=>`<div class="plot"><div class="ph"><div class="pn">Пятно ${p.id}</div><div class="pq">${p.q}-я оч.</div></div>
     <div class="bw"><div class="f" style="width:${p.cov}%;background:${col(p.cov)}"></div></div>
-    <div class="bl"><span>обеспечено <b class="tnum" style="color:${col(p.cov)}">${p.cov}%</b></span><span class="tnum">${p.risk?'риск-позиций '+p.risk:'план закупа'}</span></div></div>`).join('');
+    <div class="bl"><span>обеспечено <b class="tnum" style="color:${colT(p.cov)}">${p.cov}%</b></span><span class="tnum">${p.risk?'риск-позиций '+p.risk:'план закупа'}</span></div></div>`).join('');
 }
 
 // ——— Маршрутизация ролей ———
@@ -564,7 +618,7 @@ function pick(r){if(!VIEW[r])r='snab';
   if(VIEW[r]==='v-mgmt')renderMgmt(r);
   history.replaceState(null,'',location.pathname+'#'+r);}
 tabs.forEach(t=>t.addEventListener('click',()=>pick(t.dataset.r)));
-renderKan();
+renderKan();renderStatusbar();renderQueue();
 pick(location.hash.slice(1)||'snab');
 </script>
 </body>
