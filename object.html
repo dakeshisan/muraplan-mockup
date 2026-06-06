@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#284157">
+<meta name="robots" content="noindex,nofollow">
+<title>ATLAS · объект (ЖК)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;--line:#E6E2D7;--line2:#EFEDE5;
+  --accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--navy:#284157;--navy-d:#1d3142;
+  --gold:#CFB372;--gold-d:#A88E48;
+  --green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-bg:#F7E7E2;--amber:#C98A2C;
+  --shadow:0 14px 34px -20px rgba(40,65,87,.55);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{color-scheme:light}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;-webkit-tap-highlight-color:transparent;font-feature-settings:"ss03","cv11"}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:12px}
+.tnum{font-variant-numeric:tabular-nums}
+.wrap{max-width:620px;margin:0 auto;padding:0 14px 40px}
+
+.top{position:sticky;top:0;z-index:10;background:linear-gradient(120deg,var(--navy),var(--navy-d));color:#fff;margin:0 -14px 14px;padding:13px 18px;display:flex;align-items:center;gap:12px}
+.top .lg{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;font-family:'Cormorant',Georgia,serif;flex:none}
+.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;line-height:1}
+.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px}
+.top .me{margin-left:auto;text-align:right;font-size:12px;font-weight:700;line-height:1.1}
+.top .me small{display:block;font-weight:500;color:#9db4c6;font-size:10.5px}
+
+.crumbs{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12px;font-weight:600;color:var(--mut);margin:-2px 4px 14px}
+.crumbs a{color:var(--accent-d);font-weight:700;text-decoration:none}
+.crumbs .sep{color:var(--faint)}
+.crumbs b{color:var(--ink)}
+
+.card{background:var(--card);border-radius:20px;box-shadow:var(--shadow)}
+.lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:22px 4px 11px}
+.lbl .n{margin-left:auto;font-weight:600;color:var(--accent-d);text-transform:none;letter-spacing:0;font-size:12.5px}
+
+/* шапка объекта */
+.ohead{padding:18px 20px}
+.ohead .oname{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:30px;line-height:1;color:var(--navy)}
+.ohead .oloc{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:5px}
+.ohead .obar{height:12px;border-radius:7px;background:#e7edf2;overflow:hidden;margin:15px 0 6px;position:relative}
+.ohead .obar i{display:block;height:100%;border-radius:7px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.ohead .obar b{position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:11px;font-weight:800;color:var(--navy)}
+.ohead .ostat{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:14px}
+.ostat .s{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:9px 6px;text-align:center}
+.ostat .s b{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:23px;color:var(--navy);line-height:1}
+.ostat .s b.r{color:var(--red)}
+.ostat .s span{display:block;font-size:9.5px;font-weight:700;text-transform:uppercase;color:var(--faint);margin-top:5px;line-height:1.15}
+
+/* очередь-секция */
+.qsec{padding:6px 18px 4px}
+.qsec+.qsec{border-top:1px solid var(--line2)}
+.qhead{display:flex;align-items:center;gap:10px;padding:14px 0 10px}
+.qh-nm{flex:1;min-width:0;font-size:14.5px;font-weight:800}
+.qh-nm small{display:block;font-size:11px;color:var(--faint);font-weight:600;margin-top:2px}
+.chip2{flex:none;font-size:10.5px;font-weight:800;border-radius:999px;padding:4px 10px;white-space:nowrap}
+.chip2.build{background:var(--accent-soft);color:var(--accent-d)}
+.chip2.late{background:var(--red-bg);color:var(--red)}
+.chip2.early{background:#FBF5E6;color:var(--gold-d);border:1px solid #E7D4A6}
+.qh-pct{flex:none;font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;color:var(--accent-d)}
+
+.blk{display:flex;align-items:center;gap:11px;padding:10px 0;border-top:1px solid var(--line2)}
+.blk.tap{cursor:pointer}.blk.tap:active{opacity:.7}
+.blk.you{margin:0 -18px;padding:10px 18px;background:linear-gradient(135deg,#FBF5E6,#F5EAD0)}
+.b-bd{flex:none;width:128px;min-width:0}
+.b-nm{font-size:13px;font-weight:700}.b-nm .ut{font-size:9.5px;font-weight:800;color:var(--gold-d);background:#fff;border:1px solid #E7D4A6;border-radius:999px;padding:1px 6px;margin-left:5px}
+.b-sub{font-size:10.5px;color:var(--faint);font-weight:600;margin-top:2px}
+.b-sub .rk{color:var(--red);font-weight:700}
+.b-bar{flex:1;height:8px;border-radius:5px;background:#e7edf2;overflow:hidden;min-width:0}
+.b-bar i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.b-bar i.you{background:linear-gradient(90deg,var(--gold),var(--gold-d))}
+.b-pct{flex:none;width:36px;text-align:right;font-weight:800;font-size:12.5px}
+.b-go{flex:none;color:var(--accent-d);font-weight:700;width:10px}
+
+/* сводный ГПР */
+.dt{margin-top:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.dt>summary{list-style:none;cursor:pointer;padding:13px 16px;font-size:13px;font-weight:700;color:var(--accent-d);display:flex;align-items:center;gap:8px}
+.dt>summary::-webkit-details-marker{display:none}
+.dt>summary::after{content:"⌄";margin-left:auto;font-size:15px;transition:transform .2s}
+.dt[open]>summary{border-bottom:1px solid var(--line)}
+.dt[open]>summary::after{transform:rotate(180deg)}
+.gprframe{width:100%;height:74vh;border:0;display:block;background:var(--bg)}
+
+.roles{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap}
+.roles a{flex:1;min-width:150px;text-align:center;text-decoration:none;font-size:13px;font-weight:700;color:var(--accent-d);background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px;box-shadow:var(--shadow)}
+.roles a:active{background:var(--bg)}
+
+.note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:22px;line-height:1.55}
+.note a{color:var(--accent-d);font-weight:700;text-decoration:none}
+
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(22px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:14px;font-size:13px;font-weight:700;box-shadow:0 16px 36px -12px rgba(40,65,87,.65);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.2,.8,.3,1),opacity .28s;z-index:60;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast b{color:var(--gold)}
+
+@media(prefers-reduced-motion:no-preference){
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .wrap>*{opacity:0;animation:rise .5s cubic-bezier(.2,.7,.3,1) forwards}
+  .wrap>:nth-child(1){animation-delay:0s}.wrap>:nth-child(2){animation-delay:.05s}
+  .wrap>:nth-child(3){animation-delay:.1s}.wrap>:nth-child(4){animation-delay:.15s}
+  .wrap>:nth-child(5){animation-delay:.2s}.wrap>:nth-child(6){animation-delay:.25s}
+  .wrap>:nth-child(7){animation-delay:.3s}.wrap>:nth-child(8){animation-delay:.35s}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="lg">A</div>
+    <div class="nm">ATLAS<small>объект · обзор</small></div>
+    <div class="me">ЖК «Аура»<small>Алатау</small></div>
+  </div>
+
+  <div class="crumbs"><a href="portfolio.html">‹ Портфель</a><span class="sep">▸</span><b>ЖК «Аура»</b></div>
+
+  <!-- ШАПКА ОБЪЕКТА -->
+  <div class="card ohead">
+    <div class="oname">ЖК «Аура»</div>
+    <div class="oloc">Алатау · 3 очереди в работе · блоки 3–8</div>
+    <div class="obar"><i style="width:35%"></i><b class="tnum">35%</b></div>
+    <div class="ostat">
+      <div class="s"><b class="tnum">3</b><span>очереди</span></div>
+      <div class="s"><b class="tnum">6</b><span>блоков</span></div>
+      <div class="s"><b class="r tnum">35</b><span>просрочено</span></div>
+      <div class="s"><b class="tnum" style="font-size:17px;line-height:1.35">30.09<br><small style="font-size:10px">2 оч</small></b><span>ближ. сдача</span></div>
+    </div>
+  </div>
+
+  <!-- ОЧЕРЕДИ → БЛОКИ -->
+  <div class="lbl">Очереди и блоки <span class="n">тап по блоку → участок</span></div>
+  <div class="card" id="ques"></div>
+
+  <!-- СВОДНЫЙ ГПР -->
+  <div class="lbl">Сводный ГПР объекта <span class="n">как MS Project</span></div>
+  <details class="dt">
+    <summary>Раскрыть план — все очереди и работы «Ауры»</summary>
+    <iframe class="gprframe" src="gpr.html?embed=1" title="Сводный ГПР · ЖК Аура" loading="lazy"></iframe>
+  </details>
+
+  <!-- РОЛИ -->
+  <div class="roles">
+    <a href="rp.html">🧭 Пульт РП объекта →</a>
+    <a href="nu.html">🏗 Участок НУ (блок 3) →</a>
+  </div>
+
+  <div class="note">Экран объекта · средний уровень: Портфель → <b>Объект (ЖК)</b> → Участок (блок). Данные условные · ЖК «Аура» (очереди 2–4). <a href="portfolio.html">← Портфель</a></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const QUEUES=[
+  {q:'2 очередь', st:'late', stt:'Строится · отставание', pct:84, blocks:[
+    {b:'Блок 3', nu:'НУ Асхат Б.', pct:84, risk:'−48 дн', you:true, href:'nu.html'},
+    {b:'Блок 4', nu:'НУ Дамир Е.', pct:83, risk:'−38 дн'},
+  ]},
+  {q:'3 очередь', st:'build', stt:'Строится · ранний', pct:10, blocks:[
+    {b:'Блок 5', nu:'общестрой', pct:10},
+    {b:'Блок 6', nu:'общестрой', pct:10},
+  ]},
+  {q:'4 очередь', st:'build', stt:'Строится · ранний', pct:10, blocks:[
+    {b:'Блок 7', nu:'общестрой', pct:10},
+    {b:'Блок 8', nu:'общестрой', pct:10},
+  ]},
+];
+const $=id=>document.getElementById(id);
+let toastT;
+function toast(m){const e=$('toast');e.innerHTML=m;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),2200);}
+function go(h){location.href=h;}
+function soon(){toast('Экран этого участка — <b>в работе</b>');}
+
+function blkRow(x){
+  const click=x.href?`onclick="go('${x.href}')"`:`onclick="soon()"`;
+  const ut=x.you?'<span class="ut">ты</span>':'';
+  const rk=x.risk?` · <span class="rk">${x.risk}</span>`:'';
+  return `<div class="blk tap${x.you?' you':''}" ${click}>
+    <div class="b-bd"><div class="b-nm">${x.b}${ut}</div><div class="b-sub">${x.nu}${rk}</div></div>
+    <div class="b-bar"><i class="${x.you?'you':''}" style="width:${x.pct}%"></i></div>
+    <div class="b-pct tnum">${x.pct}%</div><span class="b-go">›</span>
+  </div>`;
+}
+function qSec(q){
+  return `<div class="qsec"><div class="qhead"><div class="qh-nm">${q.q}<small>${q.blocks.length} блока</small></div><span class="chip2 ${q.st}">${q.stt}</span><div class="qh-pct tnum">${q.pct}%</div></div>${q.blocks.map(blkRow).join('')}</div>`;
+}
+$('ques').innerHTML=QUEUES.map(qSec).join('');
+</script>
+</body>
+</html>

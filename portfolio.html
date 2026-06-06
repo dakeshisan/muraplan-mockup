@@ -85,6 +85,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .chip2.pit{background:#FBF5E6;color:var(--gold-d);border:1px solid #E7D4A6}
 .q-pct{flex:none;width:42px;text-align:right;font-weight:800;font-size:13.5px}
 .q-go{font-size:11px;font-weight:700;color:var(--accent-d);margin-left:2px}
+.z-obj{padding:11px 0 4px;margin-top:6px;border-top:1px dashed var(--line);text-align:center}
+.z-obj a{font-size:12.5px;font-weight:700;color:var(--accent-d);text-decoration:none}
 
 /* операционные */
 .pcard{background:var(--card);border:1px solid var(--line);border-radius:17px;box-shadow:0 6px 18px -14px rgba(40,65,87,.5);padding:15px 16px;cursor:pointer}
@@ -161,7 +163,7 @@ const ZHK=[
     {q:'6 очередь', st:'build', bl:'блоки А Б В Г Д Е',  nb:6, pct:42},
     {q:'7 очередь', st:'pit',   bl:'блоки А Б В',        nb:3, pct:7},
   ]},
-  {nm:'ЖК «Aura»', loc:'Алатау · 3 очереди', queues:[
+  {nm:'ЖК «Aura»', loc:'Алатау · 3 очереди', obj:'object.html', queues:[
     {q:'2 очередь', st:'build', bl:'блоки 3, 4 · участок НУ', nb:2, pct:84, you:true, risk:'−48 дн', href:'nu.html'},
     {q:'3 очередь', st:'build', bl:'блоки 5, 6', nb:2, pct:10},
     {q:'4 очередь', st:'build', bl:'блоки 7, 8', nb:2, pct:10},
@@ -208,6 +210,7 @@ function zcardHTML(z,i){
     <div class="z-top"><div class="z-nm">${z.nm}<small>${z.loc} · ${z.queues.reduce((s,q)=>s+q.nb,0)} блоков</small></div><div class="z-pct tnum">${pct}<span>%</span></div></div>
     <div class="z-bar"><i style="width:${pct}%"></i></div>
     <div class="queues">${qrowHTML(z,i)}</div>
+    ${z.obj?`<div class="z-obj"><a href="${z.obj}">Обзор объекта · все очереди ›</a></div>`:''}
   </div>`;
 }
 function opsHTML(c){
