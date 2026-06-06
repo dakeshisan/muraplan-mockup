@@ -25,7 +25,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .tnum{font-variant-numeric:tabular-nums}
 .wrap{max-width:620px;margin:0 auto;padding:0 14px 40px}
 
-/* header */
 .top{position:sticky;top:0;z-index:10;background:linear-gradient(120deg,var(--navy),var(--navy-d));color:#fff;margin:0 -14px 16px;padding:13px 18px;display:flex;align-items:center;gap:12px}
 .top .lg{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;font-family:'Cormorant',Georgia,serif;flex:none}
 .top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;line-height:1}
@@ -42,52 +41,56 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* сводка */
 .sum{padding:16px 16px;display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
 .sst{background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:11px 8px;text-align:center}
-.sst .sn{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:27px;line-height:1;color:var(--navy)}
+.sst .sn{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:28px;line-height:1;color:var(--navy)}
 .sst .sn.lag{color:var(--red)}
+.sst .sn.sm{font-size:20px;line-height:1.2}
 .sst .sn small{font-family:'Jost',sans-serif;font-size:12px;font-weight:600;color:var(--faint)}
 .sst .sl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--faint);margin-top:5px;line-height:1.2}
 @media(max-width:520px){.sum{grid-template-columns:repeat(2,1fr)}}
 
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 6px 0;font-size:11.5px;font-weight:600;color:var(--mut)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend .d{width:10px;height:10px;border-radius:50%;display:inline-block}
+.d.pit{background:var(--gold)}.d.build{background:var(--accent)}.d.fin{background:var(--green)}
+
 /* сегменты */
-.seg{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 4px;margin:4px 2px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.seg{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 4px;margin:8px 2px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .seg::-webkit-scrollbar{display:none}
 .seg button{flex:none;font-size:12.5px;font-weight:700;color:var(--mut);background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px;white-space:nowrap}
 .seg button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
 
-/* карточки объектов */
-.cards{display:flex;flex-direction:column;gap:11px}
-.pcard{background:var(--card);border:1px solid var(--line);border-radius:17px;box-shadow:0 6px 18px -14px rgba(40,65,87,.5);padding:15px 16px}
-.pcard.tap{cursor:pointer}
-.pcard.tap:active{transform:translateY(1px)}
-.pc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.pc-nm{font-size:15.5px;font-weight:700;line-height:1.2}
-.pc-nm small{display:block;font-size:11.5px;color:var(--faint);font-weight:600;margin-top:3px}
-.pc-pct{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:30px;line-height:.9;color:var(--accent-d)}
-.pc-pct span{font-family:'Jost',sans-serif;font-size:14px;font-weight:600;color:var(--faint)}
-.pc-bar{height:9px;border-radius:6px;background:#e7edf2;overflow:hidden;margin:12px 0 11px}
-.pc-bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
-.pc-bar i.late{background:linear-gradient(90deg,var(--red),#d8736b)}
-.pc-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.pc-due{font-size:12.5px;font-weight:700;color:var(--mut)}
-.chip2{font-size:11px;font-weight:800;border-radius:999px;padding:4px 11px;white-space:nowrap}
-.chip2.ok{background:var(--green-bg);color:var(--green)}
-.chip2.late{background:var(--red-bg);color:var(--red)}
-.chip2.launch{background:#FBF5E6;color:var(--gold-d);border:1px solid #E7D4A6}
-.pc-go{font-size:12px;font-weight:700;color:var(--accent-d)}
+/* карточка ЖК */
+.cards{display:flex;flex-direction:column;gap:12px}
+.zcard{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 6px 18px -14px rgba(40,65,87,.5);padding:15px 16px 8px}
+.z-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.z-nm{font-size:16px;font-weight:700;line-height:1.15}
+.z-nm small{display:block;font-size:11.5px;color:var(--faint);font-weight:600;margin-top:3px}
+.z-pct{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:31px;line-height:.9;color:var(--accent-d)}
+.z-pct span{font-family:'Jost',sans-serif;font-size:14px;font-weight:600;color:var(--faint)}
+.z-bar{height:8px;border-radius:6px;background:#e7edf2;overflow:hidden;margin:12px 0 4px}
+.z-bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
 
-/* запуск — степпер стадий */
-.stages{display:flex;align-items:flex-start;margin:13px 0 12px}
-.stages .stg{flex:1;text-align:center;position:relative}
-.stages .stg::before{content:"";position:absolute;top:6px;left:-50%;width:100%;height:3px;background:var(--line)}
-.stages .stg:first-child::before{display:none}
-.stages .stg.pass::before,.stages .stg.on::before{background:var(--gold)}
-.stages .sdot{display:block;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--line);margin:0 auto;position:relative;z-index:1}
-.stages .stg.pass .sdot{background:var(--gold);border-color:var(--gold)}
-.stages .stg.on .sdot{border-color:var(--gold-d);background:#fff;box-shadow:0 0 0 3px #F5EAD0}
-.stages .sn{display:block;font-size:9.5px;font-weight:700;color:var(--mut);margin-top:6px;line-height:1.15}
-.stages .stg.on .sn,.stages .stg.pass .sn{color:var(--gold-d)}
+/* строка очереди */
+.qrow{display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid var(--line2)}
+.qrow.tap{cursor:pointer}
+.qrow.tap:active{opacity:.7}
+.qrow.you{margin:0 -16px;padding:11px 16px;background:linear-gradient(135deg,#FBF5E6,#F5EAD0)}
+.q-nm{flex:1;min-width:0;font-size:13.5px;font-weight:700;line-height:1.2}
+.q-nm small{display:block;font-size:11px;color:var(--faint);font-weight:600;margin-top:2px}
+.q-nm .you-tag{display:inline-block;font-size:9.5px;font-weight:800;color:var(--gold-d);background:#fff;border:1px solid #E7D4A6;border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+.q-nm .rsk{color:var(--red);font-weight:700}
+.chip2{flex:none;font-size:10.5px;font-weight:800;border-radius:999px;padding:4px 10px;white-space:nowrap}
+.chip2.fin{background:var(--green-bg);color:var(--green)}
+.chip2.build{background:var(--accent-soft);color:var(--accent-d)}
+.chip2.pit{background:#FBF5E6;color:var(--gold-d);border:1px solid #E7D4A6}
+.q-pct{flex:none;width:42px;text-align:right;font-weight:800;font-size:13.5px}
+.q-go{font-size:11px;font-weight:700;color:var(--accent-d);margin-left:2px}
 
 /* операционные */
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:17px;box-shadow:0 6px 18px -14px rgba(40,65,87,.5);padding:15px 16px;cursor:pointer}
+.pcard:active{transform:translateY(1px)}
+.pc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.pc-nm{font-size:15px;font-weight:700}
 .pc-metric{font-size:13.5px;font-weight:800;color:var(--accent-d);text-align:right;white-space:nowrap}
 .pc-sub{font-size:12px;color:var(--mut);font-weight:600;margin-top:8px;line-height:1.4}
 
@@ -107,7 +110,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .wrap>:nth-child(5){animation-delay:.2s}.wrap>:nth-child(6){animation-delay:.25s}
   .wrap>:nth-child(7){animation-delay:.3s}.wrap>:nth-child(8){animation-delay:.35s}
   .wrap>:nth-child(9){animation-delay:.4s}.wrap>:nth-child(10){animation-delay:.45s}
-  .wrap>:nth-child(11){animation-delay:.5s}
 }
 </style>
 </head>
@@ -123,49 +125,55 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <!-- СВОДКА -->
   <div class="lbl">Сводка по компании <span class="n">все объекты</span></div>
   <div class="card sum">
-    <div class="sst"><div class="sn tnum">7</div><div class="sl">объектов</div></div>
-    <div class="sst"><div class="sn tnum">52<small>%</small></div><div class="sl">ср. готовность строек</div></div>
-    <div class="sst"><div class="sn tnum" style="font-size:21px;line-height:1.25">Аура<br><small style="font-size:12px">30.09</small></div><div class="sl">ближайшая сдача</div></div>
-    <div class="sst"><div class="sn lag tnum">2</div><div class="sl">в красной зоне</div></div>
+    <div class="sst"><div class="sn tnum" id="s-zhk">4</div><div class="sl">ЖК</div></div>
+    <div class="sst"><div class="sn tnum" id="s-q">11</div><div class="sl">очередей в работе</div></div>
+    <div class="sst"><div class="sn tnum" id="s-b">41</div><div class="sl">блоков</div></div>
+    <div class="sst"><div class="sn sm">Аура<br><small>30.09</small></div><div class="sl">ближайшая сдача</div></div>
   </div>
+  <div class="legend"><span><i class="d pit"></i>Котлован</span><span><i class="d build"></i>Строится</span><span><i class="d fin"></i>Завершается</span></div>
 
   <!-- СЕГМЕНТЫ -->
   <div class="seg" id="seg">
     <button class="on" data-f="all" onclick="filt('all',this)">Все</button>
-    <button data-f="build" onclick="filt('build',this)">🏗 Строится · 4</button>
-    <button data-f="launch" onclick="filt('launch',this)">🚀 Запуск · 3</button>
+    <button data-f="zhk" onclick="filt('zhk',this)">🏗 Стройки · 4</button>
     <button data-f="ops" onclick="filt('ops',this)">📦 Операционные</button>
   </div>
 
-  <!-- СТРОИТСЯ -->
-  <div class="lbl grp" data-g="build">🏗 Строится <span class="n">ГПР · план/факт</span></div>
-  <div class="cards grp" data-g="build" id="build"></div>
-
-  <!-- ЗАПУСК -->
-  <div class="lbl grp" data-g="launch">🚀 Запуск <span class="n">преднулевой цикл</span></div>
-  <div class="cards grp" data-g="launch" id="launch"></div>
+  <!-- ЖК -->
+  <div class="lbl grp" data-g="zhk">🏗 Жилые комплексы <span class="n">очередь → блоки</span></div>
+  <div class="cards grp" data-g="zhk" id="zhk"></div>
 
   <!-- ОПЕРАЦИОННЫЕ -->
   <div class="lbl grp" data-g="ops">📦 Операционные потоки <span class="n">не по объектам</span></div>
   <div class="cards grp" data-g="ops" id="ops"></div>
 
-  <div class="note">Портфель ATLAS · уровень компании. Тап по объекту → внутрь (объект → участок). Данные условные. <a href="index.html">← все мокапы</a></div>
+  <div class="note">Портфель ATLAS · уровень компании. Тап по очереди → внутрь (объект → участок). Готовность % и сроки — условные, уточняются. <a href="index.html">← все мокапы</a></div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-const BUILD=[
-  {nm:'ЖК «Аура»',      sub:'Алатау · 4 пятна',     pct:88, due:'сдача 30.09.26',   risk:'отставание −48 дн', rk:'late', href:'nu.html'},
-  {nm:'ЖК «Көктем»',    sub:'Бостандык · 5 пятен',  pct:62, due:'сдача II кв. 27',  risk:'в графике',         rk:'ok'},
-  {nm:'ЖК «Сарыарка»',  sub:'Турксиб · 3 пятна',    pct:41, due:'сдача IV кв. 27',  risk:'риск срыва',        rk:'late'},
-  {nm:'ЖК «Жетісу»',    sub:'Наурызбай · 6 пятен',  pct:18, due:'сдача 2028',       risk:'в графике',         rk:'ok'},
-];
-const STAGES=['Земля','Разреш.','ПИР','Смета','Старт'];
-const LAUNCH=[
-  {nm:'ЖК «Алатау Парк»', sub:'преднулевой цикл', stage:2, start:'старт стройки III кв. 26'},
-  {nm:'ЖК «Тұран»',       sub:'преднулевой цикл', stage:3, start:'старт стройки IV кв. 26'},
-  {nm:'ЖК «Нұра»',        sub:'преднулевой цикл', stage:1, start:'старт стройки I кв. 27'},
+const ST={ fin:{t:'Завершается',c:'fin'}, build:{t:'Строится',c:'build'}, pit:{t:'Котлован',c:'pit'} };
+const ZHK=[
+  {nm:'ЖК «Атмосфера»', loc:'4 очереди в работе', queues:[
+    {q:'4 очередь', st:'fin',   bl:'блоки А–Е',          nb:6, pct:95},
+    {q:'5 очередь', st:'build', bl:'блоки А Б В Г Д Е',  nb:6, pct:58},
+    {q:'6 очередь', st:'build', bl:'блоки А Б В Г Д Е',  nb:6, pct:42},
+    {q:'7 очередь', st:'pit',   bl:'блоки А Б В',        nb:3, pct:7},
+  ]},
+  {nm:'ЖК «Aura»', loc:'Алатау · 2 очереди', queues:[
+    {q:'3 очередь', st:'build', bl:'блоки 5, 6', nb:2, pct:84, you:true, risk:'−48 дн', href:'nu.html'},
+    {q:'4 очередь', st:'build', bl:'блоки 7, 8', nb:2, pct:71},
+  ]},
+  {nm:'ЖК «Keruen»', loc:'4 очереди в работе', queues:[
+    {q:'1 очередь', st:'build', bl:'блоки 1, 1.1', nb:2, pct:66},
+    {q:'3 очередь', st:'build', bl:'блоки 3, 3.1', nb:2, pct:48},
+    {q:'4 очередь', st:'build', bl:'блоки 4, 4.1', nb:2, pct:39},
+    {q:'5 очередь', st:'build', bl:'блоки 5, 5.1', nb:2, pct:27},
+  ]},
+  {nm:'ЖК «Aqsai Resort»', loc:'стадию уточнить', queues:[
+    {q:'8 блоков', st:'build', bl:'этап — уточнить', nb:8, pct:33, soon:true},
+  ]},
 ];
 const OPS=[
   {ic:'📦', nm:'Снабжение материалов', metric:'34 заявки', sub:'в срок 86% · просрочено 5 · по всем стройкам', href:'atlas_supply_roles_brand.html'},
@@ -175,42 +183,49 @@ const OPS=[
 const $=id=>document.getElementById(id);
 let toastT;
 function toast(m){const e=$('toast');e.innerHTML=m;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),2200);}
-function go(href){location.href=href;}
+function go(h){location.href=h;}
 function soon(){toast('Экран объекта — <b>в работе</b>');}
+const avg=a=>Math.round(a.reduce((s,x)=>s+x,0)/a.length);
 
-function buildCard(c){
-  const click=c.href?`onclick="go('${c.href}')"`:`onclick="soon()"`;
-  return `<div class="pcard tap" ${click}>
-    <div class="pc-top"><div class="pc-nm">${c.nm}<small>${c.sub}</small></div><div class="pc-pct tnum">${c.pct}<span>%</span></div></div>
-    <div class="pc-bar"><i class="${c.rk==='late'?'late':''}" style="width:${c.pct}%"></i></div>
-    <div class="pc-foot"><span class="pc-due">${c.due}</span><span class="chip2 ${c.rk}">${c.risk}</span></div>
+function qrowHTML(z,i){
+  return z.queues.map((q,j)=>{
+    const st=ST[q.st];
+    const click=q.href?`onclick="go('${q.href}')"`:`onclick="soon()"`;
+    const you=q.you?'<span class="you-tag">ты</span>':'';
+    const risk=q.risk?` · <span class="rsk">${q.risk}</span>`:'';
+    const go=q.href?'<span class="q-go">›</span>':'';
+    return `<div class="qrow tap${q.you?' you':''}" ${click}>
+      <div class="q-nm">${q.q}${you}<small>${q.bl}${risk}</small></div>
+      <span class="chip2 ${st.c}">${st.t}</span>
+      <div class="q-pct tnum">${q.pct}%</div>${go}
+    </div>`;
+  }).join('');
+}
+function zcardHTML(z,i){
+  const pct=avg(z.queues.map(q=>q.pct));
+  return `<div class="zcard">
+    <div class="z-top"><div class="z-nm">${z.nm}<small>${z.loc} · ${z.queues.reduce((s,q)=>s+q.nb,0)} блоков</small></div><div class="z-pct tnum">${pct}<span>%</span></div></div>
+    <div class="z-bar"><i style="width:${pct}%"></i></div>
+    <div class="queues">${qrowHTML(z,i)}</div>
   </div>`;
 }
-function launchCard(c){
-  const stg=STAGES.map((s,i)=>`<div class="stg ${i<c.stage?'pass':''}${i===c.stage?' on':''}"><span class="sdot"></span><span class="sn">${s}</span></div>`).join('');
-  return `<div class="pcard tap" onclick="soon()">
-    <div class="pc-top"><div class="pc-nm">${c.nm}<small>${c.sub}</small></div><span class="chip2 launch">запуск</span></div>
-    <div class="stages">${stg}</div>
-    <div class="pc-foot"><span class="pc-due">${c.start}</span><span class="pc-go">подробнее ›</span></div>
-  </div>`;
-}
-function opsCard(c){
+function opsHTML(c){
   const click=c.href?`onclick="go('${c.href}')"`:`onclick="soon()"`;
-  return `<div class="pcard tap" ${click}>
+  return `<div class="pcard" ${click}>
     <div class="pc-top"><div class="pc-nm">${c.ic} ${c.nm}</div><div class="pc-metric">${c.metric}</div></div>
     <div class="pc-sub">${c.sub}${c.href?' · <b style="color:var(--accent-d)">открыть пульт ›</b>':''}</div>
   </div>`;
 }
 function filt(f,btn){
   document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b===btn));
-  document.querySelectorAll('.grp').forEach(el=>{
-    el.classList.toggle('hide', !(f==='all'||el.dataset.g===f));
-  });
+  document.querySelectorAll('.grp').forEach(el=>el.classList.toggle('hide', !(f==='all'||el.dataset.g===f)));
 }
 
-$('build').innerHTML=BUILD.map(buildCard).join('');
-$('launch').innerHTML=LAUNCH.map(launchCard).join('');
-$('ops').innerHTML=OPS.map(opsCard).join('');
+$('zhk').innerHTML=ZHK.map(zcardHTML).join('');
+$('ops').innerHTML=OPS.map(opsHTML).join('');
+$('s-zhk').textContent=ZHK.length;
+$('s-q').textContent=ZHK.reduce((s,z)=>s+z.queues.length,0);
+$('s-b').textContent=ZHK.reduce((s,z)=>s+z.queues.reduce((a,q)=>a+q.nb,0),0);
 </script>
 </body>
 </html>
