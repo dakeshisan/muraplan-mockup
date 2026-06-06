@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#284157">
+<meta name="robots" content="noindex,nofollow">
+<title>ATLAS · лига участков</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;--line:#E6E2D7;--line2:#EFEDE5;
+  --accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--navy:#284157;--navy-d:#1d3142;
+  --gold:#CFB372;--gold-d:#A88E48;
+  --green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-bg:#F7E7E2;
+  --shadow:0 14px 34px -20px rgba(40,65,87,.55);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{color-scheme:light}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;-webkit-tap-highlight-color:transparent;font-feature-settings:"ss03","cv11"}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:12px}
+.tnum{font-variant-numeric:tabular-nums}
+.wrap{max-width:620px;margin:0 auto;padding:0 14px 40px}
+
+.top{position:sticky;top:0;z-index:10;background:linear-gradient(120deg,var(--navy),var(--navy-d));color:#fff;margin:0 -14px 14px;padding:13px 18px;display:flex;align-items:center;gap:12px}
+.top .lg{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;font-family:'Cormorant',Georgia,serif;flex:none}
+.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;line-height:1}
+.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px}
+.top .me{margin-left:auto;text-align:right;font-size:12px;font-weight:700;line-height:1.1}
+.top .me small{display:block;font-weight:500;color:#9db4c6;font-size:10.5px}
+
+.crumbs{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12px;font-weight:600;color:var(--mut);margin:-2px 4px 14px}
+.crumbs a{color:var(--accent-d);font-weight:700;text-decoration:none}
+.crumbs .sep{color:var(--faint)}
+.crumbs b{color:var(--ink)}
+
+.card{background:var(--card);border-radius:20px;box-shadow:var(--shadow)}
+.lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:22px 4px 11px}
+.lbl .obs{margin-left:auto;font-size:11px;font-weight:600;border-radius:999px;padding:4px 11px;background:var(--accent-soft);color:var(--accent-d);text-transform:none;letter-spacing:0}
+
+/* твоё место */
+.you{padding:16px 18px;display:flex;align-items:center;gap:15px}
+.you .rk{flex:none;width:60px;height:60px;border-radius:16px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.you .rk b{font-family:'Cormorant',Georgia,serif;font-size:28px;font-weight:700}
+.you .rk span{font-size:9px;font-weight:700;text-transform:uppercase;opacity:.9}
+.you .yb{flex:1;min-width:0}
+.you .yt{font-weight:800;font-size:15px}
+.you .ys{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:3px;line-height:1.45}.you .ys b{color:var(--gold-d)}
+.you .ysc{flex:none;text-align:right}
+.you .ysc b{font-family:'Cormorant',Georgia,serif;font-size:30px;font-weight:700;color:var(--navy);line-height:1}
+.you .ysc span{display:block;font-size:9.5px;font-weight:700;text-transform:uppercase;color:var(--faint);margin-top:2px}
+
+/* командная цель */
+.goal{padding:16px 18px;background:linear-gradient(135deg,#FBF5E6,#F5EAD0)}
+.goal .gt{font-size:14px;font-weight:800;color:var(--ink)}.goal .gt b{color:var(--gold-d)}
+.goal .gbar{height:11px;border-radius:7px;background:#EAD9AE;overflow:hidden;margin:12px 0 7px;position:relative}
+.goal .gbar i{display:block;height:100%;border-radius:7px;background:linear-gradient(90deg,var(--gold),#e6cf94)}
+.goal .gs{font-size:12px;color:var(--gold-d);font-weight:600;line-height:1.5}.goal .gs b{color:var(--ink)}
+
+/* переключатель метрики */
+.seg{display:flex;gap:7px;overflow-x:auto;padding:2px;margin:0 2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.seg::-webkit-scrollbar{display:none}
+.seg button{flex:none;font-size:12.5px;font-weight:700;color:var(--mut);background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px;white-space:nowrap}
+.seg button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* таблица лиги */
+.lr{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line2)}
+.lr:last-child{border-bottom:none}
+.lr.me{background:linear-gradient(135deg,#FBF5E6,#F5EAD0)}
+.lr .rk{flex:none;width:30px;text-align:center;font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;color:var(--faint)}
+.lr .rk.medal{font-family:'Jost';font-size:21px}
+.lr .av{flex:none;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:15px;background:linear-gradient(135deg,var(--accent),var(--accent-d))}
+.lr.me .av{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy)}
+.lr .bd{flex:1;min-width:0}
+.lr .nm{font-weight:700;font-size:13.5px}.lr .nm .ut{font-size:9.5px;font-weight:800;color:var(--gold-d);background:#fff;border:1px solid #E7D4A6;border-radius:999px;padding:1px 6px;margin-left:5px}
+.lr .sub{font-size:11px;color:var(--faint);font-weight:600;margin-top:2px}
+.lr .sub b{color:var(--mut)}
+.lr .val{flex:none;text-align:right;min-width:54px}
+.lr .val b{font-family:'Cormorant',Georgia,serif;font-size:23px;font-weight:700;color:var(--navy);line-height:1}
+.lr .val span{display:block;font-size:9px;font-weight:700;text-transform:uppercase;color:var(--faint);margin-top:2px}
+
+.rew{padding:14px 18px;font-size:12.5px;color:var(--mut);font-weight:600;line-height:1.55}.rew b{color:var(--ink)}
+.note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:22px;line-height:1.55}
+.note a{color:var(--accent-d);font-weight:700;text-decoration:none}
+
+@media(prefers-reduced-motion:no-preference){
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .wrap>*{opacity:0;animation:rise .5s cubic-bezier(.2,.7,.3,1) forwards}
+  .wrap>:nth-child(1){animation-delay:0s}.wrap>:nth-child(2){animation-delay:.05s}
+  .wrap>:nth-child(3){animation-delay:.1s}.wrap>:nth-child(4){animation-delay:.15s}
+  .wrap>:nth-child(5){animation-delay:.2s}.wrap>:nth-child(6){animation-delay:.25s}
+  .wrap>:nth-child(7){animation-delay:.3s}.wrap>:nth-child(8){animation-delay:.35s}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="lg">A</div>
+    <div class="nm">ATLAS<small>лига участков</small></div>
+    <div class="me">Сезон · июнь<small>наблюдательно</small></div>
+  </div>
+
+  <div class="crumbs"><a href="portfolio.html">‹ Портфель</a><span class="sep">·</span><a href="nu.html">Мой участок</a><span class="sep">·</span><b>Лига</b></div>
+
+  <!-- ТВОЁ МЕСТО -->
+  <div class="lbl">Твоё место в лиге</div>
+  <div class="card you">
+    <div class="rk"><b id="y-rk">2</b><span>место</span></div>
+    <div class="yb"><div class="yt">Асхат Б. · Аура · блок 3</div><div class="ys">До <b>#1</b> — ещё <b id="y-gap">8</b> очков. Держи достоверность и серию — обойдёшь Нурбола.</div></div>
+    <div class="ysc"><b class="tnum" id="y-sc">88</b><span>очки</span></div>
+  </div>
+
+  <!-- КОМАНДНАЯ ЦЕЛЬ -->
+  <div class="lbl">Цель команды · июнь</div>
+  <div class="card goal">
+    <div class="gt">Достоверность <b>≥85%</b> на всех участках</div>
+    <div class="gbar"><i style="width:50%"></i></div>
+    <div class="gs"><b>3 из 6</b> участков уже ≥85%. Доберёт вся команда → командное признание и грейд-буст всем (деньги — в Фазе 2). Это не гонка в одиночку: тянем средний уровень вверх вместе.</div>
+  </div>
+
+  <!-- ЛИГА -->
+  <div class="lbl">Рейтинг участков <span class="obs" title="Очки и места считаются, но на премию пока не влияют — Фаза 2">наблюдательный режим</span></div>
+  <div class="seg" id="seg">
+    <button class="on" data-m="score" onclick="sortBy('score',this)">🏆 Очки</button>
+    <button data-m="trust" onclick="sortBy('trust',this)">🤝 Достоверность</button>
+    <button data-m="kpi" onclick="sortBy('kpi',this)">⚡ Темп (KPI)</button>
+    <button data-m="streak" onclick="sortBy('streak',this)">🔥 Серия</button>
+  </div>
+  <div class="card" id="board" style="margin-top:11px"></div>
+  <div class="card rew" style="margin-top:11px">🏅 <b>Топ-3 сезона</b> — бейдж «Эталон достоверности» и ускоренный грейд. Серии 🔥 и качество без дефектов дают бонусные очки. <b>Места считаются по подтверждённому РП факту</b> — накрутить самоотметками нельзя.</div>
+
+  <div class="note">Лига — про мастерство и командный уровень, не про штрафы. Данные условные. <a href="nu.html">← Мой участок</a> · <a href="portfolio.html">Портфель</a></div>
+</div>
+
+<script>
+const NU=[
+  {nm:'Нурбол Т.', obj:'Атмосфера · 4 оч', av:'Н', trust:95, kpi:90, streak:6},
+  {nm:'Асхат Б.',  obj:'Аура · блок 3',    av:'А', trust:92, kpi:86, streak:4, you:true},
+  {nm:'Жанна К.',  obj:'Keruen · 1 оч',    av:'Ж', trust:88, kpi:84, streak:3},
+  {nm:'Дамир Е.',  obj:'Аура · блок 4',    av:'Д', trust:78, kpi:81, streak:2},
+  {nm:'Серик М.',  obj:'Атмосфера · 5 оч', av:'С', trust:75, kpi:79, streak:1},
+  {nm:'Болат А.',  obj:'Keruen · 3 оч',    av:'Б', trust:70, kpi:76, streak:0},
+];
+NU.forEach(n=>n.score=Math.round(n.trust*0.5+n.kpi*0.4+n.streak*2));
+const MET={score:['очки',n=>n.score],trust:['достов.',n=>n.trust+'%'],kpi:['KPI',n=>n.kpi+'%'],streak:['серия',n=>'🔥'+n.streak]};
+const $=id=>document.getElementById(id);
+const medals=['🥇','🥈','🥉'];
+
+function render(metric){
+  const sorted=[...NU].sort((a,b)=>b[metric]-a[metric]);
+  $('board').innerHTML=sorted.map((n,i)=>{
+    const rk=i<3?`<div class="rk medal">${medals[i]}</div>`:`<div class="rk">${i+1}</div>`;
+    const ut=n.you?'<span class="ut">ты</span>':'';
+    const val=MET[metric][1](n);
+    return `<div class="lr${n.you?' me':''}">${rk}<div class="av">${n.av}</div>
+      <div class="bd"><div class="nm">${n.nm}${ut}</div><div class="sub">${n.obj} · <b>дост ${n.trust}%</b> · KPI ${n.kpi} · 🔥${n.streak}</div></div>
+      <div class="val"><b class="tnum">${val}</b><span>${MET[metric][0]}</span></div></div>`;
+  }).join('');
+  // твоё место по выбранной метрике
+  const you=NU.find(n=>n.you);
+  const myRank=sorted.findIndex(n=>n.you)+1;
+  $('y-rk').textContent=myRank;
+  $('y-sc').textContent=MET[metric][1](you);
+  const above=sorted[myRank-2];
+  $('y-gap').textContent=above?(above[metric]-you[metric]):0;
+}
+function sortBy(m,btn){
+  document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b===btn));
+  render(m);
+}
+render('score');
+</script>
+</body>
+</html>
