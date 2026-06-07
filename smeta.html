@@ -176,7 +176,7 @@ input.ed.chg{border-color:var(--amber);background:#fffaf0}
   </div>
 
   <div class="acts">
-    <label class="btn pri">📥 Импорт сметы (Excel)<input type="file" id="file" accept=".xlsx,.xls,.csv" hidden></label>
+    <label class="btn pri">📥 Импорт сметы (Excel/JSON)<input type="file" id="file" accept=".xlsx,.xls,.csv,.json" hidden></label>
     <button class="btn gho" id="exp">📤 Экспорт</button>
     <span class="srcbadge">источник: <b id="src">демо</b></span>
   </div>
@@ -447,6 +447,11 @@ document.getElementById('reset').addEventListener('click',()=>{if(!confirm('Сб
 let RAW=null; // {rows, headers, sheet}
 document.getElementById('file').addEventListener('change',ev=>{
   const f=ev.target.files[0];if(!f)return;
+  if(/\.json$/i.test(f.name)){ // готовый датасет ATLAS (смета+даты+график)
+    const rj=new FileReader();
+    rj.onload=e=>{try{const j=JSON.parse(e.target.result);if(!j.sections)throw 0;SMETA=j;persist();renderAll();toast('Загружено из JSON: '+allItems().length+' позиций');}catch(err){toast('Не удалось прочитать JSON');}};
+    rj.readAsText(f); ev.target.value=''; return;
+  }
   if(typeof XLSX==='undefined'){toast('Не загрузился движок Excel — проверьте интернет');return;}
   const rd=new FileReader();
   rd.onload=e=>{try{
