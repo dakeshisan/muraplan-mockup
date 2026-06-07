@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
 :root{
   --bg:#F7F5EE;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;--line:#E6E2D7;--line2:#EFEDE5;
@@ -16,42 +17,65 @@
   --gold:#CFB372;--gold-d:#A88E48;--green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-bg:#F7E7E2;
   --amber:#C98A2B;--amber-bg:#F7EFDD;
   --shadow:0 14px 34px -20px rgba(40,65,87,.55);
-  --mat:#007484;--mat-bg:#E2EFF0;--trud:#7A5BA8;--trud-bg:#EEE8F6;--teh:#A88E48;--teh-bg:#F4EEDC;
+  --mat:#007484;--mat-bg:#E2EFF0;--trud:#7A5BA8;--trud-bg:#EEE8F6;--teh:#A88E48;--teh-bg:#F4EEDC;--rab:#33597a;--rab-bg:#E6EDF3;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{color-scheme:light}
 body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;font-feature-settings:"ss03","cv11"}
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 .tnum{font-variant-numeric:tabular-nums}
-.wrap{max-width:760px;margin:0 auto;padding:0 14px 60px}
+.wrap{max-width:820px;margin:0 auto;padding:0 14px 60px}
 
 .top{position:sticky;top:0;z-index:30;background:linear-gradient(120deg,var(--navy),var(--navy-d));color:#fff;margin:0 -14px 14px;padding:13px 18px;display:flex;align-items:center;gap:12px}
 .top .lg{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;font-family:'Cormorant',Georgia,serif;flex:none}
-.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;line-height:1}
+.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;line-height:1;flex:1}
 .top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px}
 .crumbs{margin:0 0 12px;font-size:11.5px;color:var(--faint);font-weight:600}
 .crumbs a{color:var(--accent-d);text-decoration:none}
 
 .principle{background:var(--accent-soft);border:1px solid #cfe6e4;border-radius:13px;padding:11px 14px;font-size:12px;color:var(--accent-d);font-weight:600;line-height:1.55;margin-bottom:14px}
 .principle b{color:var(--navy)}
-.principle .fl{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:7px;font-size:11.5px;font-weight:700}
-.principle .pill{background:#fff;border:1px solid #cfe6e4;border-radius:999px;padding:3px 10px;color:var(--navy)}
-.principle .ar{color:var(--gold-d);font-weight:800}
+
+/* action bar */
+.acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:11px;padding:9px 14px;font-size:13px;font-weight:700;border:1px solid var(--line)}
+.btn.pri{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);border:none;box-shadow:0 8px 18px -10px rgba(168,142,72,.8)}
+.btn.gho{background:var(--card);color:var(--navy)}
+.btn:active{transform:translateY(1px)}
+.srcbadge{margin-left:auto;font-size:11px;font-weight:700;color:var(--faint)}
+.srcbadge b{color:var(--accent-d)}
+
+/* mapping panel */
+.mapp{background:#fff;border:1px solid var(--gold);border-radius:14px;padding:13px 15px;margin-bottom:14px;box-shadow:var(--shadow);display:none}
+.mapp.on{display:block}
+.mapp h4{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:3px}
+.mapp .sub{font-size:11.5px;color:var(--mut);font-weight:600;margin-bottom:11px}
+.mgrid{display:flex;gap:9px;flex-wrap:wrap}
+.mcol{flex:1;min-width:130px}
+.mcol label{display:block;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--faint);margin-bottom:4px}
+.mcol select{width:100%;border:1px solid var(--line);border-radius:9px;padding:7px 8px;font:inherit;font-size:12.5px;font-weight:600;background:#fffdf7;color:var(--ink)}
+.mapp .mfoot{display:flex;gap:9px;align-items:center;margin-top:12px}
+.mapp .hint{font-size:11px;color:var(--faint);font-weight:600}
 
 /* summary */
 .sum{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:16px 18px;margin-bottom:14px}
-.sum .big{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:38px;line-height:.95;color:var(--accent-d)}
 .sum .cap{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:3px}
-.sum .cust{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:5px}.sum .cust b{color:var(--ink)}
+.sumrow{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+.sumrow .blk{flex:1;min-width:150px}
+.sum .big{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:34px;line-height:.95;color:var(--accent-d)}
+.sum .base{font-size:13px;color:var(--mut);font-weight:600}.sum .base b{color:var(--ink)}
+.dev{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:800;border-radius:999px;padding:5px 12px}
+.dev.up{background:var(--red-bg);color:var(--red)}.dev.dn{background:var(--green-bg);color:var(--green)}.dev.ze{background:#eef0f2;color:var(--mut)}
 .split{display:flex;gap:7px;margin-top:13px;flex-wrap:wrap}
-.spc{flex:1;min-width:118px;border-radius:12px;padding:9px 11px;border:1px solid var(--line)}
+.spc{flex:1;min-width:108px;border-radius:12px;padding:9px 11px;border:1px solid var(--line)}
 .spc .k{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
-.spc .v{font-size:15px;font-weight:800;color:var(--ink)}
+.spc .v{font-size:14.5px;font-weight:800;color:var(--ink)}
 .spc .p{font-size:10.5px;font-weight:600;color:var(--faint)}
 .spc.mat{background:var(--mat-bg);border-color:#cfe6e4}.spc.mat .k{color:var(--mat)}
+.spc.rab{background:var(--rab-bg);border-color:#d4dde6}.spc.rab .k{color:var(--rab)}
 .spc.trud{background:var(--trud-bg);border-color:#e3d8ef}.spc.trud .k{color:var(--trud)}
-.spc.teh{background:var(--teh-bg);border-color:#ece1c4}.spc.teh .k{color:var(--teh-d,#A88E48)}
-.cnts{display:flex;gap:14px;margin-top:11px;font-size:12px;font-weight:700;color:var(--mut)}
+.spc.teh{background:var(--teh-bg);border-color:#ece1c4}.spc.teh .k{color:var(--teh)}
+.cnts{display:flex;gap:14px;margin-top:11px;font-size:12px;font-weight:700;color:var(--mut);flex-wrap:wrap}
 .cnts b{color:var(--navy);font-weight:800}
 
 /* tabs */
@@ -70,34 +94,34 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sec>summary::-webkit-details-marker{display:none}
 .chev{flex:none;width:14px;color:var(--faint);font-size:12px;transition:transform .18s;font-weight:800}
 details[open]>summary .chev{transform:rotate(90deg)}
-.snm{flex:1;min-width:0;font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:19px;color:var(--navy);line-height:1.1}
-.scost{flex:none;font-weight:800;font-size:15px;color:var(--accent-d)}
-.sbody{padding:0 13px 11px}
+.snm{flex:1;min-width:0;font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:18px;color:var(--navy);line-height:1.1}
+.scost{flex:none;text-align:right}
+.scost .v{font-weight:800;font-size:15px;color:var(--accent-d)}
+.scost .d{font-size:10.5px;font-weight:700}
+.sbody{padding:2px 8px 10px}
 
-.wk{border:1px solid var(--line);border-radius:12px;margin-top:9px;overflow:hidden}
-.wk>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:9px;padding:10px 12px;background:#fcfbf7}
-.wk>summary::-webkit-details-marker{display:none}
-.wnm{flex:1;min-width:0;font-weight:700;font-size:13.5px;color:var(--ink)}
-.wmeta{font-size:11px;color:var(--faint);font-weight:600;margin-top:2px}
-.wmeta b{color:var(--mut)}
-.wcost{flex:none;text-align:right}
-.wcost .wc{font-weight:800;font-size:13.5px;color:var(--navy)}
-.wcost .wr{font-size:10px;font-weight:700;color:var(--accent-d)}
-.wbody{padding:4px 12px 11px;border-top:1px solid var(--line2)}
-.rh{display:flex;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--faint);padding:7px 2px 5px}
-.rh .rn{flex:1}.rh .rq{width:118px;text-align:right}.rh .rp{width:96px;text-align:right}.rh .rs{width:92px;text-align:right}
-.res{display:flex;align-items:center;font-size:12.5px;padding:6px 2px;border-top:1px dashed var(--line2)}
-.res .rn{flex:1;min-width:0;display:flex;align-items:center;gap:7px}
-.res .rn .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
-.chip{flex:none;font-size:9.5px;font-weight:800;border-radius:6px;padding:2px 6px;letter-spacing:.02em}
-.chip.MAT{background:var(--mat-bg);color:var(--mat)}.chip.TRUD{background:var(--trud-bg);color:var(--trud)}.chip.TEH{background:var(--teh-bg);color:var(--teh)}
-.res .rq{width:118px;text-align:right;display:flex;align-items:center;justify-content:flex-end;gap:4px}
-.res .rp{width:96px;text-align:right}
-.res .rs{width:92px;text-align:right;font-weight:800;color:var(--navy)}
-.res .un{color:var(--faint);font-size:11px;font-weight:600;width:34px;text-align:left}
-input.ed{width:62px;border:1px solid var(--line);border-radius:7px;padding:4px 6px;font:inherit;font-size:12.5px;font-weight:700;text-align:right;background:#fffdf7;color:var(--ink)}
-input.ed:focus{outline:none;border-color:var(--accent);background:#fff}
-input.ed.pr{width:74px}
+.ih{display:flex;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--faint);padding:8px 8px 6px;border-bottom:1px solid var(--line2)}
+.ih .inm{flex:1}.ih .iq{width:120px;text-align:right}.ih .ip{width:150px;text-align:right}.ih .is{width:104px;text-align:right}
+.it{display:flex;align-items:center;font-size:12.5px;padding:8px;border-bottom:1px dashed var(--line2)}
+.it:last-child{border-bottom:none}
+.it .inm{flex:1;min-width:0;display:flex;align-items:center;gap:7px}
+.it .inm .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.it .inm .fw{font-size:10px;color:var(--faint);font-weight:600}
+.chip{flex:none;font-size:9px;font-weight:800;border-radius:6px;padding:2px 6px;letter-spacing:.02em}
+.chip.MAT{background:var(--mat-bg);color:var(--mat)}.chip.РАБ{background:var(--rab-bg);color:var(--rab)}.chip.ТРУД{background:var(--trud-bg);color:var(--trud)}.chip.ТЕХ{background:var(--teh-bg);color:var(--teh)}
+.it .iq{width:120px;text-align:right;display:flex;align-items:center;justify-content:flex-end;gap:5px}
+.it .un{color:var(--faint);font-size:11px;font-weight:600;min-width:30px;text-align:left}
+.it .ip{width:150px;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.it .ipbase{font-size:10px;font-weight:700;color:var(--faint)}
+.it .ipbase.chg{color:var(--amber)}
+.it .is{width:104px;text-align:right}
+.it .is .sv{font-weight:800;color:var(--navy)}
+.it .is .sd{font-size:10px;font-weight:800}
+.sd.up,.scost .d.up{color:var(--red)}.sd.dn,.scost .d.dn{color:var(--green)}.sd.ze,.scost .d.ze{color:var(--faint)}
+input.ed{width:66px;border:1px solid var(--line);border-radius:7px;padding:5px 6px;font:inherit;font-size:12.5px;font-weight:700;text-align:right;background:#fffdf7;color:var(--ink)}
+input.ed:focus{outline:none;border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px var(--accent-soft)}
+input.ed.pr{width:84px}
+input.ed.chg{border-color:var(--amber);background:#fffaf0}
 
 /* ГАНТТ */
 .gwrap{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:13px 4px 13px 0;overflow-x:auto}
@@ -105,26 +129,23 @@ input.ed.pr{width:74px}
 .gleg{display:inline-flex;align-items:center;gap:5px}.gleg i{width:11px;height:11px;border-radius:3px;display:inline-block}
 .grid{position:relative;min-width:760px}
 .gmonths{display:flex;border-bottom:1px solid var(--line);height:22px}
-.gmonths .gsp{flex:none;width:188px}
+.gmonths .gsp{flex:none;width:200px}
 .gmonths .gmt{flex:1;display:flex;min-width:0}
 .gmonths .gm{flex:none;font-size:10.5px;font-weight:800;color:var(--faint);text-transform:uppercase;border-left:1px solid var(--line2);padding-left:6px;line-height:22px;white-space:nowrap;overflow:hidden}
-.grow{display:flex;align-items:center;height:34px;position:relative}
+.grow{display:flex;align-items:center;height:32px;position:relative}
 .grow:nth-child(even){background:#fbfaf5}
-.glabel{flex:none;width:188px;padding:0 10px 0 14px;font-size:11.5px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:3;background:inherit}
+.glabel{flex:none;width:200px;padding:0 10px 0 14px;font-size:11.5px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:3;background:inherit}
 .gtrack{flex:1;position:relative;height:100%}
-.gbar{position:absolute;top:8px;height:18px;border-radius:6px;background:#d5dee6;overflow:hidden;box-shadow:0 2px 6px -3px rgba(40,65,87,.5)}
+.gbar{position:absolute;top:7px;height:18px;border-radius:6px;background:#d5dee6;overflow:hidden;box-shadow:0 2px 6px -3px rgba(40,65,87,.5)}
 .gbar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
-.gbar.late i{background:linear-gradient(90deg,#d7795f,var(--red))}
 .gbar .pct{position:absolute;right:5px;top:0;bottom:0;display:flex;align-items:center;font-size:9.5px;font-weight:800;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35)}
-.gtoday{position:absolute;top:-22px;bottom:0;width:2px;background:var(--gold-d);z-index:2}
-.gtoday::after{content:'сегодня';position:absolute;top:-2px;left:4px;font-size:9px;font-weight:800;color:var(--gold-d);white-space:nowrap}
 .gsec{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:13px;color:var(--navy);padding:8px 14px 2px;background:var(--card)}
+.gtoday{position:absolute;top:0;bottom:0;width:2px;background:var(--gold-d);z-index:2}
+.gtoday::after{content:'сегодня';position:absolute;top:-20px;left:4px;font-size:9px;font-weight:800;color:var(--gold-d);white-space:nowrap}
+.empty{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:26px 20px;text-align:center;color:var(--mut);font-size:13px;font-weight:600;line-height:1.6}
 
 /* ЗАЯВКИ */
-.rqbar{display:flex;align-items:center;gap:8px;margin-bottom:11px;font-size:12px;font-weight:700;color:var(--mut);flex-wrap:wrap}
-.rqbar .seg{display:inline-flex;background:#ece8dd;border-radius:999px;padding:3px;gap:2px}
-.rqbar .seg button{border-radius:999px;padding:5px 12px;font-size:11.5px;font-weight:700;color:var(--mut)}
-.rqbar .seg button.on{background:var(--card);color:var(--navy);box-shadow:0 3px 9px -5px rgba(40,65,87,.5)}
+.rqbar{display:flex;align-items:center;gap:8px;margin-bottom:11px;font-size:12px;font-weight:600;color:var(--mut);flex-wrap:wrap}
 .req{background:var(--card);border-radius:13px;box-shadow:var(--shadow);padding:11px 13px;margin-bottom:8px;display:flex;align-items:flex-start;gap:11px;border-left:4px solid var(--line)}
 .req.r-red{border-left-color:var(--red)}.req.r-amber{border-left-color:var(--amber)}.req.r-ok{border-left-color:var(--green)}.req.r-mut{border-left-color:var(--accent)}
 .req .rm{flex:1;min-width:0}
@@ -138,18 +159,43 @@ input.ed.pr{width:74px}
 .rst.red{background:var(--red-bg);color:var(--red)}.rst.amber{background:var(--amber-bg);color:var(--amber)}.rst.ok{background:var(--green-bg);color:var(--green)}.rst.mut{background:#eef0f2;color:var(--mut)}
 
 .foot{margin-top:18px;text-align:center}
-.reset{font-size:12px;color:var(--faint);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.reset{font-size:12px;color:var(--faint);font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .note{font-size:10.5px;color:var(--faint);font-weight:600;margin-top:10px;line-height:1.5;text-align:center}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;font-size:13px;font-weight:700;padding:11px 18px;border-radius:12px;box-shadow:0 14px 34px -12px rgba(0,0,0,.5);opacity:0;transition:.25s;z-index:60;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
 <div class="top"><div class="lg">A</div><div class="nm">ATLAS<small>Смета-позвоночник</small></div></div>
 <div class="wrap">
-  <div class="crumbs"><a href="portfolio.html">Портфель</a> · <a href="object.html">ЖК Аура</a> · <b>Блок 5 · смета</b></div>
+  <div class="crumbs"><a href="portfolio.html">Портфель</a> · <a href="object.html">ЖК Аура</a> · <b id="cr-obj">Блок 5 · смета</b></div>
 
   <div class="principle">
-    <b>Смета — единственный источник.</b> Объёмы работ, график (Гантт) и заявки на материал считаются из неё. Каждый материал лежит <b>внутри работы</b> — поэтому связь «материал → срок работы» получается автоматически, без ручной сцепки.
-    <div class="fl"><span class="pill">📋 Смета</span><span class="ar">→</span><span class="pill">📊 Гантт</span><span class="ar">→</span><span class="pill">🛒 Заявки</span></div>
+    <b>Смета — единственный источник.</b> Загрузите смету из Excel и правьте цены/объёмы по отдельным позициям прямо по ходу стройки. <b>Сметная цена остаётся базой (заморожена)</b>, текущая правится — система показывает отклонение, а Гантт и заявки на материал пересчитываются автоматически.
+  </div>
+
+  <div class="acts">
+    <label class="btn pri">📥 Импорт сметы (Excel)<input type="file" id="file" accept=".xlsx,.xls,.csv" hidden></label>
+    <button class="btn gho" id="exp">📤 Экспорт</button>
+    <span class="srcbadge">источник: <b id="src">демо</b></span>
+  </div>
+
+  <div class="mapp" id="mapp">
+    <h4>Сопоставьте столбцы Excel</h4>
+    <div class="sub" id="mapsub">Проверьте, что определилось верно. Лист: <b id="mapsheet"></b></div>
+    <div class="mgrid">
+      <div class="mcol"><label>Раздел</label><select id="m-sec"></select></div>
+      <div class="mcol"><label>Наименование *</label><select id="m-name"></select></div>
+      <div class="mcol"><label>Кол-во</label><select id="m-qty"></select></div>
+      <div class="mcol"><label>Ед.изм</label><select id="m-unit"></select></div>
+      <div class="mcol"><label>Цена ед.</label><select id="m-price"></select></div>
+      <div class="mcol"><label>Сумма</label><select id="m-sum"></select></div>
+    </div>
+    <div class="mfoot">
+      <button class="btn pri" id="mapply">Загрузить смету</button>
+      <button class="btn gho" id="mcancel">Отмена</button>
+      <span class="hint" id="maphint"></span>
+    </div>
   </div>
 
   <div class="sum" id="sum"></div>
@@ -165,245 +211,320 @@ input.ed.pr{width:74px}
   <div class="panel" id="p-req"></div>
 
   <div class="foot">
-    <a class="reset" id="reset">↺ сбросить демо-смету</a>
-    <div class="note">Демо · ЖК «Аура» блок 5 (3 очередь, ранний этап). Объёмы и цены условные, последовательность работ — реальная по отчёту. «Сегодня» = 07.06.2026. Редактируйте кол-во и цену ресурсов — Гантт и заявки пересчитаются.</div>
+    <span class="reset" id="reset">↺ сбросить к демо-смете</span>
+    <div class="note" id="footnote"></div>
   </div>
 </div>
+<div class="toast" id="toast"></div>
 
 <script>
-const TODAY = '2026-06-07';
-const MARKUP = 0.12; // наценка для «цены заказчика»
+const TODAY='2026-06-07';
+const DEMO={object:'ЖК «Аура» · Блок 5', source:'демо', sections:[
+  {name:'Земляные работы и котлован', items:[
+    {name:'Земляные работы',type:'РАБ',qty:711,unit:'м³',price:1800,base:1800,start:'2026-05-20',days:34,fact:45},
+    {name:'Экскаватор Hyundai R220',type:'ТЕХ',qty:18,unit:'см',price:85000,base:85000},
+  ]},
+  {name:'Монолитные работы · каркас', items:[
+    {name:'Бетонные работы до отм. 0,000',type:'РАБ',qty:92,unit:'м³',price:6000,base:6000,start:'2026-06-25',days:46,fact:0},
+    {name:'Бетон М350',type:'МАТ',qty:92,unit:'м³',price:27000,base:25500,forWork:'Бетонные работы до отм. 0,000',lead:3},
+    {name:'Арматура А500С',type:'МАТ',qty:11,unit:'т',price:455000,base:455000,forWork:'Бетонные работы до отм. 0,000',lead:14},
+    {name:'Опалубка (аренда)',type:'МАТ',qty:520,unit:'м²',price:1200,base:1200,forWork:'Бетонные работы до отм. 0,000',lead:7},
+    {name:'Ж/Б каркас отм. 0,000 — верх',type:'РАБ',qty:430,unit:'м³',price:6500,base:6500,start:'2026-08-10',days:74,fact:0},
+    {name:'Бетон М350',type:'МАТ',qty:430,unit:'м³',price:27000,base:25500,forWork:'Ж/Б каркас отм. 0,000 — верх',lead:3},
+    {name:'Арматура А500С',type:'МАТ',qty:52,unit:'т',price:455000,base:455000,forWork:'Ж/Б каркас отм. 0,000 — верх',lead:14},
+  ]},
+  {name:'Ограждающие конструкции', items:[
+    {name:'Кладка наружных стен',type:'РАБ',qty:240,unit:'м³',price:3500,base:3500,start:'2026-10-05',days:34,fact:0},
+    {name:'Газоблок D500',type:'МАТ',qty:240,unit:'м³',price:23000,base:22000,forWork:'Кладка наружных стен',lead:10},
+    {name:'Гидроизоляция кровли',type:'РАБ',qty:780,unit:'м²',price:900,base:900,start:'2026-11-10',days:117,fact:0},
+    {name:'Гидроизоляция рулонная',type:'МАТ',qty:860,unit:'м²',price:3500,base:3500,forWork:'Гидроизоляция кровли',lead:14},
+    {name:'Монтаж окон ПВХ',type:'РАБ',qty:320,unit:'м²',price:2000,base:2000,start:'2026-11-15',days:59,fact:0},
+    {name:'Окна ПВХ',type:'МАТ',qty:320,unit:'м²',price:45000,base:45000,forWork:'Монтаж окон ПВХ',lead:30},
+  ]},
+]};
 
-// ── единый источник: смета (раздел → работа → ресурсы) ───────────────────
-const SEED = {
-  object:'ЖК «Аура» · Блок 5',
-  sections:[
-    {id:'s1', name:'Земляные работы и котлован', works:[
-      {id:'w1', name:'Земляные работы', vol:711, unit:'м³', start:'2026-05-20', days:34, fact:45, res:[
-        {k:'TEH', name:'Экскаватор Hyundai R220', qty:18, unit:'см', price:85000, lead:5},
-        {k:'TRUD',name:'Землекопы (звено)',       qty:34, unit:'ч·см', price:12000, lead:0},
-      ]},
-    ]},
-    {id:'s2', name:'Монолитные работы · каркас', works:[
-      {id:'w2', name:'Бетонные работы до отм. 0,000', vol:92, unit:'м³', start:'2026-06-25', days:46, fact:0, res:[
-        {k:'MAT', name:'Бетон М350',        qty:92,  unit:'м³', price:25500, lead:3},
-        {k:'MAT', name:'Арматура А500С',    qty:11,  unit:'т',  price:455000,lead:14},
-        {k:'MAT', name:'Опалубка (аренда)', qty:520, unit:'м²', price:1200,  lead:7},
-        {k:'TRUD',name:'Бетонщики',         qty:46,  unit:'ч·см', price:14000, lead:0},
-        {k:'TEH', name:'Бетононасос',       qty:6,   unit:'см', price:120000,lead:3},
-      ]},
-      {id:'w3', name:'Ж/Б каркас отм. 0,000 — верх', vol:430, unit:'м³', start:'2026-08-10', days:74, fact:0, res:[
-        {k:'MAT', name:'Бетон М350',        qty:430, unit:'м³', price:25500, lead:3},
-        {k:'MAT', name:'Арматура А500С',    qty:52,  unit:'т',  price:455000,lead:14},
-        {k:'MAT', name:'Опалубка (аренда)', qty:1400,unit:'м²', price:1200,  lead:7},
-        {k:'TRUD',name:'Монолитчики',       qty:74,  unit:'ч·см', price:14000, lead:0},
-      ]},
-    ]},
-    {id:'s3', name:'Ограждающие конструкции', works:[
-      {id:'w4', name:'Кладка наружных стен', vol:240, unit:'м³', start:'2026-10-05', days:34, fact:0, res:[
-        {k:'MAT', name:'Газоблок D500',     qty:240, unit:'м³', price:22000, lead:10},
-        {k:'MAT', name:'Кладочный раствор', qty:38,  unit:'т',  price:24000, lead:5},
-        {k:'TRUD',name:'Каменщики',         qty:34,  unit:'ч·см', price:13000, lead:0},
-      ]},
-      {id:'w5', name:'Гидроизоляция кровли', vol:780, unit:'м²', start:'2026-11-10', days:117, fact:0, res:[
-        {k:'MAT', name:'Гидроизоляция рулонная', qty:860, unit:'м²', price:3500, lead:14},
-        {k:'TRUD',name:'Кровельщики',            qty:24,  unit:'ч·см', price:13000, lead:0},
-      ]},
-      {id:'w6', name:'Монтаж окон ПВХ (СПК)', vol:320, unit:'м²', start:'2026-11-15', days:59, fact:0, res:[
-        {k:'MAT', name:'Окна ПВХ',   qty:320, unit:'м²', price:45000, lead:30},
-        {k:'TRUD',name:'Монтажники', qty:18,  unit:'ч·см', price:13000, lead:0},
-      ]},
-    ]},
-  ]
-};
-const KLABEL={MAT:'Материалы',TRUD:'Люди',TEH:'Техника'};
+const KEY='atlas_smeta_v2';
+let SMETA=null;
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.sections)SMETA=s;}catch(e){} if(!SMETA)SMETA=clone(DEMO);}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(SMETA));}catch(e){}}
+function clone(o){return JSON.parse(JSON.stringify(o));}
 
-// ── state + persistence (overrides qty/price by work:res) ────────────────
-const KEY='atlas_smeta_v1';
-let SMETA = JSON.parse(JSON.stringify(SEED));
-function load(){
-  try{const o=JSON.parse(localStorage.getItem(KEY)||'{}');
-    SMETA.sections.forEach(s=>s.works.forEach(w=>w.res.forEach((r,i)=>{
-      const k=w.id+':'+i; if(o[k]){if(o[k].qty!=null)r.qty=o[k].qty; if(o[k].price!=null)r.price=o[k].price;}
-    })));}catch(e){}
-}
-function save(){
-  const o={};
-  SMETA.sections.forEach(s=>s.works.forEach(w=>w.res.forEach((r,i)=>{o[w.id+':'+i]={qty:r.qty,price:r.price};})));
-  localStorage.setItem(KEY,JSON.stringify(o));
-}
-
-// ── helpers ──────────────────────────────────────────────────────────────
+// helpers
 const fmt=n=>Math.round(n).toLocaleString('ru-RU');
 const money=n=>fmt(n)+' ₸';
-function d(s){const[y,m,dd]=s.split('-').map(Number);return new Date(y,m-1,dd);}
-function addDays(s,n){const x=d(s);x.setDate(x.getDate()+n);return x;}
+const pct=n=>(n>0?'+':'')+n.toFixed(1)+'%';
+function D(s){const[y,m,dd]=s.split('-').map(Number);return new Date(y,m-1,dd);}
+function addDays(s,n){const x=D(s);x.setDate(x.getDate()+n);return x;}
 function iso(x){return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');}
-function diffDays(a,b){return Math.round((d(b)-d(a))/864e5);}
-function ddmm(s){const x=d(s);return String(x.getDate()).padStart(2,'0')+'.'+String(x.getMonth()+1).padStart(2,'0');}
-function endOf(w){return iso(addDays(w.start,w.days));}
-function resSum(r){return r.qty*r.price;}
-function workCost(w){return w.res.reduce((a,r)=>a+resSum(r),0);}
-function workByKind(w,k){return w.res.filter(r=>r.k===k).reduce((a,r)=>a+resSum(r),0);}
-function allWorks(){return SMETA.sections.flatMap(s=>s.works.map(w=>({w,s})));}
+function diffDays(a,b){return Math.round((D(b)-D(a))/864e5);}
+function ddmm(s){const x=D(s);return String(x.getDate()).padStart(2,'0')+'.'+String(x.getMonth()+1).padStart(2,'0');}
+function itemSum(it){return (+it.qty||0)*(+it.price||0);}
+function itemBase(it){return (+it.qty||0)*(+(it.base!=null?it.base:it.price)||0);}
+function allItems(){return SMETA.sections.flatMap(s=>s.items);}
+function findWork(name){return allItems().find(i=>i.type==='РАБ'&&i.name===name);}
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2200);}
 
-// ── summary ──────────────────────────────────────────────────────────────
+// ── summary ──
 function renderSum(){
-  const works=allWorks();
-  const tot=works.reduce((a,{w})=>a+workCost(w),0);
-  const mat=works.reduce((a,{w})=>a+workByKind(w,'MAT'),0);
-  const trud=works.reduce((a,{w})=>a+workByKind(w,'TRUD'),0);
-  const teh=works.reduce((a,{w})=>a+workByKind(w,'TEH'),0);
-  const nReq=works.reduce((a,{w})=>a+w.res.filter(r=>r.k==='MAT').length,0);
+  const items=allItems();
+  const cur=items.reduce((a,i)=>a+itemSum(i),0);
+  const bas=items.reduce((a,i)=>a+itemBase(i),0);
+  const dev=cur-bas, devp=bas?dev/bas*100:0;
+  const byK=k=>items.filter(i=>i.type===k).reduce((a,i)=>a+itemSum(i),0);
+  const mat=byK('МАТ'),rab=byK('РАБ'),trud=byK('ТРУД'),teh=byK('ТЕХ');
+  const nMat=items.filter(i=>i.type==='МАТ').length, nReq=items.filter(i=>i.type==='МАТ'&&i.forWork&&findWork(i.forWork)).length;
+  const devcls=Math.abs(dev)<1?'ze':(dev>0?'up':'dn');
   document.getElementById('sum').innerHTML=`
-    <div class="cap">Себестоимость по смете</div>
-    <div class="big tnum">${money(tot)}</div>
-    <div class="cust">Цена для заказчика (+${Math.round(MARKUP*100)}% наценка): <b class="tnum">${money(tot*(1+MARKUP))}</b></div>
-    <div class="split">
-      <div class="spc mat"><div class="k">Материалы</div><div class="v tnum">${money(mat)}</div><div class="p">${Math.round(mat/tot*100)}% сметы</div></div>
-      <div class="spc trud"><div class="k">Люди</div><div class="v tnum">${money(trud)}</div><div class="p">${Math.round(trud/tot*100)}% сметы</div></div>
-      <div class="spc teh"><div class="k">Техника</div><div class="v tnum">${money(teh)}</div><div class="p">${Math.round(teh/tot*100)}% сметы</div></div>
+    <div class="sumrow">
+      <div class="blk"><div class="cap">Текущая стоимость сметы</div><div class="big tnum">${money(cur)}</div>
+        <div class="base">смета (база): <b class="tnum">${money(bas)}</b></div></div>
+      <div class="blk" style="flex:none;text-align:right"><div class="cap">Отклонение от сметы</div>
+        <span class="dev ${devcls}">${dev>0?'▲':dev<0?'▼':'='} ${money(Math.abs(dev))} · ${pct(devp)}</span>
+        <div class="base" style="margin-top:5px">экономию не премируем — это аналитика</div></div>
     </div>
-    <div class="cnts"><span><b>${works.length}</b> работ</span><span><b>${SMETA.sections.length}</b> разделов</span><span>🛒 <b>${nReq}</b> заявок на материал</span></div>`;
+    <div class="split">
+      ${mat?`<div class="spc mat"><div class="k">Материалы</div><div class="v tnum">${money(mat)}</div><div class="p">${Math.round(mat/cur*100)}%</div></div>`:''}
+      ${rab?`<div class="spc rab"><div class="k">Работы</div><div class="v tnum">${money(rab)}</div><div class="p">${Math.round(rab/cur*100)}%</div></div>`:''}
+      ${trud?`<div class="spc trud"><div class="k">Люди</div><div class="v tnum">${money(trud)}</div><div class="p">${Math.round(trud/cur*100)}%</div></div>`:''}
+      ${teh?`<div class="spc teh"><div class="k">Техника</div><div class="v tnum">${money(teh)}</div><div class="p">${Math.round(teh/cur*100)}%</div></div>`:''}
+    </div>
+    <div class="cnts"><span><b>${items.length}</b> позиций</span><span><b>${SMETA.sections.length}</b> разделов</span><span>🛒 <b>${nReq}</b> заявок${nMat>nReq?` · ${nMat-nReq} мат. без даты`:''}</span></div>`;
   document.getElementById('tc-smeta').textContent=SMETA.sections.length+' разд.';
-  document.getElementById('tc-gantt').textContent=works.length+' работ';
+  document.getElementById('tc-gantt').textContent=items.filter(i=>i.type==='РАБ'&&i.start).length+' работ';
   document.getElementById('tc-req').textContent=nReq+' поз.';
+  document.getElementById('src').textContent=SMETA.source||'импорт';
+  document.getElementById('cr-obj').textContent=(SMETA.object||'смета');
+  document.getElementById('footnote').textContent=SMETA.source==='демо'
+    ? 'Демо · ЖК «Аура» блок 5 (объёмы/цены условные, последовательность работ реальная). «Сегодня» = 07.06.2026. Загрузите свою смету через «Импорт».'
+    : 'Смета загружена из Excel. Правки цен/объёмов и отклонения сохраняются локально. «Экспорт» отдаёт скорректированную смету обратно в Excel.';
 }
 
-// ── СМЕТА (tree, editable) ───────────────────────────────────────────────
+// ── СМЕТА (editable, baseline vs current) ──
 function renderSmeta(){
   let h='';
   SMETA.sections.forEach((s,si)=>{
-    const scost=s.works.reduce((a,w)=>a+workCost(w),0);
-    h+=`<details class="sec" ${si<2?'open':''}><summary><span class="chev">▶</span><span class="snm">${si+1}. ${s.name}</span><span class="scost tnum">${money(scost)}</span></summary><div class="sbody">`;
-    s.works.forEach((w,wi)=>{
-      const nMat=w.res.filter(r=>r.k==='MAT').length;
-      h+=`<details class="wk"><summary>
-        <span style="flex:1;min-width:0"><span class="wnm">${si+1}.${wi+1} ${w.name}</span>
-          <div class="wmeta"><b>${fmt(w.vol)} ${w.unit}</b> · ${ddmm(w.start)}–${ddmm(endOf(w))} · ${w.days} дн${nMat?` · 🛒 ${nMat}`:''}</div></span>
-        <span class="wcost"><div class="wc tnum">${money(workCost(w))}</div><div class="wr">факт ${w.fact}%</div></span></summary>
-        <div class="wbody">
-          <div class="rh"><span class="rn">Ресурс</span><span class="rq">Кол-во</span><span class="rp">Цена ед.</span><span class="rs">Сумма</span></div>`;
-      w.res.forEach((r,ri)=>{
-        h+=`<div class="res">
-          <span class="rn"><span class="chip ${r.k}">${r.k==='TRUD'?'ТРУД':r.k}</span><span class="nm">${r.name}</span></span>
-          <span class="rq"><input class="ed" type="number" step="any" min="0" value="${r.qty}" data-w="${w.id}" data-r="${ri}" data-f="qty"><span class="un">${r.unit}</span></span>
-          <span class="rp"><input class="ed pr" type="number" step="any" min="0" value="${r.price}" data-w="${w.id}" data-r="${ri}" data-f="price"></span>
-          <span class="rs tnum">${money(resSum(r))}</span></div>`;
-      });
-      h+=`</div></details>`;
+    const cur=s.items.reduce((a,i)=>a+itemSum(i),0), bas=s.items.reduce((a,i)=>a+itemBase(i),0), dev=cur-bas;
+    const dcls=Math.abs(dev)<1?'ze':(dev>0?'up':'dn');
+    h+=`<details class="sec" ${si<3?'open':''}><summary><span class="chev">▶</span><span class="snm">${secLabel(s.name,si)}</span>
+      <span class="scost"><div class="v tnum">${money(cur)}</div>${Math.abs(dev)>=1?`<div class="d ${dcls}">${dev>0?'+':'−'}${money(Math.abs(dev))}</div>`:''}</span></summary>
+      <div class="sbody"><div class="ih"><span class="inm">Позиция</span><span class="iq">Кол-во</span><span class="ip">Цена ед.</span><span class="is">Сумма</span></div>`;
+    s.items.forEach((it,ii)=>{
+      const chg=(+it.price)!==(+(it.base!=null?it.base:it.price));
+      const dv=itemSum(it)-itemBase(it), dvp=itemBase(it)?dv/itemBase(it)*100:0;
+      const dcls2=Math.abs(dv)<1?'ze':(dv>0?'up':'dn');
+      h+=`<div class="it">
+        <span class="inm"><span class="chip ${it.type}">${it.type}</span><span class="nm">${esc(it.name)}</span>${it.forWork?`<span class="fw">↳ ${esc(it.forWork)}</span>`:''}</span>
+        <span class="iq"><input class="ed" type="number" step="any" min="0" value="${it.qty}" data-s="${si}" data-i="${ii}" data-f="qty"><span class="un">${esc(it.unit||'')}</span></span>
+        <span class="ip"><input class="ed pr ${chg?'chg':''}" type="number" step="any" min="0" value="${it.price}" data-s="${si}" data-i="${ii}" data-f="price">${chg?`<span class="ipbase chg">смета: ${fmt(it.base)} (${pct(dvp)})</span>`:''}</span>
+        <span class="is"><div class="sv tnum">${money(itemSum(it))}</div>${Math.abs(dv)>=1?`<div class="sd ${dcls2}">${dv>0?'+':'−'}${fmt(Math.abs(dv))}</div>`:''}</span></div>`;
     });
     h+=`</div></details>`;
   });
   document.getElementById('p-smeta').innerHTML=h;
 }
+function esc(s){return String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+function secLabel(name,si){return (/^\s*\d/.test(name)?'':(si+1)+'. ')+esc(name);} // don't double-number if name already starts with a digit
 
-// ── ГАНТТ (derived from work dates) ──────────────────────────────────────
+// ── ГАНТТ ──
 function renderGantt(){
-  const works=allWorks();
-  const starts=works.map(({w})=>d(w.start)), ends=works.map(({w})=>addDays(w.start,w.days));
+  const works=SMETA.sections.flatMap((s,si)=>s.items.map(i=>({i,si,s})).filter(x=>x.i.type==='РАБ'&&x.i.start&&x.i.days));
+  if(!works.length){document.getElementById('p-gantt').innerHTML=`<div class="empty">В смете нет работ с датами.<br>Гантт строится из работ (тип «РАБ») с датами начала и длительностью — добавьте даты или импортируйте график ГПР.</div>`;return;}
+  const starts=works.map(x=>D(x.i.start)), ends=works.map(x=>addDays(x.i.start,x.i.days));
   let min=new Date(Math.min(...starts)), max=new Date(Math.max(...ends));
-  min=new Date(min.getFullYear(),min.getMonth(),1);
-  max=new Date(max.getFullYear(),max.getMonth()+1,1);
-  const span=(max-min)/864e5;
-  const pos=x=>((x-min)/864e5)/span*100;
-  // months
-  let months='',cur=new Date(min);
+  min=new Date(min.getFullYear(),min.getMonth(),1); max=new Date(max.getFullYear(),max.getMonth()+1,1);
+  const span=(max-min)/864e5, pos=x=>((x-min)/864e5)/span*100;
   const MN=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+  let months='',cur=new Date(min);
   while(cur<max){const nx=new Date(cur.getFullYear(),cur.getMonth()+1,1);const wd=(Math.min(nx,max)-cur)/864e5/span*100;
     months+=`<div class="gm" style="width:${wd}%">${MN[cur.getMonth()]} ${String(cur.getFullYear()).slice(2)}</div>`;cur=nx;}
-  let rows='';
-  SMETA.sections.forEach((s,si)=>{
-    rows+=`<div class="gsec">${si+1}. ${s.name}</div>`;
-    s.works.forEach((w,wi)=>{
-      const l=pos(d(w.start)), wdt=pos(addDays(w.start,w.days))-l;
-      const late=w.fact>0 && diffDays(w.start,TODAY)>0 && w.fact < Math.min(100,Math.max(0,diffDays(w.start,TODAY)/w.days*100))-8;
-      rows+=`<div class="grow"><div class="glabel">${si+1}.${wi+1} ${w.name}</div><div class="gtrack">
-        <div class="gbar ${late?'late':''}" style="left:${l}%;width:${wdt}%"><i style="width:${w.fact}%"></i><span class="pct">${w.fact}%</span></div></div></div>`;
-    });
+  let rows='',lastSec=-1;
+  works.forEach(x=>{
+    if(x.si!==lastSec){rows+=`<div class="gsec">${secLabel(x.s.name,x.si)}</div>`;lastSec=x.si;}
+    const l=pos(D(x.i.start)), wdt=pos(addDays(x.i.start,x.i.days))-l, f=+x.i.fact||0;
+    rows+=`<div class="grow"><div class="glabel">${esc(x.i.name)}</div><div class="gtrack">
+      <div class="gbar" style="left:${l}%;width:${wdt}%"><i style="width:${f}%"></i><span class="pct">${f}%</span></div></div></div>`;
   });
-  const tdy=pos(d(TODAY));
+  const tdy=Math.max(0,Math.min(100,pos(D(TODAY))));
   document.getElementById('p-gantt').innerHTML=`
-    <div class="ghint">График построен из дат работ сметы. Заливка бара = факт выполнения.
+    <div class="ghint">График построен из дат работ сметы. Заливка = факт.
       <span class="gleg"><i style="background:linear-gradient(90deg,var(--accent),var(--accent-d))"></i>факт</span>
       <span class="gleg"><i style="background:#d5dee6"></i>план</span></div>
-    <div class="gwrap"><div class="grid">
-      <div class="gmonths"><div class="gsp"></div><div class="gmt">${months}</div></div>
-      <div style="position:relative">${rows}<div class="gtoday" style="left:calc(188px + (100% - 188px) * ${tdy/100})"></div></div>
+    <div class="gwrap"><div class="grid"><div class="gmonths"><div class="gsp"></div><div class="gmt">${months}</div></div>
+      <div style="position:relative;padding-top:20px">${rows}<div class="gtoday" style="left:calc(200px + (100% - 200px) * ${tdy/100})"></div></div>
     </div></div>`;
 }
 
-// ── ЗАЯВКИ (derived from MAT resources) ──────────────────────────────────
-let reqFilter='all';
-function buildReqs(){
+// ── ЗАЯВКИ ──
+function renderReq(){
   const out=[];
-  SMETA.sections.forEach((s,si)=>s.works.forEach((w,wi)=>w.res.forEach(r=>{
-    if(r.k!=='MAT')return;
-    const need=w.start, orderBy=iso(addDays(w.start,-r.lead));
+  SMETA.sections.forEach((s,si)=>s.items.forEach(it=>{
+    if(it.type!=='МАТ')return;
+    const w=it.forWork?findWork(it.forWork):null;
+    if(!w||!w.start){out.push({nodate:true,name:it.name,qty:it.qty,unit:it.unit,sum:itemSum(it),sec:s.name,work:it.forWork||'—'});return;}
+    const need=w.start, lead=+it.lead||7, orderBy=iso(addDays(w.start,-lead));
     const dNeed=diffDays(TODAY,need), dOrder=diffDays(TODAY,orderBy);
     let cls,st;
-    if(dNeed<0){ if(w.fact>0){cls='ok';st='✓ на объекте';} else {cls='red';st='🔴 срыв: материал нужен, заказа нет';} }
+    if(dNeed<0){if((+w.fact||0)>0){cls='ok';st='✓ на объекте';}else{cls='red';st='🔴 срыв: материал нужен, заказа нет';}}
     else if(dOrder<=0){cls='red';st=`🔴 заказ просрочен (−${-dOrder} дн)`;}
     else if(dOrder<=10){cls='amber';st=`⏳ заказать за ${dOrder} дн (до ${ddmm(orderBy)})`;}
-    else {cls='mut';st=`заказать до ${ddmm(orderBy)}`;}
-    out.push({name:r.name,qty:r.qty,unit:r.unit,sum:resSum(r),sec:`${si+1}. ${s.name}`,work:`${si+1}.${wi+1} ${w.name}`,need,orderBy,lead:r.lead,cls,st,dOrder});
-  })));
-  out.sort((a,b)=>d(a.orderBy)-d(b.orderBy));
-  return out;
-}
-function renderReq(){
-  const reqs=buildReqs();
-  const counts={all:reqs.length,urgent:reqs.filter(r=>r.cls==='red'||r.cls==='amber').length,ok:reqs.filter(r=>r.cls==='ok').length};
-  const shown=reqs.filter(r=>reqFilter==='all'||(reqFilter==='urgent'&&(r.cls==='red'||r.cls==='amber'))||(reqFilter==='ok'&&r.cls==='ok'));
-  let h=`<div class="rqbar"><span>«Потребуется» = старт работы. «Заказать до» = старт − срок поставки.</span>
-    <span class="seg">
-      <button data-rf="all" class="${reqFilter==='all'?'on':''}">Все ${counts.all}</button>
-      <button data-rf="urgent" class="${reqFilter==='urgent'?'on':''}">🔴 Срочные ${counts.urgent}</button>
-      <button data-rf="ok" class="${reqFilter==='ok'?'on':''}">✓ ${counts.ok}</button>
-    </span></div>`;
-  shown.forEach(r=>{
-    h+=`<div class="req r-${r.cls}">
-      <div class="rm">
-        <div class="rt"><span class="chip MAT">МАТ</span>${r.name}</div>
-        <div class="lnk">для работы <b>${r.work}</b> · ${r.sec}</div>
-        <div class="qd">${fmt(r.qty)} ${r.unit} · потребуется ${ddmm(r.need)} · поставка ${r.lead} дн</div>
-      </div>
-      <div class="rr"><div class="rsum tnum">${money(r.sum)}</div><div class="rst ${r.cls}">${r.st}</div></div></div>`;
-  });
-  if(!shown.length)h+=`<div class="note">Нет заявок в этом фильтре.</div>`;
+    else{cls='mut';st=`заказать до ${ddmm(orderBy)}`;}
+    out.push({name:it.name,qty:it.qty,unit:it.unit,sum:itemSum(it),sec:s.name,work:it.forWork,need,lead,orderBy,cls,st});
+  }));
+  const dated=out.filter(r=>!r.nodate).sort((a,b)=>D(a.orderBy)-D(b.orderBy));
+  const nodate=out.filter(r=>r.nodate);
+  if(!out.length){document.getElementById('p-req').innerHTML=`<div class="empty">В смете нет материалов.<br>Заявки генерируются из позиций типа «МАТ», привязанных к работе. Импортируйте смету с материалами или укажите тип «МАТ».</div>`;return;}
+  let h=`<div class="rqbar">«Потребуется» = старт привязанной работы. «Заказать до» = старт − срок поставки. Сумма берётся из <b>текущей</b> цены сметы.</div>`;
+  dated.forEach(r=>{h+=reqCard(r);});
+  if(nodate.length){h+=`<div class="rqbar" style="margin-top:14px">⚠ ${nodate.length} материалов без привязки к работе с датой — заявку по сроку не построить:</div>`;nodate.forEach(r=>{h+=reqCard(r);});}
   document.getElementById('p-req').innerHTML=h;
 }
+function reqCard(r){
+  if(r.nodate)return `<div class="req r-mut"><div class="rm"><div class="rt"><span class="chip MAT">МАТ</span>${esc(r.name)}</div>
+    <div class="lnk">${esc(r.sec)}${r.work&&r.work!=='—'?` · для: ${esc(r.work)}`:''}</div>
+    <div class="qd">${fmt(r.qty)} ${esc(r.unit||'')}</div></div>
+    <div class="rr"><div class="rsum tnum">${money(r.sum)}</div><div class="rst mut">нет даты работы</div></div></div>`;
+  return `<div class="req r-${r.cls}"><div class="rm"><div class="rt"><span class="chip MAT">МАТ</span>${esc(r.name)}</div>
+    <div class="lnk">для работы <b>${esc(r.work)}</b> · ${esc(r.sec)}</div>
+    <div class="qd">${fmt(r.qty)} ${esc(r.unit||'')} · потребуется ${ddmm(r.need)} · поставка ${r.lead} дн</div></div>
+    <div class="rr"><div class="rsum tnum">${money(r.sum)}</div><div class="rst ${r.cls}">${r.st}</div></div></div>`;
+}
 
-// ── render all + events ──────────────────────────────────────────────────
 function renderAll(){renderSum();renderSmeta();renderGantt();renderReq();}
-load();renderAll();
 
-// tab switch
-document.getElementById('tabs').addEventListener('click',e=>{
-  const b=e.target.closest('button[data-t]');if(!b)return;
+// ── events: tabs, edit, reset ──
+document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('button[data-t]');if(!b)return;
   document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b));
-  ['smeta','gantt','req'].forEach(t=>document.getElementById('p-'+t).classList.toggle('on',t===b.dataset.t));
+  ['smeta','gantt','req'].forEach(t=>document.getElementById('p-'+t).classList.toggle('on',t===b.dataset.t));});
+document.getElementById('p-smeta').addEventListener('input',e=>{const inp=e.target.closest('input.ed');if(!inp)return;
+  const it=SMETA.sections[+inp.dataset.s].items[+inp.dataset.i];const v=parseFloat(inp.value);if(isNaN(v))return;
+  it[inp.dataset.f]=v; persist();
+  // light in-place refresh of this row's sum/dev + base hint, then dependent panels
+  const row=inp.closest('.it'); const dv=itemSum(it)-itemBase(it), dvp=itemBase(it)?dv/itemBase(it)*100:0;
+  const chg=(+it.price)!==(+(it.base!=null?it.base:it.price));
+  row.querySelector('.sv').textContent=money(itemSum(it));
+  const sd=row.querySelector('.sd'); if(sd){if(Math.abs(dv)<1)sd.remove();else{sd.className='sd '+(dv>0?'up':'dn');sd.textContent=(dv>0?'+':'−')+fmt(Math.abs(dv));}}
+  else if(Math.abs(dv)>=1){const e2=document.createElement('div');e2.className='sd '+(dv>0?'up':'dn');e2.textContent=(dv>0?'+':'−')+fmt(Math.abs(dv));row.querySelector('.is').appendChild(e2);}
+  const pr=row.querySelector('input.pr'); pr.classList.toggle('chg',chg);
+  let bh=row.querySelector('.ipbase'); if(chg){if(!bh){bh=document.createElement('span');bh.className='ipbase chg';row.querySelector('.ip').appendChild(bh);}bh.textContent=`смета: ${fmt(it.base)} (${pct(dvp)})`;}else if(bh)bh.remove();
+  // section + summary + panels
+  const sec=inp.closest('details.sec'); const sitems=SMETA.sections[+inp.dataset.s].items;
+  const cur=sitems.reduce((a,i)=>a+itemSum(i),0),dev=cur-sitems.reduce((a,i)=>a+itemBase(i),0);
+  sec.querySelector('.scost .v').textContent=money(cur);
+  renderSum();renderGantt();renderReq();});
+document.getElementById('reset').addEventListener('click',()=>{if(!confirm('Сбросить к демо-смете? Импортированные данные и правки удалятся.'))return;SMETA=clone(DEMO);persist();renderAll();toast('Сброшено к демо');});
+
+// ── EXCEL IMPORT (SheetJS) ──
+let RAW=null; // {rows, headers, sheet}
+document.getElementById('file').addEventListener('change',ev=>{
+  const f=ev.target.files[0];if(!f)return;
+  if(typeof XLSX==='undefined'){toast('Не загрузился движок Excel — проверьте интернет');return;}
+  const rd=new FileReader();
+  rd.onload=e=>{try{
+    const wb=XLSX.read(new Uint8Array(e.target.result),{type:'array'});
+    const sn=wb.SheetNames[0];
+    const rows=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,blankrows:false,defval:''});
+    RAW={rows,sheet:sn};
+    openMapping(rows,sn);
+  }catch(err){toast('Не удалось прочитать файл');console.error(err);}};
+  rd.readAsArrayBuffer(f); ev.target.value='';
 });
-// edit resource
-document.getElementById('p-smeta').addEventListener('input',e=>{
-  const inp=e.target.closest('input.ed');if(!inp)return;
-  const w=SMETA.sections.flatMap(s=>s.works).find(w=>w.id===inp.dataset.w);if(!w)return;
-  const r=w.res[+inp.dataset.r];const v=parseFloat(inp.value);if(isNaN(v))return;
-  r[inp.dataset.f]=v;
-  // live: update only sums + dependent panels, keep смета DOM (don't lose focus)
-  inp.closest('.res').querySelector('.rs').textContent=money(resSum(r));
-  inp.closest('details.wk').querySelector('.wc').textContent=money(workCost(w));
-  const sec=inp.closest('details.sec');sec.querySelector('.scost').textContent=money(SMETA.sections.find(s=>s.works.includes(w)).works.reduce((a,x)=>a+workCost(x),0));
-  save();renderSum();renderGantt();renderReq();
+function detectHeader(rows){
+  const KW=/наимен|кол-?во|количеств|цена|ед\.?\s*изм|сумм|стоим|работ|материал|расцен/i;
+  let best=0,bestScore=-1;
+  for(let r=0;r<Math.min(rows.length,20);r++){
+    const hits=rows[r].filter(c=>typeof c==='string'&&KW.test(c)).length;
+    if(hits>bestScore){bestScore=hits;best=r;}
+  }
+  return bestScore>=1?best:0;
+}
+function guessCol(headers,re){for(let i=0;i<headers.length;i++){if(re.test(String(headers[i]||'')))return i;}return -1;}
+function openMapping(rows,sn){
+  const hr=detectHeader(rows);
+  const headers=rows[hr].map((c,i)=>String(c||'').trim()||('Столбец '+(i+1)));
+  RAW.headerRow=hr; RAW.headers=headers;
+  const opts=(sel)=>`<option value="-1">— нет —</option>`+headers.map((h,i)=>`<option value="${i}" ${i===sel?'selected':''}>${esc(h)}</option>`).join('');
+  const gName=guessCol(headers,/наимен|работ|ресурс|материал/i);
+  const gQty=guessCol(headers,/кол-?во|количеств/i);
+  const gUnit=guessCol(headers,/ед\.?\s*изм|единиц|ед\b/i);
+  const gPrice=guessCol(headers,/цена|расцен|стоим.*ед|ед.*стоим/i);
+  let gSum=guessCol(headers,/сумм|всего|итого/i); if(gSum<0)gSum=guessCol(headers,/стоим/i);
+  const gSec=guessCol(headers,/раздел|группа|этап/i);
+  document.getElementById('m-sec').innerHTML=opts(gSec);
+  document.getElementById('m-name').innerHTML=opts(gName>=0?gName:0);
+  document.getElementById('m-qty').innerHTML=opts(gQty);
+  document.getElementById('m-unit').innerHTML=opts(gUnit);
+  document.getElementById('m-price').innerHTML=opts(gPrice);
+  document.getElementById('m-sum').innerHTML=opts(gSum);
+  document.getElementById('mapsheet').textContent=sn+' · строк: '+rows.length;
+  document.getElementById('maphint').textContent='';
+  document.getElementById('mapp').classList.add('on');
+  document.getElementById('mapp').scrollIntoView({block:'center'});
+}
+document.getElementById('mcancel').addEventListener('click',()=>document.getElementById('mapp').classList.remove('on'));
+document.getElementById('mapply').addEventListener('click',()=>{
+  const g=id=>+document.getElementById(id).value;
+  const cName=g('m-name'),cQty=g('m-qty'),cUnit=g('m-unit'),cPrice=g('m-price'),cSum=g('m-sum'),cSec=g('m-sec');
+  if(cName<0){document.getElementById('maphint').textContent='Укажите столбец «Наименование».';return;}
+  const built=buildFromRows(RAW.rows,RAW.headerRow,{cName,cQty,cUnit,cPrice,cSum,cSec});
+  if(!built.sections.length||!allCount(built)){document.getElementById('maphint').textContent='Не нашлось позиций — проверьте сопоставление.';return;}
+  SMETA=built; persist(); document.getElementById('mapp').classList.remove('on'); renderAll();
+  toast('Смета загружена: '+allCount(built)+' позиций');
 });
-// req filter
-document.getElementById('p-req').addEventListener('click',e=>{
-  const b=e.target.closest('button[data-rf]');if(!b)return;reqFilter=b.dataset.rf;renderReq();
+function allCount(sm){return sm.sections.reduce((a,s)=>a+s.items.length,0);}
+function num(v){if(typeof v==='number')return v;if(v==null)return 0;const s=String(v).replace(/\s/g,'').replace(/ /g,'').replace(',','.').replace(/[^0-9.\-]/g,'');const n=parseFloat(s);return isNaN(n)?0:n;}
+function guessType(name,unit){
+  const n=String(name||'').toLowerCase(), u=String(unit||'').toLowerCase();
+  // work-verb in the name wins over unit (works are often measured in м³/м² too)
+  if(/работ|монтаж|устройств|кладк|бетонир|штукатур|окрас|залив|разработ|уплотн|засып|демонтаж|прокладк|укладк|изоляц|отделк|облицов|устр\.|возвед/.test(n))return 'РАБ';
+  if(/чел/.test(u))return 'ТРУД';
+  if(/смен|маш-?ч|маш\.|часов/.test(u))return 'ТЕХ';
+  if(/шт|м3|м³|м2|м²|\bм\b|тонн|\bт\b|кг|меш|рулон|\bл\b|компл|пог|\bпм\b/.test(u))return 'МАТ';
+  return unit?'МАТ':'РАБ';
+}
+function buildFromRows(rows,hr,m){
+  const sections=[]; let curSec=null;
+  const ensure=()=>{if(!curSec){curSec={name:'Без раздела',items:[]};sections.push(curSec);}return curSec;};
+  for(let r=hr+1;r<rows.length;r++){
+    const row=rows[r]; if(!row)continue;
+    const name=String((m.cName>=0?row[m.cName]:'')||'').trim();
+    if(m.cSec>=0){const sv=String(row[m.cSec]||'').trim();if(sv&&sv!==name){curSec={name:sv,items:[]};sections.push(curSec);} }
+    if(!name)continue;
+    if(/^(итого|всего|total|подыто|примечан|в том числе)/i.test(name))continue; // skip total/note rows
+    if(/^[\d.,\s]+$/.test(name))continue; // skip pure-number label rows (1.0 2.0 ...)
+    const qty=m.cQty>=0?num(row[m.cQty]):0;
+    const price=m.cPrice>=0?num(row[m.cPrice]):0;
+    const sum=m.cSum>=0?num(row[m.cSum]):0;
+    const unit=m.cUnit>=0?String(row[m.cUnit]||'').trim():'';
+    const hasVal=qty||price||sum;
+    // section header heuristic: name present, no numeric values, no explicit section column
+    if(m.cSec<0 && !hasVal){curSec={name,items:[]};sections.push(curSec);continue;}
+    let q=qty,p=price;
+    if(!p&&sum&&qty){p=sum/qty;}            // derive unit price
+    if(!q&&sum&&price){q=sum/price;}        // derive qty
+    if(!q&&!p&&sum){q=1;p=sum;}             // lump line: qty 1, price = sum
+    ensure().items.push({name,type:guessType(name,unit),qty:q||0,unit,price:p||0,base:p||0});
+  }
+  // drop empty sections
+  const clean=sections.filter(s=>s.items.length);
+  return {object:'Импорт · '+(RAW&&RAW.sheet||'смета'),source:'Excel',sections:clean};
+}
+
+// ── EXCEL EXPORT ──
+document.getElementById('exp').addEventListener('click',()=>{
+  if(typeof XLSX==='undefined'){toast('Не загрузился движок Excel');return;}
+  const aoa=[['Раздел','Позиция','Тип','Кол-во','Ед.изм','Цена сметная','Цена текущая','Сумма текущая','Отклонение']];
+  SMETA.sections.forEach((s,si)=>{s.items.forEach(it=>{
+    const b=(it.base!=null?it.base:it.price);
+    aoa.push([`${si+1}. ${s.name}`,it.name,it.type,+it.qty||0,it.unit||'',+b||0,+it.price||0,Math.round(itemSum(it)),Math.round(itemSum(it)-itemBase(it))]);
+  });});
+  const ws=XLSX.utils.aoa_to_sheet(aoa);ws['!cols']=[{wch:28},{wch:34},{wch:6},{wch:9},{wch:8},{wch:13},{wch:13},{wch:15},{wch:13}];
+  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Смета');
+  XLSX.writeFile(wb,'ATLAS_смета_скорректирована.xlsx');
+  toast('Экспортировано в Excel');
 });
-// reset
-document.getElementById('reset').addEventListener('click',()=>{
-  localStorage.removeItem(KEY);SMETA=JSON.parse(JSON.stringify(SEED));renderAll();
-});
+
+// init
+load(); renderAll();
 </script>
 </body>
 </html>
