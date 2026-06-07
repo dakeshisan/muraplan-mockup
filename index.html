@@ -11,30 +11,43 @@
 <style>
 :root{
   --bg:#F7F5EE;--card:#FBFBFB;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;
-  --line:#E0DDD3;--navy:#284157;--accent:#007484;--accent-d:#005763;--gold:#CFB372;--gold-d:#A88E48;
+  --line:#E0DDD3;--navy:#284157;--accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--gold:#CFB372;--gold-d:#A88E48;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100vh;font-family:'Jost','Futura PT','Futura',-apple-system,sans-serif;color:var(--ink);
+body{min-height:100vh;font-family:'Jost','Futura PT',-apple-system,sans-serif;color:var(--ink);
   background:var(--bg);
-  background-image:radial-gradient(circle at 18% 12%,rgba(0,116,132,.06),transparent 42%),radial-gradient(circle at 86% 88%,rgba(207,179,114,.10),transparent 44%);
-  display:flex;align-items:center;justify-content:center;padding:48px 22px;-webkit-font-smoothing:antialiased;font-feature-settings:"ss03","cv11"}
-.wrap{max-width:980px;width:100%}
+  background-image:radial-gradient(circle at 18% 10%,rgba(0,116,132,.06),transparent 42%),radial-gradient(circle at 86% 92%,rgba(207,179,114,.10),transparent 44%);
+  padding:44px 22px;-webkit-font-smoothing:antialiased;font-feature-settings:"ss03","cv11"}
+.wrap{max-width:1000px;margin:0 auto}
 .kick{font-size:11.5px;letter-spacing:.26em;color:var(--gold-d);text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:11px}
 .kick::before{content:"";width:34px;height:1px;background:var(--accent)}
 .logo{display:flex;align-items:center;gap:14px;margin:18px 0 8px}
 .logo .m{width:50px;height:50px;border-radius:13px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:27px;font-family:'Cormorant',Georgia,serif;box-shadow:inset 0 0 0 1px rgba(207,179,114,.4)}
-h1{font-family:'Cormorant',Georgia,serif;font-size:clamp(32px,5.2vw,52px);font-weight:700;letter-spacing:.005em;line-height:1.02;color:var(--navy)}
+h1{font-family:'Cormorant',Georgia,serif;font-size:clamp(30px,5vw,50px);font-weight:700;line-height:1.02;color:var(--navy)}
 h1 .g{color:var(--gold-d)}
-.lead{color:var(--mut);font-size:15px;margin-top:12px;max-width:660px;line-height:1.55}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:36px}
-.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;transition:.18s;box-shadow:0 1px 2px rgba(30,30,30,.04)}
+.lead{color:var(--mut);font-size:15px;margin-top:12px;max-width:680px;line-height:1.55}
+
+.sec{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:34px 2px 14px;display:flex;align-items:center;gap:10px}
+.sec::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:15px}
+.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;transition:.18s;box-shadow:0 1px 2px rgba(30,30,30,.04);position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent);opacity:0;transition:.18s}
 .card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 14px 30px -16px rgba(40,65,87,.4)}
-.card .ic{font-size:28px;margin-bottom:13px}
-.card .role{font-size:11px;color:var(--gold-d);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:9px}
-.card h2{font-family:'Cormorant',Georgia,serif;font-size:23px;font-weight:700;color:var(--navy);margin-bottom:7px;line-height:1.05}
-.card p{font-size:13px;color:var(--mut);line-height:1.5}
-.card .go{margin-top:15px;font-size:12.5px;color:var(--accent-d);font-weight:600}
-.foot{margin-top:32px;font-size:12px;color:var(--faint);line-height:1.6;border-top:1px solid var(--line);padding-top:18px}
+.card:hover::before{opacity:1}
+.card .ic{font-size:26px;margin-bottom:12px}
+.card .role{font-size:11px;color:var(--gold-d);text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:8px}
+.card h2{font-family:'Cormorant',Georgia,serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:7px;line-height:1.05}
+.card p{font-size:12.5px;color:var(--mut);line-height:1.5}
+.card .go{margin-top:14px;font-size:12.5px;color:var(--accent-d);font-weight:700}
+
+.more{display:flex;flex-wrap:wrap;gap:10px}
+.more a{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 15px;font-size:13.5px;font-weight:600;transition:.16s}
+.more a:hover{border-color:var(--accent);color:var(--accent-d);background:#fff}
+.more a .e{font-size:17px}
+.more a small{color:var(--faint);font-weight:500;margin-left:2px}
+
+.foot{margin-top:36px;font-size:12px;color:var(--faint);line-height:1.6;border-top:1px solid var(--line);padding-top:18px}
 .foot b{color:var(--mut)}
 @media(max-width:640px){.cards{grid-template-columns:1fr}}
 </style>
@@ -42,32 +55,53 @@ h1 .g{color:var(--gold-d)}
 <body>
 <div class="wrap">
   <div class="kick">ATLAS · Фаза 1 · отслеживание стройки</div>
-  <div class="logo"><div class="m">A</div><h1>Сбор факта ГПР — <span class="g">мокапы</span></h1></div>
-  <p class="lead">Прототипы для согласования. Бот Флэш собирает достоверный факт исполнения графика: начальник участка отмечает → РП подтверждает → директор акцептует. Данные условные по ЖК «Аура».</p>
+  <div class="logo"><div class="m">A</div><h1>Рабочее место <span class="g">стройки</span></h1></div>
+  <p class="lead">Прототипы для согласования. Один продукт, разные экраны по роли: начальник участка отмечает факт → РП подтверждает → директор и собственник видят портфель. Достоверный факт собирается ботом «Флэш». Данные условные.</p>
+
+  <!-- ВХОД ПО РОЛИ -->
+  <div class="sec">Войти по роли</div>
   <div class="cards">
-    <a class="card" href="web.html">
-      <div class="ic">🖥</div>
-      <div class="role">для РП · директора · PM</div>
-      <h2>Веб-панель</h2>
-      <p>Рабочий пульт по ролям: сводка недели, KPI, контур (канбан), пятна и графики, назначения, журнал. Со встроенным таймлайном ГПР.</p>
-      <div class="go">Открыть панель →</div>
+    <a class="card" href="portfolio.html">
+      <div class="ic">👑</div>
+      <div class="role">собственник · CEO</div>
+      <h2>Портфель</h2>
+      <p>Все объекты компании: ЖК → очереди → блоки, статус-риск, общий прогресс, операционные потоки.</p>
+      <div class="go">Открыть портфель →</div>
     </a>
-    <a class="card" href="gpr.html">
-      <div class="ic">📊</div>
-      <div class="role">полный график</div>
-      <h2>План ГПР как в MS&nbsp;Project</h2>
-      <p>Весь загруженный график: пятно → раздел → работа, таблица + таймлайн, своды-«скобки», % факта, отставания и линия «сегодня».</p>
-      <div class="go">Открыть план →</div>
+    <a class="card" href="object.html">
+      <div class="ic">🏢</div>
+      <div class="role">директор</div>
+      <h2>Объект (ЖК)</h2>
+      <p>Обзор одного ЖК: очереди и блоки с готовностью, красная зона, сводный план ГПР.</p>
+      <div class="go">Открыть объект →</div>
     </a>
-    <a class="card" href="bot.html">
-      <div class="ic">📱</div>
-      <div class="role">для начальников участка</div>
-      <h2>Telegram-бот Флэш</h2>
-      <p>5 экранов недельного контура: задание на неделю, ввод % факта без клавиатуры, причина-код и фото, свод РП, красная зона директору.</p>
-      <div class="go">Открыть экраны →</div>
+    <a class="card" href="rp.html">
+      <div class="ic">🧭</div>
+      <div class="role">руководитель проекта</div>
+      <h2>Пульт РП</h2>
+      <p>Подтверждение факта на объекте, красная зона с эскалацией, команда НУ, поручения.</p>
+      <div class="go">Открыть пульт →</div>
+    </a>
+    <a class="card" href="nu.html">
+      <div class="ic">🏗</div>
+      <div class="role">начальник участка</div>
+      <h2>Моё рабочее место</h2>
+      <p>Отметка факта, недельный KPI, цели, маршрут мастера, общая цель команды — геймифицировано.</p>
+      <div class="go">Открыть участок →</div>
     </a>
   </div>
-  <div class="foot"><b>Это мокапы, не финальный продукт.</b> Реальные экраны соберём при реализации (бот на python-telegram-bot, своя база факта). Имена условные. ATLAS · ATAMŪRA GROUP.</div>
+
+  <!-- ЕЩЁ -->
+  <div class="sec">Ещё экраны и инструменты</div>
+  <div class="more">
+    <a href="league.html"><span class="e">🏆</span>Лига участков<small>рейтинг НУ</small></a>
+    <a href="gpr.html"><span class="e">📊</span>Полный план ГПР<small>как MS Project</small></a>
+    <a href="atlas_supply_roles_brand.html"><span class="e">📦</span>Снабжение материалов<small>модуль</small></a>
+    <a href="bot.html"><span class="e">📱</span>Бот «Флэш»<small>Telegram</small></a>
+    <a href="web.html"><span class="e">🖥</span>Веб-панель<small>старая, все роли</small></a>
+  </div>
+
+  <div class="foot"><b>Это мокапы, не финальный продукт.</b> Иерархия: Портфель → Объект (ЖК) → Участок (блок). Полный план ГПР доступен внизу каждого экрана — чтобы любой сотрудник мог планировать. Данные условные, имена вымышленные. ATLAS · ATAMŪRA GROUP.</div>
 </div>
 </body>
 </html>
