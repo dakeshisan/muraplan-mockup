@@ -184,6 +184,7 @@ input.ed.chg{border-color:var(--amber);background:#fffaf0}
     <h4>Сопоставьте столбцы Excel</h4>
     <div class="sub" id="mapsub">Проверьте, что определилось верно. Лист: <b id="mapsheet"></b></div>
     <div class="mgrid">
+      <div class="mcol"><label>Тип (Раздел/Работа/Мат…)</label><select id="m-type"></select></div>
       <div class="mcol"><label>Раздел</label><select id="m-sec"></select></div>
       <div class="mcol"><label>Наименование *</label><select id="m-name"></select></div>
       <div class="mcol"><label>Кол-во</label><select id="m-qty"></select></div>
@@ -302,10 +303,11 @@ function renderSum(){
 // ── СМЕТА (editable, baseline vs current) ──
 function renderSmeta(){
   let h='';
+  const big=allItems().length>50; // большая смета (импорт) — раскрываем только первый раздел
   SMETA.sections.forEach((s,si)=>{
     const cur=s.items.reduce((a,i)=>a+itemSum(i),0), bas=s.items.reduce((a,i)=>a+itemBase(i),0), dev=cur-bas;
     const dcls=Math.abs(dev)<1?'ze':(dev>0?'up':'dn');
-    h+=`<details class="sec" ${si<3?'open':''}><summary><span class="chev">▶</span><span class="snm">${secLabel(s.name,si)}</span>
+    h+=`<details class="sec" ${(big?si===0:si<3)?'open':''}><summary><span class="chev">▶</span><span class="snm">${secLabel(s.name,si)}</span>
       <span class="scost"><div class="v tnum">${money(cur)}</div>${Math.abs(dev)>=1?`<div class="d ${dcls}">${dev>0?'+':'−'}${money(Math.abs(dev))}</div>`:''}</span></summary>
       <div class="sbody"><div class="ih"><span class="inm">Позиция</span><span class="iq">Кол-во</span><span class="ip">Цена ед.</span><span class="is">Сумма</span></div>`;
     s.items.forEach((it,ii)=>{
@@ -375,7 +377,11 @@ function renderReq(){
   if(!out.length){document.getElementById('p-req').innerHTML=`<div class="empty">В смете нет материалов.<br>Заявки генерируются из позиций типа «МАТ», привязанных к работе. Импортируйте смету с материалами или укажите тип «МАТ».</div>`;return;}
   let h=`<div class="rqbar">«Потребуется» = старт привязанной работы. «Заказать до» = старт − срок поставки. Сумма берётся из <b>текущей</b> цены сметы.</div>`;
   dated.forEach(r=>{h+=reqCard(r);});
-  if(nodate.length){h+=`<div class="rqbar" style="margin-top:14px">⚠ ${nodate.length} материалов без привязки к работе с датой — заявку по сроку не построить:</div>`;nodate.forEach(r=>{h+=reqCard(r);});}
+  if(nodate.length){
+    h+=`<div class="rqbar" style="margin-top:14px">⚠ ${nodate.length} материалов без даты работы — срок заказа не построить (нужны даты из ГПР). Топ по сумме:</div>`;
+    nodate.sort((a,b)=>b.sum-a.sum).slice(0,20).forEach(r=>{h+=reqCard(r);});
+    if(nodate.length>20)h+=`<div class="note">…и ещё ${nodate.length-20} позиций без даты</div>`;
+  }
   document.getElementById('p-req').innerHTML=h;
 }
 function reqCard(r){
@@ -449,29 +455,36 @@ function openMapping(rows,sn){
   const gPrice=guessCol(headers,/цена|расцен|стоим.*ед|ед.*стоим/i);
   let gSum=guessCol(headers,/сумм|всего|итого/i); if(gSum<0)gSum=guessCol(headers,/стоим/i);
   const gSec=guessCol(headers,/раздел|группа|этап/i);
-  document.getElementById('m-sec').innerHTML=opts(gSec);
-  document.getElementById('m-name').innerHTML=opts(gName>=0?gName:0);
-  document.getElementById('m-qty').innerHTML=opts(gQty);
-  document.getElementById('m-unit').innerHTML=opts(gUnit);
-  document.getElementById('m-price').innerHTML=opts(gPrice);
-  document.getElementById('m-sum').innerHTML=opts(gSum);
+  let gType=guessCol(headers,/^тип$/i);
+  // Gectaro budget export signature → known column layout (2-row merged header defeats auto-detect)
+  const isGec=headers.some(h=>/наименование работ и ресурс/i.test(h)) && gType>=0;
+  let mName=gName>=0?gName:0,mQty=gQty,mUnit=gUnit,mPrice=gPrice,mSum=gSum,mSec=gSec;
+  if(isGec){gType=0;mName=1;mQty=4;mUnit=5;mPrice=6;mSum=7;mSec=-1;}
+  document.getElementById('m-type').innerHTML=opts(gType);
+  document.getElementById('m-sec').innerHTML=opts(mSec);
+  document.getElementById('m-name').innerHTML=opts(mName);
+  document.getElementById('m-qty').innerHTML=opts(mQty);
+  document.getElementById('m-unit').innerHTML=opts(mUnit);
+  document.getElementById('m-price').innerHTML=opts(mPrice);
+  document.getElementById('m-sum').innerHTML=opts(mSum);
   document.getElementById('mapsheet').textContent=sn+' · строк: '+rows.length;
-  document.getElementById('maphint').textContent='';
+  document.getElementById('maphint').textContent=isGec?'✓ Формат Gectaro распознан — можно загружать':'';
   document.getElementById('mapp').classList.add('on');
   document.getElementById('mapp').scrollIntoView({block:'center'});
 }
 document.getElementById('mcancel').addEventListener('click',()=>document.getElementById('mapp').classList.remove('on'));
 document.getElementById('mapply').addEventListener('click',()=>{
   const g=id=>+document.getElementById(id).value;
-  const cName=g('m-name'),cQty=g('m-qty'),cUnit=g('m-unit'),cPrice=g('m-price'),cSum=g('m-sum'),cSec=g('m-sec');
+  const cName=g('m-name'),cQty=g('m-qty'),cUnit=g('m-unit'),cPrice=g('m-price'),cSum=g('m-sum'),cSec=g('m-sec'),cType=g('m-type');
   if(cName<0){document.getElementById('maphint').textContent='Укажите столбец «Наименование».';return;}
-  const built=buildFromRows(RAW.rows,RAW.headerRow,{cName,cQty,cUnit,cPrice,cSum,cSec});
+  const built=buildFromRows(RAW.rows,RAW.headerRow,{cName,cQty,cUnit,cPrice,cSum,cSec,cType});
   if(!built.sections.length||!allCount(built)){document.getElementById('maphint').textContent='Не нашлось позиций — проверьте сопоставление.';return;}
   SMETA=built; persist(); document.getElementById('mapp').classList.remove('on'); renderAll();
   toast('Смета загружена: '+allCount(built)+' позиций');
 });
 function allCount(sm){return sm.sections.reduce((a,s)=>a+s.items.length,0);}
 function num(v){if(typeof v==='number')return v;if(v==null)return 0;const s=String(v).replace(/\s/g,'').replace(/ /g,'').replace(',','.').replace(/[^0-9.\-]/g,'');const n=parseFloat(s);return isNaN(n)?0:n;}
+const GTYPE={'материал':'МАТ','люди':'ТРУД','механизм':'ТЕХ','оборудование':'ТЕХ','накладные':'ТЕХ','прочее':'МАТ','подрядчик':'РАБ'}; // Gectaro «Тип» → ATLAS
 function guessType(name,unit){
   const n=String(name||'').toLowerCase(), u=String(unit||'').toLowerCase();
   // work-verb in the name wins over unit (works are often measured in м³/м² too)
@@ -482,11 +495,25 @@ function guessType(name,unit){
   return unit?'МАТ':'РАБ';
 }
 function buildFromRows(rows,hr,m){
-  const sections=[]; let curSec=null;
+  const sections=[]; let curSec=null, lastWork='';
   const ensure=()=>{if(!curSec){curSec={name:'Без раздела',items:[]};sections.push(curSec);}return curSec;};
   for(let r=hr+1;r<rows.length;r++){
     const row=rows[r]; if(!row)continue;
     const name=String((m.cName>=0?row[m.cName]:'')||'').trim();
+    // ── Тип-driven (Gectaro export: Раздел/Работа/Материал/Люди/Механизм) ──
+    if(m.cType>=0){
+      const typ=String(row[m.cType]||'').trim().toLowerCase();
+      if(/^итого по смете|^всего по смете|^в том числе|^составил/.test(typ))break; // footer reached
+      if(!name)continue;
+      if(typ==='раздел'){curSec={name,items:[]};sections.push(curSec);lastWork='';continue;}
+      if(typ==='работа'){lastWork=name;continue;} // work = grouping label; cost lives in its resources
+      const tp=GTYPE[typ]; if(!tp)continue; // skip sub-headers / unknown
+      let q=m.cQty>=0?num(row[m.cQty]):0, p=m.cPrice>=0?num(row[m.cPrice]):0, sm=m.cSum>=0?num(row[m.cSum]):0;
+      const un=m.cUnit>=0?String(row[m.cUnit]||'').trim():'';
+      if(!p&&sm&&q)p=sm/q; if(!q&&!p&&sm){q=1;p=sm;}
+      ensure().items.push({name,type:tp,qty:q||0,unit:un,price:p||0,base:p||0,forWork:lastWork||undefined});
+      continue;
+    }
     if(m.cSec>=0){const sv=String(row[m.cSec]||'').trim();if(sv&&sv!==name){curSec={name:sv,items:[]};sections.push(curSec);} }
     if(!name)continue;
     if(/^(итого|всего|total|подыто|примечан|в том числе)/i.test(name))continue; // skip total/note rows
