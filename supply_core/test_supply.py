@@ -75,5 +75,38 @@ class TestGpr(unittest.TestCase):
             self.assertIn(it["status"], ("overdue", "now", "soon", "plan"))
 
 
+class TestExport(unittest.TestCase):
+    PLAN = {"items": [
+        {"object": "Аура", "material": "Двери", "order_by": "2026-03-01",
+         "start": "2026-03-22", "slack": -5, "status": "overdue"},
+        {"object": "Аура", "material": "Двери", "order_by": "2026-02-15",
+         "start": "2026-03-10", "slack": -20, "status": "overdue"},
+        {"object": "Аура", "material": "Окна ПВХ", "order_by": "2026-05-01",
+         "start": "2026-05-20", "slack": 10, "status": "soon"},
+    ]}
+
+    def test_aggregates_by_object_material(self):
+        from supply_core import export
+        rows = export.buylist_rows(self.PLAN)
+        self.assertEqual(len(rows), 2)                       # двери схлопнулись в одну строку
+        dveri = next(r for r in rows if r["material"] == "Двери")
+        self.assertEqual(dveri["count"], 2)
+        self.assertEqual(dveri["order_by"], "2026-02-15")    # самая ранняя дата заказа
+        self.assertEqual(dveri["slack"], -20)                # худший запас
+        self.assertEqual(rows[0]["material"], "Двери")       # сортировка по order_by
+
+    def test_status_filter(self):
+        from supply_core import export
+        only_overdue = export.buylist_rows(self.PLAN, statuses=("overdue",))
+        self.assertEqual({r["material"] for r in only_overdue}, {"Двери"})
+
+    def test_serialises_to_bytes(self):
+        from supply_core import export
+        rows = export.buylist_rows(self.PLAN)
+        body, ctype, fn = export.to_xlsx(rows, "2026-06-07")
+        self.assertTrue(body[:2] == b"PK" or body[:3] == b"\xef\xbb\xbf")  # xlsx(zip) или CSV-фоллбэк
+        self.assertIn("2026-06-07", fn)
+
+
 if __name__ == "__main__":
     unittest.main()
