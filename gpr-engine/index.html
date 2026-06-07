@@ -22,7 +22,7 @@ html{color-scheme:light}
 body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;font-feature-settings:"ss03","cv11"}
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 .tnum{font-variant-numeric:tabular-nums}
-.wrap{max-width:720px;margin:0 auto;padding:0 14px 56px}
+.wrap{max-width:none;margin:0;padding:0 14px 56px}
 .top{position:sticky;top:0;z-index:20;background:linear-gradient(120deg,var(--navy),var(--navy-d));color:#fff;margin:0 -14px 14px;padding:13px 18px;display:flex;align-items:center;gap:12px}
 .top .lg{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;font-family:'Cormorant',Georgia,serif}
 .top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;line-height:1}
@@ -173,6 +173,27 @@ details[open]>summary .chev{transform:rotate(90deg)}
 #mppov .ovx{margin-left:auto;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:6px 14px;cursor:pointer;font-weight:700;font-size:13px}
 #mppov .ovx:hover{background:rgba(255,255,255,.3)}
 #mppov iframe{flex:1;border:none;width:100%;background:#fff}
+
+/* ===== ДЕСКТОП: пульт во всю ширину экрана ===== */
+@media(min-width:1000px){
+  .wrap{padding:0 30px 64px}
+  .top{margin:0 -30px 14px}
+  .lbl{margin-left:2px;margin-right:2px}
+  /* портфель: слева сводка/бары, справа критический путь */
+  .psum{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:32px;align-items:start;padding:20px 24px}
+  .psum .ph,.psum .dual,.psum .psub{grid-column:1}
+  .psum .bnport{grid-column:2;grid-row:1 / span 4;margin-top:0;border-top:none;border-left:1px solid var(--line2);padding:0 0 0 28px}
+  /* статус-карточки блоков (overview) — адаптивная сетка */
+  [data-ov]{display:grid;grid-template-columns:repeat(auto-fill,minmax(370px,1fr));gap:8px}
+  [data-ov] .ovr-cap{grid-column:1 / -1}
+  /* список блоков по очередям — тоже сеткой (раскрытие компактное: кнопка ГПР) */
+  [data-qs]{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:6px 16px;align-items:start}
+  [data-qs] .qn{grid-column:1 / -1;margin-bottom:0}
+  .obody{padding:0 18px 14px}
+}
+@media(min-width:1500px){
+  [data-ov]{grid-template-columns:repeat(auto-fill,minmax(420px,1fr))}
+}
 
 .note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:24px;line-height:1.7}
 .note a{color:var(--accent-d);font-weight:700;text-decoration:none}
