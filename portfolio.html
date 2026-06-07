@@ -99,6 +99,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .hide{display:none}
 .note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:24px;line-height:1.55}
 .note a{color:var(--accent-d);font-weight:700;text-decoration:none}
+.dt{margin-top:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.dt>summary{list-style:none;cursor:pointer;padding:13px 16px;font-size:13px;font-weight:700;color:var(--accent-d);display:flex;align-items:center;gap:8px}
+.dt>summary::-webkit-details-marker{display:none}
+.dt>summary::after{content:"⌄";margin-left:auto;font-size:15px;transition:transform .2s}
+.dt[open]>summary{border-bottom:1px solid var(--line)}
+.dt[open]>summary::after{transform:rotate(180deg)}
+.gprframe{width:100%;height:74vh;border:0;display:block;background:var(--bg);border-radius:0 0 14px 14px}
 
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(22px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:14px;font-size:13px;font-weight:700;box-shadow:0 16px 36px -12px rgba(40,65,87,.65);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.2,.8,.3,1),opacity .28s;z-index:60;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -148,6 +155,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <!-- ОПЕРАЦИОННЫЕ -->
   <div class="lbl grp" data-g="ops">📦 Операционные потоки <span class="n">не по объектам</span></div>
   <div class="cards grp" data-g="ops" id="ops"></div>
+
+  <!-- ПОЛНЫЙ ПЛАН ГПР -->
+  <div class="lbl">План ГПР <span class="n">демо · ЖК «Аура»</span></div>
+  <details class="dt"><summary>Раскрыть план — работы по срокам (как MS Project)</summary><iframe class="gprframe" src="gpr.html?embed=1" title="План ГПР" loading="lazy"></iframe></details>
 
   <div class="note">Портфель ATLAS · уровень компании. Тап по очереди → внутрь (объект → участок). Готовность % и сроки — условные, уточняются.<br><a href="rp.html">Пульт РП →</a> · <a href="league.html">Лига →</a> · <a href="nu.html">Участок →</a> · <a href="index.html">все мокапы</a></div>
 </div>
