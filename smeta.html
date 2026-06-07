@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#284157">
+<meta name="robots" content="noindex,nofollow">
+<title>ATLAS · Смета-позвоночник</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;--line:#E6E2D7;--line2:#EFEDE5;
+  --accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--navy:#284157;--navy-d:#1d3142;
+  --gold:#CFB372;--gold-d:#A88E48;--green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-bg:#F7E7E2;
+  --amber:#C98A2B;--amber-bg:#F7EFDD;
+  --shadow:0 14px 34px -20px rgba(40,65,87,.55);
+  --mat:#007484;--mat-bg:#E2EFF0;--trud:#7A5BA8;--trud-bg:#EEE8F6;--teh:#A88E48;--teh-bg:#F4EEDC;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{color-scheme:light}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;font-feature-settings:"ss03","cv11"}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+.tnum{font-variant-numeric:tabular-nums}
+.wrap{max-width:760px;margin:0 auto;padding:0 14px 60px}
+
+.top{position:sticky;top:0;z-index:30;background:linear-gradient(120deg,var(--navy),var(--navy-d));color:#fff;margin:0 -14px 14px;padding:13px 18px;display:flex;align-items:center;gap:12px}
+.top .lg{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;font-family:'Cormorant',Georgia,serif;flex:none}
+.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;line-height:1}
+.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px}
+.crumbs{margin:0 0 12px;font-size:11.5px;color:var(--faint);font-weight:600}
+.crumbs a{color:var(--accent-d);text-decoration:none}
+
+.principle{background:var(--accent-soft);border:1px solid #cfe6e4;border-radius:13px;padding:11px 14px;font-size:12px;color:var(--accent-d);font-weight:600;line-height:1.55;margin-bottom:14px}
+.principle b{color:var(--navy)}
+.principle .fl{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:7px;font-size:11.5px;font-weight:700}
+.principle .pill{background:#fff;border:1px solid #cfe6e4;border-radius:999px;padding:3px 10px;color:var(--navy)}
+.principle .ar{color:var(--gold-d);font-weight:800}
+
+/* summary */
+.sum{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:16px 18px;margin-bottom:14px}
+.sum .big{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:38px;line-height:.95;color:var(--accent-d)}
+.sum .cap{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:3px}
+.sum .cust{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:5px}.sum .cust b{color:var(--ink)}
+.split{display:flex;gap:7px;margin-top:13px;flex-wrap:wrap}
+.spc{flex:1;min-width:118px;border-radius:12px;padding:9px 11px;border:1px solid var(--line)}
+.spc .k{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.spc .v{font-size:15px;font-weight:800;color:var(--ink)}
+.spc .p{font-size:10.5px;font-weight:600;color:var(--faint)}
+.spc.mat{background:var(--mat-bg);border-color:#cfe6e4}.spc.mat .k{color:var(--mat)}
+.spc.trud{background:var(--trud-bg);border-color:#e3d8ef}.spc.trud .k{color:var(--trud)}
+.spc.teh{background:var(--teh-bg);border-color:#ece1c4}.spc.teh .k{color:var(--teh-d,#A88E48)}
+.cnts{display:flex;gap:14px;margin-top:11px;font-size:12px;font-weight:700;color:var(--mut)}
+.cnts b{color:var(--navy);font-weight:800}
+
+/* tabs */
+.tabs{display:flex;gap:4px;background:#ece8dd;border-radius:13px;padding:4px;margin-bottom:14px;position:sticky;top:62px;z-index:20}
+.tabs button{flex:1;border-radius:10px;padding:9px 6px;font-size:13px;font-weight:700;color:var(--mut)}
+.tabs button.on{background:var(--card);color:var(--navy);box-shadow:0 4px 12px -6px rgba(40,65,87,.4)}
+.tabs button .c{font-size:11px;color:var(--faint);font-weight:700}
+.tabs button.on .c{color:var(--accent-d)}
+
+.panel{display:none}.panel.on{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* СМЕТА tree */
+.sec{background:var(--card);border-radius:14px;box-shadow:var(--shadow);margin-bottom:10px;overflow:hidden}
+.sec>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:13px 15px}
+.sec>summary::-webkit-details-marker{display:none}
+.chev{flex:none;width:14px;color:var(--faint);font-size:12px;transition:transform .18s;font-weight:800}
+details[open]>summary .chev{transform:rotate(90deg)}
+.snm{flex:1;min-width:0;font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:19px;color:var(--navy);line-height:1.1}
+.scost{flex:none;font-weight:800;font-size:15px;color:var(--accent-d)}
+.sbody{padding:0 13px 11px}
+
+.wk{border:1px solid var(--line);border-radius:12px;margin-top:9px;overflow:hidden}
+.wk>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:9px;padding:10px 12px;background:#fcfbf7}
+.wk>summary::-webkit-details-marker{display:none}
+.wnm{flex:1;min-width:0;font-weight:700;font-size:13.5px;color:var(--ink)}
+.wmeta{font-size:11px;color:var(--faint);font-weight:600;margin-top:2px}
+.wmeta b{color:var(--mut)}
+.wcost{flex:none;text-align:right}
+.wcost .wc{font-weight:800;font-size:13.5px;color:var(--navy)}
+.wcost .wr{font-size:10px;font-weight:700;color:var(--accent-d)}
+.wbody{padding:4px 12px 11px;border-top:1px solid var(--line2)}
+.rh{display:flex;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--faint);padding:7px 2px 5px}
+.rh .rn{flex:1}.rh .rq{width:118px;text-align:right}.rh .rp{width:96px;text-align:right}.rh .rs{width:92px;text-align:right}
+.res{display:flex;align-items:center;font-size:12.5px;padding:6px 2px;border-top:1px dashed var(--line2)}
+.res .rn{flex:1;min-width:0;display:flex;align-items:center;gap:7px}
+.res .rn .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.chip{flex:none;font-size:9.5px;font-weight:800;border-radius:6px;padding:2px 6px;letter-spacing:.02em}
+.chip.MAT{background:var(--mat-bg);color:var(--mat)}.chip.TRUD{background:var(--trud-bg);color:var(--trud)}.chip.TEH{background:var(--teh-bg);color:var(--teh)}
+.res .rq{width:118px;text-align:right;display:flex;align-items:center;justify-content:flex-end;gap:4px}
+.res .rp{width:96px;text-align:right}
+.res .rs{width:92px;text-align:right;font-weight:800;color:var(--navy)}
+.res .un{color:var(--faint);font-size:11px;font-weight:600;width:34px;text-align:left}
+input.ed{width:62px;border:1px solid var(--line);border-radius:7px;padding:4px 6px;font:inherit;font-size:12.5px;font-weight:700;text-align:right;background:#fffdf7;color:var(--ink)}
+input.ed:focus{outline:none;border-color:var(--accent);background:#fff}
+input.ed.pr{width:74px}
+
+/* ГАНТТ */
+.gwrap{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:13px 4px 13px 0;overflow-x:auto}
+.ghint{font-size:11.5px;color:var(--mut);font-weight:600;padding:0 14px 11px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.gleg{display:inline-flex;align-items:center;gap:5px}.gleg i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.grid{position:relative;min-width:760px}
+.gmonths{display:flex;border-bottom:1px solid var(--line);height:22px}
+.gmonths .gsp{flex:none;width:188px}
+.gmonths .gmt{flex:1;display:flex;min-width:0}
+.gmonths .gm{flex:none;font-size:10.5px;font-weight:800;color:var(--faint);text-transform:uppercase;border-left:1px solid var(--line2);padding-left:6px;line-height:22px;white-space:nowrap;overflow:hidden}
+.grow{display:flex;align-items:center;height:34px;position:relative}
+.grow:nth-child(even){background:#fbfaf5}
+.glabel{flex:none;width:188px;padding:0 10px 0 14px;font-size:11.5px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:3;background:inherit}
+.gtrack{flex:1;position:relative;height:100%}
+.gbar{position:absolute;top:8px;height:18px;border-radius:6px;background:#d5dee6;overflow:hidden;box-shadow:0 2px 6px -3px rgba(40,65,87,.5)}
+.gbar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.gbar.late i{background:linear-gradient(90deg,#d7795f,var(--red))}
+.gbar .pct{position:absolute;right:5px;top:0;bottom:0;display:flex;align-items:center;font-size:9.5px;font-weight:800;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.gtoday{position:absolute;top:-22px;bottom:0;width:2px;background:var(--gold-d);z-index:2}
+.gtoday::after{content:'сегодня';position:absolute;top:-2px;left:4px;font-size:9px;font-weight:800;color:var(--gold-d);white-space:nowrap}
+.gsec{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:13px;color:var(--navy);padding:8px 14px 2px;background:var(--card)}
+
+/* ЗАЯВКИ */
+.rqbar{display:flex;align-items:center;gap:8px;margin-bottom:11px;font-size:12px;font-weight:700;color:var(--mut);flex-wrap:wrap}
+.rqbar .seg{display:inline-flex;background:#ece8dd;border-radius:999px;padding:3px;gap:2px}
+.rqbar .seg button{border-radius:999px;padding:5px 12px;font-size:11.5px;font-weight:700;color:var(--mut)}
+.rqbar .seg button.on{background:var(--card);color:var(--navy);box-shadow:0 3px 9px -5px rgba(40,65,87,.5)}
+.req{background:var(--card);border-radius:13px;box-shadow:var(--shadow);padding:11px 13px;margin-bottom:8px;display:flex;align-items:flex-start;gap:11px;border-left:4px solid var(--line)}
+.req.r-red{border-left-color:var(--red)}.req.r-amber{border-left-color:var(--amber)}.req.r-ok{border-left-color:var(--green)}.req.r-mut{border-left-color:var(--accent)}
+.req .rm{flex:1;min-width:0}
+.req .rt{font-weight:700;font-size:14px;color:var(--ink);display:flex;align-items:center;gap:7px}
+.req .lnk{font-size:11px;color:var(--mut);font-weight:600;margin-top:3px;line-height:1.4}
+.req .lnk b{color:var(--accent-d)}
+.req .qd{font-size:11.5px;font-weight:700;color:var(--navy);margin-top:5px}
+.req .rr{flex:none;text-align:right}
+.req .rsum{font-weight:800;font-size:14px;color:var(--navy)}
+.req .rst{font-size:10.5px;font-weight:800;border-radius:999px;padding:3px 9px;margin-top:6px;display:inline-block;white-space:nowrap}
+.rst.red{background:var(--red-bg);color:var(--red)}.rst.amber{background:var(--amber-bg);color:var(--amber)}.rst.ok{background:var(--green-bg);color:var(--green)}.rst.mut{background:#eef0f2;color:var(--mut)}
+
+.foot{margin-top:18px;text-align:center}
+.reset{font-size:12px;color:var(--faint);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.note{font-size:10.5px;color:var(--faint);font-weight:600;margin-top:10px;line-height:1.5;text-align:center}
+</style>
+</head>
+<body>
+<div class="top"><div class="lg">A</div><div class="nm">ATLAS<small>Смета-позвоночник</small></div></div>
+<div class="wrap">
+  <div class="crumbs"><a href="portfolio.html">Портфель</a> · <a href="object.html">ЖК Аура</a> · <b>Блок 5 · смета</b></div>
+
+  <div class="principle">
+    <b>Смета — единственный источник.</b> Объёмы работ, график (Гантт) и заявки на материал считаются из неё. Каждый материал лежит <b>внутри работы</b> — поэтому связь «материал → срок работы» получается автоматически, без ручной сцепки.
+    <div class="fl"><span class="pill">📋 Смета</span><span class="ar">→</span><span class="pill">📊 Гантт</span><span class="ar">→</span><span class="pill">🛒 Заявки</span></div>
+  </div>
+
+  <div class="sum" id="sum"></div>
+
+  <div class="tabs" id="tabs">
+    <button data-t="smeta" class="on">Смета<span class="c" id="tc-smeta"></span></button>
+    <button data-t="gantt">Гантт<span class="c" id="tc-gantt"></span></button>
+    <button data-t="req">Заявки<span class="c" id="tc-req"></span></button>
+  </div>
+
+  <div class="panel on" id="p-smeta"></div>
+  <div class="panel" id="p-gantt"></div>
+  <div class="panel" id="p-req"></div>
+
+  <div class="foot">
+    <a class="reset" id="reset">↺ сбросить демо-смету</a>
+    <div class="note">Демо · ЖК «Аура» блок 5 (3 очередь, ранний этап). Объёмы и цены условные, последовательность работ — реальная по отчёту. «Сегодня» = 07.06.2026. Редактируйте кол-во и цену ресурсов — Гантт и заявки пересчитаются.</div>
+  </div>
+</div>
+
+<script>
+const TODAY = '2026-06-07';
+const MARKUP = 0.12; // наценка для «цены заказчика»
+
+// ── единый источник: смета (раздел → работа → ресурсы) ───────────────────
+const SEED = {
+  object:'ЖК «Аура» · Блок 5',
+  sections:[
+    {id:'s1', name:'Земляные работы и котлован', works:[
+      {id:'w1', name:'Земляные работы', vol:711, unit:'м³', start:'2026-05-20', days:34, fact:45, res:[
+        {k:'TEH', name:'Экскаватор Hyundai R220', qty:18, unit:'см', price:85000, lead:5},
+        {k:'TRUD',name:'Землекопы (звено)',       qty:34, unit:'ч·см', price:12000, lead:0},
+      ]},
+    ]},
+    {id:'s2', name:'Монолитные работы · каркас', works:[
+      {id:'w2', name:'Бетонные работы до отм. 0,000', vol:92, unit:'м³', start:'2026-06-25', days:46, fact:0, res:[
+        {k:'MAT', name:'Бетон М350',        qty:92,  unit:'м³', price:25500, lead:3},
+        {k:'MAT', name:'Арматура А500С',    qty:11,  unit:'т',  price:455000,lead:14},
+        {k:'MAT', name:'Опалубка (аренда)', qty:520, unit:'м²', price:1200,  lead:7},
+        {k:'TRUD',name:'Бетонщики',         qty:46,  unit:'ч·см', price:14000, lead:0},
+        {k:'TEH', name:'Бетононасос',       qty:6,   unit:'см', price:120000,lead:3},
+      ]},
+      {id:'w3', name:'Ж/Б каркас отм. 0,000 — верх', vol:430, unit:'м³', start:'2026-08-10', days:74, fact:0, res:[
+        {k:'MAT', name:'Бетон М350',        qty:430, unit:'м³', price:25500, lead:3},
+        {k:'MAT', name:'Арматура А500С',    qty:52,  unit:'т',  price:455000,lead:14},
+        {k:'MAT', name:'Опалубка (аренда)', qty:1400,unit:'м²', price:1200,  lead:7},
+        {k:'TRUD',name:'Монолитчики',       qty:74,  unit:'ч·см', price:14000, lead:0},
+      ]},
+    ]},
+    {id:'s3', name:'Ограждающие конструкции', works:[
+      {id:'w4', name:'Кладка наружных стен', vol:240, unit:'м³', start:'2026-10-05', days:34, fact:0, res:[
+        {k:'MAT', name:'Газоблок D500',     qty:240, unit:'м³', price:22000, lead:10},
+        {k:'MAT', name:'Кладочный раствор', qty:38,  unit:'т',  price:24000, lead:5},
+        {k:'TRUD',name:'Каменщики',         qty:34,  unit:'ч·см', price:13000, lead:0},
+      ]},
+      {id:'w5', name:'Гидроизоляция кровли', vol:780, unit:'м²', start:'2026-11-10', days:117, fact:0, res:[
+        {k:'MAT', name:'Гидроизоляция рулонная', qty:860, unit:'м²', price:3500, lead:14},
+        {k:'TRUD',name:'Кровельщики',            qty:24,  unit:'ч·см', price:13000, lead:0},
+      ]},
+      {id:'w6', name:'Монтаж окон ПВХ (СПК)', vol:320, unit:'м²', start:'2026-11-15', days:59, fact:0, res:[
+        {k:'MAT', name:'Окна ПВХ',   qty:320, unit:'м²', price:45000, lead:30},
+        {k:'TRUD',name:'Монтажники', qty:18,  unit:'ч·см', price:13000, lead:0},
+      ]},
+    ]},
+  ]
+};
+const KLABEL={MAT:'Материалы',TRUD:'Люди',TEH:'Техника'};
+
+// ── state + persistence (overrides qty/price by work:res) ────────────────
+const KEY='atlas_smeta_v1';
+let SMETA = JSON.parse(JSON.stringify(SEED));
+function load(){
+  try{const o=JSON.parse(localStorage.getItem(KEY)||'{}');
+    SMETA.sections.forEach(s=>s.works.forEach(w=>w.res.forEach((r,i)=>{
+      const k=w.id+':'+i; if(o[k]){if(o[k].qty!=null)r.qty=o[k].qty; if(o[k].price!=null)r.price=o[k].price;}
+    })));}catch(e){}
+}
+function save(){
+  const o={};
+  SMETA.sections.forEach(s=>s.works.forEach(w=>w.res.forEach((r,i)=>{o[w.id+':'+i]={qty:r.qty,price:r.price};})));
+  localStorage.setItem(KEY,JSON.stringify(o));
+}
+
+// ── helpers ──────────────────────────────────────────────────────────────
+const fmt=n=>Math.round(n).toLocaleString('ru-RU');
+const money=n=>fmt(n)+' ₸';
+function d(s){const[y,m,dd]=s.split('-').map(Number);return new Date(y,m-1,dd);}
+function addDays(s,n){const x=d(s);x.setDate(x.getDate()+n);return x;}
+function iso(x){return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');}
+function diffDays(a,b){return Math.round((d(b)-d(a))/864e5);}
+function ddmm(s){const x=d(s);return String(x.getDate()).padStart(2,'0')+'.'+String(x.getMonth()+1).padStart(2,'0');}
+function endOf(w){return iso(addDays(w.start,w.days));}
+function resSum(r){return r.qty*r.price;}
+function workCost(w){return w.res.reduce((a,r)=>a+resSum(r),0);}
+function workByKind(w,k){return w.res.filter(r=>r.k===k).reduce((a,r)=>a+resSum(r),0);}
+function allWorks(){return SMETA.sections.flatMap(s=>s.works.map(w=>({w,s})));}
+
+// ── summary ──────────────────────────────────────────────────────────────
+function renderSum(){
+  const works=allWorks();
+  const tot=works.reduce((a,{w})=>a+workCost(w),0);
+  const mat=works.reduce((a,{w})=>a+workByKind(w,'MAT'),0);
+  const trud=works.reduce((a,{w})=>a+workByKind(w,'TRUD'),0);
+  const teh=works.reduce((a,{w})=>a+workByKind(w,'TEH'),0);
+  const nReq=works.reduce((a,{w})=>a+w.res.filter(r=>r.k==='MAT').length,0);
+  document.getElementById('sum').innerHTML=`
+    <div class="cap">Себестоимость по смете</div>
+    <div class="big tnum">${money(tot)}</div>
+    <div class="cust">Цена для заказчика (+${Math.round(MARKUP*100)}% наценка): <b class="tnum">${money(tot*(1+MARKUP))}</b></div>
+    <div class="split">
+      <div class="spc mat"><div class="k">Материалы</div><div class="v tnum">${money(mat)}</div><div class="p">${Math.round(mat/tot*100)}% сметы</div></div>
+      <div class="spc trud"><div class="k">Люди</div><div class="v tnum">${money(trud)}</div><div class="p">${Math.round(trud/tot*100)}% сметы</div></div>
+      <div class="spc teh"><div class="k">Техника</div><div class="v tnum">${money(teh)}</div><div class="p">${Math.round(teh/tot*100)}% сметы</div></div>
+    </div>
+    <div class="cnts"><span><b>${works.length}</b> работ</span><span><b>${SMETA.sections.length}</b> разделов</span><span>🛒 <b>${nReq}</b> заявок на материал</span></div>`;
+  document.getElementById('tc-smeta').textContent=SMETA.sections.length+' разд.';
+  document.getElementById('tc-gantt').textContent=works.length+' работ';
+  document.getElementById('tc-req').textContent=nReq+' поз.';
+}
+
+// ── СМЕТА (tree, editable) ───────────────────────────────────────────────
+function renderSmeta(){
+  let h='';
+  SMETA.sections.forEach((s,si)=>{
+    const scost=s.works.reduce((a,w)=>a+workCost(w),0);
+    h+=`<details class="sec" ${si<2?'open':''}><summary><span class="chev">▶</span><span class="snm">${si+1}. ${s.name}</span><span class="scost tnum">${money(scost)}</span></summary><div class="sbody">`;
+    s.works.forEach((w,wi)=>{
+      const nMat=w.res.filter(r=>r.k==='MAT').length;
+      h+=`<details class="wk"><summary>
+        <span style="flex:1;min-width:0"><span class="wnm">${si+1}.${wi+1} ${w.name}</span>
+          <div class="wmeta"><b>${fmt(w.vol)} ${w.unit}</b> · ${ddmm(w.start)}–${ddmm(endOf(w))} · ${w.days} дн${nMat?` · 🛒 ${nMat}`:''}</div></span>
+        <span class="wcost"><div class="wc tnum">${money(workCost(w))}</div><div class="wr">факт ${w.fact}%</div></span></summary>
+        <div class="wbody">
+          <div class="rh"><span class="rn">Ресурс</span><span class="rq">Кол-во</span><span class="rp">Цена ед.</span><span class="rs">Сумма</span></div>`;
+      w.res.forEach((r,ri)=>{
+        h+=`<div class="res">
+          <span class="rn"><span class="chip ${r.k}">${r.k==='TRUD'?'ТРУД':r.k}</span><span class="nm">${r.name}</span></span>
+          <span class="rq"><input class="ed" type="number" step="any" min="0" value="${r.qty}" data-w="${w.id}" data-r="${ri}" data-f="qty"><span class="un">${r.unit}</span></span>
+          <span class="rp"><input class="ed pr" type="number" step="any" min="0" value="${r.price}" data-w="${w.id}" data-r="${ri}" data-f="price"></span>
+          <span class="rs tnum">${money(resSum(r))}</span></div>`;
+      });
+      h+=`</div></details>`;
+    });
+    h+=`</div></details>`;
+  });
+  document.getElementById('p-smeta').innerHTML=h;
+}
+
+// ── ГАНТТ (derived from work dates) ──────────────────────────────────────
+function renderGantt(){
+  const works=allWorks();
+  const starts=works.map(({w})=>d(w.start)), ends=works.map(({w})=>addDays(w.start,w.days));
+  let min=new Date(Math.min(...starts)), max=new Date(Math.max(...ends));
+  min=new Date(min.getFullYear(),min.getMonth(),1);
+  max=new Date(max.getFullYear(),max.getMonth()+1,1);
+  const span=(max-min)/864e5;
+  const pos=x=>((x-min)/864e5)/span*100;
+  // months
+  let months='',cur=new Date(min);
+  const MN=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+  while(cur<max){const nx=new Date(cur.getFullYear(),cur.getMonth()+1,1);const wd=(Math.min(nx,max)-cur)/864e5/span*100;
+    months+=`<div class="gm" style="width:${wd}%">${MN[cur.getMonth()]} ${String(cur.getFullYear()).slice(2)}</div>`;cur=nx;}
+  let rows='';
+  SMETA.sections.forEach((s,si)=>{
+    rows+=`<div class="gsec">${si+1}. ${s.name}</div>`;
+    s.works.forEach((w,wi)=>{
+      const l=pos(d(w.start)), wdt=pos(addDays(w.start,w.days))-l;
+      const late=w.fact>0 && diffDays(w.start,TODAY)>0 && w.fact < Math.min(100,Math.max(0,diffDays(w.start,TODAY)/w.days*100))-8;
+      rows+=`<div class="grow"><div class="glabel">${si+1}.${wi+1} ${w.name}</div><div class="gtrack">
+        <div class="gbar ${late?'late':''}" style="left:${l}%;width:${wdt}%"><i style="width:${w.fact}%"></i><span class="pct">${w.fact}%</span></div></div></div>`;
+    });
+  });
+  const tdy=pos(d(TODAY));
+  document.getElementById('p-gantt').innerHTML=`
+    <div class="ghint">График построен из дат работ сметы. Заливка бара = факт выполнения.
+      <span class="gleg"><i style="background:linear-gradient(90deg,var(--accent),var(--accent-d))"></i>факт</span>
+      <span class="gleg"><i style="background:#d5dee6"></i>план</span></div>
+    <div class="gwrap"><div class="grid">
+      <div class="gmonths"><div class="gsp"></div><div class="gmt">${months}</div></div>
+      <div style="position:relative">${rows}<div class="gtoday" style="left:calc(188px + (100% - 188px) * ${tdy/100})"></div></div>
+    </div></div>`;
+}
+
+// ── ЗАЯВКИ (derived from MAT resources) ──────────────────────────────────
+let reqFilter='all';
+function buildReqs(){
+  const out=[];
+  SMETA.sections.forEach((s,si)=>s.works.forEach((w,wi)=>w.res.forEach(r=>{
+    if(r.k!=='MAT')return;
+    const need=w.start, orderBy=iso(addDays(w.start,-r.lead));
+    const dNeed=diffDays(TODAY,need), dOrder=diffDays(TODAY,orderBy);
+    let cls,st;
+    if(dNeed<0){ if(w.fact>0){cls='ok';st='✓ на объекте';} else {cls='red';st='🔴 срыв: материал нужен, заказа нет';} }
+    else if(dOrder<=0){cls='red';st=`🔴 заказ просрочен (−${-dOrder} дн)`;}
+    else if(dOrder<=10){cls='amber';st=`⏳ заказать за ${dOrder} дн (до ${ddmm(orderBy)})`;}
+    else {cls='mut';st=`заказать до ${ddmm(orderBy)}`;}
+    out.push({name:r.name,qty:r.qty,unit:r.unit,sum:resSum(r),sec:`${si+1}. ${s.name}`,work:`${si+1}.${wi+1} ${w.name}`,need,orderBy,lead:r.lead,cls,st,dOrder});
+  })));
+  out.sort((a,b)=>d(a.orderBy)-d(b.orderBy));
+  return out;
+}
+function renderReq(){
+  const reqs=buildReqs();
+  const counts={all:reqs.length,urgent:reqs.filter(r=>r.cls==='red'||r.cls==='amber').length,ok:reqs.filter(r=>r.cls==='ok').length};
+  const shown=reqs.filter(r=>reqFilter==='all'||(reqFilter==='urgent'&&(r.cls==='red'||r.cls==='amber'))||(reqFilter==='ok'&&r.cls==='ok'));
+  let h=`<div class="rqbar"><span>«Потребуется» = старт работы. «Заказать до» = старт − срок поставки.</span>
+    <span class="seg">
+      <button data-rf="all" class="${reqFilter==='all'?'on':''}">Все ${counts.all}</button>
+      <button data-rf="urgent" class="${reqFilter==='urgent'?'on':''}">🔴 Срочные ${counts.urgent}</button>
+      <button data-rf="ok" class="${reqFilter==='ok'?'on':''}">✓ ${counts.ok}</button>
+    </span></div>`;
+  shown.forEach(r=>{
+    h+=`<div class="req r-${r.cls}">
+      <div class="rm">
+        <div class="rt"><span class="chip MAT">МАТ</span>${r.name}</div>
+        <div class="lnk">для работы <b>${r.work}</b> · ${r.sec}</div>
+        <div class="qd">${fmt(r.qty)} ${r.unit} · потребуется ${ddmm(r.need)} · поставка ${r.lead} дн</div>
+      </div>
+      <div class="rr"><div class="rsum tnum">${money(r.sum)}</div><div class="rst ${r.cls}">${r.st}</div></div></div>`;
+  });
+  if(!shown.length)h+=`<div class="note">Нет заявок в этом фильтре.</div>`;
+  document.getElementById('p-req').innerHTML=h;
+}
+
+// ── render all + events ──────────────────────────────────────────────────
+function renderAll(){renderSum();renderSmeta();renderGantt();renderReq();}
+load();renderAll();
+
+// tab switch
+document.getElementById('tabs').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-t]');if(!b)return;
+  document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  ['smeta','gantt','req'].forEach(t=>document.getElementById('p-'+t).classList.toggle('on',t===b.dataset.t));
+});
+// edit resource
+document.getElementById('p-smeta').addEventListener('input',e=>{
+  const inp=e.target.closest('input.ed');if(!inp)return;
+  const w=SMETA.sections.flatMap(s=>s.works).find(w=>w.id===inp.dataset.w);if(!w)return;
+  const r=w.res[+inp.dataset.r];const v=parseFloat(inp.value);if(isNaN(v))return;
+  r[inp.dataset.f]=v;
+  // live: update only sums + dependent panels, keep смета DOM (don't lose focus)
+  inp.closest('.res').querySelector('.rs').textContent=money(resSum(r));
+  inp.closest('details.wk').querySelector('.wc').textContent=money(workCost(w));
+  const sec=inp.closest('details.sec');sec.querySelector('.scost').textContent=money(SMETA.sections.find(s=>s.works.includes(w)).works.reduce((a,x)=>a+workCost(x),0));
+  save();renderSum();renderGantt();renderReq();
+});
+// req filter
+document.getElementById('p-req').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-rf]');if(!b)return;reqFilter=b.dataset.rf;renderReq();
+});
+// reset
+document.getElementById('reset').addEventListener('click',()=>{
+  localStorage.removeItem(KEY);SMETA=JSON.parse(JSON.stringify(SEED));renderAll();
+});
+</script>
+</body>
+</html>
