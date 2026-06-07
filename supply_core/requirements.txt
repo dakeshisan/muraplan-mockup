@@ -1,0 +1,3 @@
+# ATLAS · Снабжение — ядро (Фаза 1). SQLite — из stdlib.
+# Демо (supply_core.demo) работает БЕЗ зависимостей; ptb нужен только для боевых ботов.
+python-telegram-bot==21.11.1

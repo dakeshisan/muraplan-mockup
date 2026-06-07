@@ -1,0 +1,6 @@
+# ATLAS · Снабжение — артефакты ядра (не коммитим)
+__pycache__/
+*.pyc
+*.sqlite3
+supply_core/.env
+.env
