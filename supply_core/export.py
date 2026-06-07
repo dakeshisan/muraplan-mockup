@@ -62,6 +62,13 @@ def to_xlsx(rows, today=None):
     except Exception:
         return to_csv(rows, today)                       # нет openpyxl — отдаём CSV
     wb = Workbook()
+    # детерминированные свойства — чтобы один и тот же план давал байт-в-байт один файл
+    # (иначе openpyxl штампует время → авто-снимок Pages коммитит на каждый прогон)
+    import datetime as _dt
+    fixed = _dt.datetime(2026, 1, 1)
+    wb.properties.creator = "ATLAS"
+    wb.properties.created = fixed
+    wb.properties.modified = fixed
     ws = wb.active
     ws.title = "Заказать"
     ws.append([f"ATLAS · план закупа — заказать (срез {today or ''})"])
