@@ -38,6 +38,21 @@ def fetch_json(path):
     return json.loads(fetch(path))
 
 
+def normalize_zip(data):
+    """Перепаковать zip (xlsx) с ФИКСИРОВАННЫМИ датами членов и порядком — байт-в-байт
+    одинаково при одинаковом содержимом (иначе таймстампы zip плодят коммиты снимка)."""
+    import io
+    import zipfile
+    src = zipfile.ZipFile(io.BytesIO(data))
+    out = io.BytesIO()
+    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as dst:
+        for name in sorted(src.namelist()):
+            info = zipfile.ZipInfo(name, date_time=(2026, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            dst.writestr(info, src.read(name))
+    return out.getvalue()
+
+
 def write_json(name, obj):
     with open(os.path.join(DATA, name), "w", encoding="utf-8") as f:
         json.dump(obj, f, ensure_ascii=False)
@@ -76,7 +91,7 @@ def main():
 
     # — выгрузка .xlsx как статический файл —
     with open(os.path.join(DATA, "atlas_zakup.xlsx"), "wb") as f:
-        f.write(fetch("/export/buylist.xlsx"))
+        f.write(normalize_zip(fetch("/export/buylist.xlsx")))
 
     # — шим: подменяем API-фетчи на статический снимок —
     shim = (
