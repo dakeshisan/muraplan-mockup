@@ -212,7 +212,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="lbl">Полный план ГПР <span class="n">Аура · планировать наперёд</span></div>
   <details class="dt"><summary>Раскрыть план — все работы по срокам (как MS Project)</summary><iframe class="gprframe" src="gpr.html?embed=1" title="Полный план ГПР · Аура" loading="lazy"></iframe></details>
 
-  <div class="note">Пульт руководителя проекта · ЖК «Аура» (очереди 2–4, блоки 3–8). Подтверждение факта — физическая проверка, источник «достоверности». Данные условные. <a href="portfolio.html">← Портфель</a></div>
+  <div class="note">Пульт руководителя проекта · ЖК «Аура» (очереди 2–4, блоки 3–8). Подтверждение факта — физическая проверка, источник «достоверности». Данные условные. <a href="#" onclick="resetDemo();return false;" style="color:var(--accent-d);font-weight:700;text-decoration:none">↺ сбросить демо</a> · <a href="portfolio.html">← Портфель</a></div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -248,15 +248,23 @@ function conf(i,ok){
   const q=QUEUE[i];
   if(ok){done++;toast(`✓ Подтверждено · ${q.w} (${q.blk}) · <b>+достоверность</b>`);}
   else{toast(`↩ Возвращено НУ · ${q.w} — переотметить`);}
-  QUEUE.splice(i,1);render();
+  resolved.push(q.w);QUEUE.splice(i,1);render();save();
 }
 function confAll(){
   const n=QUEUE.filter(q=>q.photo).length;
-  for(let i=QUEUE.length-1;i>=0;i--){if(QUEUE[i].photo){QUEUE.splice(i,1);done++;}}
-  toast(`✓ Подтверждено с фото: <b>${n}</b> · остались на ручную проверку`);render();
+  for(let i=QUEUE.length-1;i>=0;i--){if(QUEUE[i].photo){resolved.push(QUEUE[i].w);QUEUE.splice(i,1);done++;}}
+  toast(`✓ Подтверждено с фото: <b>${n}</b> · остались на ручную проверку`);render();save();
 }
-function esc(btn,msg){btn.textContent='✓ отправлено';btn.style.color='var(--green)';btn.style.borderColor='#bfe0cc';btn.disabled=true;toast('⤴ '+msg);}
+function markEsc(btn){btn.textContent='✓ отправлено';btn.style.color='var(--green)';btn.style.borderColor='#bfe0cc';btn.disabled=true;}
+function esc(btn,msg){markEsc(btn);toast('⤴ '+msg);save();}
+const SKEY='atlas_rp_v1';
+let resolved=[];
+function save(){try{localStorage.setItem(SKEY,JSON.stringify({resolved,done,esc:[...document.querySelectorAll('.esc')].map(b=>b.disabled?1:0)}));}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem(SKEY)||'null');if(!s)return null;resolved=s.resolved||[];done=s.done||0;for(let i=QUEUE.length-1;i>=0;i--){if(resolved.includes(QUEUE[i].w))QUEUE.splice(i,1);}return s;}catch(e){return null;}}
+function resetDemo(){try{localStorage.removeItem(SKEY);}catch(e){}location.reload();}
+const _s=load();
 render();
+if(_s&&_s.esc){const _e=document.querySelectorAll('.esc');_s.esc.forEach((d,i)=>{if(d&&_e[i])markEsc(_e[i]);});}
 </script>
 </body>
 </html>

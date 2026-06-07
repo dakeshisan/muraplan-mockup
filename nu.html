@@ -429,7 +429,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <div class="body"><iframe class="fpframe" src="gpr.html?embed=1&amp;plot=3" title="Полный план ГПР · Пятно 3" loading="lazy"></iframe></div>
   </details>
 
-  <div class="note">Рабочее место начальника участка: отметить факт, видеть цели и прогресс, планировать наперёд. Полный план ниже — план/факт по срокам, как в MS Project. Данные условные · ЖК «Аура», блок 3 · 2 очередь.</div>
+  <div class="note">Рабочее место начальника участка: отметить факт, видеть цели и прогресс, планировать наперёд. Полный план ниже — план/факт по срокам, как в MS Project. Данные условные · ЖК «Аура», блок 3 · 2 очередь. · <a href="#" onclick="resetDemo();return false;" style="color:var(--accent-d);font-weight:700;text-decoration:none">↺ сбросить демо</a></div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -477,7 +477,7 @@ const $=id=>document.getElementById(id);
 const xpTotal=()=>XP.reduce((a,x)=>a+x.v,0);
 let toastT;
 function toast(msg){const el=$('toast');el.innerHTML=msg;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2200);}
-function addXP(k,n,msg){const x=XP.find(p=>p.k===k);if(x)x.v=Math.max(0,x.v+n);GAME.weekXP=xpTotal();renderHero();renderXPB();if(msg)toast(msg);}
+function addXP(k,n,msg){const x=XP.find(p=>p.k===k);if(x)x.v=Math.max(0,x.v+n);GAME.weekXP=xpTotal();renderHero();renderXPB();if(msg)toast(msg);save();}
 
 /* ===== render: профиль ===== */
 function renderHero(){$('hxp').textContent=GAME.weekXP;}
@@ -544,11 +544,21 @@ function mark(e,idx,v){
 }
 
 /* ===== «что застряло» — проактивность ===== */
-function proact(btn,msg){btn.textContent='✓ отправлено';btn.style.color='var(--green)';btn.style.borderColor='#bfe0cc';btn.disabled=true;addXP('trust',15,'🤝 '+msg+' · <b>+15 XP</b>');}
+function markProactBtn(btn){btn.textContent='✓ отправлено';btn.style.color='var(--green)';btn.style.borderColor='#bfe0cc';btn.disabled=true;}
+function proact(btn,msg){markProactBtn(btn);addXP('trust',15,'🤝 '+msg+' · <b>+15 XP</b>');}
+
+/* ===== сохранение демо (localStorage) ===== */
+const SKEY='atlas_nu_v1';
+function snapshot(){return{works:WORKS.map(w=>({cur:w.cur,col:w.col,saved:!!w.saved,tag:w.tag||null,late:w.late||0})),xp:XP.map(x=>x.v),quests:QUESTS.map(q=>q.done),closed:closed,proact:[...document.querySelectorAll('.tell')].map(b=>b.disabled?1:0)};}
+function save(){try{localStorage.setItem(SKEY,JSON.stringify(snapshot()));}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem(SKEY)||'null');if(!s)return null;if(s.works)s.works.forEach((w,i)=>WORKS[i]&&Object.assign(WORKS[i],w));if(s.xp)s.xp.forEach((v,i)=>{if(XP[i])XP[i].v=v;});if(s.quests)s.quests.forEach((d,i)=>{if(QUESTS[i])QUESTS[i].done=d;});if(typeof s.closed==='number')closed=s.closed;return s;}catch(e){return null;}}
+function resetDemo(){try{localStorage.removeItem(SKEY);}catch(e){}location.reload();}
 
 /* ===== init ===== */
+const _saved=load();
 GAME.weekXP=xpTotal();
 renderKan();renderQuests();renderAch();renderHero();renderXPB();
+if(_saved&&_saved.proact){const _t=document.querySelectorAll('.tell');_saved.proact.forEach((d,i)=>{if(d&&_t[i])markProactBtn(_t[i]);});}
 </script>
 </body>
 </html>
