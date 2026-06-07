@@ -163,9 +163,16 @@ details[open]>summary .chev{transform:rotate(90deg)}
 .mpp-badge{background:var(--navy);color:#fff;border-radius:5px;padding:1px 7px;font-size:9.5px;font-weight:800;white-space:nowrap}
 .mpp-cap{font-size:11px;color:var(--accent-d);line-height:1.5;margin:8px 0;background:var(--accent-soft);border:1px solid #cfe6e4;border-radius:10px;padding:8px 11px}
 .mpp-cap b{color:var(--navy)}
-.mpp-frame{width:100%;height:560px;border:1px solid var(--line);border-radius:11px;background:#fff;display:block}
-.mpp-foot{text-align:right;margin-top:5px}
-.mpp-foot a{font-size:11px;color:var(--accent-d);font-weight:700;text-decoration:none}
+.mpp-open{display:inline-block;background:linear-gradient(120deg,var(--navy),var(--navy-d));color:#fff;border-radius:10px;padding:11px 18px;font-weight:700;font-size:13px;cursor:pointer;margin:6px 0 2px}
+.mpp-open:hover{filter:brightness(1.08)}
+.mpp-link{display:inline-block;font-size:11px;color:var(--accent-d);font-weight:700;text-decoration:none;margin-left:12px}
+/* полноэкранный оверлей реального ГПР */
+#mppov{position:fixed;inset:0;z-index:300;background:#fff;display:none;flex-direction:column}
+#mppov.on{display:flex}
+#mppov .ovbar{flex:none;background:linear-gradient(120deg,var(--navy),var(--navy-d));color:#fff;padding:10px 16px;display:flex;align-items:center;gap:12px;font-weight:700;font-size:13.5px}
+#mppov .ovx{margin-left:auto;background:rgba(255,255,255,.16);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:6px 14px;cursor:pointer;font-weight:700;font-size:13px}
+#mppov .ovx:hover{background:rgba(255,255,255,.3)}
+#mppov iframe{flex:1;border:none;width:100%;background:#fff}
 
 .note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:24px;line-height:1.7}
 .note a{color:var(--accent-d);font-weight:700;text-decoration:none}
@@ -402,9 +409,9 @@ function openBlock(oid,bi){
 /* Реальный ГПР блока из MS Project (.mpp→html) — встраиваем как iframe:
    настоящие связи Finish→Start, критический путь, наведение подсвечивает цепочку. */
 function buildMpp(m,host){
-  host.innerHTML=`<div class="mpp-cap">📐 <b>Реальный ГПР из MS Project</b> — WBS-структура, ${m.links} связей Finish→Start, готовность ${m.pct}%.<br><b>Критический путь:</b> ${m.crit}. Наведи на работу — подсветятся её связи.</div>
-    <iframe class="mpp-frame" src="${m.src}" loading="lazy" title="Реальный ГПР (MS Project)"></iframe>
-    <div class="mpp-foot"><a href="${m.src}" target="_blank" rel="noopener">открыть на весь экран ↗</a></div>`;
+  host.innerHTML=`<div class="mpp-cap">📐 <b>Реальный ГПР из MS Project</b> — WBS, ${m.links} связей Finish→Start, готовность ${m.pct}%.<br><b>Критический путь:</b> ${m.crit}.</div>
+    <button class="mpp-open" onclick="openMpp('${m.src}')">⤢ Открыть ГПР на весь экран · связи + критпуть</button>
+    <a class="mpp-link" href="${m.src}" target="_blank" rel="noopener">или в отдельной вкладке ↗</a>`;
 }
 
 /* Гантт блока: работы как бары на временной оси (начало→окончание), заливка=факт,
@@ -487,6 +494,23 @@ function SF(key,val,bi,wi,plan){
   const bar=document.getElementById('wb_'+bi+'_'+wi);if(bar)bar.style.width=val+'%';
   refresh();
 }
+
+/* полноэкранный оверлей реального ГПР (MS Project) */
+function openMpp(src){
+  let o=document.getElementById('mppov');
+  if(!o){
+    o=document.createElement('div');o.id='mppov';
+    o.innerHTML='<div class="ovbar"><span id="mppovt">Реальный ГПР · MS Project</span>'
+      +'<button class="ovx" onclick="closeMpp()">✕ закрыть (Esc)</button></div>'
+      +'<iframe id="mppovf" title="Реальный ГПР (MS Project)"></iframe>';
+    document.body.appendChild(o);
+  }
+  const f=document.getElementById('mppovf');
+  f.onload=()=>{try{document.getElementById('mppovt').textContent=f.contentDocument.title;}catch(e){}};
+  f.src=src;o.classList.add('on');document.body.style.overflow='hidden';
+}
+function closeMpp(){const o=document.getElementById('mppov');if(!o)return;o.classList.remove('on');document.getElementById('mppovf').src='about:blank';document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMpp();});
 
 build();refresh();
 </script>
