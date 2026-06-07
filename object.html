@@ -191,16 +191,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <script>
 const QUEUES=[
   {q:'2 очередь', st:'late', stt:'Строится · отставание', pct:84, blocks:[
-    {b:'Блок 3', nu:'НУ Асхат Б.', pct:84, risk:'−48 дн', you:true, href:'nu.html'},
-    {b:'Блок 4', nu:'НУ Дамир Е.', pct:83, risk:'−38 дн'},
+    {b:'Блок 3', nu:'НУ Асхат Б.', pct:84, risk:'−48 дн', you:true, href:'nu.html?block=3'},
+    {b:'Блок 4', nu:'НУ Дамир Е.', pct:83, risk:'−38 дн', href:'nu.html?block=4'},
   ]},
   {q:'3 очередь', st:'build', stt:'Строится · ранний', pct:10, blocks:[
-    {b:'Блок 5', nu:'общестрой', pct:10},
-    {b:'Блок 6', nu:'общестрой', pct:10},
+    {b:'Блок 5', nu:'каркас · общестрой', pct:10, href:'nu.html?block=5'},
+    {b:'Блок 6', nu:'каркас · общестрой', pct:10, href:'nu.html?block=6'},
   ]},
   {q:'4 очередь', st:'build', stt:'Строится · ранний', pct:10, blocks:[
-    {b:'Блок 7', nu:'общестрой', pct:10},
-    {b:'Блок 8', nu:'общестрой', pct:10},
+    {b:'Блок 7', nu:'каркас · общестрой', pct:10, href:'nu.html?block=7'},
+    {b:'Блок 8', nu:'каркас · общестрой', pct:10, href:'nu.html?block=8'},
   ]},
 ];
 const $=id=>document.getElementById(id);

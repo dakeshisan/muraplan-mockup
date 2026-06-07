@@ -151,9 +151,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <script>
 const NU=[
   {nm:'Нурбол Т.', obj:'Атмосфера · 4 оч', av:'Н', trust:95, kpi:90, streak:6},
-  {nm:'Асхат Б.',  obj:'Аура · блок 3',    av:'А', trust:92, kpi:86, streak:4, you:true},
+  {nm:'Асхат Б.',  obj:'Аура · блок 3',    av:'А', trust:92, kpi:86, streak:4, you:true, block:3},
   {nm:'Жанна К.',  obj:'Keruen · 1 оч',    av:'Ж', trust:88, kpi:84, streak:3},
-  {nm:'Дамир Е.',  obj:'Аура · блок 4',    av:'Д', trust:78, kpi:81, streak:2},
+  {nm:'Дамир Е.',  obj:'Аура · блок 4',    av:'Д', trust:78, kpi:81, streak:2, block:4},
   {nm:'Серик М.',  obj:'Атмосфера · 5 оч', av:'С', trust:75, kpi:79, streak:1},
   {nm:'Болат А.',  obj:'Keruen · 3 оч',    av:'Б', trust:70, kpi:76, streak:0},
 ];
@@ -168,8 +168,9 @@ function render(metric){
     const rk=i<3?`<div class="rk medal">${medals[i]}</div>`:`<div class="rk">${i+1}</div>`;
     const ut=n.you?'<span class="ut">ты</span>':'';
     const val=MET[metric][1](n);
-    return `<div class="lr${n.you?' me':''}">${rk}<div class="av">${n.av}</div>
-      <div class="bd"><div class="nm">${n.nm}${ut}</div><div class="sub">${n.obj} · <b>дост ${n.trust}%</b> · KPI ${n.kpi} · 🔥${n.streak}</div></div>
+    const open=n.block?` onclick="location.href='nu.html?block=${n.block}'" style="cursor:pointer" title="Открыть участок →"`:'';
+    return `<div class="lr${n.you?' me':''}"${open}>${rk}<div class="av">${n.av}</div>
+      <div class="bd"><div class="nm">${n.nm}${ut}${n.block?' <span style="color:var(--accent-d);font-weight:700">›</span>':''}</div><div class="sub">${n.obj} · <b>дост ${n.trust}%</b> · KPI ${n.kpi} · 🔥${n.streak}</div></div>
       <div class="val"><b class="tnum">${val}</b><span>${MET[metric][0]}</span></div></div>`;
   }).join('');
   // твоё место по выбранной метрике

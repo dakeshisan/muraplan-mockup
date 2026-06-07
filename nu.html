@@ -301,27 +301,27 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="top">
     <div class="lg">A</div>
     <div class="nm">ATLAS<small>моё рабочее место · стройка</small></div>
-    <div class="me"><div class="who">Асхат Б.<small>НУ · Аура · блок 3</small></div><div class="av">А</div></div>
+    <div class="me"><div class="who" id="me-who">Асхат Б.<small id="me-sub">НУ · Аура · блок 3</small></div><div class="av" id="me-av">А</div></div>
   </div>
 
   <!-- ХЛЕБНЫЕ КРОШКИ -->
-  <div class="crumbs"><a href="portfolio.html">‹ Портфель</a><span class="sep">·</span><a href="object.html">ЖК «Аура»</a><span class="sep">▸</span>2 очередь<span class="sep">▸</span><b>блок 3</b></div>
+  <div class="crumbs" id="crumbs"><a href="portfolio.html">‹ Портфель</a><span class="sep">·</span><a href="object.html">ЖК «Аура»</a><span class="sep">▸</span><span id="cr-q">2 очередь</span><span class="sep">▸</span><b id="cr-b">блок 3</b></div>
 
   <!-- ПРОФИЛЬ-ПРОГРЕСС -->
   <div class="card hero">
     <div class="htop">
-      <div class="ring"><svg viewBox="0 0 78 78" width="74" height="74" aria-hidden="true"><circle cx="39" cy="39" r="33" fill="none" stroke="#e6ebf1" stroke-width="8"/><circle cx="39" cy="39" r="33" fill="none" stroke="var(--green)" stroke-width="8" stroke-linecap="round" stroke-dasharray="207" stroke-dashoffset="29" transform="rotate(-90 39 39)"/></svg><div class="ringv"><b class="tnum">86%</b><span>неделя</span></div></div>
+      <div class="ring"><svg viewBox="0 0 78 78" width="74" height="74" aria-hidden="true"><circle cx="39" cy="39" r="33" fill="none" stroke="#e6ebf1" stroke-width="8"/><circle id="hring" cx="39" cy="39" r="33" fill="none" stroke="var(--green)" stroke-width="8" stroke-linecap="round" stroke-dasharray="207" stroke-dashoffset="29" transform="rotate(-90 39 39)"/></svg><div class="ringv"><b class="tnum" id="hkpi">86%</b><span>неделя</span></div></div>
       <div class="hgrade">
         <div class="cap">Грейд · маршрут мастера</div>
-        <div class="gname">Специалист</div>
-        <div class="gbar"><i style="width:64%"></i></div>
-        <div class="gnext">до <b>«Старшего»</b> — держи KPI ещё ~2 мес</div>
+        <div class="gname" id="hgname">Специалист</div>
+        <div class="gbar"><i id="hgbar" style="width:64%"></i></div>
+        <div class="gnext" id="hgnext">до <b>«Старшего»</b> — держи KPI ещё ~2 мес</div>
       </div>
     </div>
     <div class="hchips">
       <div class="hchip"><b class="tnum" id="hxp">430</b><span>очки недели</span></div>
-      <div class="hchip"><b>🔥 4</b><span>недели серии</span></div>
-      <a class="hchip" href="league.html" style="text-decoration:none;color:inherit"><b>🏅 #2</b><span>лига · достоверность</span></a>
+      <div class="hchip"><b id="hstreak">🔥 4</b><span>недели серии</span></div>
+      <a class="hchip" href="league.html" style="text-decoration:none;color:inherit"><b id="hrank">🏅 #2</b><span>лига · достоверность</span></a>
     </div>
   </div>
 
@@ -329,22 +329,19 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="lbl">Общая цель команды <span class="n">все участки — к сдаче</span></div>
   <div class="card goal">
     <div class="goalhead">
-      <div><div class="cap">Финиш · Аура · 2 очередь</div><div class="goaltitle">Сдать 2 очередь в срок</div></div>
-      <div class="goaldate"><b class="tnum">30.09</b><span>срок сдачи</span></div>
+      <div><div class="cap" id="g-cap">Финиш · Аура · 2 очередь</div><div class="goaltitle" id="g-title">Сдать 2 очередь в срок</div></div>
+      <div class="goaldate"><b class="tnum" id="g-date">30.09</b><span>срок сдачи</span></div>
     </div>
-    <div class="goalbar"><i style="width:84%"></i><span class="goalpct tnum">84%</span></div>
-    <div class="goalsub">Готовность объекта · цель <b>100%</b>. До сдачи <b>~116 дней</b>. Каждая работа, закрытая в срок, двигает этот % — финиш общий.</div>
-    <div class="cap" style="margin:16px 0 9px">Блоки 2 очереди — к сдаче вместе</div>
-    <div class="plots">
-      <div class="plotrow"><div class="pn">Блок 3 <small>· ты · 2 оч</small></div><div class="pt"><i class="pyou" style="width:84%"></i></div><div class="pv" style="color:var(--gold-d)">84%</div></div>
-      <div class="plotrow"><div class="pn">Блок 4 <small>2 оч</small></div><div class="pt"><i style="width:83%"></i></div><div class="pv">83%</div></div>
-    </div>
-    <div class="goalyou">🎯 Твой вклад: <b>блок 3 (2 очередь)</b>. Закроешь инженерку и лифты — снимешь главный риск сдачи 2 очереди.</div>
+    <div class="goalbar"><i id="g-bar" style="width:84%"></i><span class="goalpct tnum" id="g-pct">84%</span></div>
+    <div class="goalsub" id="g-sub">Готовность очереди · цель <b>100%</b>. До сдачи <b>~116 дней</b>. Каждая работа, закрытая в срок, двигает этот % — финиш общий.</div>
+    <div class="cap" id="g-plotscap" style="margin:16px 0 9px">Блоки 2 очереди — к сдаче вместе</div>
+    <div class="plots" id="plots"></div>
+    <div class="goalyou" id="g-you">🎯 Твой вклад: <b>блок 3 (2 очередь)</b>. Закроешь инженерку и лифты — снимешь главный риск сдачи 2 очереди.</div>
     <div class="goalreward"><span class="e">🏁</span><div>Сдадим в срок всей командой → бейдж <b>«Объект сдан»</b> и общий бонусный пул (Фаза 2)</div></div>
   </div>
 
   <!-- ГПР УЧАСТКА · ПЛАН/ФАКТ -->
-  <div class="lbl">ГПР участка · план / факт <span class="n">Аура · блок 3</span></div>
+  <div class="lbl">ГПР участка · план / факт <span class="n" id="gpr-label">Аура · блок 3</span></div>
   <div class="card state">
     <div class="cyc">
       <span class="st"><span class="ok">✓</span> задание выдано</span>
@@ -353,30 +350,24 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <span class="st">· далее KPI в вс</span>
     </div>
     <div class="gtop">
-      <div class="gstat"><div class="gl">Факт</div><div class="gn fact tnum">84%</div></div>
-      <div class="gstat"><div class="gl">План</div><div class="gn tnum">91%</div></div>
-      <div class="gstat"><div class="gl">Отставание</div><div class="gn lag tnum">48<span class="gu"> дн</span></div></div>
+      <div class="gstat"><div class="gl">Факт</div><div class="gn fact tnum"><span id="g-fact">84</span>%</div></div>
+      <div class="gstat"><div class="gl">План</div><div class="gn tnum"><span id="g-plan">91</span>%</div></div>
+      <div class="gstat"><div class="gl">Отставание</div><div class="gn lag tnum" id="g-lagstat">48<span class="gu"> дн</span></div></div>
     </div>
-    <div class="gpr">
-      <div class="srow2"><div class="gnm">Общестрой<small>7 работ</small></div><div class="gtrack"><div class="gfill done" style="width:100%"></div></div><div class="gpf">100%<small class="ok">в срок</small></div></div>
-      <div class="srow2"><div class="gnm">Отделка + окна<small>10 работ</small></div><div class="gtrack"><div class="gfill done" style="width:100%"></div></div><div class="gpf">100%<small class="ok">в срок</small></div></div>
-      <div class="srow2"><div class="gnm">Инженерка + лифт<small>14 работ</small></div><div class="gtrack"><div class="gfill late" style="width:88%"></div></div><div class="gpf">88%<small class="lag">−48 дн</small></div></div>
-      <div class="srow2"><div class="gnm">Благоустройство<small>8 работ</small></div><div class="gtrack"><div class="gfill late" style="width:5%"></div></div><div class="gpf">5%<small class="lag">−19 дн</small></div></div>
-      <div class="gleg">полоса = план (100% к сроку) · заливка = факт · красным — отставание по графику</div>
-    </div>
+    <div class="gpr" id="gpr-sections"></div>
   </div>
 
   <!-- ПРОГНОЗ СДАЧИ -->
-  <div class="lbl">Прогноз сдачи · блок 3 <span class="n">по текущему темпу</span></div>
+  <div class="lbl">Прогноз сдачи · <span id="fc-blk">блок 3</span> <span class="n">по текущему темпу</span></div>
   <div class="card fc">
-    <div class="fc-verdict late">⚠ Отстаём от срока</div>
+    <div class="fc-verdict late" id="fc-verdict">⚠ Отстаём от срока</div>
     <div class="fc-row">
-      <div class="fc-c"><div class="fc-l">Темп</div><div class="fc-v">+6%<small> /нед</small></div></div>
-      <div class="fc-c"><div class="fc-l">Осталось</div><div class="fc-v">16%</div></div>
-      <div class="fc-c"><div class="fc-l">100% к</div><div class="fc-v r">~28.06</div></div>
+      <div class="fc-c"><div class="fc-l">Темп</div><div class="fc-v" id="fc-tempo">+6%<small> /нед</small></div></div>
+      <div class="fc-c"><div class="fc-l">Осталось</div><div class="fc-v" id="fc-left">16%</div></div>
+      <div class="fc-c"><div class="fc-l">100% к</div><div class="fc-v r" id="fc-eta">~28.06</div></div>
     </div>
-    <div class="fc-line">Критический путь: <b>инженерка + монтаж лифтов</b> (−48 дн) — именно он держит сдачу 2 очереди. Ускоришь его → вытащишь срок всего блока.</div>
-    <div class="fc-prep">📋 Готовить ближайшие 2 недели: <b>материал ГКЛ</b> (перегородки 10.06) и <b>фронт под лифты</b>. Чтобы выйти в срок — нужен темп <b>+8%/нед</b>.</div>
+    <div class="fc-line" id="fc-line">Критический путь: <b>инженерка + монтаж лифтов</b> (−48 дн) — именно он держит сдачу 2 очереди. Ускоришь его → вытащишь срок всего блока.</div>
+    <div class="fc-prep" id="fc-prep">📋 Готовить ближайшие 2 недели: <b>материал ГКЛ</b> (перегородки 10.06) и <b>фронт под лифты</b>. Чтобы выйти в срок — нужен темп <b>+8%/нед</b>.</div>
   </div>
 
   <!-- ЦЕЛИ НЕДЕЛИ -->
@@ -390,25 +381,18 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <!-- ЧТО ВПЕРЕДИ -->
   <div class="lbl">Что впереди · подготовить</div>
   <div class="card ahead">
-    <div class="arow"><div class="when">с 10.06<small>через нед.</small></div><div class="bd"><div class="t">Перегородки ГКЛ · 7–8 эт.</div><div class="prep">подготовить: <b>материал ГКЛ + бригада</b></div></div></div>
-    <div class="arow"><div class="when">с 16.06</div><div class="bd"><div class="t">Стяжка полов · 6–8 эт.</div><div class="prep">нужен <b>фронт от каркаса</b> — проверить с РП</div></div></div>
-    <div class="arow"><div class="when">с 24.06</div><div class="bd"><div class="t">Благоустройство: бордюры, брусчатка</div><div class="prep">заранее: <b>подрядчик + вывоз грунта</b></div></div></div>
-    <div class="arow"><div class="when">июль</div><div class="bd"><div class="t">Озеленение, МАФы</div><div class="prep">подать <b>заявку на материалы</b> уже сейчас</div></div></div>
+    <div id="ahead-rows"></div>
     <div class="aheadfoot">📦 Подготовил заранее (материал · бригада · фронт) → очки «План» и бейдж «Запасливый». Планирование — половина срока.</div>
   </div>
 
   <!-- ЧТО ЗАСТРЯЛО -->
   <div class="lbl">Что застряло · нужно решить</div>
-  <div class="card stuck">
-    <div class="srow"><span class="dot"></span><div class="bd"><div class="t">Видеонаблюдение — стоит 2 недели</div><div class="s">подрядчик не вышел · фронт готов</div></div><button class="tell" onclick="proact(this,'Сообщил РП · видеонаблюдение')">Сообщить РП</button></div>
-    <div class="srow"><span class="dot"></span><div class="bd"><div class="t">Монтаж лифтов — нужен фронт</div><div class="s">ждём смежников по шахте</div></div><button class="tell" onclick="proact(this,'Сообщил РП · монтаж лифтов')">Сообщить РП</button></div>
-    <div class="srow"><span class="dot task"></span><div class="bd"><div class="t">Поручение РП: подготовить фронт под лифты к 10.06</div><div class="s">с планёрки 01.06</div></div><button class="tell" onclick="proact(this,'Поручение взято в работу')">Взять</button></div>
-  </div>
+  <div class="card stuck" id="stuck"></div>
 
   <!-- ПРОГРЕСС И НАГРАДЫ -->
   <div class="lbl">Прогресс и награды <span class="obs" title="Очки и грейд считаются, но на премию пока не влияют — деньги включатся в Фазе 2">наблюдательный режим</span></div>
   <div class="card kpi">
-    <div class="zone"><span class="e">✓</span><div>В зелёной зоне — задание идёт в график, серия 🔥 4 недели держится</div></div>
+    <div class="zone" id="zone"><span class="e" id="zone-e">✓</span><div id="zone-line">В зелёной зоне — задание идёт в график, серия 🔥 4 недели держится</div></div>
 
     <div class="cap" style="margin:18px 0 0">Маршрут мастера</div>
     <div class="route">
@@ -450,54 +434,112 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   </div>
 
   <!-- ПОЛНЫЙ ПЛАН ГПР (раскрывается) -->
-  <div class="lbl">Полный план ГПР · Аура блок 3 <span class="n">как MS Project</span></div>
+  <div class="lbl">Полный план ГПР · <span id="fp-label">Аура блок 3</span> <span class="n">как MS Project</span></div>
   <details class="dt fp">
     <summary>Раскрыть полный план — все работы участка по срокам</summary>
-    <div class="body"><iframe class="fpframe" src="gpr.html?embed=1&amp;plot=3" title="Полный план ГПР · Пятно 3" loading="lazy"></iframe></div>
+    <div class="body"><iframe class="fpframe" id="fp-frame" src="gpr.html?embed=1&amp;plot=3" title="Полный план ГПР · участок" loading="lazy"></iframe></div>
   </details>
 
-  <div class="note">Рабочее место начальника участка: отметить факт, видеть цели и прогресс, планировать наперёд. Полный план ниже — план/факт по срокам, как в MS Project. Данные условные · ЖК «Аура», блок 3 · 2 очередь. · <a href="#" onclick="resetDemo();return false;" style="color:var(--accent-d);font-weight:700;text-decoration:none">↺ сбросить демо</a></div>
+  <div class="note">Рабочее место начальника участка: отметить факт, видеть цели и прогресс, планировать наперёд. Полный план ниже — план/факт по срокам, как в MS Project. <span id="note-data">Данные условные · ЖК «Аура», блок 3 · 2 очередь.</span> · <a href="#" onclick="resetDemo();return false;" style="color:var(--accent-d);font-weight:700;text-decoration:none">↺ сбросить демо</a></div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-/* ===== канбан: работы ===== */
-const WORKS=[
-  {name:'Стяжка полов · 6 эт.',sec:'Отделка · своя бригада',cur:0,col:'todo'},
-  {name:'Озеленение',sec:'Благоустройство',cur:0,col:'todo'},
-  {name:'Монтаж лифтов',sec:'Инженерка · ТОО ЛифтМонтаж',cur:85,col:'prog',tag:'−21 д',late:1},
-  {name:'Перегородки ГКЛ · 6 эт.',sec:'Отделка',cur:25,col:'prog'},
-  {name:'Видеонаблюдение',sec:'Инженерка · подрядчик',cur:67,col:'prog',tag:'стоит',late:1},
-  {name:'Фасад',sec:'Общестрой · ИП Дана',cur:100,col:'done'},
-  {name:'Монтаж окон',sec:'Отделка · ТОО Окна',cur:100,col:'done'},
-];
+/* ===== участок: данные по блокам (?block=N) ===== */
+function early(n,q,mates){return {
+  nu:'НУ блок '+n, av:String(n), sub:'НУ · Аура · блок '+n+' · ранний этап', q:q, blk:'блок '+n,
+  kpi:80, grade:'Стажёр', gradePct:30, gnext:'до <b>«Специалиста»</b> — набери серию ≥85%', wxp:240, streak:'🔥 1', rank:'🏅 —',
+  gCap:'Старт · Аура · '+q+' очередь', gTitle:'Возвести '+q+' очередь', gDate:'2027', gBar:10, gPct:10,
+  gSub:'Готовность очереди · <b>ранний этап</b>. Сейчас каркас и общестрой — это фундамент срока сдачи.',
+  gPlotsCap:'Блоки '+q+' очереди', plots:mates.map(m=>({b:'Блок '+m, sub:(m===n?'· ты · ':'')+q+' оч', pct:10, you:m===n})),
+  gYou:'🎯 Твой вклад: <b>блок '+n+' ('+q+' очередь)</b>. Держи темп каркаса — ранний задел тащит весь срок очереди.',
+  gprLabel:'Аура · блок '+n, fact:10, plan:12, lag:9,
+  gpr:[['Земляные + бетон','5 работ',100,'done','в срок'],['ЖБ каркас','8 работ',56,'late','−9 дн'],['Кладка + фасад','9 работ',0,'todo','впереди'],['Отделка + инженерка','14 работ',0,'todo','впереди']],
+  fc:{cls:'ok',verdict:'✓ В графике',tempo:'+9%<small> /нед</small>',left:'90%',eta:'по плану',etaR:false,
+    line:'Ранний этап: ведётся <b>ЖБ каркас</b> (−9 дн — некритично). Главное — не потерять темп каркаса, он держит срок всей очереди.',
+    prep:'📋 Готовить наперёд: <b>арматура и бетон</b> на верхние этажи, <b>кладочные материалы</b>.'},
+  works:[
+    {name:'ЖБ каркас · текущий эт.',sec:'Общестрой · каркас',cur:56,col:'prog',tag:'−9 д',late:1},
+    {name:'ЖБ каркас · след. эт.',sec:'Общестрой · каркас',cur:0,col:'todo'},
+    {name:'Кладка стен',sec:'Общестрой',cur:0,col:'todo'},
+    {name:'Земляные работы',sec:'Общестрой',cur:100,col:'done'},
+    {name:'Бетон до отм. 0.000',sec:'Общестрой',cur:100,col:'done'},
+  ],
+  ahead:[['сейчас','','ЖБ каркас · верхние этажи','арматура + бетон точно по графику'],['далее','','Кладка стен','кладочные материалы заранее'],['далее','','Фасад','леса + фасадные материалы'],['позже','','Инженерка и отделка','финишные этапы '+q+' очереди']],
+  stuck:[{cls:'task',t:'ЖБ каркас — держать темп (−9 дн)',s:'некритично, но не накапливать',btn:'Взять',msg:'Взято в работу'}],
+  zone:{e:'➤',line:'Ранний этап — каркас идёт, держи темп; серия наберётся к финишным работам'},
+  xp:[{k:'time',n:'В срок',s:'закрытый фронт',v:120},{k:'qual',n:'Качество',s:'0 дефектов класса A',v:80},{k:'plan',n:'План',s:'материалы заранее',v:40},{k:'trust',n:'Достоверность',s:'факт подтверждён РП',v:0}],
+  ach:[{ic:'🔥',t:'На серии',d:'набрать 4 недели ≥85%',p:[1,4]},{ic:'🛡',t:'Без брака',d:'месяц без дефектов класса A',got:true},{ic:'📦',t:'Запасливый',d:'материалы заказаны за 2 недели',p:[1,3]},{ic:'🏗',t:'Специалист',d:'достичь следующего грейда',p:[30,100]},{ic:'🏁',t:'Очередь сдана',d:'довести '+q+' очередь «Ауры» до сдачи',p:[10,100],wide:true}],
+  quests:[{t:'Закрыть этаж каркаса до конца недели',s:'держим темп очереди',xp:60,k:'time',done:false},{t:'Заказать арматуру/бетон заранее',s:'на верхние этажи',xp:40,k:'plan',done:false},{t:'Достоверный факт у РП',s:'подтверждение отметок',xp:30,k:'trust',done:false}],
+  note:'Данные условные · ЖК «Аура», блок '+n+' · '+q+' очередь · ранний этап.', plot:n, fpLabel:'Аура блок '+n
+};}
+
+const BLOCKS={
+ 3:{nu:'Асхат Б.',av:'А',sub:'НУ · Аура · блок 3',q:2,blk:'блок 3',
+   kpi:86,grade:'Специалист',gradePct:64,gnext:'до <b>«Старшего»</b> — держи KPI ещё ~2 мес',wxp:430,streak:'🔥 4',rank:'🏅 #2',
+   gCap:'Финиш · Аура · 2 очередь',gTitle:'Сдать 2 очередь в срок',gDate:'30.09',gBar:84,gPct:84,
+   gSub:'Готовность очереди · цель <b>100%</b>. До сдачи <b>~116 дней</b>. Каждая работа, закрытая в срок, двигает этот % — финиш общий.',
+   gPlotsCap:'Блоки 2 очереди — к сдаче вместе',plots:[{b:'Блок 3',sub:'· ты · 2 оч',pct:84,you:true},{b:'Блок 4',sub:'2 оч',pct:83}],
+   gYou:'🎯 Твой вклад: <b>блок 3 (2 очередь)</b>. Закроешь инженерку и лифты — снимешь главный риск сдачи 2 очереди.',
+   gprLabel:'Аура · блок 3',fact:84,plan:91,lag:48,
+   gpr:[['Общестрой','7 работ',100,'done','в срок'],['Отделка + окна','10 работ',100,'done','в срок'],['Инженерка + лифт','14 работ',88,'late','−48 дн'],['Благоустройство','8 работ',5,'late','−19 дн']],
+   fc:{cls:'late',verdict:'⚠ Отстаём от срока',tempo:'+6%<small> /нед</small>',left:'16%',eta:'~28.06',etaR:true,
+     line:'Критический путь: <b>инженерка + монтаж лифтов</b> (−48 дн) — именно он держит сдачу 2 очереди. Ускоришь его → вытащишь срок всего блока.',
+     prep:'📋 Готовить ближайшие 2 недели: <b>материал ГКЛ</b> (перегородки 10.06) и <b>фронт под лифты</b>. Чтобы выйти в срок — нужен темп <b>+8%/нед</b>.'},
+   works:[
+     {name:'Стяжка полов · 6 эт.',sec:'Отделка · своя бригада',cur:0,col:'todo'},
+     {name:'Озеленение',sec:'Благоустройство',cur:0,col:'todo'},
+     {name:'Монтаж лифтов',sec:'Инженерка · ТОО ЛифтМонтаж',cur:85,col:'prog',tag:'−21 д',late:1},
+     {name:'Перегородки ГКЛ · 6 эт.',sec:'Отделка',cur:25,col:'prog'},
+     {name:'Видеонаблюдение',sec:'Инженерка · подрядчик',cur:67,col:'prog',tag:'стоит',late:1},
+     {name:'Фасад',sec:'Общестрой · ИП Дана',cur:100,col:'done'},
+     {name:'Монтаж окон',sec:'Отделка · ТОО Окна',cur:100,col:'done'},
+   ],
+   ahead:[['с 10.06','через нед.','Перегородки ГКЛ · 7–8 эт.','подготовить: <b>материал ГКЛ + бригада</b>'],['с 16.06','','Стяжка полов · 6–8 эт.','нужен <b>фронт от каркаса</b> — проверить с РП'],['с 24.06','','Благоустройство: бордюры, брусчатка','заранее: <b>подрядчик + вывоз грунта</b>'],['июль','','Озеленение, МАФы','подать <b>заявку на материалы</b> уже сейчас']],
+   stuck:[{cls:'',t:'Видеонаблюдение — стоит 2 недели',s:'подрядчик не вышел · фронт готов',btn:'Сообщить РП',msg:'Сообщил РП · видеонаблюдение'},{cls:'',t:'Монтаж лифтов — нужен фронт',s:'ждём смежников по шахте',btn:'Сообщить РП',msg:'Сообщил РП · монтаж лифтов'},{cls:'task',t:'Поручение РП: подготовить фронт под лифты к 10.06',s:'с планёрки 01.06',btn:'Взять',msg:'Поручение взято в работу'}],
+   zone:{e:'✓',line:'В зелёной зоне — задание идёт в график, серия 🔥 4 недели держится'},
+   xp:[{k:'time',n:'В срок',s:'закрытый фронт',v:180},{k:'qual',n:'Качество',s:'0 дефектов класса A',v:120},{k:'plan',n:'План',s:'материалы/фронт заранее',v:80},{k:'trust',n:'Достоверность',s:'факт подтверждён РП',v:50}],
+   ach:[{ic:'🔥',t:'На серии',d:'4 недели подряд ≥85%',got:true},{ic:'🛡',t:'Без брака',d:'месяц без дефектов класса A',got:true},{ic:'🤝',t:'Достоверный',d:'10 отметок подтверждены РП',p:[7,10]},{ic:'📦',t:'Запасливый',d:'материалы заказаны за 2 недели',p:[2,3]},{ic:'⏱',t:'Раньше срока',d:'сдать раздел до плановой даты',p:[0,1]},{ic:'🏗',t:'Старший',d:'достичь следующего грейда',p:[64,100]},{ic:'🏁',t:'Объект сдан',d:'довести 2 очередь «Ауры» до сдачи всей командой',p:[84,100],wide:true}],
+   quests:[{t:'Закрыть 2 работы недели до вс',s:'→ закроет неделю на 100%',xp:60,k:'time',done:false,auto:'close2'},{t:'Подтвердить факт у РП по всем отметкам',s:'достоверный факт',xp:30,k:'trust',done:false},{t:'Подготовить фронт под лифты к 10.06',s:'поручение РП с планёрки 01.06',xp:40,k:'plan',done:false},{t:'Заказать материал ГКЛ (перегородки 7–8 эт.)',s:'к работам с 10.06',xp:30,k:'plan',done:false}],
+   note:'Данные условные · ЖК «Аура», блок 3 · 2 очередь.',plot:3,fpLabel:'Аура блок 3'},
+ 4:{nu:'Дамир Е.',av:'Д',sub:'НУ · Аура · блок 4',q:2,blk:'блок 4',
+   kpi:81,grade:'Специалист',gradePct:52,gnext:'до <b>«Старшего»</b> — нужна серия ≥85% ещё ~3 мес',wxp:360,streak:'🔥 2',rank:'🏅 #4',
+   gCap:'Финиш · Аура · 2 очередь',gTitle:'Сдать 2 очередь в срок',gDate:'30.09',gBar:84,gPct:84,
+   gSub:'Готовность очереди · цель <b>100%</b>. До сдачи <b>~116 дней</b>. Каждая работа, закрытая в срок, двигает этот % — финиш общий.',
+   gPlotsCap:'Блоки 2 очереди — к сдаче вместе',plots:[{b:'Блок 3',sub:'2 оч',pct:84},{b:'Блок 4',sub:'· ты · 2 оч',pct:83,you:true}],
+   gYou:'🎯 Твой вклад: <b>блок 4 (2 очередь)</b>. Слаботочка (видео/домофоны) и лифты — твой главный риск сдачи 2 очереди.',
+   gprLabel:'Аура · блок 4',fact:83,plan:91,lag:38,
+   gpr:[['Общестрой','7 работ',100,'done','в срок'],['Отделка + окна','10 работ',100,'done','в срок'],['Инженерка + лифт','14 работ',85,'late','−38 дн'],['Благоустройство','8 работ',0,'late','−19 дн']],
+   fc:{cls:'late',verdict:'⚠ Отстаём от срока',tempo:'+5%<small> /нед</small>',left:'17%',eta:'~05.07',etaR:true,
+     line:'Критический путь: <b>слаботочка (видео/домофоны) + лифты</b> (−38 дн). Закроешь их → снимешь риск сдачи 2 очереди.',
+     prep:'📋 Готовить 2 недели: <b>подрядчик слаботочки</b> (видео/домофоны −38 дн) и <b>фронт под лифты</b>. Нужен темп <b>+7%/нед</b>.'},
+   works:[
+     {name:'Видеонаблюдение',sec:'Инженерка · подрядчик',cur:67,col:'prog',tag:'−38 д',late:1},
+     {name:'Домофоны',sec:'Инженерка · подрядчик',cur:67,col:'prog',tag:'−38 д',late:1},
+     {name:'Монтаж лифтов',sec:'Инженерка · ТОО ЛифтМонтаж',cur:79,col:'prog',tag:'−27 д',late:1},
+     {name:'Благоустройство · брусчатка',sec:'Благоустройство',cur:0,col:'todo'},
+     {name:'Озеленение',sec:'Благоустройство',cur:0,col:'todo'},
+     {name:'Фасад',sec:'Общестрой',cur:100,col:'done'},
+     {name:'Перегородки ГКЛ',sec:'Отделка',cur:100,col:'done'},
+   ],
+   ahead:[['сейчас','просрочено','Видеонаблюдение + домофоны','подрядчик слаботочки — эскалировать РП'],['с 12.06','','Монтаж лифтов · добить 79→100','фронт по шахте + приёмка'],['с 20.06','','Благоустройство: бордюры, брусчатка','подрядчик + вывоз грунта'],['июль','','Озеленение, МАФы','заявка на материалы заранее']],
+   stuck:[{cls:'',t:'Видеонаблюдение — 67%, −38 дн',s:'слаботочка тянется с декабря',btn:'Сообщить РП',msg:'Сообщил РП · видеонаблюдение'},{cls:'',t:'Домофоны — 67%, −38 дн',s:'в связке со слаботочкой',btn:'Сообщить РП',msg:'Сообщил РП · домофоны'},{cls:'',t:'Монтаж лифтов — 79%, −27 дн',s:'критический путь сдачи',btn:'Сообщить РП',msg:'Сообщил РП · лифты'}],
+   zone:{e:'➤',line:'Темп ниже плана по слаботочке — серия 🔥 2 недели; добей видео/домофоны, чтобы вернуться в зелёную зону'},
+   xp:[{k:'time',n:'В срок',s:'закрытый фронт',v:150},{k:'qual',n:'Качество',s:'0 дефектов класса A',v:120},{k:'plan',n:'План',s:'материалы/фронт заранее',v:60},{k:'trust',n:'Достоверность',s:'факт подтверждён РП',v:30}],
+   ach:[{ic:'🔥',t:'На серии',d:'2 недели подряд ≥80%',got:true},{ic:'🛡',t:'Без брака',d:'месяц без дефектов класса A',got:true},{ic:'🤝',t:'Достоверный',d:'10 отметок подтверждены РП',p:[6,10]},{ic:'📦',t:'Запасливый',d:'материалы заказаны за 2 недели',p:[1,3]},{ic:'⏱',t:'Раньше срока',d:'сдать раздел до плановой даты',p:[0,1]},{ic:'🏗',t:'Старший',d:'достичь следующего грейда',p:[52,100]},{ic:'🏁',t:'Объект сдан',d:'довести 2 очередь «Ауры» до сдачи всей командой',p:[83,100],wide:true}],
+   quests:[{t:'Поднять видео+домофоны до 80%',s:'→ снимет часть −38 дн',xp:60,k:'time',done:false},{t:'Подтвердить факт у РП по всем отметкам',s:'достоверный факт',xp:30,k:'trust',done:false},{t:'Добить монтаж лифтов 79→100',s:'критический путь',xp:50,k:'time',done:false},{t:'Заявка на материал благоустройства',s:'брусчатка/бордюры впереди',xp:30,k:'plan',done:false}],
+   note:'Данные участка из отчёта ГПР 28.05.2026 · ЖК «Аура», блок 4 · 2 очередь; геймификация — демо.',plot:4,fpLabel:'Аура блок 4'},
+ 5:early(5,3,[5,6]),6:early(6,3,[5,6]),7:early(7,4,[7,8]),8:early(8,4,[7,8])
+};
+const _bp=parseInt(new URLSearchParams(location.search).get('block'),10);
+const BN=[3,4,5,6,7,8].indexOf(_bp)>=0?_bp:3;
+const BLK=BLOCKS[BN];
+
 const COLS=[['todo','К выполнению'],['prog','В работе'],['done','Сделано']];
 let openIdx=null, closed=0;
-
-/* ===== игровое состояние ===== */
 const GAME={weekXP:0};
-const XP=[
-  {k:'time', n:'В срок', s:'закрытый фронт', v:180},
-  {k:'qual', n:'Качество', s:'0 дефектов класса A', v:120},
-  {k:'plan', n:'План', s:'материалы/фронт заранее', v:80},
-  {k:'trust',n:'Достоверность', s:'факт подтверждён РП', v:50},
-];
-const ACH=[
-  {ic:'🔥',t:'На серии',d:'4 недели подряд ≥85%',got:true},
-  {ic:'🛡',t:'Без брака',d:'месяц без дефектов класса A',got:true},
-  {ic:'🤝',t:'Достоверный',d:'10 отметок подтверждены РП',p:[7,10]},
-  {ic:'📦',t:'Запасливый',d:'материалы заказаны за 2 недели',p:[2,3]},
-  {ic:'⏱',t:'Раньше срока',d:'сдать раздел до плановой даты',p:[0,1]},
-  {ic:'🏗',t:'Старший',d:'достичь следующего грейда',p:[64,100]},
-  {ic:'🏁',t:'Объект сдан',d:'довести 2 очередь «Ауры» до сдачи всей командой',p:[84,100],wide:true},
-];
-const QUESTS=[
-  {t:'Закрыть 2 работы недели до вс',s:'→ закроет неделю на 100%',xp:60,k:'time',done:false,auto:'close2'},
-  {t:'Подтвердить факт у РП по всем отметкам',s:'достоверный факт',xp:30,k:'trust',done:false},
-  {t:'Подготовить фронт под лифты к 10.06',s:'поручение РП с планёрки 01.06',xp:40,k:'plan',done:false},
-  {t:'Заказать материал ГКЛ (перегородки 7–8 эт.)',s:'к работам с 10.06',xp:30,k:'plan',done:false},
-];
+const WORKS=BLK.works, XP=BLK.xp, ACH=BLK.ach, QUESTS=BLK.quests;
 
 /* ===== helpers ===== */
 const $=id=>document.getElementById(id);
@@ -575,13 +617,48 @@ function markProactBtn(btn){btn.textContent='✓ отправлено';btn.style
 function proact(btn,msg){markProactBtn(btn);addXP('trust',15,'🤝 '+msg+' · <b>+15 XP</b>');}
 
 /* ===== сохранение демо (localStorage) ===== */
-const SKEY='atlas_nu_v1';
+const SKEY='atlas_nu_v1_b'+BN;
 function snapshot(){return{works:WORKS.map(w=>({cur:w.cur,col:w.col,saved:!!w.saved,tag:w.tag||null,late:w.late||0})),xp:XP.map(x=>x.v),quests:QUESTS.map(q=>q.done),closed:closed,proact:[...document.querySelectorAll('.tell')].map(b=>b.disabled?1:0)};}
 function save(){try{localStorage.setItem(SKEY,JSON.stringify(snapshot()));}catch(e){}}
 function load(){try{const s=JSON.parse(localStorage.getItem(SKEY)||'null');if(!s)return null;if(s.works)s.works.forEach((w,i)=>WORKS[i]&&Object.assign(WORKS[i],w));if(s.xp)s.xp.forEach((v,i)=>{if(XP[i])XP[i].v=v;});if(s.quests)s.quests.forEach((d,i)=>{if(QUESTS[i])QUESTS[i].done=d;});if(typeof s.closed==='number')closed=s.closed;return s;}catch(e){return null;}}
 function resetDemo(){try{localStorage.removeItem(SKEY);}catch(e){}location.reload();}
 
+/* ===== применить блок к статичным местам ===== */
+function applyBlock(B){
+  document.title='ATLAS · '+B.blk+' · '+B.nu;
+  $('me-who').innerHTML=B.nu+'<small id="me-sub">'+B.sub+'</small>';
+  $('me-av').textContent=B.av;
+  $('cr-q').textContent=B.q+' очередь'; $('cr-b').textContent=B.blk;
+  $('hkpi').textContent=B.kpi+'%';
+  $('hring').setAttribute('stroke-dashoffset', Math.round(207*(1-B.kpi/100)));
+  $('hgname').textContent=B.grade; $('hgbar').style.width=B.gradePct+'%'; $('hgnext').innerHTML=B.gnext;
+  $('hstreak').textContent=B.streak; $('hrank').textContent=B.rank;
+  $('g-cap').textContent=B.gCap; $('g-title').textContent=B.gTitle; $('g-date').textContent=B.gDate;
+  $('g-bar').style.width=B.gBar+'%'; $('g-pct').textContent=B.gPct+'%';
+  $('g-sub').innerHTML=B.gSub; $('g-plotscap').textContent=B.gPlotsCap; $('g-you').innerHTML=B.gYou;
+  $('plots').innerHTML=B.plots.map(p=>`<div class="plotrow"><div class="pn">${p.b} <small>${p.sub}</small></div><div class="pt"><i class="${p.you?'pyou':''}" style="width:${p.pct}%"></i></div><div class="pv"${p.you?' style="color:var(--gold-d)"':''}>${p.pct}%</div></div>`).join('');
+  $('gpr-label').textContent=B.gprLabel;
+  $('g-fact').textContent=B.fact; $('g-plan').textContent=B.plan;
+  $('g-lagstat').innerHTML=B.lag+'<span class="gu"> дн</span>';
+  $('gpr-sections').innerHTML=B.gpr.map(([nm,wk,pct,st,lab])=>{
+    const fc=st==='done'?'done':(st==='late'?'late':'');
+    const sm=st==='done'?`<small class="ok">${lab}</small>`:(st==='late'?`<small class="lag">${lab}</small>`:`<small>${lab}</small>`);
+    return `<div class="srow2"><div class="gnm">${nm}<small>${wk}</small></div><div class="gtrack"><div class="gfill ${fc}" style="width:${pct}%"></div></div><div class="gpf">${pct}%${sm}</div></div>`;
+  }).join('')+`<div class="gleg">полоса = план (100% к сроку) · заливка = факт · красным — отставание по графику</div>`;
+  $('fc-blk').textContent=B.blk;
+  const v=$('fc-verdict'); v.className='fc-verdict '+B.fc.cls; v.textContent=B.fc.verdict;
+  $('fc-tempo').innerHTML=B.fc.tempo; $('fc-left').textContent=B.fc.left;
+  const e=$('fc-eta'); e.className='fc-v'+(B.fc.etaR?' r':''); e.textContent=B.fc.eta;
+  $('fc-line').innerHTML=B.fc.line; $('fc-prep').innerHTML=B.fc.prep;
+  $('ahead-rows').innerHTML=B.ahead.map(([w,sub,t,prep])=>`<div class="arow"><div class="when">${w}${sub?`<small>${sub}</small>`:''}</div><div class="bd"><div class="t">${t}</div><div class="prep">${prep}</div></div></div>`).join('');
+  $('stuck').innerHTML=B.stuck.map(s=>`<div class="srow"><span class="dot ${s.cls}"></span><div class="bd"><div class="t">${s.t}</div><div class="s">${s.s}</div></div><button class="tell" onclick="proact(this,'${s.msg}')">${s.btn}</button></div>`).join('');
+  $('zone-e').textContent=B.zone.e; $('zone-line').innerHTML=B.zone.line;
+  $('fp-label').textContent=B.fpLabel; $('fp-frame').src='gpr.html?embed=1&plot='+B.plot;
+  $('note-data').textContent=B.note;
+}
+
 /* ===== init ===== */
+applyBlock(BLK);
 const _saved=load();
 GAME.weekXP=xpTotal();
 renderKan();renderQuests();renderAch();renderHero();renderXPB();
