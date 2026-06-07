@@ -137,7 +137,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <div class="sst"><div class="sn tnum" id="s-zhk">4</div><div class="sl">ЖК</div></div>
     <div class="sst"><div class="sn tnum" id="s-q">11</div><div class="sl">очередей в работе</div></div>
     <div class="sst"><div class="sn tnum" id="s-b">41</div><div class="sl">блоков</div></div>
-    <div class="sst"><div class="sn sm">Аура<br><small>30.09</small></div><div class="sl">ближайшая сдача</div></div>
+    <div class="sst"><div class="sn tnum" id="s-avg">—</div><div class="sl">ср. готовность</div></div>
   </div>
   <div class="legend"><span><i class="d pit"></i>Котлован</span><span><i class="d build"></i>Строится</span><span><i class="d fin"></i>Завершается</span></div>
 
@@ -157,10 +157,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="cards grp" data-g="ops" id="ops"></div>
 
   <!-- ПОЛНЫЙ ПЛАН ГПР -->
-  <div class="lbl">План ГПР <span class="n">демо · ЖК «Аура»</span></div>
+  <div class="lbl">План ГПР <span class="n">ЖК «Аура» · 28.05.26</span></div>
   <details class="dt"><summary>Раскрыть план — работы по срокам (как MS Project)</summary><iframe class="gprframe" src="gpr.html?embed=1" title="План ГПР" loading="lazy"></iframe></details>
 
-  <div class="note">Портфель ATLAS · уровень компании. Тап по очереди → внутрь (объект → участок). Готовность % и сроки — условные, уточняются.<br><a href="rp.html">Пульт РП →</a> · <a href="league.html">Лига →</a> · <a href="nu.html">Участок →</a> · <a href="index.html">все мокапы</a></div>
+  <div class="note">Портфель ATLAS · уровень компании. Тап по очереди → внутрь (объект → участок). Данные из отчёта ГПР на 28.05.2026 (часть очередей — оценочно).<br><a href="rp.html">Пульт РП →</a> · <a href="league.html">Лига →</a> · <a href="nu.html">Участок →</a> · <a href="index.html">все мокапы</a></div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -168,25 +168,26 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <script>
 const ST={ fin:{t:'Завершается',c:'fin'}, build:{t:'Строится',c:'build'}, pit:{t:'Котлован',c:'pit'} };
 const ZHK=[
-  {nm:'ЖК «Атмосфера»', loc:'4 очереди в работе', queues:[
+  {nm:'ЖК «Атмосфера»', loc:'отчёт ГПР · 28.05.26', queues:[
     {q:'4 очередь', st:'fin',   bl:'блоки А–Е',          nb:6, pct:95},
-    {q:'5 очередь', st:'build', bl:'блоки А Б В Г Д Е',  nb:6, pct:58},
-    {q:'6 очередь', st:'build', bl:'блоки А Б В Г Д Е',  nb:6, pct:42},
-    {q:'7 очередь', st:'pit',   bl:'блоки А Б В',        nb:3, pct:7},
+    {q:'5 очередь', st:'build', bl:'блоки А Б В Г Д Е',  nb:6, pct:24},
+    {q:'6 очередь', st:'build', bl:'блоки А Б В Г Д Е',  nb:6, pct:10},
+    {q:'7 очередь', st:'pit',   bl:'блоки А Б В',        nb:3, pct:4},
   ]},
-  {nm:'ЖК «Aura»', loc:'Алатау · 3 очереди', obj:'object.html', queues:[
+  {nm:'ЖК «Aura»', loc:'Алатау · отчёт 28.05.26', obj:'object.html', queues:[
     {q:'2 очередь', st:'build', bl:'блоки 3, 4 · участок НУ', nb:2, pct:84, you:true, risk:'−48 дн', href:'nu.html'},
     {q:'3 очередь', st:'build', bl:'блоки 5, 6', nb:2, pct:10},
     {q:'4 очередь', st:'build', bl:'блоки 7, 8', nb:2, pct:10},
   ]},
-  {nm:'ЖК «Keruen»', loc:'4 очереди в работе', queues:[
-    {q:'1 очередь', st:'build', bl:'блоки 1, 1.1', nb:2, pct:66},
+  {nm:'ЖК «Keruen»', loc:'отчёт ГПР · 28.05.26', queues:[
+    {q:'1 очередь', st:'build', bl:'блоки 1, 1.1', nb:2, pct:29},
+    {q:'2 очередь', st:'build', bl:'блоки 2, 2.1', nb:2, pct:84},
     {q:'3 очередь', st:'build', bl:'блоки 3, 3.1', nb:2, pct:48},
-    {q:'4 очередь', st:'build', bl:'блоки 4, 4.1', nb:2, pct:39},
-    {q:'5 очередь', st:'build', bl:'блоки 5, 5.1', nb:2, pct:27},
+    {q:'4 очередь', st:'build', bl:'блоки 4, 4.1', nb:2, pct:14},
+    {q:'5 очередь', st:'pit',   bl:'блоки 5, 5.1', nb:2, pct:9},
   ]},
-  {nm:'ЖК «Aqsai Resort»', loc:'стадию уточнить', queues:[
-    {q:'8 блоков', st:'build', bl:'этап — уточнить', nb:8, pct:33, soon:true},
+  {nm:'ЖК «Aqsai Resort»', loc:'отчёт ГПР · 28.05.26', queues:[
+    {q:'1 очередь', st:'build', bl:'8 блоков (1.1–4.2)', nb:8, pct:15},
   ]},
 ];
 const OPS=[
@@ -241,6 +242,7 @@ $('ops').innerHTML=OPS.map(opsHTML).join('');
 $('s-zhk').textContent=ZHK.length;
 $('s-q').textContent=ZHK.reduce((s,z)=>s+z.queues.length,0);
 $('s-b').textContent=ZHK.reduce((s,z)=>s+z.queues.reduce((a,q)=>a+q.nb,0),0);
+const _aq=ZHK.flatMap(z=>z.queues);$('s-avg').textContent=Math.round(_aq.reduce((a,q)=>a+q.pct,0)/_aq.length)+'%';
 </script>
 </body>
 </html>
