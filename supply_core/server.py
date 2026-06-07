@@ -70,6 +70,56 @@ def _gaps_cached(ttl=300):
     return data
 
 
+def _today_payload():
+    """Сводка дня: композиция уже кэшированных срезов (оплата / закрывающие /
+    план ГПР / не подано) в один экран «что горит сегодня». Только чтение."""
+    pay = _radar_cached("payment")
+    clo = _radar_cached("closing")
+    plan = _gpr_cached("all")
+    gap = _gaps_cached()
+    out = {"today": (plan.get("today") or pay.get("today") or gap.get("today")), "errors": []}
+    if pay.get("error"):
+        out["errors"].append("оплата: " + pay["error"])
+    else:
+        out["pay"] = {"count": pay["count"], "median": pay["median_days"],
+                      "over14": pay["overdue14"], "max": pay["max_days"]}
+    if not clo.get("error"):
+        out["closing"] = {"count": clo["count"], "over14": clo["overdue14"]}
+    gapby = {}
+    if not gap.get("error"):
+        gapby = {o["object"]: o["not_submitted"] for o in gap["objects"]}
+        out["gaps"] = {"total": sum(gapby.values()),
+                       "by_object": [{"object": k, "n": v} for k, v in gapby.items()]}
+    if plan.get("error"):
+        out["errors"].append("план: " + plan["error"])
+    else:
+        bs = plan["by_status"]
+        out["plan"] = {"overdue": bs["overdue"], "now": bs["now"], "soon": bs["soon"],
+                       "earliest": plan["earliest"]}
+        out["risk"] = sorted(
+            [{"object": o["object"], "overdue": o["overdue"], "earliest": o["earliest"],
+              "gaps": gapby.get(o["object"], 0)} for o in plan.get("by_object", [])],
+            key=lambda r: (-r["overdue"], -r["gaps"]))
+        agg = {}
+        for i in plan.get("items", []):
+            if i["status"] not in ("overdue", "now"):
+                continue
+            k = (i.get("object"), i["material"])
+            e = agg.get(k)
+            if not e:
+                agg[k] = {"object": i.get("object"), "material": i["material"],
+                          "order_by": i["order_by"], "slack": i["slack"],
+                          "status": i["status"], "count": 1}
+            else:
+                e["count"] += 1
+                e["order_by"] = min(e["order_by"], i["order_by"])
+                e["slack"] = min(e["slack"], i["slack"])
+                if i["status"] == "overdue":
+                    e["status"] = "overdue"
+        out["order_now"] = sorted(agg.values(), key=lambda x: x["slack"])[:40]
+    return out
+
+
 _PLAN = {"t": 0.0, "data": None}
 
 
@@ -158,6 +208,11 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(200, f.read(), "text/html")
         if path == "/api/bitrix/gaps":
             return self._send(200, _gaps_cached())
+        if path in ("/today", "/svodka"):
+            with open(os.path.join(HERE, "today.html"), "rb") as f:
+                return self._send(200, f.read(), "text/html")
+        if path == "/api/today":
+            return self._send(200, _today_payload())
         if path == "/zakup":
             with open(os.path.join(HERE, "zakup.html"), "rb") as f:
                 return self._send(200, f.read(), "text/html")
@@ -206,11 +261,13 @@ def main():
     host = os.environ.get("HOST", "127.0.0.1")   # HOST=0.0.0.0 — доступ по локальной сети
     srv = ThreadingHTTPServer((host, PORT), Handler)
     print(f"ATLAS · Снабжение — рабочее пространство → http://127.0.0.1:{PORT}  (БД: {DB})")
+    print(f"           сводка дня (кокпит)           → http://127.0.0.1:{PORT}/today")
     print(f"           оплата-радар Bitrix          → http://127.0.0.1:{PORT}/radar")
     print(f"           план закупа (Аура)           → http://127.0.0.1:{PORT}/zakup")
-    # прогрев кэшей радара и плана в фоне, чтобы первый запрос был мгновенным
+    # прогрев всех кэшей кокпита в фоне, чтобы «Сводка дня» открылась мгновенно
     import threading
-    threading.Thread(target=lambda: (_radar_cached(), _gpr_cached("aura")), daemon=True).start()
+    threading.Thread(target=lambda: (_radar_cached("payment"), _radar_cached("closing"),
+                                      _gpr_cached("all"), _gaps_cached()), daemon=True).start()
     srv.serve_forever()
 
 
