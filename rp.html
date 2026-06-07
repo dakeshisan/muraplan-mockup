@@ -171,11 +171,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   </div>
 
   <!-- КРАСНАЯ ЗОНА -->
-  <div class="lbl">Красная зона · риск срыва</div>
+  <div class="lbl">Красная зона · риск срыва <span class="n">из отчёта ГПР · 28.05</span></div>
   <div class="card risk">
-    <div class="rr"><span class="dot"></span><div class="bd"><div class="t">Монтаж лифтов · блок 3 — −48 дн</div><div class="s">критический путь · фронт готов, подрядчик тянет</div></div><button class="esc" onclick="esc(this,'Эскалировано директору · лифты')">Эскалировать</button></div>
-    <div class="rr"><span class="dot"></span><div class="bd"><div class="t">Видеонаблюдение · блок 3 — стоит 2 нед</div><div class="s">возвращено как недостоверное · подрядчик не вышел</div></div><button class="esc" onclick="esc(this,'Эскалировано · видеонаблюдение')">Эскалировать</button></div>
-    <div class="rr"><span class="dot a"></span><div class="bd"><div class="t">Благоустройство · блок 3 — −19 дн</div><div class="s">фронт от смежников не передан</div></div><button class="esc" onclick="esc(this,'Запрошен фронт у смежников')">Решить</button></div>
+    <div class="rr"><span class="dot"></span><div class="bd"><div class="t">Видеонаблюдение · блок 3 — 67% · −48 дн</div><div class="s">слаботочка тянется с ноября · план до 11.04 сорван</div></div><button class="esc" onclick="esc(this,'Эскалировано директору · видеонаблюдение')">Эскалировать</button></div>
+    <div class="rr"><span class="dot"></span><div class="bd"><div class="t">Домофоны · блок 3 — 67% · −48 дн</div><div class="s">в связке со слаботочкой · план до 11.04</div></div><button class="esc" onclick="esc(this,'Эскалировано · домофоны')">Эскалировать</button></div>
+    <div class="rr"><span class="dot"></span><div class="bd"><div class="t">Монтаж лифтов · блок 3 — 85% · −21 дн</div><div class="s">критический путь сдачи · осталось 15%, план до 16.04</div></div><button class="esc" onclick="esc(this,'Эскалировано директору · лифты')">Эскалировать</button></div>
+    <div class="rr"><span class="dot a"></span><div class="bd"><div class="t">Благоустройство · блок 3 — 0% · −19 дн</div><div class="s">брусчатка/асфальт/бордюры не начаты · план 29.03–17.04</div></div><button class="esc" onclick="esc(this,'Запрошен фронт у смежников')">Решить</button></div>
   </div>
 
   <!-- КОМАНДА НУ -->
@@ -212,7 +213,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="lbl">Полный план ГПР <span class="n">Аура · планировать наперёд</span></div>
   <details class="dt"><summary>Раскрыть план — все работы по срокам (как MS Project)</summary><iframe class="gprframe" src="gpr.html?embed=1" title="Полный план ГПР · Аура" loading="lazy"></iframe></details>
 
-  <div class="note">Пульт руководителя проекта · ЖК «Аура» (очереди 2–4, блоки 3–8). Подтверждение факта — физическая проверка, источник «достоверности». Данные условные. <a href="#" onclick="resetDemo();return false;" style="color:var(--accent-d);font-weight:700;text-decoration:none">↺ сбросить демо</a> · <a href="portfolio.html">← Портфель</a></div>
+  <div class="note">Пульт руководителя проекта · ЖК «Аура» (очереди 2–4, блоки 3–8). Подтверждение факта — физическая проверка, источник «достоверности». Красная зона — из отчёта ГПР 28.05.2026 (реальные отставания); очки и подтверждения — демо. <a href="#" onclick="resetDemo();return false;" style="color:var(--accent-d);font-weight:700;text-decoration:none">↺ сбросить демо</a> · <a href="portfolio.html">← Портфель</a></div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>

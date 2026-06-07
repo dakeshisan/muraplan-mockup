@@ -93,6 +93,18 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .dt[open]>summary::after{transform:rotate(180deg)}
 .gprframe{width:100%;height:74vh;border:0;display:block;background:var(--bg)}
 
+/* красная зона объекта */
+.risk .lead{padding:14px 18px 6px;font-size:12.5px;color:var(--mut);font-weight:600;line-height:1.5}
+.risk .lead b{color:var(--ink)}
+.risk .rr{display:flex;align-items:center;gap:12px;padding:12px 18px;border-top:1px solid var(--line2)}
+.risk .dot{width:9px;height:9px;border-radius:50%;background:var(--red);flex:none}
+.risk .dot.a{background:var(--gold)}
+.risk .bd{flex:1;min-width:0}
+.risk .t{font-weight:700;font-size:13.5px}
+.risk .s{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:2px}
+.risk .dd{flex:none;font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:20px;color:var(--red);text-align:right;line-height:1}
+.risk .dd small{display:block;font-family:'Jost',sans-serif;font-size:9px;color:var(--faint);font-weight:700;letter-spacing:.02em;margin-top:2px}
+
 .roles{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap}
 .roles a{flex:1;min-width:150px;text-align:center;text-decoration:none;font-size:13px;font-weight:700;color:var(--accent-d);background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px;box-shadow:var(--shadow)}
 .roles a:active{background:var(--bg)}
@@ -145,6 +157,15 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <div class="fc-line">При темпе <b>+6%/нед</b> блоки 3–4 (2 очередь) выйдут на 100% <b>~к концу июня</b> — плановый срок 02.05 уже прошёл. Критический путь: <b>инженерка и монтаж лифтов</b>. Очереди 3–4 — ранний этап, идут по графику.</div>
   </div>
 
+  <!-- КРАСНАЯ ЗОНА ОБЪЕКТА -->
+  <div class="lbl">Красная зона объекта <span class="n">из отчёта ГПР · 28.05</span></div>
+  <div class="card risk">
+    <div class="lead">Оба блока 2 очереди тормозят <b>одни и те же системы</b> — слаботочка, лифты и благоустройство. Узкое место сдачи общее, а не на отдельном участке.</div>
+    <div class="rr"><span class="dot"></span><div class="bd"><div class="t">Видеонаблюдение + домофоны · блоки 3, 4</div><div class="s">слаботочка тянется с ноября · 67% факт · план до 11.04 сорван</div></div><div class="dd tnum">−48<small>/ −38 дн</small></div></div>
+    <div class="rr"><span class="dot"></span><div class="bd"><div class="t">Монтаж лифтов · блоки 3, 4</div><div class="s">критический путь сдачи · 85% / 79% · план до 16.04 и 06.05</div></div><div class="dd tnum">−21<small>/ −27 дн</small></div></div>
+    <div class="rr"><span class="dot a"></span><div class="bd"><div class="t">Благоустройство · блоки 3, 4</div><div class="s">брусчатка/асфальт/бордюры не начаты · план до 17.04</div></div><div class="dd tnum">−19<small>дн</small></div></div>
+  </div>
+
   <!-- ОЧЕРЕДИ → БЛОКИ -->
   <div class="lbl">Очереди и блоки <span class="n">тап по блоку → участок</span></div>
   <div class="card" id="ques"></div>
@@ -162,7 +183,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
     <a href="nu.html">🏗 Участок НУ (блок 3) →</a>
   </div>
 
-  <div class="note">Экран объекта · средний уровень: Портфель → <b>Объект (ЖК)</b> → Участок (блок). Данные условные · ЖК «Аура» (очереди 2–4). <a href="portfolio.html">← Портфель</a></div>
+  <div class="note">Экран объекта · средний уровень: Портфель → <b>Объект (ЖК)</b> → Участок (блок). Красная зона и отставания — из отчёта ГПР 28.05.2026; прочее — демо. ЖК «Аура» (очереди 2–4). <a href="portfolio.html">← Портфель</a></div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
