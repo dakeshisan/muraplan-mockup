@@ -22,7 +22,14 @@ git fetch origin main -q
 git reset --hard origin/main -q
 python3 deploy/build_pages.py
 git add supply
-if git diff --cached --quiet; then echo "$(date '+%F %T') снимок не изменился"; exit 0; fi
+CH="$(git diff --cached --name-only)"
+if [ -z "$CH" ]; then echo "$(date '+%F %T') снимок не изменился"; exit 0; fi
+# xlsx-байты слегка дребезжат (zip deflate/время) при тех же данных — если изменился
+# ТОЛЬКО он, не коммитим (следующий reset --hard сбросит). Данные меняются → меняется
+# и JSON → тогда коммитим всё, включая свежий xlsx.
+if [ "$CH" = "supply/data/atlas_zakup.xlsx" ]; then
+  echo "$(date '+%F %T') только дребезг xlsx — пропуск"; exit 0
+fi
 git -c user.email="ops@atamura" -c user.name="ATLAS auto" commit -q -m "auto: обновление снимка Pages"
 git push origin main -q
 echo "$(date '+%F %T') опубликовано → https://dakeshisan.github.io/muraplan-mockup/supply/"
