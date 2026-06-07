@@ -131,6 +131,20 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .gpf small.lag{color:var(--red)}.gpf small.ok{color:var(--green)}
 .gleg{font-size:11px;color:var(--faint);font-weight:600;margin-top:11px;line-height:1.45}
 
+/* ===== ПРОГНОЗ СДАЧИ ===== */
+.fc{padding:16px 18px}
+.fc-verdict{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:800;border-radius:999px;padding:6px 13px;margin-bottom:13px}
+.fc-verdict.late{background:var(--red-bg);color:var(--red)}
+.fc-verdict.ok{background:var(--green-bg);color:var(--green)}
+.fc-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:13px}
+.fc-c{background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:10px 6px;text-align:center}
+.fc-l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--faint)}
+.fc-v{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:26px;color:var(--navy);line-height:1;margin-top:3px}
+.fc-v small{font-family:'Jost',sans-serif;font-size:12px;font-weight:600;color:var(--faint)}
+.fc-v.r{color:var(--red)}
+.fc-line{font-size:12.5px;color:var(--mut);font-weight:600;line-height:1.5}.fc-line b{color:var(--ink)}
+.fc-prep{margin-top:11px;background:linear-gradient(135deg,#FBF5E6,#F5EAD0);border:1px solid #E7D4A6;border-radius:13px;padding:11px 13px;font-size:12.5px;font-weight:700;color:var(--gold-d);line-height:1.5}.fc-prep b{color:var(--ink)}
+
 /* ===== ЦЕЛИ НЕДЕЛИ (quests) ===== */
 .quests .q{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line2);cursor:pointer}
 .quests .q:last-child{border-bottom:none}
@@ -350,6 +364,19 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <div class="srow2"><div class="gnm">Благоустройство<small>8 работ</small></div><div class="gtrack"><div class="gfill late" style="width:5%"></div></div><div class="gpf">5%<small class="lag">−19 дн</small></div></div>
       <div class="gleg">полоса = план (100% к сроку) · заливка = факт · красным — отставание по графику</div>
     </div>
+  </div>
+
+  <!-- ПРОГНОЗ СДАЧИ -->
+  <div class="lbl">Прогноз сдачи · блок 3 <span class="n">по текущему темпу</span></div>
+  <div class="card fc">
+    <div class="fc-verdict late">⚠ Отстаём от срока</div>
+    <div class="fc-row">
+      <div class="fc-c"><div class="fc-l">Темп</div><div class="fc-v">+6%<small> /нед</small></div></div>
+      <div class="fc-c"><div class="fc-l">Осталось</div><div class="fc-v">16%</div></div>
+      <div class="fc-c"><div class="fc-l">100% к</div><div class="fc-v r">~28.06</div></div>
+    </div>
+    <div class="fc-line">Критический путь: <b>инженерка + монтаж лифтов</b> (−48 дн) — именно он держит сдачу 2 очереди. Ускоришь его → вытащишь срок всего блока.</div>
+    <div class="fc-prep">📋 Готовить ближайшие 2 недели: <b>материал ГКЛ</b> (перегородки 10.06) и <b>фронт под лифты</b>. Чтобы выйти в срок — нужен темп <b>+8%/нед</b>.</div>
   </div>
 
   <!-- ЦЕЛИ НЕДЕЛИ -->
