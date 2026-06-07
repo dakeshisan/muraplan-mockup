@@ -6,6 +6,7 @@
 дедлайны (заказать-до) и SLA считаются вживую на дату «сегодня», данные в SQLite (DB_PATH).
 Bitrix/Telegram не требуются для работы UI — они опциональный боевой мост (от PM).
 """
+import base64
 import json
 import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -17,6 +18,10 @@ from .model import Request, now
 DB = os.environ.get("DB_PATH", "supply.sqlite3")
 HERE = os.path.dirname(__file__)
 PORT = int(os.environ.get("PORT", "8770"))
+# HTTP Basic Auth — включается, только если задан ATLAS_PASS (для онлайн-доступа
+# через туннель/VPS). Локально без пароля. Логин по умолчанию atlas.
+AUTH_USER = os.environ.get("ATLAS_USER", "atlas")
+AUTH_PASS = os.environ.get("ATLAS_PASS")
 
 import time as _time
 _RADAR = {}
@@ -180,7 +185,29 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(b)
 
+    def _auth_ok(self):
+        """HTTP Basic Auth. Если ATLAS_PASS не задан — пускаем (локальный режим)."""
+        if not AUTH_PASS:
+            return True
+        hdr = self.headers.get("Authorization", "")
+        if hdr.startswith("Basic "):
+            try:
+                u, _, p = base64.b64decode(hdr[6:]).decode("utf-8").partition(":")
+                # сравнение без раннего выхода по времени
+                import hmac
+                if hmac.compare_digest(u, AUTH_USER) and hmac.compare_digest(p, AUTH_PASS):
+                    return True
+            except Exception:
+                pass
+        self.send_response(401)
+        self.send_header("WWW-Authenticate", 'Basic realm="ATLAS Supply"')
+        self.send_header("Content-Length", "0")
+        self.end_headers()
+        return False
+
     def do_GET(self):
+        if not self._auth_ok():
+            return
         path = urlparse(self.path).path
         if path in ("/", "/index.html", "/workspace.html"):
             with open(os.path.join(HERE, "workspace.html"), "rb") as f:
@@ -239,6 +266,8 @@ class Handler(BaseHTTPRequestHandler):
         return self._send(404, {"error": "not found"})
 
     def do_POST(self):
+        if not self._auth_ok():
+            return
         path = urlparse(self.path).path
         n = int(self.headers.get("Content-Length", 0))
         body = json.loads(self.rfile.read(n) or b"{}")
