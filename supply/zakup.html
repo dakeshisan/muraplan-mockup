@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru" style="color-scheme:light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#284157">
+<title>ATLAS · Снабжение — план закупа (заказать заранее)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5EE;--card:#FBFBFB;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#9C9486;--line:#E0DDD3;
+  --accent:#007484;--accent-d:#005763;--accent-soft:#E0EEF0;--gold:#CFB372;--gold-soft:#EFE6CD;--gold-ink:#7A5E1E;
+  --navy:#284157;--green:#3E9B66;--green-bg:#E7F1E7;--amber:#C07A1E;--amber-bg:#F5E9D2;--red:#C7544A;--red-bg:#F6E4DF;--blue:#3C6E8B;--blue-bg:#E4ECF1;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Jost',-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.serif{font-family:'Cormorant',Georgia,serif}.tnum{font-variant-numeric:tabular-nums}
+.top{background:var(--navy);color:#fff;position:sticky;top:0;z-index:20}
+.top .row{max-width:1180px;margin:0 auto;padding:14px 26px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.lg{width:34px;height:34px;border-radius:9px;background:var(--gold);display:flex;align-items:center;justify-content:center}
+.nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:21px;line-height:1}
+.sb{font-size:11.5px;color:#A9BBC9;margin-top:2px}
+.top .meta{margin-left:auto;font-size:12.5px;color:#A9BBC9;text-align:right}.top .meta b{color:#fff}
+.top a.back{font-size:12px;color:#A9BBC9;text-decoration:none;border:1px solid rgba(255,255,255,.2);padding:6px 11px;border-radius:9px}
+.top a.back:hover{color:#fff;border-color:#fff}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 26px 64px}
+.obsnote{font-size:12px;color:#8a6420;background:var(--gold-soft);border:1px solid #e2d2a6;border-radius:10px;padding:9px 14px;display:inline-block;margin-bottom:18px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);margin:26px 2px 12px}
+.objtabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+.otab{font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--card);padding:9px 16px;border-radius:11px;color:var(--mut);cursor:pointer}
+.otab[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:17px 19px;border-top:3px solid var(--accent)}
+.kpi.a{border-top-color:var(--amber)}.kpi.r{border-top-color:var(--red)}.kpi.g{border-top-color:var(--green)}
+.kpi .l{font-size:12px;color:var(--mut);margin-bottom:8px}
+.kpi .v{font-family:'Cormorant',Georgia,serif;font-size:32px;font-weight:700;line-height:1}.kpi .v small{font-size:13px;color:var(--faint);font-weight:600;font-family:'Jost',sans-serif}
+.kpi .h{font-size:11.5px;color:var(--faint);margin-top:7px}
+.cov{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:14px;padding:12px 18px;margin:14px 0 0;font-size:13px}
+.grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.card h3{font-size:13px;font-weight:600;margin-bottom:14px}
+.mrow{display:grid;grid-template-columns:70px 1fr 56px;gap:10px;align-items:center;margin:9px 0}
+.mrow .lab{font-size:12px;color:var(--mut)}
+.mbar{height:15px;border-radius:999px;background:var(--line);overflow:hidden}.mbar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--gold))}
+.mrow .c{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:16px;text-align:right}
+.lrow{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px}
+.lrow:last-child{border-bottom:none}.lrow .c{font-weight:600}
+.filterbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.fchip{font-size:12px;border:1px solid var(--line);background:var(--card);padding:7px 13px;border-radius:999px;color:var(--mut);cursor:pointer}
+.fchip[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}.fchip b{font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:9px 12px;border-bottom:1px solid #ECEAE2;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.chip{font-size:10.5px;font-weight:600;border-radius:999px;padding:2px 9px;white-space:nowrap;background:#EFEBDF;color:var(--mut)}
+.slack{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:17px}
+.foot{margin-top:22px;font-size:12px;color:var(--faint);line-height:1.6}
+.btn{font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:10px;border:1px solid var(--line);color:var(--ink);background:var(--card);cursor:pointer}.btn:hover{border-color:var(--ink)}
+.err{background:var(--red-bg);border:1px solid #e2b3ac;color:#8a2f27;border-radius:12px;padding:14px 18px}
+@media(max-width:820px){.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.hidesm{display:none}}
+</style>
+<script>(function(){var orig=window.fetch.bind(window);window.fetch=function(u){var s=String(u).replace(location.origin,'');var p=s.split('?')[0],q=s.split('?')[1]||'';if(p==='/api/gpr/plan'){var o=(new URLSearchParams(q)).get('obj')||'aura';return orig('data/gpr-'+o+'.json');}if(p==='/api/bitrix/radar'){var v=(new URLSearchParams(q)).get('view')||'payment';return orig('data/radar-'+v+'.json');}var m={'/api/today':'data/today.json','/api/bitrix/gaps':'data/gaps.json','/api/bitrix/cycle':'data/cycle.json','/api/zakup/objects':'data/zakup-objects.json'};if(m[p])return orig(m[p]);return orig(u);};})();</script></head>
+<body>
+  <div class="top"><div class="row">
+    <div class="lg" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#284157" stroke-width="2" stroke-linejoin="round"><path d="M3 7.5l9-4.5 9 4.5v9l-9 4.5-9-4.5v-9z"/><path d="M3 7.5l9 4.5 9-4.5M12 12v9"/></svg></div>
+    <div><div class="nm">ATLAS · план закупа</div><div class="sb">заказать заранее · по ГПР объектов</div></div>
+    <div class="meta" id="meta">—</div>
+    <a class="back" href="today.html">сводка дня</a>
+    <a class="back" href="gaps.html">не подано?</a>
+    <a class="back" href="radar.html">оплата-радар</a>
+    <a class="back" href="index.html">рабочее пространство</a>
+  </div></div>
+
+  <div class="wrap">
+    <span class="obsnote">● <b>Прогноз</b> из ГПР объекта (PDF-отчёт, read-only). «Заказать-до = старт работы − срок поставки». Сроки поставки — <b>оценка</b>, калибруем.</span>
+    <div class="objtabs" id="objtabs"></div>
+    <div id="body"><p style="color:var(--mut)">Загрузка…</p></div>
+    <div class="foot" id="foot"></div>
+  </div>
+
+<script>
+const MN=['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+const fmonth=s=>{const[y,m]=s.split('-');return MN[(+m)-1]+' '+y.slice(2);};
+const fdate=s=>{const[y,m,d]=s.split('-');return d+'.'+m+'.'+y.slice(2);};
+const scol=v=>v<0?'var(--red)':v<=7?'var(--amber)':v<=30?'var(--gold-ink)':'var(--accent)';
+const ST={overdue:['просрочено','r'],now:['сейчас','a'],soon:['скоро',''],plan:['план','g']};
+function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+let DATA=null,curF='Все',OBJECTS=[],curObj='aura';
+function renderTable(){
+  const rows=curF==='Все'?DATA.items:DATA.items.filter(r=>r.status===curF);
+  document.getElementById('tblcount').textContent=rows.length;
+  const isAll=DATA.key==='all';
+  document.getElementById('tbody').innerHTML=rows.map(r=>`<tr>
+    ${isAll?`<td class="hidesm">${esc(r.object||'')}</td>`:''}
+    <td>${esc(r.work).slice(0,42)}</td>
+    <td class="hidesm tnum">${r.block}</td>
+    <td>${esc(r.material)}</td>
+    <td class="tnum hidesm">${fdate(r.start)}</td>
+    <td class="tnum hidesm">${r.lead}д</td>
+    <td class="tnum">${fdate(r.order_by)}</td>
+    <td><span class="slack" style="color:${scol(r.slack)}">${r.slack>=0?'+'+r.slack:r.slack}</span><span style="color:var(--faint);font-size:11px"> дн</span></td></tr>`).join('')
+    || `<tr><td colspan="${isAll?8:7}" style="color:var(--faint);padding:18px 12px">Нет позиций.</td></tr>`;
+}
+function setF(f){curF=f;document.querySelectorAll('.fchip').forEach(c=>c.setAttribute('aria-pressed',String(c.dataset.f===f)));renderTable();}
+async function loadPlan(o){
+  let d;
+  try{ d=await(await fetch(o.plan)).json(); }
+  catch(e){ document.getElementById('body').innerHTML='<div class="err">Не удалось загрузить: '+esc(e)+'</div>'; return; }
+  if(d.error){ document.getElementById('body').innerHTML='<div class="err">Ошибка: '+esc(d.error)+'</div>'; return; }
+  DATA=d;curF='Все';
+  document.getElementById('meta').innerHTML=esc(d.object)+' · сегодня <b>'+d.today+'</b> · горизонт '+d.horizon_days+' дн';
+  // Bitrix-сшивка только для Ауры (радар читает воронку #178/4)
+  let cov='';
+  if(d.key==='aura'){ try{const rd=await(await fetch('/api/bitrix/radar')).json();const a=(rd.objects||[]).find(x=>x.name==='Аура');
+    if(a)cov=`<div class="cov">↔ <b>Сшивка с Bitrix:</b> по Ауре в воронке «СЗ на закуп» сейчас <b>${a.count}</b> заявок на оплате (<a href="radar.html" style="color:var(--accent);text-decoration:none">оплата-радар →</a>). Здесь — что нужно заказать под будущие работы.</div>`;}catch(e){} }
+  const ov=d.by_status.overdue||0, nw=d.by_status.now||0, so=d.by_status.soon||0;
+  const kpis=`<div class="kpis">
+    <div class="kpi"><div class="l">Позиций к заказу</div><div class="v tnum">${d.total}</div><div class="h">в горизонте ${d.horizon_days} дн</div></div>
+    <div class="kpi a"><div class="l">Ближайший дедлайн</div><div class="v tnum" style="font-size:25px">${d.earliest?fdate(d.earliest):'—'}</div><div class="h">самый ранний «заказать-до»</div></div>
+    <div class="kpi r"><div class="l">Просрочено</div><div class="v tnum">${ov}</div><div class="h">не начато, срок заказа прошёл</div></div>
+    <div class="kpi ${nw?'a':'g'}"><div class="l">Заказать ≤ 30 дн</div><div class="v tnum">${nw+so}</div><div class="h">сейчас + скоро</div></div>
+  </div>`;
+  const maxM=Math.max(1,...d.by_order_month.map(m=>m.count));
+  const tl=`<div class="card"><h3>Когда заказывать (по месяцу крайнего срока)</h3>${d.by_order_month.map(m=>`<div class="mrow"><div class="lab">${fmonth(m.month)}</div><div class="mbar"><i style="width:${Math.round(m.count/maxM*100)}%"></i></div><div class="c">${m.count}</div></div>`).join('')||'<div style="color:var(--faint)">нет данных</div>'}</div>`;
+  const isAll=d.key==='all';
+  const byblock={}; d.items.forEach(i=>byblock[i.block]=(byblock[i.block]||0)+1);
+  const bb=Object.entries(byblock).sort((a,b)=>a[0]-b[0]);
+  const side=isAll
+    ? (d.by_object||[]).map(o=>`<div class="lrow"><span>${esc(o.object)}</span><span class="c tnum">${o.total}${o.overdue?' <span style="color:var(--red);font-weight:400">· '+o.overdue+' просроч.</span>':''}</span></div>`).join('')
+    : bb.map(([b,c])=>`<div class="lrow"><span>Пятно ${b}</span><span class="c tnum">${c}</span></div>`).join('');
+  const stat=`<div class="card"><h3>По статусу</h3>${Object.entries(d.by_status).map(([k,c])=>`<div class="lrow"><span>${ST[k]?ST[k][0]:k}</span><span class="c tnum">${c}</span></div>`).join('')}<h3 style="margin-top:16px">${isAll?'По объектам':'По пятнам'}</h3>${side}</div>`;
+  const chips=`<div class="filterbar"><button class="fchip" data-f="Все" aria-pressed="true" onclick="setF('Все')">Все ${d.total}</button>${['overdue','now','soon','plan'].map(k=>(d.by_status[k]?`<button class="fchip" data-f="${k}" aria-pressed="false" onclick="setF(this.dataset.f)">${ST[k][0]} <b>${d.by_status[k]}</b></button>`:'')).join('')}</div>`;
+  const table=`<div class="card" style="padding:0"><table><thead><tr>${isAll?'<th class="hidesm">Объект</th>':''}<th>Работа</th><th class="hidesm">Пятно</th><th>Материалы</th><th class="hidesm">Старт</th><th class="hidesm">Поставка</th><th>Заказать-до</th><th>Запас</th></tr></thead><tbody id="tbody"></tbody></table></div>`;
+  document.getElementById('body').innerHTML=kpis+cov
+    +'<div class="eyebrow">Когда заказывать · статусы · блоки</div><div class="grid2">'+tl+stat+'</div>'
+    +'<div class="eyebrow">Что заказывать заранее · <span id="tblcount" style="color:var(--gold-ink)"></span> позиций (ближайшие сроки вверху)</div>'
+    +chips+table;
+  renderTable();
+  document.getElementById('foot').innerHTML='Источник: ГПР-отчёт объекта (PDF) · только чтение · «старт работы» из ГПР, материалы и сроки поставки — оценка по типу работы (калибруем) · «просрочено» = работа не начата, а срок заказа уже прошёл. <button class="btn" onclick="selectObj(curObj)">Обновить</button>';
+}
+function renderTabs(){
+  document.getElementById('objtabs').innerHTML=OBJECTS.map(o=>`<button class="otab" data-k="${esc(o.key)}" aria-pressed="${o.key===curObj}" onclick="selectObj(this.dataset.k)">${esc(o.name)}</button>`).join('');
+}
+function selectObj(k){
+  curObj=k; document.querySelectorAll('.otab').forEach(t=>t.setAttribute('aria-pressed',String(t.dataset.k===k)));
+  const o=OBJECTS.find(x=>x.key===k)||OBJECTS[0]; if(!o)return;
+  document.getElementById('body').innerHTML='<p style="color:var(--mut)">Загрузка…</p>';
+  loadPlan(o);
+}
+async function boot(){
+  try{ OBJECTS=await(await fetch('/api/zakup/objects')).json(); }
+  catch(e){ OBJECTS=[{key:'aura',name:'Аура',plan:'/api/gpr/plan?obj=aura'}]; }
+  renderTabs(); selectObj(OBJECTS[0]?OBJECTS[0].key:'aura');
+}
+boot();
+</script>
+</body>
+</html>

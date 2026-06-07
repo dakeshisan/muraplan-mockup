@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru" style="color-scheme:light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#284157">
+<title>ATLAS · Снабжение — цикл закупа</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5EE;--card:#FBFBFB;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#9C9486;--line:#E0DDD3;
+  --accent:#007484;--accent-d:#005763;--gold:#CFB372;--gold-soft:#EFE6CD;--gold-ink:#7A5E1E;
+  --navy:#284157;--green:#3E9B66;--amber:#C07A1E;--red:#C7544A;--blue:#3C6E8B;--red-bg:#F6E4DF;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Jost',-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.tnum{font-variant-numeric:tabular-nums}
+.top{background:var(--navy);color:#fff;position:sticky;top:0;z-index:20}
+.top .row{max-width:1100px;margin:0 auto;padding:14px 26px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.lg{width:34px;height:34px;border-radius:9px;background:var(--gold);display:flex;align-items:center;justify-content:center}
+.nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:21px;line-height:1}
+.sb{font-size:11.5px;color:#A9BBC9;margin-top:2px}
+.top .meta{margin-left:auto;font-size:12.5px;color:#A9BBC9;text-align:right}.top .meta b{color:#fff}
+.top a.back{font-size:12px;color:#A9BBC9;text-decoration:none;border:1px solid rgba(255,255,255,.2);padding:6px 11px;border-radius:9px}
+.top a.back:hover{color:#fff;border-color:#fff}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 26px 64px}
+.obsnote{font-size:12px;color:#8a6420;background:var(--gold-soft);border:1px solid #e2d2a6;border-radius:10px;padding:9px 14px;display:inline-block;margin-bottom:18px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-ink);margin:26px 2px 14px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:17px 19px;border-top:3px solid var(--accent)}
+.kpi.r{border-top-color:var(--red)}.kpi.a{border-top-color:var(--amber)}
+.kpi .l{font-size:12px;color:var(--mut);margin-bottom:8px}
+.kpi .v{font-family:'Cormorant',Georgia,serif;font-size:30px;font-weight:700;line-height:1.05}.kpi .v small{font-size:13px;color:var(--faint);font-weight:600;font-family:'Jost',sans-serif}
+.kpi .h{font-size:11.5px;color:var(--faint);margin-top:7px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 8px}
+.srow{display:grid;grid-template-columns:240px 56px 1fr 150px;gap:14px;align-items:center;padding:11px 14px;border-radius:12px}
+.srow+.srow{border-top:1px solid var(--line)}
+.srow.hot{background:var(--red-bg)}
+.sname{font-size:13.5px;font-weight:600}
+.scount{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:20px;text-align:right}
+.sbar{height:18px;border-radius:999px;background:var(--line);overflow:hidden;position:relative}
+.sbar i{display:block;height:100%;border-radius:999px}
+.smeta{font-size:12px;color:var(--mut);text-align:right;white-space:nowrap}.smeta b{font-family:'Cormorant',Georgia,serif;font-size:16px;color:var(--ink);font-weight:700}
+.foot{margin-top:22px;font-size:12px;color:var(--faint);line-height:1.6}
+.btn{font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:10px;border:1px solid var(--line);color:var(--ink);background:var(--card);cursor:pointer}.btn:hover{border-color:var(--ink)}
+.err{background:var(--red-bg);border:1px solid #e2b3ac;color:#8a2f27;border-radius:12px;padding:14px 18px}
+@media(max-width:760px){.kpis{grid-template-columns:1fr}.srow{grid-template-columns:1fr 44px;gap:8px}.sbar,.smeta{display:none}}
+</style>
+<script>(function(){var orig=window.fetch.bind(window);window.fetch=function(u){var s=String(u).replace(location.origin,'');var p=s.split('?')[0],q=s.split('?')[1]||'';if(p==='/api/gpr/plan'){var o=(new URLSearchParams(q)).get('obj')||'aura';return orig('data/gpr-'+o+'.json');}if(p==='/api/bitrix/radar'){var v=(new URLSearchParams(q)).get('view')||'payment';return orig('data/radar-'+v+'.json');}var m={'/api/today':'data/today.json','/api/bitrix/gaps':'data/gaps.json','/api/bitrix/cycle':'data/cycle.json','/api/zakup/objects':'data/zakup-objects.json'};if(m[p])return orig(m[p]);return orig(u);};})();</script></head>
+<body>
+  <div class="top"><div class="row">
+    <div class="lg" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#284157" stroke-width="2" stroke-linejoin="round"><path d="M3 7.5l9-4.5 9 4.5v9l-9 4.5-9-4.5v-9z"/><path d="M3 7.5l9 4.5 9-4.5M12 12v9"/></svg></div>
+    <div><div class="nm">ATLAS · цикл закупа</div><div class="sb">где в воронке теряются дни</div></div>
+    <div class="meta" id="meta">—</div>
+    <a class="back" href="today.html">сводка дня</a>
+    <a class="back" href="radar.html">оплата-радар</a>
+    <a class="back" href="zakup.html">план закупа</a>
+    <a class="back" href="gaps.html">не подано?</a>
+  </div></div>
+
+  <div class="wrap">
+    <span class="obsnote">● <b>Read-only</b> · срез текущих активных заявок: сколько висит и медиана дней в каждой стадии. Где копится и стареет — там узкое место.</span>
+    <div id="body"><p style="color:var(--mut)">Загружаю цикл из Bitrix… <span style="color:var(--faint)">(первый раз до ~15&nbsp;c)</span></p></div>
+    <div class="foot" id="foot"></div>
+  </div>
+
+<script>
+const dcol=v=>v>=30?'var(--red)':v>=15?'var(--amber)':v>=8?'var(--gold)':v>=4?'var(--accent)':'var(--green)';
+function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+async function load(){
+  let d;
+  try{ d=await(await fetch('/api/bitrix/cycle')).json(); }
+  catch(e){ document.getElementById('body').innerHTML='<div class="err">Не удалось загрузить: '+esc(e)+'</div>'; return; }
+  if(d.error){ document.getElementById('body').innerHTML='<div class="err">Bitrix: '+esc(d.error)+'</div>'; return; }
+  document.getElementById('meta').innerHTML=(d.portal?d.portal.replace(/^https?:\/\//,''):'')+' · срез на <b>'+d.today+'</b>';
+  const st=d.stages||[];
+  const maxDwell=Math.max(1,...st.map(s=>s.median_dwell));
+  const hot=st.slice().sort((a,b)=>b.median_dwell-a.median_dwell)[0]||{};
+  const busy=st.slice().sort((a,b)=>b.count-a.count)[0]||{};
+  const kpis=`<div class="kpis">
+    <div class="kpi"><div class="l">Активных заявок в воронке</div><div class="v tnum">${d.total_active}</div><div class="h">не закрыто · #178/4</div></div>
+    <div class="kpi r"><div class="l">Узкое место (медиана дней)</div><div class="v">${esc(hot.stage||'—')} <small>· ${hot.median_dwell||0} дн</small></div><div class="h">дольше всего стоят</div></div>
+    <div class="kpi a"><div class="l">Самая людная стадия</div><div class="v">${esc(busy.stage||'—')} <small>· ${busy.count||0}</small></div><div class="h">больше всего заявок</div></div>
+  </div>`;
+  const funnel=`<div class="eyebrow">Воронка закупа · сколько висит и медиана дней в каждой стадии</div>
+    <div class="card">${st.map(s=>`<div class="srow${s.median_dwell>=30?' hot':''}">
+      <div class="sname">${esc(s.stage)}</div>
+      <div class="scount tnum">${s.count}</div>
+      <div class="sbar"><i style="width:${Math.round(s.median_dwell/maxDwell*100)}%;background:${dcol(s.median_dwell)}"></i></div>
+      <div class="smeta"><b style="color:${dcol(s.median_dwell)}">${s.median_dwell}</b> дн медиана · до ${s.max_dwell} · возраст ${s.median_age}</div>
+    </div>`).join('')}</div>`;
+  document.getElementById('body').innerHTML=kpis+funnel;
+  document.getElementById('foot').innerHTML='Источник: Bitrix воронка «СЗ на закуп для стройки» (#178/4) · только чтение · «медиана дней» = сколько заявки текущей стадии в ней висят · «возраст» = медианные дни с создания. Это cross-section текущих заявок (не полный исторический цикл — для него нужна история стадий). <button class="btn" onclick="load()">Обновить</button>';
+}
+load();
+</script>
+</body>
+</html>
