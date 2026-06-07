@@ -140,6 +140,7 @@ input.ed.chg{border-color:var(--amber);background:#fffaf0}
 .gbar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
 .gbar .pct{position:absolute;right:5px;top:0;bottom:0;display:flex;align-items:center;font-size:9.5px;font-weight:800;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35)}
 .gsec{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:13px;color:var(--navy);padding:8px 14px 2px;background:var(--card)}
+.dchain{color:var(--gold-d);margin-right:4px;font-size:10px}
 .gtoday{position:absolute;top:0;bottom:0;width:2px;background:var(--gold-d);z-index:2}
 .gtoday::after{content:'сегодня';position:absolute;top:-20px;left:4px;font-size:9px;font-weight:800;color:var(--gold-d);white-space:nowrap}
 .empty{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:26px 20px;text-align:center;color:var(--mut);font-size:13px;font-weight:600;line-height:1.6}
@@ -273,7 +274,7 @@ function renderSum(){
   const dev=cur-bas, devp=bas?dev/bas*100:0;
   const byK=k=>items.filter(i=>i.type===k).reduce((a,i)=>a+itemSum(i),0);
   const mat=byK('МАТ'),rab=byK('РАБ'),trud=byK('ТРУД'),teh=byK('ТЕХ');
-  const nMat=items.filter(i=>i.type==='МАТ').length, nReq=items.filter(i=>i.type==='МАТ'&&i.forWork&&findWork(i.forWork)).length;
+  const nMat=items.filter(i=>i.type==='МАТ').length, nReq=items.filter(i=>i.type==='МАТ'&&(i.start||(i.forWork&&findWork(i.forWork)&&findWork(i.forWork).start))).length;
   const devcls=Math.abs(dev)<1?'ze':(dev>0?'up':'dn');
   document.getElementById('sum').innerHTML=`
     <div class="sumrow">
@@ -291,7 +292,7 @@ function renderSum(){
     </div>
     <div class="cnts"><span><b>${items.length}</b> позиций</span><span><b>${SMETA.sections.length}</b> разделов</span><span>🛒 <b>${nReq}</b> заявок${nMat>nReq?` · ${nMat-nReq} мат. без даты`:''}</span></div>`;
   document.getElementById('tc-smeta').textContent=SMETA.sections.length+' разд.';
-  document.getElementById('tc-gantt').textContent=items.filter(i=>i.type==='РАБ'&&i.start).length+' работ';
+  document.getElementById('tc-gantt').textContent=(SMETA.schedule&&SMETA.schedule.length)?(SMETA.schedule.length+' фаз'):(items.filter(i=>i.type==='РАБ'&&i.start).length+' работ');
   document.getElementById('tc-req').textContent=nReq+' поз.';
   document.getElementById('src').textContent=SMETA.source||'импорт';
   document.getElementById('cr-obj').textContent=(SMETA.object||'смета');
@@ -326,12 +327,25 @@ function renderSmeta(){
 }
 function esc(s){return String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
 function secLabel(name,si){return (/^\s*\d/.test(name)?'':(si+1)+'. ')+esc(name);} // don't double-number if name already starts with a digit
+function leadGuess(it){const n=(it.name||'').toLowerCase(); // срок поставки (дн) по типу материала
+  if(/бетон|раствор|цемент|песок|щебен|грунт/.test(n))return 3;
+  if(/арматур|металл|балк|швеллер|уголок|сетк|закладн/.test(n))return 14;
+  if(/окн|витраж|двер|лифт|фасад|керамогранит/.test(n))return 30;
+  if(/кабел|провод|светильник|щит|слаботоч|труб|радиатор|насос/.test(n))return 12;
+  if(/газоблок|кирпич|плит|утеплител|гидроизол/.test(n))return 10;
+  return 7;}
 
-// ── ГАНТТ ──
+// ── ГАНТТ (реальный график .mpp/ГПР, либо работы сметы с датами) ──
 function renderGantt(){
-  const works=SMETA.sections.flatMap((s,si)=>s.items.map(i=>({i,si,s})).filter(x=>x.i.type==='РАБ'&&x.i.start&&x.i.days));
-  if(!works.length){document.getElementById('p-gantt').innerHTML=`<div class="empty">В смете нет работ с датами.<br>Гантт строится из работ (тип «РАБ») с датами начала и длительностью — добавьте даты или импортируйте график ГПР.</div>`;return;}
-  const starts=works.map(x=>D(x.i.start)), ends=works.map(x=>addDays(x.i.start,x.i.days));
+  let bars=[], real=false;
+  if(SMETA.schedule&&SMETA.schedule.length){
+    real=true;
+    bars=SMETA.schedule.map(p=>({name:p.name,group:'Блок '+p.block,start:p.start,end:p.finish,fact:+p.fact||0,dep:p.dep}));
+  }else{
+    SMETA.sections.forEach((s,si)=>s.items.forEach(it=>{if(it.type==='РАБ'&&it.start&&it.days)bars.push({name:it.name,group:secLabel(s.name,si),start:it.start,end:iso(addDays(it.start,it.days)),fact:+it.fact||0});}));
+  }
+  if(!bars.length){document.getElementById('p-gantt').innerHTML=`<div class="empty">Нет работ с датами.<br>Гантт строится из реального графика (.mpp/ГПР) или из работ сметы с датами.</div>`;return;}
+  const starts=bars.map(b=>D(b.start)), ends=bars.map(b=>D(b.end));
   let min=new Date(Math.min(...starts)), max=new Date(Math.max(...ends));
   min=new Date(min.getFullYear(),min.getMonth(),1); max=new Date(max.getFullYear(),max.getMonth()+1,1);
   const span=(max-min)/864e5, pos=x=>((x-min)/864e5)/span*100;
@@ -339,18 +353,19 @@ function renderGantt(){
   let months='',cur=new Date(min);
   while(cur<max){const nx=new Date(cur.getFullYear(),cur.getMonth()+1,1);const wd=(Math.min(nx,max)-cur)/864e5/span*100;
     months+=`<div class="gm" style="width:${wd}%">${MN[cur.getMonth()]} ${String(cur.getFullYear()).slice(2)}</div>`;cur=nx;}
-  let rows='',lastSec=-1;
-  works.forEach(x=>{
-    if(x.si!==lastSec){rows+=`<div class="gsec">${secLabel(x.s.name,x.si)}</div>`;lastSec=x.si;}
-    const l=pos(D(x.i.start)), wdt=pos(addDays(x.i.start,x.i.days))-l, f=+x.i.fact||0;
-    rows+=`<div class="grow"><div class="glabel">${esc(x.i.name)}</div><div class="gtrack">
-      <div class="gbar" style="left:${l}%;width:${wdt}%"><i style="width:${f}%"></i><span class="pct">${f}%</span></div></div></div>`;
+  let rows='',lastG=null;
+  bars.forEach(b=>{
+    if(b.group!==lastG){rows+=`<div class="gsec">${esc(b.group)}</div>`;lastG=b.group;}
+    const l=pos(D(b.start)), wdt=Math.max(pos(D(b.end))-l,0.6), f=b.fact;
+    const late=f>0&&diffDays(b.start,TODAY)>0&&f<Math.min(100,Math.max(0,diffDays(b.start,TODAY)/Math.max(1,diffDays(b.start,b.end))*100))-10;
+    rows+=`<div class="grow"><div class="glabel" title="${esc(b.name)}${b.dep?' ← после: '+esc(b.dep.split(':').pop()):''}">${b.dep?'<span class="dchain">⛓</span>':''}${esc(b.name)}</div><div class="gtrack">
+      <div class="gbar ${late?'late':''}" style="left:${l}%;width:${wdt}%"><i style="width:${f}%"></i><span class="pct">${f}%</span></div></div></div>`;
   });
   const tdy=Math.max(0,Math.min(100,pos(D(TODAY))));
   document.getElementById('p-gantt').innerHTML=`
-    <div class="ghint">График построен из дат работ сметы. Заливка = факт.
+    <div class="ghint">${real?'Реальный график из MS Project (.mpp): даты, факт и последовательность фаз.':'График из дат работ сметы.'} Заливка = факт.
       <span class="gleg"><i style="background:linear-gradient(90deg,var(--accent),var(--accent-d))"></i>факт</span>
-      <span class="gleg"><i style="background:#d5dee6"></i>план</span></div>
+      <span class="gleg"><i style="background:#d5dee6"></i>план</span>${real?'<span class="gleg">⛓ связь (после пред. фазы)</span>':''}</div>
     <div class="gwrap"><div class="grid"><div class="gmonths"><div class="gsp"></div><div class="gmt">${months}</div></div>
       <div style="position:relative;padding-top:20px">${rows}<div class="gtoday" style="left:calc(200px + (100% - 200px) * ${tdy/100})"></div></div>
     </div></div>`;
@@ -361,22 +376,31 @@ function renderReq(){
   const out=[];
   SMETA.sections.forEach((s,si)=>s.items.forEach(it=>{
     if(it.type!=='МАТ')return;
-    const w=it.forWork?findWork(it.forWork):null;
-    if(!w||!w.start){out.push({nodate:true,name:it.name,qty:it.qty,unit:it.unit,sum:itemSum(it),sec:s.name,work:it.forWork||'—'});return;}
-    const need=w.start, lead=+it.lead||7, orderBy=iso(addDays(w.start,-lead));
+    let need=it.start, fact=0, work=it.forWork||it.phase;
+    if(need){ // дата из реального графика (.mpp)
+      const ph=(SMETA.schedule||[]).find(p=>p.block===it.block&&p.name===it.phase); fact=ph?ph.fact:0;
+    }else{
+      const w=it.forWork?findWork(it.forWork):null;
+      if(!w||!w.start){out.push({nodate:true,name:it.name,qty:it.qty,unit:it.unit,sum:itemSum(it),sec:s.name,work:it.forWork||'—'});return;}
+      need=w.start; fact=+w.fact||0;
+    }
+    const lead=+it.lead||leadGuess(it), orderBy=iso(addDays(need,-lead));
     const dNeed=diffDays(TODAY,need), dOrder=diffDays(TODAY,orderBy);
     let cls,st;
-    if(dNeed<0){if((+w.fact||0)>0){cls='ok';st='✓ на объекте';}else{cls='red';st='🔴 срыв: материал нужен, заказа нет';}}
+    if(dNeed<0){cls='ok';st='✓ на объекте (прошл. потребность)';}
     else if(dOrder<=0){cls='red';st=`🔴 заказ просрочен (−${-dOrder} дн)`;}
     else if(dOrder<=10){cls='amber';st=`⏳ заказать за ${dOrder} дн (до ${ddmm(orderBy)})`;}
     else{cls='mut';st=`заказать до ${ddmm(orderBy)}`;}
-    out.push({name:it.name,qty:it.qty,unit:it.unit,sum:itemSum(it),sec:s.name,work:it.forWork,need,lead,orderBy,cls,st});
+    out.push({name:it.name,qty:it.qty,unit:it.unit,sum:itemSum(it),sec:s.name,work,need,lead,orderBy,cls,st});
   }));
   const dated=out.filter(r=>!r.nodate).sort((a,b)=>D(a.orderBy)-D(b.orderBy));
   const nodate=out.filter(r=>r.nodate);
   if(!out.length){document.getElementById('p-req').innerHTML=`<div class="empty">В смете нет материалов.<br>Заявки генерируются из позиций типа «МАТ», привязанных к работе. Импортируйте смету с материалами или укажите тип «МАТ».</div>`;return;}
-  let h=`<div class="rqbar">«Потребуется» = старт привязанной работы. «Заказать до» = старт − срок поставки. Сумма берётся из <b>текущей</b> цены сметы.</div>`;
-  dated.forEach(r=>{h+=reqCard(r);});
+  const urgent=dated.filter(r=>r.cls==='red'||r.cls==='amber').length;
+  let h=`<div class="rqbar">«Потребуется» = старт работы по графику. «Заказать до» = старт − срок поставки. ${urgent?`<b style="color:var(--red)">🔴 ${urgent} к заказу</b> · `:''}${dated.length} материалов с датой.</div>`;
+  const showN=40;
+  dated.slice(0,showN).forEach(r=>{h+=reqCard(r);});
+  if(dated.length>showN)h+=`<div class="note">…и ещё ${dated.length-showN} позиций (сортировка по дате заказа; для активного блока сверху были бы срочные)</div>`;
   if(nodate.length){
     h+=`<div class="rqbar" style="margin-top:14px">⚠ ${nodate.length} материалов без даты работы — срок заказа не построить (нужны даты из ГПР). Топ по сумме:</div>`;
     nodate.sort((a,b)=>b.sum-a.sum).slice(0,20).forEach(r=>{h+=reqCard(r);});
