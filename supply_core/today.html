@@ -34,6 +34,8 @@ a.kpi:hover{border-color:var(--ink)}
 .kpi .s{font-size:11px;color:var(--faint);margin-top:3px}
 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.04em;margin:26px 2px 12px;display:flex;align-items:center;gap:10px}
 .eyebrow .pill{font-size:11px;font-weight:600;border-radius:999px;padding:3px 10px;background:var(--gold-soft);color:var(--gold-ink)}
+.eyebrow .dl{margin-left:auto;font-size:12px;font-weight:600;color:var(--accent);text-decoration:none;border:1px solid var(--line);padding:5px 11px;border-radius:9px}
+.eyebrow .dl:hover{border-color:var(--accent)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
 .orow{display:grid;grid-template-columns:1fr 140px 150px;gap:12px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line)}
 .orow:last-child{border-bottom:none}.orow.overdue{background:var(--red-bg)}
@@ -96,7 +98,7 @@ async function load(){
 
   // Заказать на этой неделе
   const on=d.order_now||[];
-  html+=`<div class="eyebrow">⏰ Заказать на этой неделе <span class="pill">${on.length?pl(on.length,'позиция','позиции','позиций'):'чисто'}</span></div>`;
+  html+=`<div class="eyebrow">⏰ Заказать на этой неделе <span class="pill">${on.length?pl(on.length,'позиция','позиции','позиций'):'чисто'}</span><a class="dl" href="/export/buylist.xlsx">скачать весь план .xlsx ↓</a></div>`;
   if(!on.length){
     html+='<div class="card"><div class="empty">Нет просроченных и срочных позиций — заказы под старты работ закрыты. 👍</div></div>';
   }else{

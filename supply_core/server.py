@@ -213,6 +213,18 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(200, f.read(), "text/html")
         if path == "/api/today":
             return self._send(200, _today_payload())
+        if path.startswith("/export/buylist."):
+            from . import export as _exp
+            data = _gpr_cached("all")
+            rows = _exp.buylist_rows(data)
+            body, ctype, fn = (_exp.to_csv(rows, data.get("today")) if path.endswith(".csv")
+                               else _exp.to_xlsx(rows, data.get("today")))
+            self.send_response(200)
+            self.send_header("Content-Type", ctype)
+            self.send_header("Content-Disposition", f'attachment; filename="{fn}"')
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            return self.wfile.write(body)
         if path == "/zakup":
             with open(os.path.join(HERE, "zakup.html"), "rb") as f:
                 return self._send(200, f.read(), "text/html")
