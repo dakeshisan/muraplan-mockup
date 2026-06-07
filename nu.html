@@ -179,6 +179,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .chip.stk{flex-basis:100%;border-color:#e9c3bb;color:var(--red)}
 @keyframes pop{0%{transform:scale(1)}35%{transform:scale(1.05)}100%{transform:scale(1)}}
 .kc.cele{animation:pop .42s ease;border-color:var(--gold)!important;box-shadow:0 0 0 3px #F5EAD0}
+.cf{position:fixed;width:8px;height:8px;border-radius:2px;pointer-events:none;z-index:70;will-change:transform,opacity;animation:cf .72s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes cf{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(240deg) scale(.5);opacity:0}}
+.bump{animation:bump .42s cubic-bezier(.2,.8,.3,1)}
+@keyframes bump{0%{transform:scale(1)}45%{transform:scale(1.28)}100%{transform:scale(1)}}
 
 /* что впереди */
 .ahead .arow{display:flex;gap:13px;padding:13px 18px;border-bottom:1px solid var(--line2)}
@@ -546,10 +550,38 @@ const $=id=>document.getElementById(id);
 const xpTotal=()=>XP.reduce((a,x)=>a+x.v,0);
 let toastT;
 function toast(msg){const el=$('toast');el.innerHTML=msg;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2200);}
-function addXP(k,n,msg){const x=XP.find(p=>p.k===k);if(x)x.v=Math.max(0,x.v+n);GAME.weekXP=xpTotal();renderHero();renderXPB();if(msg)toast(msg);save();}
+function addXP(k,n,msg){const x=XP.find(p=>p.k===k);if(x)x.v=Math.max(0,x.v+n);GAME.weekXP=xpTotal();animXP();renderXPB();if(msg)toast(msg);save();}
 
 /* ===== render: профиль ===== */
 function renderHero(){$('hxp').textContent=GAME.weekXP;}
+/* анимация набора очков: счётчик добегает до нового значения + пульс */
+function animXP(){
+  const el=$('hxp'); if(!el){return;}
+  const from=parseInt(el.textContent,10)||0, to=GAME.weekXP;
+  el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
+  if(from===to){return;}
+  const t0=performance.now(), dur=560;
+  (function step(now){
+    const p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(from+(to-from)*e);
+    if(p<1)requestAnimationFrame(step); else el.textContent=to;
+  })(t0);
+}
+/* конфетти-вспышка у карточки (бренд-цвета) */
+function confetti(el){
+  if(!el)return;
+  const r=el.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+14;
+  const cols=['#CFB372','#007484','#2E8F5B','#A88E48','#284157'];
+  for(let i=0;i<16;i++){
+    const s=document.createElement('span'); s.className='cf';
+    const dist=42+Math.random()*64, ang=(Math.random()*2-1)*1.15;
+    s.style.left=cx+'px'; s.style.top=cy+'px'; s.style.background=cols[i%cols.length];
+    s.style.setProperty('--dx',(Math.sin(ang)*dist).toFixed(0)+'px');
+    s.style.setProperty('--dy',(-Math.abs(Math.cos(ang))*dist-22).toFixed(0)+'px');
+    s.style.animationDelay=(Math.random()*50).toFixed(0)+'ms';
+    document.body.appendChild(s); setTimeout(()=>s.remove(),820);
+  }
+}
 
 /* ===== render: очки-разбор ===== */
 function renderXPB(){
@@ -582,11 +614,11 @@ function checkClose(){const q=QUESTS.find(x=>x.auto==='close2');if(q&&!q.done&&c
 function chips(idx,cur){
   let opts=[];for(let v=Math.ceil((cur+1)/5)*5; v<100 && opts.length<3; v+=5) opts.push(v);
   return opts.map(v=>`<button class="chip" onclick="mark(event,${idx},${v})">${v}%</button>`).join('')
-    +`<button class="chip ok" onclick="mark(event,${idx},100)">✓ Готово 100%</button>`
+    +`<button class="chip ok" onclick="mark(event,${idx},100)">📷 Готово + фото</button>`
     +`<button class="chip stk" onclick="mark(event,${idx},-1)">⚠ Стоит · причина</button>`;
 }
 function card(w,idx){
-  const tag = w.saved?`<span class="ktag done">отмечено ✓</span>`:(w.tag?`<span class="ktag late">${w.tag}</span>`:(w.col==='done'?`<span class="ktag done">✓</span>`:''));
+  const tag = w.tag?`<span class="ktag late">${w.tag}</span>`:(w.col==='done'?`<span class="ktag done">📷 фото ✓</span>`:(w.saved?`<span class="ktag done">отмечено ✓</span>`:''));
   const mk = openIdx===idx?`<div class="kmark">${chips(idx,w.cur)}</div>`:'';
   return `<div class="kc ${w.col}${w.late?' late':''}" data-idx="${idx}" onclick="openCard(${idx})">
     <div class="kt">${w.name}</div><div class="km">${w.sec}</div>
@@ -599,7 +631,7 @@ function renderKan(){
   }).join('');
 }
 function openCard(idx){openIdx=(openIdx===idx?null:idx);renderKan();}
-function celebrate(idx){const el=document.querySelector('.kc[data-idx="'+idx+'"]');if(el){el.classList.add('cele');setTimeout(()=>el.classList.remove('cele'),440);}}
+function celebrate(idx){const el=document.querySelector('.kc[data-idx="'+idx+'"]');if(el){el.classList.add('cele');confetti(el);setTimeout(()=>el.classList.remove('cele'),440);}}
 function mark(e,idx,v){
   e.stopPropagation();
   const w=WORKS[idx];
@@ -608,7 +640,7 @@ function mark(e,idx,v){
   w.cur=v;w.saved=true;w.tag=null;w.late=0;
   w.col = v>=100?'done':'prog';
   openIdx=null;renderKan();
-  if(v>=100 && !wasDone){closed++;addXP('time',25,'✓ Готово · факт у РП · <b>+25 XP</b>');celebrate(idx);checkClose();}
+  if(v>=100 && !wasDone){closed++;addXP('time',25,'✓ Готово · 📷 фото у РП · <b>+25 XP</b>');celebrate(idx);checkClose();}
   else{addXP('time',10,'Факт отправлен РП · <b>+10 XP</b>');}
 }
 
