@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#284157">
+<meta name="robots" content="noindex,nofollow">
+<title>ATLAS · ГПР-движок</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5EE;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;--line:#E6E2D7;--line2:#EFEDE5;
+  --accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--navy:#284157;--navy-d:#1d3142;
+  --gold:#CFB372;--gold-d:#A88E48;--green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-bg:#F7E7E2;
+  --shadow:0 14px 34px -20px rgba(40,65,87,.55);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{color-scheme:light}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;font-feature-settings:"ss03","cv11"}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+.tnum{font-variant-numeric:tabular-nums}
+.wrap{max-width:680px;margin:0 auto;padding:0 14px 48px}
+.top{position:sticky;top:0;z-index:10;background:linear-gradient(120deg,var(--navy),var(--navy-d));color:#fff;margin:0 -14px 14px;padding:13px 18px;display:flex;align-items:center;gap:12px}
+.top .lg{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;font-family:'Cormorant',Georgia,serif}
+.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;line-height:1}
+.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px}
+.principle{background:var(--accent-soft);border:1px solid #cfe6e4;border-radius:13px;padding:11px 14px;font-size:12px;color:var(--accent-d);font-weight:600;line-height:1.5;margin-bottom:14px}
+.principle b{color:var(--navy)}
+
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow)}
+.lbl{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:20px 4px 10px}
+
+/* портфель-сводка */
+.psum{padding:16px 18px}
+.psum .ph{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.psum .pbig{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:44px;line-height:.9;color:var(--accent-d)}
+.psum .pp{font-size:13.5px;color:var(--mut);font-weight:600}.psum .pp b{color:var(--ink)}
+.psum .plag{margin-left:auto;font-size:12px;font-weight:800;border-radius:999px;padding:5px 12px;background:var(--red-bg);color:var(--red)}
+.dual{height:14px;border-radius:8px;background:#e7edf2;position:relative;overflow:hidden;margin:13px 0 6px}
+.dual .pl{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(90deg,#cdd6df,#cdd6df 5px,#dde4ec 5px,#dde4ec 10px)}
+.dual .fl{position:absolute;left:0;top:0;bottom:0;border-radius:8px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.psub{font-size:11.5px;color:var(--faint);font-weight:600}
+
+/* объект */
+.obj{padding:14px 16px 6px;margin-top:12px}
+.obj .oh{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.obj .onm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:21px;color:var(--navy);line-height:1.05}
+.obj .ofact{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:24px;color:var(--accent-d)}
+.obar{height:8px;border-radius:6px;background:#e7edf2;overflow:hidden;margin:9px 0 7px}
+.obar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.orow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:11.5px;font-weight:700;margin-bottom:4px}
+.ostat{border-radius:999px;padding:3px 10px}
+.ostat.bad{background:var(--red-bg);color:var(--red)}.ostat.ok{background:var(--green-bg);color:var(--green)}
+.ofc{color:var(--gold-d);font-weight:700}
+
+.q{margin-top:10px;border-top:1px solid var(--line2);padding-top:8px}
+.qn{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--faint);margin-bottom:5px}
+.qn.est{color:var(--gold-d)}
+.blk{display:flex;align-items:center;gap:9px;padding:5px 0}
+.bnm{flex:none;width:78px;font-size:12px;font-weight:700}
+.bplan{flex:none;width:54px;font-size:10.5px;color:var(--faint);font-weight:600;text-align:right}
+.btrack{flex:1;height:9px;border-radius:5px;background:#e7edf2;overflow:hidden;min-width:0;position:relative}
+.btrack i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--accent-d));transition:width .2s}
+.bin{flex:none;width:54px}
+.bin input{width:100%;font-family:inherit;font-size:13px;font-weight:800;text-align:center;color:var(--accent-d);border:1.5px solid var(--line);border-radius:8px;padding:5px 2px;background:var(--bg)}
+.bin input:focus{outline:none;border-color:var(--accent);background:#fff}
+.blag{flex:none;width:62px;text-align:right;font-size:10.5px;font-weight:700}
+.blag.bad{color:var(--red)}.blag.ok{color:var(--green)}
+
+.note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:22px;line-height:1.6}
+.note a{color:var(--accent-d);font-weight:700;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="lg">A</div>
+    <div class="nm">ATLAS · ГПР-движок<small>план ↔ факт · пересчёт от факта</small></div>
+  </div>
+
+  <div class="principle">⚙️ <b>Поменяй факт</b> в любом блоке — портфель, отставание и прогноз пересчитаются мгновенно. <b>План (baseline) зафиксирован</b> — двигается прогноз, не план. Сид: отчёт ГПР 28.05.2026.</div>
+
+  <!-- ПОРТФЕЛЬ -->
+  <div class="card psum">
+    <div class="ph">
+      <div class="pbig tnum" id="pfact">—</div>
+      <div class="pp">факт · план <b id="pplan">—</b></div>
+      <div class="plag" id="plag">—</div>
+    </div>
+    <div class="dual"><div class="pl" id="pplbar"></div><div class="fl" id="pflbar"></div></div>
+    <div class="psub" id="psub">—</div>
+  </div>
+
+  <div class="lbl">Объекты · факт редактируется</div>
+  <div id="objs"></div>
+
+  <div class="note">ГПР-движок · отдельный проект. План фиксирован, прогноз корректируется по факту. Темп прогноза условный (+6%/нед). Данные — отчёт 28.05.2026. <a href="#" onclick="resetDemo();return false;">↺ сбросить факт</a></div>
+</div>
+
+<script>
+/* ===== ДАННЫЕ: baseline план + факт по блокам (отчёт ГПР 28.05.2026) ===== */
+const OBJECTS=[
+  {id:'atmo',name:'ЖК «Атмосфера»',q:[
+    {n:'4 очередь · сдаётся',est:1,blocks:[['А–Е',95,95]]},
+    {n:'5 очередь',blocks:[['25 А',86,31],['26 Б',91,31],['27 В',91,29],['28 Г',82,18],['29 Д',82,15],['30 Е',82,17]]},
+    {n:'6 очередь',blocks:[['31 А',31,11],['32 Б',31,10],['33 В',31,11],['34 Г',24,9],['35 Д',24,8],['36 Е',24,8]]},
+    {n:'7 очередь · котлован',est:1,blocks:[['37–39',10,4]]},
+  ]},
+  {id:'aura',name:'ЖК «Аура»',q:[
+    {n:'2 очередь',blocks:[['Блок 3',91,84],['Блок 4',91,83]]},
+    {n:'3 очередь',blocks:[['Блок 5',10,10],['Блок 6',10,10]]},
+    {n:'4 очередь',blocks:[['Блок 7',10,10],['Блок 8',10,10]]},
+  ]},
+  {id:'keruen',name:'ЖК «Керуен»',q:[
+    {n:'1 очередь',blocks:[['Блок 1',91,29],['Блок 1.1',91,29]]},
+    {n:'2 очередь',blocks:[['Блок 2',91,84],['Блок 2.1',91,84]]},
+    {n:'3 очередь',blocks:[['Блок 3',91,60],['Блок 3.1',89,35]]},
+    {n:'4 очередь',blocks:[['Блок 4',84,14],['Блок 4.1',73,14]]},
+    {n:'5 очередь',blocks:[['Блок 5',12,9],['Блок 5.1',12,8]]},
+  ]},
+  {id:'aksai',name:'ЖК «Аксай резорт»',q:[
+    {n:'1 очередь',blocks:[['1.1',14,10],['1.2',16,10],['2.1',78,20],['2.2',78,20],['3.1',71,13],['3.2',78,14],['4.1',75,18],['4.2',70,14]]},
+  ]},
+];
+const RATE=6; // условный темп для прогноза, п.п./нед
+
+/* ===== движок ===== */
+let FACT={}; try{FACT=JSON.parse(localStorage.getItem('gpr_fact_v1'))||{};}catch(e){FACT={};}
+const BLOCKS=[]; // плоский список для пересчёта
+OBJECTS.forEach((o,oi)=>o.q.forEach(q=>q.blocks.forEach(b=>BLOCKS.push({key:o.id+'/'+q.n+'/'+b[0],plan:b[1],def:b[2],oi}))));
+const gf=blk=>(blk.key in FACT)?FACT[blk.key]:blk.def;
+const avg=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:0;
+const R=x=>Math.round(x);
+function save(){try{localStorage.setItem('gpr_fact_v1',JSON.stringify(FACT));}catch(e){}}
+function setFact(idx,val){val=Math.max(0,Math.min(100,parseInt(val,10)||0));FACT[BLOCKS[idx].key]=val;save();recompute();}
+function resetDemo(){try{localStorage.removeItem('gpr_fact_v1');}catch(e){}location.reload();}
+
+/* ===== построение дерева (один раз) ===== */
+function build(){
+  let idx=0,html='';
+  OBJECTS.forEach((o,oi)=>{
+    let qs='';
+    o.q.forEach(q=>{
+      let rows='';
+      q.blocks.forEach(b=>{
+        const i=idx++;
+        rows+=`<div class="blk">
+          <div class="bnm">${b[0]}</div>
+          <div class="bplan">план ${b[1]}%</div>
+          <div class="btrack"><i id="bar${i}"></i></div>
+          <div class="bin"><input type="number" min="0" max="100" value="${gf(BLOCKS[i])}" oninput="setFact(${i},this.value)" aria-label="факт ${b[0]}"></div>
+          <div class="blag" id="lag${i}"></div>
+        </div>`;
+      });
+      qs+=`<div class="q"><div class="qn${q.est?' est':''}">${q.n}${q.est?' · вне отчёта':''}</div>${rows}</div>`;
+    });
+    html+=`<div class="card obj">
+      <div class="oh"><div class="onm">${o.name}</div><div class="ofact tnum" id="ofact${oi}">—</div></div>
+      <div class="obar"><i id="obar${oi}"></i></div>
+      <div class="orow"><span class="ostat" id="olag${oi}">—</span><span class="ofc" id="ofc${oi}">—</span></div>
+      ${qs}
+    </div>`;
+  });
+  document.getElementById('objs').innerHTML=html;
+}
+
+/* ===== пересчёт (на каждое изменение факта) ===== */
+function recompute(){
+  BLOCKS.forEach((blk,i)=>{
+    const f=gf(blk),lag=blk.plan-f;
+    document.getElementById('bar'+i).style.width=f+'%';
+    const e=document.getElementById('lag'+i);
+    e.textContent=lag>0?('−'+lag+' п.п.'):'в плане';
+    e.className='blag '+(lag>0?'bad':'ok');
+  });
+  OBJECTS.forEach((o,oi)=>{
+    const bs=BLOCKS.filter(b=>b.oi===oi);
+    const fact=R(avg(bs.map(gf))),plan=R(avg(bs.map(b=>b.plan))),lag=plan-fact;
+    document.getElementById('ofact'+oi).textContent=fact+'%';
+    document.getElementById('obar'+oi).style.width=fact+'%';
+    const ol=document.getElementById('olag'+oi);
+    ol.textContent=lag>0?('отставание '+lag+' п.п.'):'в графике';
+    ol.className='ostat '+(lag>3?'bad':'ok');
+    document.getElementById('ofc'+oi).textContent=fact>=100?'✓ сдан':('прогноз: при +'+RATE+'%/нед → 100% через ~'+Math.ceil((100-fact)/RATE)+' нед');
+  });
+  const all=BLOCKS,pf=R(avg(all.map(gf))),pp=R(avg(all.map(b=>b.plan)));
+  document.getElementById('pfact').textContent=pf+'%';
+  document.getElementById('pplan').textContent=pp+'%';
+  const pl=document.getElementById('plag');
+  pl.textContent=(pp-pf>0?('−'+(pp-pf)+' п.п. к плану'):'в графике');
+  pl.style.background=pp-pf>0?'var(--red-bg)':'var(--green-bg)';
+  pl.style.color=pp-pf>0?'var(--red)':'var(--green)';
+  document.getElementById('pplbar').style.width=pp+'%';
+  document.getElementById('pflbar').style.width=pf+'%';
+  document.getElementById('psub').textContent=OBJECTS.length+' объекта · '+OBJECTS.reduce((s,o)=>s+o.q.length,0)+' очередей · '+BLOCKS.length+' блоков · план/факт по отчёту 28.05.2026';
+}
+
+build();recompute();
+</script>
+</body>
+</html>
