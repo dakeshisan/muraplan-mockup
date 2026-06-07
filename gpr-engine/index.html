@@ -135,6 +135,7 @@ details[open]>summary .chev{transform:rotate(90deg)}
 .grow.crit .gbar{border-color:var(--red);box-shadow:0 0 0 1px var(--red-bg)}
 .grow.crit .gf{background:linear-gradient(90deg,#d8736a,var(--red))}
 .grow.crit .gnt{color:var(--red);font-weight:700}
+.gslip{position:absolute;top:50%;transform:translateY(-50%);height:13px;border-radius:0 3px 3px 0;background:repeating-linear-gradient(45deg,#f7e0db,#f7e0db 3px,#efc7c0 3px,#efc7c0 6px);border:1px dashed var(--red);border-left:none}
 .gsec{position:sticky;left:0;z-index:2;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--gold-d);padding:6px 8px 2px;background:#fff;border-top:1px solid var(--line2)}
 .gsec .sd{color:var(--red);font-weight:800}
 
@@ -202,6 +203,10 @@ DATA.portfolio.forEach(o=>{
   o.blocks.forEach((b,bi)=>{
     b.idx=bi;
     b.sumDays=b.works.reduce((s,w)=>s+(w.days||0),0)||1;
+    // дат-диапазон блока (для overview-Гантта)
+    const DY=86400000;
+    b.gd0=Math.min(...b.works.map(w=>Math.floor(Date.parse(w.start)/DY)));
+    b.gd1=Math.max(...b.works.map(w=>Math.floor(Date.parse(w.end)/DY)));
     // критические работы блока: топ-3 по отставанию (>0)
     const ranked=b.works.map((w,wi)=>({wi,lag:w.lag||0})).filter(x=>x.lag>0).sort((a,b)=>b.lag-a.lag);
     b.critSet=new Set(ranked.slice(0,3).map(x=>x.wi));
@@ -274,6 +279,9 @@ function build(){
         <div class="obar"><i data-ob></i></div>
         <div class="orow"><span class="ostat" data-ol>—</span><span class="odn" data-od>—</span></div>
         <div class="ofc" data-ofc>—</div>
+        <div class="qn">📅 Таймлайн блоков</div>
+        <div data-ov></div>
+        <div class="qn">Блоки · раскрой до работ</div>
         <div data-qs></div>
       </div>`;
     const ofE=det.querySelector('[data-of]'),obE=det.querySelector('[data-ob]'),
@@ -293,12 +301,15 @@ function build(){
       const qh=document.createElement('div');qh.className='qn';qh.textContent=q+' очередь';qWrap.appendChild(qh);
       o.blocks.filter(b=>b.queue===q).forEach(b=>qWrap.appendChild(buildBlock(o,b)));
     });
+    // overview-Гантт строим лениво при раскрытии объекта
+    let ovBuilt=false;
+    det.addEventListener('toggle',()=>{ if(det.open&&!ovBuilt){ovBuilt=true;buildOverview(o,det.querySelector('[data-ov]'));} });
     root.appendChild(det);
   });
 }
 
 function buildBlock(o,b){
-  const det=document.createElement('details');det.className='blk';
+  const det=document.createElement('details');det.className='blk';det.id='blk_'+o.id+'_'+b.idx;
   det.innerHTML=`<summary><div class="bsum">
       <span class="chev">›</span>
       <span class="bnm">«${b.spot}»</span>
@@ -327,6 +338,47 @@ function buildBlock(o,b){
     if(det.open&&!built){built=true;buildGantt(o,b,det.querySelector('[data-wks]'));}
   });
   return det;
+}
+
+/* Overview-Гантт объекта: каждый блок — один бар на общей шкале ЖК (клик — открыть). */
+function buildOverview(o,host){
+  const DAY=86400000, MONTHS=['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+  const ST=Math.floor(Date.parse(DATA.status_date)/DAY);
+  const d0r=Math.min(ST,...o.blocks.map(b=>b.gd0)), d1r=Math.max(ST,...o.blocks.map(b=>b.gd1));
+  const pad=Math.max(6,Math.round((d1r-d0r)*0.035)), d0=d0r-pad, d1=d1r+pad, span=Math.max(1,d1-d0);
+  const PXD=1.05, NW=128, laneW=Math.max(320,Math.round(span*PXD)), xOf=n=>Math.round((n-d0)*PXD);
+  let ticks='', dt=new Date(Date.UTC(new Date(d0*DAY).getUTCFullYear(),new Date(d0*DAY).getUTCMonth(),1));
+  while(Math.floor(dt.getTime()/DAY)<=d1){
+    const x=xOf(Math.floor(dt.getTime()/DAY));
+    const lbl=MONTHS[dt.getUTCMonth()]+(dt.getUTCMonth()===0?'’'+String(dt.getUTCFullYear()).slice(2):'');
+    if(x>=-1) ticks+=`<span class="gtick" style="left:${x}px">${lbl}</span>`;
+    dt=new Date(Date.UTC(dt.getUTCFullYear(),dt.getUTCMonth()+1,1));
+  }
+  const queues=[...new Set(o.blocks.map(b=>b.queue))].sort((a,b)=>a-b);
+  let rows='';
+  queues.forEach(q=>{
+    rows+=`<div class="gsec">${q} очередь</div>`;
+    o.blocks.filter(b=>b.queue===q).forEach(b=>{
+      const L=xOf(b.gd0), W=Math.max(4,xOf(b.gd1)-L), cls=b.maxLag>=20?'crit':(b.maxLag>0?'late':'');
+      rows+=`<div class="grow ${cls}" onclick="openBlock('${o.id}',${b.idx})" style="cursor:pointer">
+        <div class="gname" style="width:${NW}px"><div class="gnt"><span class="gno">«${b.spot}»</span> ${b.fact}%</div><div class="gctl"><span class="gl ${b.maxLag>0?'bad':'ok'}">${b.maxLag>0?('−'+b.maxLag+'д'):'✓'}</span></div></div>
+        <div class="glane" style="width:${laneW}px"><div class="gbar" style="left:${L}px;width:${W}px" title="«${b.spot}» · факт ${b.fact}% · план ${b.plan}% · ${b.works.length} работ"><i class="gf" style="width:${b.fact}%"></i></div></div>
+      </div>`;
+    });
+  });
+  host.innerHTML=`<div class="gantt"><div class="gscroll" style="width:${NW+laneW}px">
+    <div class="gaxis-row"><div class="gaxis-sp" style="width:${NW}px"></div><div class="gaxis" style="width:${laneW}px">${ticks}</div></div>
+    <div class="gbody"><div class="gtoday" style="left:${NW+xOf(ST)}px"><span>сегодня</span></div>${rows}</div>
+  </div></div>`;
+  const gv=host.querySelector('.gantt'); gv.scrollLeft=Math.max(0,NW+xOf(ST)-gv.clientWidth*0.6);
+}
+
+/* открыть блок из overview-Гантта (раскрыть объект+блок, проскроллить к нему) */
+function openBlock(oid,bi){
+  const bd=document.getElementById('blk_'+oid+'_'+bi); if(!bd) return;
+  const ob=bd.closest('details.obj'); if(ob&&!ob.open){ob.open=true;ob.dispatchEvent(new Event('toggle'));}
+  if(!bd.open){bd.open=true;bd.dispatchEvent(new Event('toggle'));}
+  setTimeout(()=>bd.scrollIntoView({block:'start',behavior:'smooth'}),80);
 }
 
 /* Гантт блока: работы как бары на временной оси (начало→окончание), заливка=факт,
@@ -358,13 +410,15 @@ function buildGantt(o,b,host){
       const w=b.works[wi], f=wfact(o.id,b.idx,wi,w), crit=b.critSet.has(wi);
       const cls=crit?'crit':((w.lag||0)>0?'late':'');
       const L=xOf(dnum(w.start)), W=Math.max(3,xOf(dnum(w.end))-L);
+      const slipW=(w.lag||0)>0?Math.max(2,Math.round(w.lag*PXD)):0;
+      const slip=slipW?`<div class="gslip" style="left:${L+W}px;width:${slipW}px" title="прогнозный сдвиг ${w.lag} дн"></div>`:'';
       const ttl=`${w.name} · ${w.start}→${w.end} · ${w.days}д${w.contractor?' · '+w.contractor:''}${(w.lag||0)>0?' · отставание '+w.lag+' дн':''}`;
       rows+=`<div class="grow ${cls}">
         <div class="gname">
           <div class="gnt"><span class="gno">${w.no}</span>${w.name}</div>
           <div class="gctl"><input type="number" min="0" max="100" value="${f}" oninput="SF('${wkey(o.id,b.idx,wi)}',this.value,${b.idx},${wi},${w.plan})" aria-label="факт ${w.name}"><span class="gl ${(w.lag||0)>0?'bad':'ok'}">${(w.lag||0)>0?('−'+w.lag+'д'):'✓'}</span></div>
         </div>
-        <div class="glane" style="width:${laneW}px"><div class="gbar" style="left:${L}px;width:${W}px" title="${ttl}"><i class="gf" id="wb_${b.idx}_${wi}" style="width:${f}%"></i></div></div>
+        <div class="glane" style="width:${laneW}px"><div class="gbar" style="left:${L}px;width:${W}px" title="${ttl}"><i class="gf" id="wb_${b.idx}_${wi}" style="width:${f}%"></i></div>${slip}</div>
       </div>`;
     });
   });
