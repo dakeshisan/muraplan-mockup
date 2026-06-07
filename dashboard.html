@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#284157">
+<meta name="robots" content="noindex,nofollow">
+<title>ATLAS · Командный центр</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1EFE7;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#9C958685;--line:#E6E2D7;--line2:#EFEDE5;
+  --accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--navy:#284157;--navy-d:#1d3142;
+  --gold:#CFB372;--gold-d:#A88E48;
+  --green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-d:#A23A33;--red-bg:#F7E7E2;--amber:#C98A2C;--amber-bg:#FBF1DF;
+  --shadow:0 14px 34px -22px rgba(40,65,87,.5);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{color-scheme:light}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;font-feature-settings:"ss03","cv11"}
+.tnum{font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:10px}
+
+/* ===== шапка на весь экран ===== */
+.top{position:sticky;top:0;z-index:30;background:linear-gradient(110deg,var(--navy),var(--navy-d));color:#fff;display:flex;align-items:center;gap:16px;padding:12px clamp(16px,2.4vw,40px)}
+.top .lg{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;font-family:'Cormorant',Georgia,serif;flex:none}
+.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:23px;line-height:1}
+.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px;letter-spacing:.01em}
+.top .role{margin-left:8px;display:flex;gap:6px;background:rgba(255,255,255,.08);border-radius:11px;padding:4px}
+.top .role button{color:#cfe0ea;font-size:12.5px;font-weight:700;padding:6px 13px;border-radius:8px;white-space:nowrap}
+.top .role button.on{background:var(--gold);color:var(--navy)}
+.top .meta{margin-left:auto;display:flex;align-items:center;gap:18px}
+.top .stamp{font-size:11.5px;color:#9db4c6;font-weight:600;text-align:right;line-height:1.3}
+.top .stamp b{color:#fff;display:block;font-weight:700}
+.top .me{text-align:right;font-size:12.5px;font-weight:700;line-height:1.15}
+.top .me small{display:block;font-weight:500;color:#9db4c6;font-size:10.5px}
+.top .me .av{display:none}
+
+.wrap{padding:0 clamp(16px,2.4vw,40px) 48px;max-width:2100px;margin:0 auto}
+.lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9c9586;margin:22px 2px 11px}
+.lbl .n{margin-left:auto;font-weight:600;color:var(--accent-d);text-transform:none;letter-spacing:0;font-size:12.5px}
+
+/* ===== KPI-лента ===== */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:18px}
+.kpi{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:15px 18px;position:relative;overflow:hidden}
+.kpi .v{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:38px;line-height:1;color:var(--navy)}
+.kpi .v small{font-size:18px;color:var(--faint)}
+.kpi .k{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#9c9586;margin-top:7px}
+.kpi.alarm{background:linear-gradient(135deg,#fff,#fbeeea)}
+.kpi.alarm .v{color:var(--red)}
+.kpi.alarm::after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--red)}
+.kpi .sub{font-size:11px;color:var(--mut);font-weight:600;margin-top:3px}
+
+/* ===== основной грид ===== */
+.grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;align-items:start}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow)}
+
+/* объекты */
+.obj{display:grid;grid-template-columns:14px 1.4fr 2fr auto auto;align-items:center;gap:16px;padding:15px 20px;border-top:1px solid var(--line2);cursor:pointer;transition:background .12s}
+.obj:first-child{border-top:none}
+.obj:hover{background:#fbfaf5}
+.obj .dot{width:12px;height:12px;border-radius:50%;flex:none}
+.dot.red{background:var(--red)}.dot.amber{background:var(--amber)}.dot.green{background:var(--green)}.dot.teal{background:var(--accent)}
+.obj .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:21px;color:var(--navy);line-height:1.05}
+.obj .nm small{display:block;font-family:'Jost',sans-serif;font-size:11px;color:var(--faint);font-weight:600;margin-top:3px}
+.obj .barwrap{display:flex;align-items:center;gap:10px}
+.obj .bar{flex:1;height:10px;border-radius:6px;background:#e7edf2;overflow:hidden;min-width:60px}
+.obj .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.obj .pct{font-weight:800;font-size:15px;width:42px;text-align:right;color:var(--navy)}
+.obj .late{text-align:center;min-width:74px}
+.obj .late b{font-family:'Cormorant',Georgia,serif;font-size:24px;font-weight:700;color:var(--red);line-height:1}
+.obj .late span{display:block;font-size:9.5px;font-weight:700;text-transform:uppercase;color:var(--faint);margin-top:2px}
+.obj .worst{font-size:12px;font-weight:700;color:var(--red);background:var(--red-bg);border-radius:999px;padding:5px 11px;white-space:nowrap}
+.obj .worst.ok{color:var(--green);background:var(--green-bg)}
+.obj .go{color:var(--accent-d);font-weight:700;font-size:18px}
+
+/* где горит */
+.fire{max-height:560px;overflow:auto;padding:6px 0}
+.fr{display:flex;align-items:center;gap:13px;padding:11px 20px;border-left:4px solid var(--line);transition:background .12s}
+.fr:hover{background:#fbfaf5}
+.fr.crit{border-left-color:var(--red-d)}.fr.high{border-left-color:var(--red)}.fr.mid{border-left-color:var(--amber)}.fr.low{border-left-color:var(--gold)}
+.fr .d{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:24px;color:var(--red);width:62px;text-align:right;flex:none;line-height:1}
+.fr.mid .d,.fr.low .d{color:var(--amber)}
+.fr .d small{font-family:'Jost',sans-serif;font-size:10px;color:var(--faint);font-weight:700}
+.fr .bd{flex:1;min-width:0}
+.fr .t{font-weight:700;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fr .s{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fr .s .obj{color:var(--accent-d);font-weight:700}
+.fr .tag{font-size:10px;font-weight:700;color:var(--gold-d);background:#FBF5E6;border:1px solid #E7D4A6;border-radius:999px;padding:3px 8px;white-space:nowrap;flex:none}
+
+/* узкие места */
+.bn{padding:8px 20px 16px}
+.bnrow{display:grid;grid-template-columns:1.5fr 3fr auto;align-items:center;gap:16px;padding:9px 0;border-top:1px solid var(--line2)}
+.bnrow:first-child{border-top:none}
+.bnrow .nm{font-size:13.5px;font-weight:700}
+.bnrow .track{height:14px;border-radius:7px;background:#eef1f4;overflow:hidden;position:relative}
+.bnrow .track i{display:block;height:100%;border-radius:7px;background:linear-gradient(90deg,#d98c80,var(--red))}
+.bnrow .cnt{font-weight:800;font-size:13px;white-space:nowrap;color:var(--navy)}
+.bnrow .cnt b{color:var(--red)}
+
+/* фильтры объектов */
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters button{font-size:12.5px;font-weight:700;color:var(--mut);border:1.5px solid var(--line);border-radius:999px;padding:6px 13px;background:#fff}
+.filters button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+.note{font-size:12px;color:#9c9586;text-align:center;margin-top:26px;line-height:1.6}
+.note a{color:var(--accent-d);font-weight:700;text-decoration:none}
+.loading{padding:60px;text-align:center;color:var(--mut);font-weight:600}
+
+.supply{display:flex;align-items:center;gap:12px;padding:14px 20px;background:linear-gradient(135deg,#fff,#f3f6f3);border-radius:14px;margin-top:14px;border:1px dashed #cdd9cf}
+.supply .ic{font-size:22px}
+.supply .t{font-weight:700;font-size:13.5px}
+.supply .s{font-size:12px;color:var(--mut);font-weight:600;margin-top:1px}
+.supply .soon{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--gold-d);background:#FBF5E6;border:1px solid #E7D4A6;border-radius:999px;padding:5px 11px;white-space:nowrap}
+
+@media(max-width:1040px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .grid{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .obj{grid-template-columns:12px 1fr auto;gap:10px}
+  .obj .barwrap,.obj .worst{display:none}
+  .top .role{display:none}
+}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(22px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:13px;font-size:13px;font-weight:700;box-shadow:0 16px 36px -12px rgba(40,65,87,.6);opacity:0;pointer-events:none;transition:.28s;z-index:60}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast b{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="lg">A</div>
+  <div class="nm">ATLAS<small>командный центр · стройка</small></div>
+  <div class="role">
+    <button class="on" onclick="setRole(this,'Директор по строительству')">Директор по стройке</button>
+    <button onclick="setRole(this,'CEO')">CEO</button>
+  </div>
+  <div class="meta">
+    <div class="stamp">данные из движка ГПР<b id="stamp">28.05.2026</b></div>
+    <div class="me" id="me">Директор по строительству<small>все объекты компании</small></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="lbl" style="margin-top:26px">Объекты компании <span class="n" id="filtnote">тап по объекту → разбор</span></div>
+  <div class="filters" id="filters" style="margin:0 2px 12px"></div>
+
+  <div class="grid">
+    <div>
+      <div class="card" id="objects"><div class="loading">Загружаю данные движка…</div></div>
+      <div class="supply">
+        <span class="ic">📦</span>
+        <div><div class="t">График поставок → срывы работ</div><div class="s">материал не приехал вовремя → подсветит, какие работы встанут из-за этого</div></div>
+        <span class="soon">следующий слой</span>
+      </div>
+    </div>
+    <div>
+      <div class="lbl" style="margin:0 2px 11px">🔥 Где горит <span class="n" id="firecount"></span></div>
+      <div class="card"><div class="fire" id="fire"></div></div>
+    </div>
+  </div>
+
+  <div class="lbl">Узкие места компании <span class="n">одни и те же работы тормозят все объекты — туда и бить</span></div>
+  <div class="card bn" id="bottlenecks"></div>
+
+  <div class="note">Командный центр · читает единый источник — данные движка ГПР на <b>28.05.2026</b> (4 ЖК · <span id="nblk">—</span> блоков · <span id="nwrk">—</span> работ). Срыв = факт ниже плана по сроку. Это и есть «один движок» в действии: экран не хранит свои цифры, а показывает движок. · <a href="index.html">← Все экраны</a></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+let toastT; function toast(m){const e=$('toast');e.innerHTML=m;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),2200);}
+function setRole(btn,name){document.querySelectorAll('.top .role button').forEach(b=>b.classList.toggle('on',b===btn));$('me').innerHTML=name+'<small>все объекты компании</small>';}
+function sev(l){return l>=60?'crit':l>=30?'high':l>=14?'mid':'low';}
+const objHref={'ЖК «Аура»':'object.html'};
+function goObj(name){const h=objHref[name];if(h)location.href=h;else toast('Экран объекта «'+name+'» — <b>скоро</b>');}
+
+let MODEL=null, filter='all';
+
+function build(D){
+  const objects=D.portfolio.map(o=>{
+    const blocks=o.blocks||[];
+    const facts=blocks.map(b=>b.fact||0);
+    const ready=facts.length?Math.round(facts.reduce((a,b)=>a+b,0)/facts.length):0;
+    let nlate=0, worst=0; const late=[];
+    blocks.forEach(b=>(b.works||[]).forEach(w=>{
+      const l=w.lag||0;
+      if(l>0){nlate++; worst=Math.max(worst,l); late.push({l,name:(w.name||'').trim(),spot:b.spot,queue:b.queue,contractor:w.contractor,section:w.section});}
+    }));
+    return {id:o.id,name:o.object,blocks:blocks.length,ready,nlate,worst,late};
+  });
+  const allWorks=D.portfolio.reduce((a,o)=>a+o.blocks.reduce((s,b)=>s+(b.works||[]).length,0),0);
+  const allBlocks=D.portfolio.reduce((a,o)=>a+o.blocks.length,0);
+  const totalLate=objects.reduce((a,o)=>a+o.nlate,0);
+  const avgReady=Math.round(objects.reduce((a,o)=>a+o.ready*o.blocks,0)/allBlocks);
+  // все срывы (для «где горит» и узких мест)
+  const allLate=[];
+  objects.forEach(o=>o.late.forEach(x=>allLate.push({...x,obj:o.name})));
+  allLate.sort((a,b)=>b.l-a.l);
+  // узкие места: по названию работы
+  const byName={};
+  allLate.forEach(x=>{const k=x.name;(byName[k]=byName[k]||{cnt:0,max:0}); byName[k].cnt++; byName[k].max=Math.max(byName[k].max,x.l);});
+  const bottlenecks=Object.entries(byName).map(([name,v])=>({name,...v})).sort((a,b)=>b.cnt-a.cnt||b.max-a.max).slice(0,8);
+  const maxCnt=Math.max(...bottlenecks.map(b=>b.cnt),1);
+  return {objects,allWorks,allBlocks,totalLate,avgReady,worst:allLate[0],allLate,bottlenecks,maxCnt};
+}
+
+function render(){
+  const M=MODEL;
+  // KPI
+  $('kpis').innerHTML=[
+    {v:M.objects.length,k:'жилых комплекса',sub:'в работе'},
+    {v:M.allBlocks,k:'блоков (пятен)',sub:'по всем ЖК'},
+    {v:M.allWorks.toLocaleString('ru'),k:'работ в плане',sub:'ГПР 28.05'},
+    {v:M.totalLate.toLocaleString('ru'),k:'работ не в срок',sub:Math.round(M.totalLate/M.allWorks*100)+'% всех работ',alarm:true},
+    {v:M.avgReady+'<small>%</small>',k:'ср. готовность',sub:'по блокам'},
+    {v:'−'+M.worst.l+'<small>д</small>',k:'худший срыв',sub:M.worst.name,alarm:true},
+  ].map(t=>`<div class="kpi${t.alarm?' alarm':''}"><div class="v tnum">${t.v}</div><div class="k">${t.k}</div><div class="sub">${t.sub}</div></div>`).join('');
+  $('nblk').textContent=M.allBlocks; $('nwrk').textContent=M.allWorks.toLocaleString('ru');
+
+  // фильтры
+  $('filters').innerHTML=`<button class="${filter==='all'?'on':''}" onclick="setFilter('all')">Все объекты</button>`+
+    M.objects.map(o=>`<button class="${filter===o.name?'on':''}" onclick="setFilter('${o.name.replace(/'/g,"\\'")}')">${o.name.replace('ЖК ','').replace(/[«»]/g,'')} · <b>${o.nlate}</b></button>`).join('');
+
+  // объекты
+  $('objects').innerHTML=M.objects.map(o=>{
+    const st=o.worst>=60?'red':o.worst>=30?'amber':o.worst>0?'teal':'green';
+    const wcls=o.worst>0?'':'ok';
+    const hot=filter==='all'||filter===o.name;
+    return `<div class="obj" style="${hot?'':'opacity:.4'}" onclick="goObj('${o.name.replace(/'/g,"\\'")}')">
+      <span class="dot ${st}"></span>
+      <div class="nm">${o.name}<small>${o.blocks} блоков</small></div>
+      <div class="barwrap"><div class="bar"><i style="width:${o.ready}%"></i></div><div class="pct tnum">${o.ready}%</div></div>
+      <div class="late"><b class="tnum">${o.nlate}</b><span>не в срок</span></div>
+      <div class="worst ${wcls}">${o.worst>0?'до −'+o.worst+' дн':'в графике'}</div>
+      <span class="go">›</span>
+    </div>`;
+  }).join('');
+
+  // где горит
+  const list=M.allLate.filter(x=>filter==='all'||x.obj===filter).slice(0,40);
+  $('firecount').textContent=list.length+' работ';
+  $('fire').innerHTML=list.map(x=>{
+    const tag=x.contractor?`<span class="tag">${x.contractor.split(',')[0].slice(0,22)}</span>`:'';
+    return `<div class="fr ${sev(x.l)}">
+      <div class="d tnum">−${x.l}<small>д</small></div>
+      <div class="bd"><div class="t">${x.name}</div><div class="s"><span class="obj">${x.obj.replace('ЖК ','')}</span> · пятно ${x.spot} · ${x.queue} оч · ${x.section||''}</div></div>
+      ${tag}
+    </div>`;
+  }).join('')||'<div class="loading">По этому объекту срывов нет 🎉</div>';
+
+  // узкие места
+  $('bottlenecks').innerHTML=M.bottlenecks.map(b=>`<div class="bnrow">
+    <div class="nm">${b.name}</div>
+    <div class="track"><i style="width:${Math.round(b.cnt/M.maxCnt*100)}%"></i></div>
+    <div class="cnt"><b>${b.cnt}</b> блоков · до −${b.max} дн</div>
+  </div>`).join('');
+}
+function setFilter(f){filter=(filter===f?'all':f);render();}
+
+fetch('gpr-engine/gpr_data.json',{cache:'no-store'})
+  .then(r=>{if(!r.ok)throw 0;return r.json();})
+  .then(D=>{$('stamp').textContent=(D.status_date||'28.05.2026').split('-').reverse().join('.');MODEL=build(D);render();})
+  .catch(()=>{$('objects').innerHTML='<div class="loading">Не удалось прочитать данные движка (gpr-engine/gpr_data.json).<br>Открой через сервер или GitHub Pages.</div>';});
+</script>
+</body>
+</html>
