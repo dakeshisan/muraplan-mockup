@@ -159,6 +159,14 @@ details[open]>summary .chev{transform:rotate(90deg)}
 .ovr-btm{font-size:10.5px;color:var(--mut);font-weight:600}
 .ovr-btm b{color:var(--red)}
 
+/* ===== реальный ГПР из MS Project (iframe) ===== */
+.mpp-badge{background:var(--navy);color:#fff;border-radius:5px;padding:1px 7px;font-size:9.5px;font-weight:800;white-space:nowrap}
+.mpp-cap{font-size:11px;color:var(--accent-d);line-height:1.5;margin:8px 0;background:var(--accent-soft);border:1px solid #cfe6e4;border-radius:10px;padding:8px 11px}
+.mpp-cap b{color:var(--navy)}
+.mpp-frame{width:100%;height:560px;border:1px solid var(--line);border-radius:11px;background:#fff;display:block}
+.mpp-foot{text-align:right;margin-top:5px}
+.mpp-foot a{font-size:11px;color:var(--accent-d);font-weight:700;text-decoration:none}
+
 .note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:24px;line-height:1.7}
 .note a{color:var(--accent-d);font-weight:700;text-decoration:none}
 .legend{font-size:11px;color:var(--mut);line-height:1.6;margin-top:6px}
@@ -209,6 +217,8 @@ details[open]>summary .chev{transform:rotate(90deg)}
 const DATA = JSON.parse(document.getElementById('gpr-data').textContent);
 const RATE = 6;                 // условный темп прогноза, п.п./нед
 const SECORD = ['Общестрой','Отделка','Инженерка','Благоустройство'];
+// блоки с реальным ГПР из MS Project (WBS + связи F→S + критический путь)
+const MPP = {'aura/3':{src:'mpp/aura-3.html', pct:88, links:83, crit:'Благоустройство (планировка→асфальт→озеленение/освещение)'}};
 
 /* ===== факт-оверрайды ===== */
 let FACT={}; try{FACT=JSON.parse(localStorage.getItem('gpr_fact_v2'))||{};}catch(e){FACT={};}
@@ -338,7 +348,7 @@ function buildBlock(o,b){
       <span class="bdn" data-bd>—</span>
     </div></summary>
     <div class="bbody">
-      <div class="bmeta">план <b>${b.plan}%</b> · отчётный факт <b>${b.fact}%</b> · ${b.works.length} работ · зафиксирован</div>
+      <div class="bmeta">план <b>${b.plan}%</b> · отчётный факт <b>${b.fact}%</b> · ${b.works.length} работ${MPP[o.id+'/'+b.spot]?' · <span class="mpp-badge">📐 MS Project: связи + критпуть</span>':' · зафиксирован'}</div>
       <div class="bcrit" data-bc>—</div>
       <div data-wks></div>
     </div>`;
@@ -355,7 +365,7 @@ function buildBlock(o,b){
   // ленивое построение работ
   let built=false;
   det.addEventListener('toggle',()=>{
-    if(det.open&&!built){built=true;buildGantt(o,b,det.querySelector('[data-wks]'));}
+    if(det.open&&!built){built=true;const mk=o.id+'/'+b.spot,host=det.querySelector('[data-wks]');if(MPP[mk])buildMpp(MPP[mk],host);else buildGantt(o,b,host);}
   });
   return det;
 }
@@ -387,6 +397,14 @@ function openBlock(oid,bi){
   const ob=bd.closest('details.obj'); if(ob&&!ob.open){ob.open=true;ob.dispatchEvent(new Event('toggle'));}
   if(!bd.open){bd.open=true;bd.dispatchEvent(new Event('toggle'));}
   setTimeout(()=>bd.scrollIntoView({block:'start',behavior:'smooth'}),80);
+}
+
+/* Реальный ГПР блока из MS Project (.mpp→html) — встраиваем как iframe:
+   настоящие связи Finish→Start, критический путь, наведение подсвечивает цепочку. */
+function buildMpp(m,host){
+  host.innerHTML=`<div class="mpp-cap">📐 <b>Реальный ГПР из MS Project</b> — WBS-структура, ${m.links} связей Finish→Start, готовность ${m.pct}%.<br><b>Критический путь:</b> ${m.crit}. Наведи на работу — подсветятся её связи.</div>
+    <iframe class="mpp-frame" src="${m.src}" loading="lazy" title="Реальный ГПР (MS Project)"></iframe>
+    <div class="mpp-foot"><a href="${m.src}" target="_blank" rel="noopener">открыть на весь экран ↗</a></div>`;
 }
 
 /* Гантт блока: работы как бары на временной оси (начало→окончание), заливка=факт,
