@@ -686,7 +686,7 @@ function renderGain(){
 function renderAch(){
   const kpi=BLOCK.fact, g=gradeFor(kpi);
   ACH=[
-    {ic:'🔥',t:'На серии',d:'4 недели подряд ≥85%',got:BLOCK.lag<=20},
+    {ic:'🔥',t:'На серии',d:'4 недели подряд ≥85%',got:BLOCK.lag<=20,p:[1,4]},
     {ic:'🛡',t:'Без брака',d:'месяц без дефектов класса A',got:true},
     {ic:'🤝',t:'Достоверный',d:'10 отметок подтверждены РП',p:[Math.min(10,closed+6),10]},
     {ic:'📦',t:'Запасливый',d:'материалы заказаны за 2 недели',p:[2,3]},
@@ -697,8 +697,9 @@ function renderAch(){
   $('ach').innerHTML=ACH.map(a=>{
     const w=a.wide?' wide':'';
     if(a.got) return '<div class="a got'+w+'"><div class="ai">'+a.ic+'</div><div class="at">'+a.t+'</div><div class="ad">'+a.d+'</div></div>';
-    const pc=Math.round(a.p[0]/a.p[1]*100);
-    const txt=a.p[1]===100?a.p[0]+'%':a.p[0]+' из '+a.p[1];
+    const p=a.p||[0,1];
+    const pc=Math.round(p[0]/p[1]*100);
+    const txt=p[1]===100?p[0]+'%':p[0]+' из '+p[1];
     return '<div class="a lock'+w+'"><div class="ai">'+a.ic+'</div><div class="at">'+a.t+'</div><div class="ad">'+a.d+'</div><div class="ap"><i style="width:'+pc+'%"></i></div><div class="apn">'+txt+'</div></div>';
   }).join('');
 }
