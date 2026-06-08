@@ -292,7 +292,7 @@ function renderBarter(){
       <div class="qd">Договор поставок: <b>${m(g.total)}</b> · ${g.n} позиций</div>
       <div class="lnk">💵 деньгами (${g.sup.money}%): <b>${m(ch)}</b> → в оборотку &nbsp;·&nbsp; 🏠 квартирами (${100-g.sup.money}%): <b>${m(bt)}</b>${SHOW_COST?` ≈ ${Math.round(sm2)} м² ≈ <b>${skv.toFixed(1)} кв.</b>`:''}</div>
       <div class="blk" style="color:var(--accent-d)">Накопитель: должны <b>${skv.toFixed(1)} кв</b> · погашено <input class="binp cl" data-s="${esc(g.sup.name)}" type="number" value="${cleared}" style="width:54px"> кв · осталось <b style="color:${remain>0?'#C8554C':'#2E8F5B'}">${remain.toFixed(1)} кв</b></div></div></div>`;}).join('') : '<div class="empty">Нет бартерных поставок в выбранном фильтре.</div>';
-  h+=`<div class="note">Бартерные поставщики и пропорции (деньги/квартиры) — демо, редактируются под ваши договоры. Денежная часть идёт в оборотку, квартирная — в этот накопитель (= счёт «Бартер» в Финансах). «Погашено» — сколько квартир уже передали.</div>`;
+  h+=`<div class="note">Бартерные поставщики и пропорции (деньги/квартиры) — демо, редактируются под ваши договоры. Денежная часть идёт в оборотку, квартирная — в этот накопитель (= счёт «Бартер» в Финансах). «Погашено» — сколько квартир уже передали. · <a href="pto.html" style="color:var(--accent-d);font-weight:700;text-decoration:none">Бартер по подрядчикам (работы) → ПТО ↗</a> — общий квартирный фонд.</div>`;
   document.getElementById('view').innerHTML=h;
 }
 function renderChips(){document.getElementById('simchips').innerHTML=[...simDelay.entries()].map(([wid,d])=>`<span class="chip">«${esc(BYID[wid].name)}» +${d}д <button data-rm="${esc(wid)}">×</button></span>`).join('');}

@@ -263,13 +263,28 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="lbl">Свод квартирного фонда под бартер <span class="n">«замороженный» фонд — эти квартиры нельзя продавать</span></div>
   <div class="card fund" id="fund"><div class="loading">…</div></div>
 
+  <div class="lbl">Бартер — два источника, один фонд <span class="n">ПТО ↔ Снабжение</span></div>
+  <div class="card" style="padding:18px 22px">
+    <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:stretch">
+      <div style="flex:1;min-width:240px;border:1.5px solid var(--accent);background:var(--accent-soft);border-radius:14px;padding:14px 16px">
+        <div style="font-weight:800;font-size:14px;color:var(--navy)">🧮 Подрядчики · работы</div>
+        <div style="font-size:12.5px;color:var(--mut);font-weight:600;margin-top:6px;line-height:1.5">Бартер за выполненные объёмы (приёмка ГПР) — <b style="color:var(--accent-d)">здесь, в ПТО</b></div>
+      </div>
+      <div style="flex:1;min-width:240px;border:1.5px solid var(--line);border-radius:14px;padding:14px 16px">
+        <div style="font-weight:800;font-size:14px;color:var(--navy)">📦 Поставщики · материалы</div>
+        <div style="font-size:12.5px;color:var(--mut);font-weight:600;margin-top:6px;line-height:1.5">Бартер за поставки (накопитель квартир) — <a href="snab.html" style="color:var(--accent-d);font-weight:700;text-decoration:none">Снабжение → 🏠 Бартер ↗</a></div>
+      </div>
+    </div>
+    <div style="margin-top:13px;font-size:12.5px;font-weight:600;color:var(--ink);background:#FBF1DF;border-radius:12px;padding:11px 14px;line-height:1.55">⚠ Общий квартирный фонд: <b>одна квартира — один получатель</b> (подрядчик · поставщик · продажа). Денежная часть обоих → счёт «Бартер» в Финансах; квартирная → этот фонд.</div>
+  </div>
+
   <div class="note">
     Экран ПТО · подрядчики, объёмы и наработка — из <b style="color:var(--accent-d)">единого движка ГПР</b> на <b>28.05.2026</b>
     (<span id="nctr">—</span> названных подрядчиков, из них бартерных <span id="nbar">—</span>).
     Бартер-условия, цены зачёта (₸/м²) и закреплённые квартиры — <b>ДЕМО</b>.
     Суммы в тенге онлайн не показываем: денежная часть — относительно/в % и скрыта; считаем % выполнения, м² и квартиры.
     Накопитель растёт от приёмки объёма (fact% работ) — тот же факт, что двигает план/факт.
-    · <a href="dashboard.html">Командный центр</a> · <a href="portfolio.html">Портфель</a> · <a href="gpr.html">Полный ГПР</a> · <a href="index.html">← Все экраны</a>
+    · <a href="snab.html">Снабжение (бартер поставщиков)</a> · <a href="dashboard.html">Командный центр</a> · <a href="portfolio.html">Портфель</a> · <a href="index.html">← Все экраны</a>
   </div>
 </div>
 
