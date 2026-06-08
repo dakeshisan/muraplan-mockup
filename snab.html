@@ -15,16 +15,15 @@
 *{margin:0;padding:0;box-sizing:border-box}html{color-scheme:light}
 body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.45;font-feature-settings:"ss03","cv11"}
 button{font-family:inherit;cursor:pointer;border:none;background:none}.tnum{font-variant-numeric:tabular-nums}
-.wrap{max-width:780px;margin:0 auto;padding:0 14px 64px}
+.wrap{max-width:820px;margin:0 auto;padding:0 14px 64px}
 .top{position:sticky;top:0;z-index:30;background:linear-gradient(120deg,var(--navy),var(--navy-d));color:#fff;margin:0 -14px 12px;padding:13px 18px;display:flex;align-items:center;gap:12px}
 .top .lg{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:19px;font-family:'Cormorant',Georgia,serif;flex:none}
 .top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:21px;line-height:1;flex:1}
 .top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px}
-.roles{display:flex;gap:5px;background:#ece8dd;border-radius:13px;padding:4px;margin-bottom:13px}
-.roles button{flex:1;border-radius:10px;padding:9px 6px;font-size:13px;font-weight:700;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:1px}
-.roles button .s{font-size:10.5px;font-weight:600;color:var(--faint)}
+.roles{display:flex;gap:5px;background:#ece8dd;border-radius:13px;padding:4px;margin-bottom:13px;overflow-x:auto}
+.roles button{flex:1;min-width:96px;border-radius:10px;padding:9px 6px;font-size:12.5px;font-weight:700;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:1px;white-space:nowrap}
+.roles button .s{font-size:10px;font-weight:600;color:var(--faint)}
 .roles button.on{background:var(--card);color:var(--navy);box-shadow:0 4px 12px -6px rgba(40,65,87,.4)}.roles button.on .s{color:var(--accent-d)}
-.crumbs{font-size:11.5px;color:var(--faint);font-weight:600;margin-bottom:10px}.crumbs a{color:var(--accent-d);text-decoration:none}
 .ctl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
 .ctl .dt{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:7px 11px;font-size:12.5px;font-weight:700;color:var(--navy)}
 .ctl .dt input{border:none;font:inherit;font-weight:700;color:var(--accent-d);background:none}
@@ -46,14 +45,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}.tnum{font
 .sim .go{background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#fff;border-radius:9px;padding:8px 14px;font-size:12.5px;font-weight:800}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
 .chip{display:inline-flex;align-items:center;gap:6px;background:var(--red-bg);color:var(--red);border-radius:999px;padding:4px 10px;font-size:11.5px;font-weight:800}.chip button{color:var(--red);font-weight:900;font-size:13px;line-height:1}
-/* KPI */
 .kpis{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
 .kpi{flex:1;min-width:140px;background:var(--card);border-radius:15px;box-shadow:var(--shadow);padding:13px 15px}
 .kpi .k{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);margin-bottom:4px}
 .kpi .v{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:27px;line-height:.95;color:var(--accent-d)}
 .kpi .v.small{font-size:21px}.kpi .s{font-size:11px;font-weight:600;color:var(--mut);margin-top:3px}
 .kpi.red .v{color:var(--red)}.kpi.amber .v{color:var(--amber)}
-/* график бюджета */
 .chart{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:15px 16px;margin-bottom:14px}
 .chart h4{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:2px}.chart .sub{font-size:11.5px;color:var(--mut);font-weight:600;margin-bottom:12px}
 .bars{display:flex;align-items:flex-end;gap:5px;height:150px;overflow-x:auto;padding-bottom:2px}
@@ -63,6 +60,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}.tnum{font
 .bw .bar.peak{background:linear-gradient(180deg,#d7795f,var(--red))}
 .bw .wk{font-size:9px;font-weight:700;color:var(--faint);white-space:nowrap}
 .chart .cum{font-size:12px;font-weight:700;color:var(--mut);margin-top:10px}.chart .cum b{color:var(--accent-d)}
+.chart .bartn{font-size:11.5px;font-weight:700;color:var(--gold-d);margin-top:6px;background:#f7f1df;border-radius:8px;padding:6px 10px;display:inline-block}
+.binp{border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:inherit;font-size:12.5px;font-weight:700;text-align:right;background:#fffdf7;color:var(--accent-d)}
 .sec{margin-bottom:8px}.sech{display:flex;align-items:center;gap:9px;padding:11px 6px 8px;cursor:pointer}
 .sech .ic{font-size:17px}.sech .t{font-weight:800;font-size:14px;color:var(--navy)}
 .sech .c{font-size:12px;font-weight:800;border-radius:999px;padding:2px 10px;background:var(--navy);color:#fff}
@@ -76,6 +75,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}.tnum{font
 .it .m{flex:1;min-width:0}.it .mh{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .it .nm{font-weight:700;font-size:14.5px;color:var(--ink)}
 .abc{flex:none;font-size:10px;font-weight:800;border-radius:6px;padding:2px 6px}.abc.A{background:var(--red-bg);color:var(--red)}.abc.B{background:var(--amber-bg);color:var(--amber)}.abc.C{background:#eef0f2;color:var(--mut)}
+.bart{flex:none;font-size:10px;font-weight:800;border-radius:6px;padding:2px 7px;background:#f3eedf;color:var(--gold-d)}
 .it .critb{font-size:10px;font-weight:800;color:#fff;background:var(--red);border-radius:6px;padding:2px 7px}
 .it .qd{font-size:12px;color:var(--mut);font-weight:600;margin-top:3px}.it .qd b{color:var(--ink)}
 .it .lnk{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:4px;line-height:1.45}.it .lnk .w{color:var(--accent-d);font-weight:700}
@@ -102,6 +102,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}.tnum{font
     <button data-r="snab" class="on">🚚 Снабженец<span class="s">что заказать</span></button>
     <button data-r="rop">🧭 Рук. снабжения<span class="s">риски и бюджет</span></button>
     <button data-r="dir">📊 Директор<span class="s">оборотка и KPI</span></button>
+    <button data-r="barter">🏠 Бартер<span class="s">накопитель квартир</span></button>
   </div>
   <div class="ctl" id="ctl">
     <label class="dt">📅 На дату: <input type="date" id="plan"></label>
@@ -115,7 +116,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}.tnum{font
   </div>
   <div id="view"></div>
   <div class="foot"><span class="reset" id="reset">↺ сбросить отметки и симуляции</span>
-    <div class="note">Демо · ЖК «Аура» блоки 3,4 · 226 работ со связями (MS Project). Заказ = ПРОГНОЗНЫЙ старт работы − срок поставки. Оборотка = заказы × сумма по неделям. Дата/суммы демонстрационные; сроки калибруются.</div>
+    <div class="note">Демо · ЖК «Аура» блоки 3,4 · 226 работ со связями (MS Project). Заказ = ПРОГНОЗНЫЙ старт работы − срок поставки. Оборотка = ДЕНЕЖНАЯ часть заказов по неделям (бартер вычитается). Дата/суммы демонстрационные; сроки и бартер калибруются.</div>
   </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -126,6 +127,19 @@ const SHOW_COST=DATA.items.some(i=>i.sum>0);
 let ordered=new Set(JSON.parse(localStorage.getItem(KEY)||'[]'));
 let planDate=PLAN_DEFAULT, fblk='all', fabc='all', role='snab';
 const simDelay=new Map(); const BYID={}; DATA.works.forEach(w=>BYID[w.id]=w);
+// ── БАРТЕР: поставщики с оплатой частично квартирами (деньги% / квартиры%), привязка по материалу ──
+const BARTER=[
+ {name:'ТОО «ГазоблокПартнёр»', money:50, kw:/газоблок|кирпич|пеноблок|сплиттер|кладочн/i},
+ {name:'ТОО «ФасадСтрой»', money:60, kw:/фасад|керамогранит|кронштейн|утеплител|кассет|\bнвф\b/i},
+ {name:'ТОО «МеталлТорг»', money:70, kw:/арматур|швеллер|уголок|катанк|\bкруг\b|закладн|металлоконстр/i},
+ {name:'ТОО «ОкнаПро»', money:30, kw:/\bокн|витраж|стеклопак|подоконник/i},
+];
+const BKEY='atlas_barter_v1';
+let bcfg=Object.assign({aptPrice:450000,aptM2:45,cleared:{}}, JSON.parse(localStorage.getItem(BKEY)||'{}'));
+function saveB(){localStorage.setItem(BKEY,JSON.stringify(bcfg));}
+function barterOf(mat){for(const b of BARTER){if(b.kw.test(mat||''))return b;}return null;}
+function cashSum(x){const b=barterOf(x.mat);return b?x.sum*b.money/100:x.sum;}
+function barterSum(x){const b=barterOf(x.mat);return b?x.sum*(100-b.money)/100:0;}
 function D(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d);}
 function addDays(s,n){const x=D(s);x.setDate(x.getDate()+n);return x;}
 function iso(x){return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');}
@@ -152,52 +166,49 @@ function enrich(x){const w=BYID[x.workId];const sl=SLIP[x.workId]||0;const need=
   return Object.assign({},x,{need,orderBy,slip:sl,crit:w.crit,feeds:DATA.works.filter(t=>(t.pred||[]).includes(x.workId)&&!t.summary).map(t=>t.name).slice(0,2),cause:sl>0?BYID[rootCause(x.workId)].name:null});}
 function classify(x){if(ordered.has(uid(x)))return 'done';const d=diff(planDate,x.orderBy);if(d<-21)return 'past';if(d<0)return 'over';if(d<=7)return 'week';if(d<=28)return 'soon';return 'plan';}
 function visible(){return DATA.items.map(enrich).filter(x=>(fblk==='all'||String(x.block)===fblk)&&(fabc==='all'||x.abc===fabc));}
-function pending(items){return items.filter(x=>!ordered.has(uid(x))&&classify(x)!=='past');} // ещё не заказанные и актуальные
-function card(x){const cls=classify(x);const d=diff(planDate,x.orderBy);
+function pending(items){return items.filter(x=>!ordered.has(uid(x))&&classify(x)!=='past');}
+function card(x){const cls=classify(x);const d=diff(planDate,x.orderBy);const b=barterOf(x.mat);
   const dueCls={past:'done',over:'red',week:'amber',soon:'soon',plan:'plan',done:'done'}[cls];
   let due;if(cls==='done')due='✓ заказано';else if(cls==='past')due='заказано ранее';else if(cls==='over')due=`🔴 просрочка ${-d} дн`;else if(d===0)due='⏳ сегодня';else due=`до ${ddmm(x.orderBy)} · ${d} дн`;
   const blocks=(x.crit||x.feeds.length)?`<div class="blk">⚠ держит: ${x.feeds.length?x.feeds.join(', '):x.work}${x.crit?' · крит. путь':''}</div>`:'';
   const shift=x.slip>0?`<div class="shift">🔴 сдвиг заказа +${x.slip} дн — из-за отставания «${esc(x.cause)}»</div>`:'';
+  const bartb=b?`<span class="bart" title="${esc(b.name)}: ${b.money}% деньги / ${100-b.money}% квартиры">🏠 бартер ${b.money}/${100-b.money}</span>`:'';
   return `<div class="it ${dueCls}${x.slip>0?' shifted':''}" data-id="${encodeURIComponent(uid(x))}" data-w="${esc(x.workId)}">
-    <div class="m"><div class="mh"><span class="abc ${x.abc}">${x.abc}</span><span class="nm">${esc(x.mat)}</span>${x.crit?'<span class="critb">КРИТ</span>':''}</div>
-      <div class="qd"><b>${fmt(x.qty)} ${esc(x.unit)}</b>${SHOW_COST?' · '+money(x.sum):''} · ${leadword(x)} ${x.lead} дн</div>
+    <div class="m"><div class="mh"><span class="abc ${x.abc}">${x.abc}</span><span class="nm">${esc(x.mat)}</span>${bartb}${x.crit?'<span class="critb">КРИТ</span>':''}</div>
+      <div class="qd"><b>${fmt(x.qty)} ${esc(x.unit)}</b>${SHOW_COST?' · '+money(x.sum):''} · ${leadword(x)} ${x.lead} дн${b&&SHOW_COST?` · 💵 деньгами ${money(cashSum(x))}`:''}</div>
       <div class="lnk">для работы <span class="w">«${esc(x.work)}»</span> · нужен к ${ddmm(x.need)} (этап «${esc(x.cat)}»)</div>${blocks}${shift}
       <div style="margin-top:6px"><button class="btn sm2" data-act="simmat">⏱ если поставщик опоздает</button></div></div>
     <div class="r"><span class="due ${dueCls}">${due}</span>${cls==='done'?'<button class="btn undo" data-act="undo">✓ заказано</button>':'<button class="btn" data-act="order">Заказать</button>'}</div></div>`;}
-
-// ── бюджет по неделям (оборотка) ──
 function weekMon(s){const x=D(s);const day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);return iso(x);}
-function weeklyBudget(items){const b={};items.forEach(x=>{const w=weekMon(x.orderBy);(b[w]=b[w]||{sum:0,n:0}).sum+=x.sum;b[w].n++;});
-  return Object.keys(b).sort().map(w=>({week:w,...b[w]}));}
 function chartHTML(items){
   const fromW=weekMon(planDate);
-  let weeks=weeklyBudget(items).filter(w=>w.week>=fromW).slice(0,18);
+  const b={}; let barterTot=0;
+  items.forEach(x=>{const w=weekMon(x.orderBy);(b[w]=b[w]||{sum:0,n:0}).sum+=cashSum(x);b[w].n++;barterTot+=barterSum(x);});
+  let weeks=Object.keys(b).filter(w=>w>=fromW).sort().slice(0,18).map(w=>({week:w,...b[w]}));
   if(!weeks.length)return '<div class="empty">Нет заказов в горизонте.</div>';
   const max=Math.max(...weeks.map(w=>SHOW_COST?w.sum:w.n));
   const total=weeks.reduce((a,w)=>a+w.sum,0), totaln=weeks.reduce((a,w)=>a+w.n,0);
   const bars=weeks.map(w=>{const val=SHOW_COST?w.sum:w.n;const h=Math.max(3,Math.round(val/max*120));const peak=val>=max*0.85;
     return `<div class="bw"><div class="bv">${SHOW_COST?mlnf(w.sum):w.n}</div><div class="bar ${peak?'peak':''}" style="height:${h}px" title="${ddmm(w.week)}: ${SHOW_COST?money(w.sum):w.n+' зак.'}"></div><div class="wk">${ddmm(w.week)}</div></div>`;}).join('');
-  return `<div class="chart"><h4>💸 Бюджет закупа по неделям${SHOW_COST?'':' (кол-во заказов)'}</h4>
-    <div class="sub">Сколько ${SHOW_COST?'денег':'заказов'} нужно по неделям вперёд от даты планирования — для оборотки. Пик подсвечен.</div>
+  return `<div class="chart"><h4>💸 Оборотка — деньги на закуп по неделям${SHOW_COST?'':' (кол-во заказов)'}</h4>
+    <div class="sub">Сколько ${SHOW_COST?'ДЕНЕГ':'заказов'} нужно по неделям вперёд (бартерная часть уже вычтена). Пик подсвечен.</div>
     <div class="bars">${bars}</div>
-    <div class="cum">За горизонт ${weeks.length} нед: <b>${SHOW_COST?money(total):totaln+' заказов'}</b> · ${totaln} позиций${simDelay.size?' · <b style="color:#C8554C">с учётом сдвигов симуляции</b>':''}</div></div>`;
+    <div class="cum">За горизонт ${weeks.length} нед: <b>${SHOW_COST?money(total):totaln+' заказов'}</b> · ${totaln} позиций${simDelay.size?' · <b style="color:#C8554C">с учётом сдвигов</b>':''}</div>
+    ${SHOW_COST&&barterTot>0?`<div class="bartn">🏠 из общей потребности ${mlnf(barterTot)} ₸ покрывается квартирами (бартер) — живых денег не требует</div>`:''}</div>`;
 }
 function kpi(k,v,s,cls){return `<div class="kpi ${cls||''}"><div class="k">${k}</div><div class="v ${String(v).length>9?'small':''}">${v}</div>${s?`<div class="s">${s}</div>`:''}</div>`;}
-function blockSummary(items){
-  const by={}; items.forEach(x=>{(by[x.block]=by[x.block]||{sum:0,n:0,over:0}).sum+=x.sum;by[x.block].n++;if(classify(x)==='over')by[x.block].over++;});
+function blockSummary(items){const by={};items.forEach(x=>{(by[x.block]=by[x.block]||{sum:0,n:0,over:0}).sum+=cashSum(x);by[x.block].n++;if(classify(x)==='over')by[x.block].over++;});
   const max=Math.max(1,...Object.values(by).map(b=>b.sum||b.n));
   return Object.keys(by).sort().map(b=>{const d=by[b];const val=SHOW_COST?d.sum:d.n;
-    return `<div class="blkrow"><span class="bn">Блок ${b}</span><span class="bt"><i style="width:${Math.round(val/max*100)}%"></i></span><span class="bv">${SHOW_COST?mlnf(d.sum):d.n+' зак.'}</span><span class="bc">${d.n} поз${d.over?` · 🔴${d.over}`:''}</span></div>`;}).join('');
-}
-
-// ── РЕНДЕР ──
+    return `<div class="blkrow"><span class="bn">Блок ${b}</span><span class="bt"><i style="width:${Math.round(val/max*100)}%"></i></span><span class="bv">${SHOW_COST?mlnf(d.sum):d.n+' зак.'}</span><span class="bc">${d.n} поз${d.over?` · 🔴${d.over}`:''}</span></div>`;}).join('');}
 function render(){
   computeForecast();
   document.getElementById('plan').value=planDate;
   [...document.querySelectorAll('#roles button')].forEach(b=>b.classList.toggle('on',b.dataset.r===role));
-  document.getElementById('sim').style.display=role==='dir'?'none':'block';
-  document.getElementById('fabc').style.display=role==='dir'?'none':'inline-flex';
-  if(role==='snab')renderSnab(); else if(role==='rop')renderRop(); else renderDir();
+  const hideTools=(role==='dir'||role==='barter');
+  document.getElementById('sim').style.display=hideTools?'none':'block';
+  document.getElementById('fabc').style.display=hideTools?'none':'inline-flex';
+  if(role==='snab')renderSnab(); else if(role==='rop')renderRop(); else if(role==='dir')renderDir(); else renderBarter();
   renderChips();
 }
 function groupByUrgency(items){const g={past:[],over:[],week:[],soon:[],plan:[],done:[]};items.forEach(x=>g[classify(x)].push(x));
@@ -228,9 +239,9 @@ function renderRop(){
   const risk=g.over.concat(g.week).sort((a,b)=>b.sum-a.sum);
   const longlead=pend.filter(x=>x.lead>=30).sort((a,b)=>D(a.orderBy)-D(b.orderBy));
   const shiftedN=items.filter(x=>x.slip>0&&!ordered.has(uid(x))).length;
-  const riskSum=risk.reduce((a,x)=>a+x.sum,0);
+  const riskCash=risk.reduce((a,x)=>a+cashSum(x),0);
   let h=`<div class="kpis">
-    ${kpi('Под риском срыва', risk.length, SHOW_COST?money(riskSum):'просроч.+неделя', risk.length?'red':'')}
+    ${kpi('Под риском срыва', risk.length, SHOW_COST?money(riskCash)+' (деньгами)':'просроч.+неделя', risk.length?'red':'')}
     ${kpi('Длинные сроки', longlead.length, 'изготовление ≥30 дн — заказывать заранее','amber')}
     ${kpi('Сдвинуто отставанием', shiftedN, simDelay.size?'из-за симуляции':'нет отставаний', shiftedN?'red':'')}</div>`;
   h+=chartHTML(pend);
@@ -238,28 +249,50 @@ function renderRop(){
   h+= risk.length? risk.slice(0,8).map(card).join('') : '<div class="empty">Срочных рисков нет 👍</div>';
   h+=`<div class="lbl">⏱ Длинные сроки — заказывать заранее (изготовление/импорт)</div>`;
   h+= longlead.length? longlead.slice(0,8).map(card).join('') : '<div class="empty">Нет</div>';
-  h+=`<div class="lbl">🏗 По блокам</div>`+blockSummary(pend);
+  h+=`<div class="lbl">🏗 По блокам (деньгами)</div>`+blockSummary(pend);
   document.getElementById('view').innerHTML=h;
 }
 function renderDir(){
   const items=DATA.items.map(enrich).filter(x=>fblk==='all'||String(x.block)===fblk);
   const pend=pending(items);
-  const total=items.reduce((a,x)=>a+x.sum,0);
+  const totalCash=items.reduce((a,x)=>a+cashSum(x),0), totalBart=items.reduce((a,x)=>a+barterSum(x),0);
   const monthEnd=iso(addDays(planDate,30));
-  const monthItems=pend.filter(x=>x.orderBy<=monthEnd);
-  const monthSum=monthItems.reduce((a,x)=>a+x.sum,0);
+  const monthItems=pend.filter(x=>x.orderBy<=monthEnd); const monthCash=monthItems.reduce((a,x)=>a+cashSum(x),0);
   const critRisk=pend.filter(x=>x.crit&&x.lead>=30);
   const shiftedN=items.filter(x=>x.slip>0&&!ordered.has(uid(x))).length;
   let h=`<div class="kpis">
-    ${kpi('Бюджет закупа (материалы)', SHOW_COST?mlnf(total)+' ₸':items.length+' поз', 'всего по блокам 3,4')}
-    ${kpi('К заказу за 30 дней', SHOW_COST?mlnf(monthSum)+' ₸':monthItems.length, monthItems.length+' позиций','amber')}
-    ${kpi('Крит. длинные сроки', critRisk.length, 'на крит. пути, ≥30 дн — главный риск', critRisk.length?'red':'')}
-    ${kpi('Сдвиг от отставаний', shiftedN, simDelay.size?'симуляция активна':'график в норме', shiftedN?'red':'')}</div>`;
+    ${kpi('Деньгами на закуп', SHOW_COST?mlnf(totalCash)+' ₸':items.length+' поз', 'всего по блокам 3,4')}
+    ${kpi('Квартирами (бартер)', SHOW_COST?mlnf(totalBart)+' ₸':'—', 'не требует денег','amber')}
+    ${kpi('К заказу за 30 дней', SHOW_COST?mlnf(monthCash)+' ₸':monthItems.length, monthItems.length+' позиций')}
+    ${kpi('Крит. длинные сроки', critRisk.length, 'на крит. пути, ≥30 дн — риск', critRisk.length?'red':'')}</div>`;
   h+=chartHTML(pend);
   h+=`<div class="lbl">⚠ Главные риски — длинные сроки на критическом пути</div>`;
   const topRisk=critRisk.concat(pend.filter(x=>x.lead>=40&&!x.crit)).slice(0,6);
   h+= topRisk.length? topRisk.map(card).join('') : '<div class="empty">Критических длинных сроков нет</div>';
-  h+=`<div class="lbl">🏗 Закуп по блокам</div>`+blockSummary(pend);
+  h+=`<div class="lbl">🏗 Закуп по блокам (деньгами)</div>`+blockSummary(pend);
+  document.getElementById('view').innerHTML=h;
+}
+function renderBarter(){
+  const items=DATA.items.map(enrich).filter(x=>fblk==='all'||String(x.block)===fblk);
+  const pend=pending(items);
+  const groups={}; items.forEach(x=>{const b=barterOf(x.mat);if(!b)return;const g=groups[b.name]||(groups[b.name]={sup:b,total:0,n:0});g.total+=x.sum;g.n++;});
+  const sups=Object.values(groups).sort((a,b)=>b.total-a.total);
+  const totBart=sups.reduce((a,g)=>a+g.total*(100-g.sup.money)/100,0);
+  const totCash=sups.reduce((a,g)=>a+g.total*g.sup.money/100,0);
+  const m2=totBart/(bcfg.aptPrice||1), kv=m2/(bcfg.aptM2||1);
+  let h=`<div class="kpis">
+    ${kpi('Бартерных поставщиков', sups.length, 'часть оплаты — квартиры')}
+    ${kpi('Деньгами по бартеру', SHOW_COST?mlnf(totCash)+' ₸':'—', 'идёт в оборотку')}
+    ${kpi('Квартирами — накопитель', SHOW_COST?mlnf(totBart)+' ₸':'—', SHOW_COST?`≈ ${Math.round(m2)} м² ≈ ${kv.toFixed(1)} кв.`:'обязательство', 'amber')}</div>`;
+  h+=`<div class="chart"><h4>🏠 Цена квартир для бартера</h4><div class="sub">По ней «квартирная» часть переводится в м² и квартиры. Меняйте под свои условия.</div>
+    <div class="row" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12.5px;font-weight:700;color:var(--navy)">Цена <input id="aptp" class="binp" type="number" value="${bcfg.aptPrice}" style="width:110px"> ₸/м² · средняя квартира <input id="aptm" class="binp" type="number" value="${bcfg.aptM2}" style="width:60px"> м²</div></div>`;
+  h+=`<div class="lbl">🏠 Накопитель по поставщикам</div>`;
+  h+= sups.length? sups.map(g=>{const bt=g.total*(100-g.sup.money)/100, ch=g.total*g.sup.money/100; const sm2=bt/(bcfg.aptPrice||1), skv=sm2/(bcfg.aptM2||1); const cleared=bcfg.cleared[g.sup.name]||0; const remain=Math.max(0,skv-cleared);
+    return `<div class="it ${remain>0?'plan':'done'}"><div class="m"><div class="mh"><span class="nm">${esc(g.sup.name)}</span><span class="bart">💵 ${g.sup.money}% / 🏠 ${100-g.sup.money}%</span></div>
+      <div class="qd">Договор поставок: <b>${m(g.total)}</b> · ${g.n} позиций</div>
+      <div class="lnk">💵 деньгами (${g.sup.money}%): <b>${m(ch)}</b> → в оборотку &nbsp;·&nbsp; 🏠 квартирами (${100-g.sup.money}%): <b>${m(bt)}</b>${SHOW_COST?` ≈ ${Math.round(sm2)} м² ≈ <b>${skv.toFixed(1)} кв.</b>`:''}</div>
+      <div class="blk" style="color:var(--accent-d)">Накопитель: должны <b>${skv.toFixed(1)} кв</b> · погашено <input class="binp cl" data-s="${esc(g.sup.name)}" type="number" value="${cleared}" style="width:54px"> кв · осталось <b style="color:${remain>0?'#C8554C':'#2E8F5B'}">${remain.toFixed(1)} кв</b></div></div></div>`;}).join('') : '<div class="empty">Нет бартерных поставок в выбранном фильтре.</div>';
+  h+=`<div class="note">Бартерные поставщики и пропорции (деньги/квартиры) — демо, редактируются под ваши договоры. Денежная часть идёт в оборотку, квартирная — в этот накопитель (= счёт «Бартер» в Финансах). «Погашено» — сколько квартир уже передали.</div>`;
   document.getElementById('view').innerHTML=h;
 }
 function renderChips(){document.getElementById('simchips').innerHTML=[...simDelay.entries()].map(([wid,d])=>`<span class="chip">«${esc(BYID[wid].name)}» +${d}д <button data-rm="${esc(wid)}">×</button></span>`).join('');}
@@ -272,6 +305,10 @@ document.getElementById('fblk').addEventListener('click',e=>{const b=e.target.cl
 document.getElementById('fabc').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;fabc=b.dataset.a;[...e.currentTarget.children].forEach(x=>x.classList.toggle('on',x===b));render();});
 document.getElementById('simgo').addEventListener('click',()=>{const wid=document.getElementById('simsel').value;const d=+document.getElementById('simdays').value||0;if(!wid||d<=0){toast('Выберите работу и дни');return;}simDelay.set(wid,(simDelay.get(wid)||0)+d);render();toast('Смоделировано: +'+d+' дн');});
 document.getElementById('simchips').addEventListener('click',e=>{const b=e.target.closest('button[data-rm]');if(!b)return;simDelay.delete(b.dataset.rm);render();});
+document.getElementById('view').addEventListener('change',e=>{
+  if(e.target.id==='aptp'){bcfg.aptPrice=+e.target.value||450000;saveB();render();}
+  else if(e.target.id==='aptm'){bcfg.aptM2=+e.target.value||45;saveB();render();}
+  else if(e.target.classList.contains('cl')){bcfg.cleared[e.target.dataset.s]=+e.target.value||0;saveB();render();}});
 document.getElementById('view').addEventListener('click',e=>{const sech=e.target.closest('.sech');if(sech){sech.parentElement.classList.toggle('cl');return;}
   const btn=e.target.closest('button[data-act]');if(!btn)return;const it=btn.closest('.it');
   if(btn.dataset.act==='order'){ordered.add(decodeURIComponent(it.dataset.id));localStorage.setItem(KEY,JSON.stringify([...ordered]));toast('✓ Отмечено «заказано»');render();}
