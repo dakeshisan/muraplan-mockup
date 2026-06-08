@@ -2,223 +2,261 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#284157">
 <meta name="robots" content="noindex,nofollow">
-<title>ATLAS · пульт РП</title>
+<title>ATLAS · Пульт РП · Аура</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F7F5EE;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;--line:#E6E2D7;--line2:#EFEDE5;
+  --bg:#F1EFE7;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#9C958685;--line:#E6E2D7;--line2:#EFEDE5;
   --accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--navy:#284157;--navy-d:#1d3142;
   --gold:#CFB372;--gold-d:#A88E48;
-  --green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-bg:#F7E7E2;--amber:#C98A2C;--amber-bg:#F4EAD4;
-  --shadow:0 14px 34px -20px rgba(40,65,87,.55);
+  --green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-d:#A23A33;--red-bg:#F7E7E2;--amber:#C98A2C;--amber-bg:#FBF1DF;
+  --shadow:0 14px 34px -22px rgba(40,65,87,.5);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{color-scheme:light}
-body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;-webkit-tap-highlight-color:transparent;font-feature-settings:"ss03","cv11"}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
-:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:12px}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;font-feature-settings:"ss03","cv11"}
 .tnum{font-variant-numeric:tabular-nums}
-.wrap{max-width:620px;margin:0 auto;padding:0 14px 40px}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:10px}
 
-.top{position:sticky;top:0;z-index:10;background:linear-gradient(120deg,var(--navy),var(--navy-d));color:#fff;margin:0 -14px 14px;padding:13px 18px;display:flex;align-items:center;gap:12px}
-.top .lg{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;font-family:'Cormorant',Georgia,serif;flex:none}
-.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;line-height:1}
-.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px}
-.top .me{margin-left:auto;display:flex;align-items:center;gap:9px}
-.top .me .who{text-align:right;font-size:12px;font-weight:700;line-height:1.1}
-.top .me .who small{display:block;font-weight:500;color:#9db4c6;font-size:10.5px}
-.top .me .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:none}
+/* ===== шапка на весь экран ===== */
+.top{position:sticky;top:0;z-index:30;background:linear-gradient(110deg,var(--navy),var(--navy-d));color:#fff;display:flex;align-items:center;gap:16px;padding:12px clamp(16px,2.4vw,40px)}
+.top .lg{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;font-family:'Cormorant',Georgia,serif;flex:none}
+.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:23px;line-height:1}
+.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px;letter-spacing:.01em}
+.top .role{margin-left:8px;display:flex;gap:6px;background:rgba(255,255,255,.08);border-radius:11px;padding:4px}
+.top .role button{color:#cfe0ea;font-size:12.5px;font-weight:700;padding:6px 13px;border-radius:8px;white-space:nowrap}
+.top .role button.on{background:var(--gold);color:var(--navy)}
+.top .meta{margin-left:auto;display:flex;align-items:center;gap:18px}
+.top .stamp{font-size:11.5px;color:#9db4c6;font-weight:600;text-align:right;line-height:1.3}
+.top .stamp b{color:#fff;display:block;font-weight:700}
+.top .me{text-align:right;font-size:12.5px;font-weight:700;line-height:1.15;display:flex;align-items:center;gap:10px}
+.top .me .who small{display:block;font-weight:500;color:#9db4c6;font-size:10.5px;margin-top:2px}
+.top .me .av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex:none}
 
-.crumbs{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12px;font-weight:600;color:var(--mut);margin:-2px 4px 14px}
+.wrap{padding:0 clamp(16px,2.4vw,40px) 48px;max-width:2100px;margin:0 auto}
+.crumbs{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12px;font-weight:600;color:var(--mut);margin:14px 2px 4px}
 .crumbs a{color:var(--accent-d);font-weight:700;text-decoration:none}
 .crumbs .sep{color:var(--faint)}
 .crumbs b{color:var(--ink)}
-
-.card{background:var(--card);border-radius:20px;box-shadow:var(--shadow)}
-.lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:22px 4px 11px}
+.lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9c9586;margin:22px 2px 11px}
 .lbl .n{margin-left:auto;font-weight:600;color:var(--accent-d);text-transform:none;letter-spacing:0;font-size:12.5px}
-.obs{font-size:11px;font-weight:600;border-radius:999px;padding:4px 11px;background:var(--accent-soft);color:var(--accent-d);text-transform:none;letter-spacing:0;margin-left:auto}
+.lbl .obs{margin-left:auto;font-size:11px;font-weight:600;border-radius:999px;padding:4px 11px;background:var(--accent-soft);color:var(--accent-d);text-transform:none;letter-spacing:0}
 
-/* сводка */
-.sum{padding:15px 14px;display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
-.sst{background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:10px 6px;text-align:center}
-.sst .sn{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:26px;line-height:1;color:var(--navy)}
-.sst .sn.g{color:var(--green)}.sst .sn.r{color:var(--red)}.sst .sn.a{color:var(--gold-d)}
-.sst .sn small{font-family:'Jost',sans-serif;font-size:12px;font-weight:600;color:var(--faint)}
-.sst .sl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;color:var(--faint);margin-top:5px;line-height:1.15}
-@media(max-width:520px){.sum{grid-template-columns:repeat(2,1fr)}}
+/* ===== KPI-лента ===== */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:18px}
+.kpi{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:15px 18px;position:relative;overflow:hidden}
+.kpi .v{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:38px;line-height:1;color:var(--navy)}
+.kpi .v small{font-size:18px;color:var(--faint)}
+.kpi .v.g{color:var(--green)}.kpi .v.a{color:var(--gold-d)}
+.kpi .k{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#9c9586;margin-top:7px}
+.kpi .sub{font-size:11px;color:var(--mut);font-weight:600;margin-top:3px}
+.kpi.alarm{background:linear-gradient(135deg,#fff,#fbeeea)}
+.kpi.alarm .v{color:var(--red)}
+.kpi.alarm::after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--red)}
 
-/* подтверждение факта */
-.conf{padding:16px 18px}
-.conf .meter{display:flex;align-items:center;gap:14px;margin-bottom:6px}
-.conf .ring{position:relative;width:64px;height:64px;flex:none}
+/* ===== основной грид: 3 колонки ===== */
+.grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow)}
+.col>.lbl:first-child{margin-top:0}
+
+/* ===== подтверждение факта ===== */
+.conf{padding:18px 20px}
+.conf .meter{display:flex;align-items:center;gap:16px;margin-bottom:8px}
+.conf .ring{position:relative;width:72px;height:72px;flex:none}
 .conf .ringv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.conf .ringv b{font-size:16px;font-weight:800}.conf .ringv span{font-size:8.5px;color:var(--mut)}
-.conf .mt{font-size:13px;font-weight:700}.conf .ms{font-size:12px;color:var(--mut);font-weight:600;margin-top:3px;line-height:1.4}.conf .ms b{color:var(--ink)}
-.q{display:flex;align-items:center;gap:11px;padding:12px 0;border-top:1px solid var(--line2)}
+.conf .ringv b{font-size:18px;font-weight:800;color:var(--navy)}.conf .ringv span{font-size:9px;color:var(--mut);font-weight:600}
+.conf .mt{font-size:14px;font-weight:700}.conf .ms{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:4px;line-height:1.45}.conf .ms b{color:var(--ink)}
+.q{display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid var(--line2)}
 .q .qb{flex:1;min-width:0}
-.q .qt{font-size:13.5px;font-weight:700;line-height:1.2}
-.q .qm{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:3px}
+.q .qt{font-size:14px;font-weight:700;line-height:1.25}
+.q .qm{font-size:12px;color:var(--mut);font-weight:600;margin-top:3px}
 .q .qm .ph{color:var(--green);font-weight:700}.q .qm .warn{color:var(--amber);font-weight:700}
-.q .acts{display:flex;gap:6px;flex:none}
-.q .ok{font-size:12px;font-weight:800;color:var(--green);border:1.5px solid #bfe0cc;background:var(--green-bg);border-radius:999px;padding:7px 12px;white-space:nowrap}
-.q .bk{font-size:12px;font-weight:700;color:var(--mut);border:1.5px solid var(--line);border-radius:999px;padding:7px 11px;white-space:nowrap}
+.q .acts{display:flex;gap:7px;flex:none}
+.q .ok{font-size:12.5px;font-weight:800;color:var(--green);border:1.5px solid #bfe0cc;background:var(--green-bg);border-radius:999px;padding:8px 13px;white-space:nowrap}
+.q .bk{font-size:12.5px;font-weight:700;color:var(--mut);border:1.5px solid var(--line);border-radius:999px;padding:8px 12px;white-space:nowrap}
 .q .ok:active,.q .bk:active{transform:translateY(1px)}
-.conf .allcta{width:100%;margin-top:13px;background:var(--accent);color:#fff;font-weight:800;font-size:13.5px;border-radius:13px;padding:13px;text-align:center}
+.conf .allcta{width:100%;margin-top:14px;background:var(--accent);color:#fff;font-weight:800;font-size:13.5px;border-radius:13px;padding:13px;text-align:center}
 .conf .allcta:active{background:var(--accent-d)}
-.conf .empty{text-align:center;color:var(--green);font-weight:700;font-size:13.5px;padding:16px 0 4px}
+.conf .empty{text-align:center;color:var(--green);font-weight:700;font-size:14px;padding:18px 0 6px}
 
-/* красная зона */
-.risk .rr{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line2)}
-.risk .rr:last-child{border-bottom:none}
-.risk .dot{width:9px;height:9px;border-radius:50%;background:var(--red);flex:none}
+/* ===== красная зона ===== */
+.risk .rr{display:flex;align-items:center;gap:13px;padding:13px 20px;border-top:1px solid var(--line2)}
+.risk .rr:first-child{border-top:none}
+.risk .dot{width:10px;height:10px;border-radius:50%;background:var(--red);flex:none}
 .risk .dot.a{background:var(--gold)}
-.risk .bd{flex:1;min-width:0}.risk .t{font-weight:700;font-size:13.5px}.risk .s{font-size:12px;color:var(--mut);font-weight:600;margin-top:2px}
-.risk .esc{font-size:12px;font-weight:700;color:var(--accent-d);border:1.5px solid #b8d9dc;border-radius:999px;padding:8px 12px;white-space:nowrap}
+.risk .d{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:24px;color:var(--red);width:56px;text-align:right;flex:none;line-height:1}
+.risk .d.a{color:var(--gold-d)}
+.risk .d small{font-family:'Jost',sans-serif;font-size:10px;color:var(--faint);font-weight:700}
+.risk .bd{flex:1;min-width:0}.risk .t{font-weight:700;font-size:13.5px;line-height:1.25}.risk .s{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:3px;line-height:1.35}
+.risk .esc{font-size:12px;font-weight:700;color:var(--accent-d);border:1.5px solid #b8d9dc;border-radius:999px;padding:8px 12px;white-space:nowrap;flex:none}
 .risk .esc:active{background:var(--accent-soft)}
+.risk .loading{padding:34px 20px;text-align:center;color:var(--mut);font-weight:600;font-size:13px}
 
-/* команда НУ */
-.team .nu{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line2);cursor:pointer}
-.team .nu:last-child{border-bottom:none}
-.team .nu:active{background:#fbfaf5}
-.team .av{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:14px;background:linear-gradient(135deg,var(--accent),var(--accent-d))}
-.team .bd{flex:1;min-width:0}
-.team .t{font-weight:700;font-size:13.5px}.team .t small{color:var(--faint);font-weight:600}
-.team .s{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:2px;display:flex;gap:9px;flex-wrap:wrap}
+/* ===== команда НУ · мини-лига ===== */
+.team .nu{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:13px;padding:14px 20px;border-top:1px solid var(--line2);cursor:pointer;transition:background .12s}
+.team .nu:first-child{border-top:none}
+.team .nu:hover{background:#fbfaf5}
+.team .av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:15px;background:linear-gradient(135deg,var(--accent),var(--accent-d))}
+.team .bd{min-width:0}
+.team .t{font-weight:700;font-size:14px}.team .t small{color:var(--faint);font-weight:600}
+.team .s{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:3px;display:flex;gap:10px;flex-wrap:wrap}
 .team .s .trust{color:var(--accent-d);font-weight:700}
-.team .kpi{flex:none;text-align:right}
-.team .kpi b{font-family:'Cormorant',Georgia,serif;font-size:22px;font-weight:700;color:var(--navy);line-height:1}
+.team .kpi{flex:none;text-align:right;background:none;box-shadow:none;padding:0;border-radius:0;overflow:visible}
+.team .kpi b{font-family:'Cormorant',Georgia,serif;font-size:24px;font-weight:700;color:var(--navy);line-height:1}
 .team .kpi span{display:block;font-size:9.5px;color:var(--faint);font-weight:700;text-transform:uppercase;margin-top:2px}
 
-/* очереди */
-.ques{padding:6px 18px 14px}
-.qline{display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid var(--line2)}
-.qline:last-child{border-bottom:none}
-.qline .qn{flex:none;width:104px;font-size:12.5px;font-weight:700}
-.qline .qn small{display:block;font-size:10px;color:var(--faint);font-weight:600}
-.qline .qt{flex:1;height:8px;border-radius:5px;background:#e7edf2;overflow:hidden;min-width:0}
-.qline .qt i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+/* ===== очереди ===== */
+.ques{padding:8px 20px 16px}
+.qline{display:flex;align-items:center;gap:13px;padding:11px 0;border-top:1px solid var(--line2)}
+.qline:first-child{border-top:none}
+.qline .qn{flex:none;width:118px;font-size:13px;font-weight:700}
+.qline .qn small{display:block;font-size:10.5px;color:var(--faint);font-weight:600;margin-top:1px}
+.qline .qt{flex:1;height:10px;border-radius:6px;background:#e7edf2;overflow:hidden;min-width:0}
+.qline .qt i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
 .qline .qt i.fin{background:linear-gradient(90deg,var(--green),#36a86a)}
-.qline .qv{flex:none;width:38px;text-align:right;font-weight:800;font-size:12.5px}
+.qline .qv{flex:none;width:42px;text-align:right;font-weight:800;font-size:13.5px;color:var(--navy)}
 
-/* поручения */
-.tasks .tr{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line2)}
-.tasks .tr:last-child{border-bottom:none}
-.tasks .ic{flex:none;font-size:16px}
-.tasks .bd{flex:1;min-width:0}.tasks .t{font-weight:700;font-size:13px}.tasks .s{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:2px}
-.tasks .st{flex:none;font-size:10.5px;font-weight:800;border-radius:999px;padding:4px 10px;background:var(--accent-soft);color:var(--accent-d)}
+/* ===== поручения ===== */
+.tasks .tr{display:flex;align-items:center;gap:13px;padding:13px 20px;border-top:1px solid var(--line2)}
+.tasks .tr:first-child{border-top:none}
+.tasks .ic{flex:none;font-size:17px}
+.tasks .bd{flex:1;min-width:0}.tasks .t{font-weight:700;font-size:13px;line-height:1.3}.tasks .s{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:3px}
+.tasks .st{flex:none;font-size:10.5px;font-weight:800;border-radius:999px;padding:5px 11px;background:var(--accent-soft);color:var(--accent-d);white-space:nowrap}
 
-.note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:22px;line-height:1.55}
-.note a{color:var(--accent-d);font-weight:700;text-decoration:none}
-.dt{margin-top:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.dt>summary{list-style:none;cursor:pointer;padding:13px 16px;font-size:13px;font-weight:700;color:var(--accent-d);display:flex;align-items:center;gap:8px}
+/* ===== полный план ГПР ===== */
+.dt{margin-top:14px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+.dt>summary{list-style:none;cursor:pointer;padding:15px 20px;font-size:13.5px;font-weight:700;color:var(--accent-d);display:flex;align-items:center;gap:8px}
 .dt>summary::-webkit-details-marker{display:none}
-.dt>summary::after{content:"⌄";margin-left:auto;font-size:15px;transition:transform .2s}
+.dt>summary::after{content:"⌄";margin-left:auto;font-size:16px;transition:transform .2s}
 .dt[open]>summary{border-bottom:1px solid var(--line)}
 .dt[open]>summary::after{transform:rotate(180deg)}
-.gprframe{width:100%;height:74vh;border:0;display:block;background:var(--bg);border-radius:0 0 14px 14px}
+.gprframe{width:100%;height:72vh;border:0;display:block;background:var(--bg)}
 
-.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(22px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:14px;font-size:13px;font-weight:700;box-shadow:0 16px 36px -12px rgba(40,65,87,.65);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.2,.8,.3,1),opacity .28s;z-index:60;max-width:90vw;text-align:center}
+.note{font-size:12px;color:#9c9586;text-align:center;margin-top:26px;line-height:1.6}
+.note a{color:var(--accent-d);font-weight:700;text-decoration:none}
+.loading{padding:60px;text-align:center;color:var(--mut);font-weight:600}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(22px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:13px;font-size:13px;font-weight:700;box-shadow:0 16px 36px -12px rgba(40,65,87,.6);opacity:0;pointer-events:none;transition:.28s;z-index:60;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast b{color:var(--gold)}
 
-@media(prefers-reduced-motion:no-preference){
-  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-  .wrap>*{opacity:0;animation:rise .5s cubic-bezier(.2,.7,.3,1) forwards}
-  .wrap>:nth-child(1){animation-delay:0s}.wrap>:nth-child(2){animation-delay:.05s}
-  .wrap>:nth-child(3){animation-delay:.1s}.wrap>:nth-child(4){animation-delay:.15s}
-  .wrap>:nth-child(5){animation-delay:.2s}.wrap>:nth-child(6){animation-delay:.25s}
-  .wrap>:nth-child(7){animation-delay:.3s}.wrap>:nth-child(8){animation-delay:.35s}
-  .wrap>:nth-child(9){animation-delay:.4s}.wrap>:nth-child(10){animation-delay:.45s}
-  .wrap>:nth-child(11){animation-delay:.5s}.wrap>:nth-child(12){animation-delay:.55s}
+@media(max-width:1280px){
+  .grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .col-c{grid-column:1 / -1}
+}
+@media(max-width:1040px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .grid{grid-template-columns:1fr}
+  .col-c{grid-column:auto}
+}
+@media(max-width:620px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .top .role{display:none}
+  .top .me .who{display:none}
 }
 </style>
 </head>
 <body>
+
+<div class="top">
+  <div class="lg">A</div>
+  <div class="nm">ATLAS<small>пульт руководителя проекта</small></div>
+  <div class="role">
+    <button class="on" onclick="setRole(this,'РП объекта')">РП объекта</button>
+    <button onclick="setRole(this,'Директор по стройке')">Директор</button>
+  </div>
+  <div class="meta">
+    <div class="stamp">данные из движка ГПР<b id="stamp">28.05.2026</b></div>
+    <div class="me"><div class="who">Ерлан С.<small id="mesub">РП · ЖК «Аура»</small></div><div class="av">Е</div></div>
+  </div>
+</div>
+
 <div class="wrap">
 
-  <div class="top">
-    <div class="lg">A</div>
-    <div class="nm">ATLAS<small>пульт руководителя проекта</small></div>
-    <div class="me"><div class="who">Ерлан С.<small>РП · Аура</small></div><div class="av">Е</div></div>
+  <div class="crumbs"><a href="index.html">Все экраны</a><span class="sep">▸</span><a href="portfolio.html">Портфель</a><span class="sep">▸</span><a href="object.html?zk=aura">ЖК «Аура»</a><span class="sep">▸</span><b>Пульт РП</b></div>
+
+  <!-- KPI-лента -->
+  <div class="kpis" id="kpis">
+    <div class="kpi"><div class="v g tnum">+6<small>%</small></div><div class="k">готовность / нед</div><div class="sub">по блокам Ауры</div></div>
+    <div class="kpi alarm"><div class="v tnum">—</div><div class="k">работ не в срок</div><div class="sub">из движка ГПР</div></div>
+    <div class="kpi"><div class="v a tnum">74<small>%</small></div><div class="k">достоверность факта</div><div class="sub">твоя ось KPI</div></div>
+    <div class="kpi"><div class="v tnum" id="k-wait">4</div><div class="k">ждут подтверждения</div><div class="sub">очередь проверки</div></div>
+    <div class="kpi"><div class="v tnum" id="k-ready">—<small>%</small></div><div class="k">ср. готовность</div><div class="sub">6 блоков · оч. 2–4</div></div>
+    <div class="kpi alarm"><div class="v tnum" id="k-worst">—<small>д</small></div><div class="k">худший срыв</div><div class="sub" id="k-worst-sub">из движка ГПР</div></div>
   </div>
 
-  <div class="crumbs"><a href="portfolio.html">‹ Портфель</a><span class="sep">·</span><a href="object.html">ЖК «Аура»</a><span class="sep">·</span><b>пульт РП</b></div>
+  <div class="grid">
 
-  <!-- СВОДКА -->
-  <div class="lbl">Аура за неделю <span class="obs" title="KPI считается, но на премию пока не влияет — Фаза 2">наблюдательный режим</span></div>
-  <div class="card sum">
-    <div class="sst"><div class="sn g tnum">+6<small>%</small></div><div class="sl">готовность / нед</div></div>
-    <div class="sst"><div class="sn r tnum">35</div><div class="sl">просрочено работ</div></div>
-    <div class="sst"><div class="sn a tnum">74<small>%</small></div><div class="sl">достоверность факта</div></div>
-    <div class="sst"><div class="sn tnum" id="s-wait">4</div><div class="sl">ждут подтверждения</div></div>
-  </div>
+    <!-- КОЛОНКА 1 · ОЧЕРЕДЬ ПОДТВЕРЖДЕНИЯ ФАКТА -->
+    <div class="col">
+      <div class="lbl">Подтвердить факт <span class="obs" title="KPI считается, но на премию пока не влияет — Фаза 2">наблюдательный режим</span></div>
+      <div class="card conf">
+        <div class="meter">
+          <div class="ring"><svg viewBox="0 0 72 72" width="72" height="72" aria-hidden="true"><circle cx="36" cy="36" r="30" fill="none" stroke="#e6ebf1" stroke-width="7"/><circle cx="36" cy="36" r="30" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-dasharray="188" stroke-dashoffset="49" transform="rotate(-90 36 36)"/></svg><div class="ringv"><b class="tnum">74%</b><span>достов.</span></div></div>
+          <div><div class="mt">Достоверность факта — твоя ось KPI</div><div class="ms">Подтверждаешь физически то, что отметили НУ. <b>Достоверный факт</b> = по нему считается их премия (не самоотметка). Сегодня подтверждено: <b id="m-done">0</b>.</div></div>
+        </div>
+        <div id="queue"></div>
+        <button class="allcta" id="allcta" onclick="confAll()">✓ Подтвердить всё с фото</button>
+      </div>
 
-  <!-- ПОДТВЕРЖДЕНИЕ ФАКТА -->
-  <div class="lbl">Подтвердить факт <span class="n">твоя проверка на объекте</span></div>
-  <div class="card conf">
-    <div class="meter">
-      <div class="ring"><svg viewBox="0 0 68 68" width="64" height="64" aria-hidden="true"><circle cx="34" cy="34" r="28" fill="none" stroke="#e6ebf1" stroke-width="7"/><circle cx="34" cy="34" r="28" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-dasharray="176" stroke-dashoffset="46" transform="rotate(-90 34 34)"/></svg><div class="ringv"><b class="tnum">74%</b><span>достов.</span></div></div>
-      <div><div class="mt">Достоверность факта — твоя ось KPI</div><div class="ms">Подтверждаешь физически то, что отметили НУ. <b>Достоверный факт</b> = по нему считается их премия (не самоотметка). Сегодня подтверждено: <b id="m-done">0</b>.</div></div>
+      <div class="lbl">Полный план ГПР <span class="n">Аура · планировать наперёд</span></div>
+      <details class="dt"><summary>Раскрыть план — все работы по срокам (как MS Project)</summary><iframe class="gprframe" src="gpr.html?embed=1" title="Полный план ГПР · Аура" loading="lazy"></iframe></details>
     </div>
-    <div id="queue"></div>
-    <button class="allcta" id="allcta" onclick="confAll()">✓ Подтвердить всё с фото</button>
-  </div>
 
-  <!-- КРАСНАЯ ЗОНА -->
-  <div class="lbl">Красная зона · риск срыва <span class="n">из отчёта ГПР · 28.05</span></div>
-  <div class="card risk">
-    <div class="rr"><span class="dot"></span><div class="bd"><div class="t">Видеонаблюдение · блок 3 — 67% · −48 дн</div><div class="s">слаботочка тянется с ноября · план до 11.04 сорван</div></div><button class="esc" onclick="esc(this,'Эскалировано директору · видеонаблюдение')">Эскалировать</button></div>
-    <div class="rr"><span class="dot"></span><div class="bd"><div class="t">Домофоны · блок 3 — 67% · −48 дн</div><div class="s">в связке со слаботочкой · план до 11.04</div></div><button class="esc" onclick="esc(this,'Эскалировано · домофоны')">Эскалировать</button></div>
-    <div class="rr"><span class="dot"></span><div class="bd"><div class="t">Монтаж лифтов · блок 3 — 85% · −21 дн</div><div class="s">критический путь сдачи · осталось 15%, план до 16.04</div></div><button class="esc" onclick="esc(this,'Эскалировано директору · лифты')">Эскалировать</button></div>
-    <div class="rr"><span class="dot a"></span><div class="bd"><div class="t">Благоустройство · блок 3 — 0% · −19 дн</div><div class="s">брусчатка/асфальт/бордюры не начаты · план 29.03–17.04</div></div><button class="esc" onclick="esc(this,'Запрошен фронт у смежников')">Решить</button></div>
-  </div>
+    <!-- КОЛОНКА 2 · КРАСНАЯ ЗОНА + КОМАНДА НУ -->
+    <div class="col col-c">
+      <div class="lbl">Красная зона · риск срыва <span class="n" id="riskstamp">из движка ГПР · 28.05</span></div>
+      <div class="card risk" id="risk"><div class="loading">Загружаю красную зону…</div></div>
 
-  <!-- КОМАНДА НУ -->
-  <div class="lbl">Моя команда · начальники участка <a class="n" href="league.html" style="text-decoration:none">лига участков →</a></div>
-  <div class="card team">
-    <div class="nu" onclick="location.href='nu.html?block=3'">
-      <div class="av">А</div>
-      <div class="bd"><div class="t">Асхат Б. <small>· блок 3 (2 оч)</small></div><div class="s"><span>🔥 4 нед серии</span><span class="trust">достоверность 92%</span></div></div>
-      <div class="kpi"><b class="tnum">86%</b><span>KPI нед</span></div>
+      <div class="lbl">Моя команда · начальники участка <a class="n" href="league.html" style="text-decoration:none">лига участков →</a></div>
+      <div class="card team">
+        <div class="nu" onclick="location.href='naparnik.html?block=3'">
+          <div class="av">А</div>
+          <div class="bd"><div class="t">Асхат Б. <small>· блок 3 (2 оч)</small></div><div class="s"><span>🔥 4 нед серии</span><span class="trust">достоверность 92%</span></div></div>
+          <div class="kpi"><b class="tnum">86%</b><span>KPI нед</span></div>
+        </div>
+        <div class="nu" onclick="location.href='naparnik.html?block=4'">
+          <div class="av" style="background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy)">Д</div>
+          <div class="bd"><div class="t">Дамир Е. <small>· блок 4 (2 оч)</small></div><div class="s"><span>🔥 2 нед серии</span><span class="trust">достоверность 78%</span></div></div>
+          <div class="kpi"><b class="tnum">81%</b><span>KPI нед</span></div>
+        </div>
+      </div>
     </div>
-    <div class="nu" onclick="location.href='nu.html?block=4'">
-      <div class="av" style="background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy)">Д</div>
-      <div class="bd"><div class="t">Дамир Е. <small>· блок 4 (2 оч)</small></div><div class="s"><span>🔥 2 нед серии</span><span class="trust">достоверность 78%</span></div></div>
-      <div class="kpi"><b class="tnum">81%</b><span>KPI нед</span></div>
+
+    <!-- КОЛОНКА 3 · ОЧЕРЕДИ + ПОРУЧЕНИЯ -->
+    <div class="col">
+      <div class="lbl">Очереди «Ауры» <span class="n">блок = «пятно» в ГПР</span></div>
+      <div class="card ques" id="ques"><div class="loading">Загружаю очереди…</div></div>
+
+      <div class="lbl">Поручения и эскалации</div>
+      <div class="card tasks">
+        <div class="tr"><span class="ic">📤</span><div class="bd"><div class="t">Подготовить фронт под лифты к 10.06 → Асхату Б.</div><div class="s">выдано на планёрке 01.06</div></div><span class="st">выдано</span></div>
+        <div class="tr"><span class="ic">⤴</span><div class="bd"><div class="t">Решить по подрядчику лифтов до 10.06</div><div class="s">эскалация директору · блок 3</div></div><span class="st">у директора</span></div>
+        <div class="tr"><span class="ic">📦</span><div class="bd"><div class="t">Подтвердить поставку слаботочки → видео/домофоны</div><div class="s">снабжение · блокирует красную зону</div></div><span class="st">ждём</span></div>
+      </div>
     </div>
+
   </div>
 
-  <!-- ОЧЕРЕДИ -->
-  <div class="lbl">Очереди «Ауры» <span class="n">блок = «пятно» в ГПР</span></div>
-  <div class="card ques">
-    <div class="qline"><div class="qn">2 очередь<small>блоки 3, 4</small></div><div class="qt"><i style="width:84%"></i></div><div class="qv">84%</div></div>
-    <div class="qline"><div class="qn">3 очередь<small>блоки 5, 6</small></div><div class="qt"><i style="width:10%"></i></div><div class="qv">10%</div></div>
-    <div class="qline"><div class="qn">4 очередь<small>блоки 7, 8</small></div><div class="qt"><i style="width:10%"></i></div><div class="qv">10%</div></div>
-  </div>
-
-  <!-- ПОРУЧЕНИЯ -->
-  <div class="lbl">Поручения и эскалации</div>
-  <div class="card tasks">
-    <div class="tr"><span class="ic">📤</span><div class="bd"><div class="t">Подготовить фронт под лифты к 10.06 → Асхату Б.</div><div class="s">выдано на планёрке 01.06</div></div><span class="st">выдано</span></div>
-    <div class="tr"><span class="ic">⤴</span><div class="bd"><div class="t">Решить по подрядчику лифтов до 10.06</div><div class="s">эскалация директору · блок 3</div></div><span class="st">у директора</span></div>
-  </div>
-
-  <!-- ПОЛНЫЙ ПЛАН ГПР -->
-  <div class="lbl">Полный план ГПР <span class="n">Аура · планировать наперёд</span></div>
-  <details class="dt"><summary>Раскрыть план — все работы по срокам (как MS Project)</summary><iframe class="gprframe" src="gpr.html?embed=1" title="Полный план ГПР · Аура" loading="lazy"></iframe></details>
-
-  <div class="note">Пульт руководителя проекта · ЖК «Аура» (очереди 2–4, блоки 3–8). Подтверждение факта — физическая проверка, источник «достоверности». Красная зона — из отчёта ГПР 28.05.2026 (реальные отставания); очки и подтверждения — демо. <a href="#" onclick="resetDemo();return false;" style="color:var(--accent-d);font-weight:700;text-decoration:none">↺ сбросить демо</a> · <a href="portfolio.html">← Портфель</a></div>
+  <div class="note">Пульт руководителя проекта · ЖК «Аура» (очереди 2–4, блоки 3–8). Подтверждение факта — физическая проверка, источник «достоверности». Красная зона и очереди — из единого движка ГПР на <b>28.05.2026</b> (реальные отставания); очки, подтверждения и поручения — демо. <a href="#" onclick="resetDemo();return false;">↺ сбросить демо</a> · <a href="object.html?zk=aura">← Объект</a> · <a href="dashboard.html">Командный центр</a> · <a href="naparnik.html?block=3">Участок</a> · <a href="index.html">Все экраны</a></div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
+const $=id=>document.getElementById(id);
+let toastT;
+function toast(m){const e=$('toast');e.innerHTML=m;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),2200);}
+function setRole(btn,name){document.querySelectorAll('.top .role button').forEach(b=>b.classList.toggle('on',b===btn));$('mesub').textContent=name==='РП объекта'?'РП · ЖК «Аура»':name+' · ЖК «Аура»';}
+function sev(l){return l>=60?'crit':l>=30?'high':l>=14?'mid':'low';}
+
+/* ===== очередь подтверждения факта (демо-интерактив) ===== */
 const QUEUE=[
   {w:'Фасад', blk:'блок 3', who:'Асхат Б. · ИП Дана', pf:'93 → 100%', photo:true},
   {w:'Видеонаблюдение', blk:'блок 3', who:'Асхат Б.', pf:'67%', warn:'2 недели без движения'},
@@ -226,12 +264,10 @@ const QUEUE=[
   {w:'Электромонтаж', blk:'блок 4', who:'Дамир Е.', pf:'96 → 98%'},
 ];
 let done=0;
-const $=id=>document.getElementById(id);
-let toastT;
-function toast(m){const e=$('toast');e.innerHTML=m;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),2200);}
-function soon(){toast('Экран участка Дамира — <b>в работе</b>');}
+const SKEY='atlas_rp_v1';
+let resolved=[];
 
-function render(){
+function renderQueue(){
   const host=$('queue');
   if(!QUEUE.length){host.innerHTML='<div class="empty">✓ Всё подтверждено — свод можно отдавать директору</div>';$('allcta').style.display='none';}
   else{
@@ -242,30 +278,102 @@ function render(){
     }).join('');
     $('allcta').style.display='block';
   }
-  $('s-wait').textContent=QUEUE.length;
+  $('k-wait').textContent=QUEUE.length;
   $('m-done').textContent=done;
 }
 function conf(i,ok){
   const q=QUEUE[i];
   if(ok){done++;toast(`✓ Подтверждено · ${q.w} (${q.blk}) · <b>+достоверность</b>`);}
   else{toast(`↩ Возвращено НУ · ${q.w} — переотметить`);}
-  resolved.push(q.w);QUEUE.splice(i,1);render();save();
+  resolved.push(q.w);QUEUE.splice(i,1);renderQueue();save();
 }
 function confAll(){
   const n=QUEUE.filter(q=>q.photo).length;
   for(let i=QUEUE.length-1;i>=0;i--){if(QUEUE[i].photo){resolved.push(QUEUE[i].w);QUEUE.splice(i,1);done++;}}
-  toast(`✓ Подтверждено с фото: <b>${n}</b> · остались на ручную проверку`);render();save();
+  toast(`✓ Подтверждено с фото: <b>${n}</b> · остались на ручную проверку`);renderQueue();save();
 }
 function markEsc(btn){btn.textContent='✓ отправлено';btn.style.color='var(--green)';btn.style.borderColor='#bfe0cc';btn.disabled=true;}
-function esc(btn,msg){markEsc(btn);toast('⤴ '+msg);save();}
-const SKEY='atlas_rp_v1';
-let resolved=[];
-function save(){try{localStorage.setItem(SKEY,JSON.stringify({resolved,done,esc:[...document.querySelectorAll('.esc')].map(b=>b.disabled?1:0)}));}catch(e){}}
+function esc(btn,msg){markEsc(btn);toast('⤴ '+msg);saveEsc();}
+
+function save(){try{localStorage.setItem(SKEY,JSON.stringify({resolved,done,esc:escState()}));}catch(e){}}
+function saveEsc(){save();}
+function escState(){return [...document.querySelectorAll('.esc')].map(b=>b.disabled?1:0);}
 function load(){try{const s=JSON.parse(localStorage.getItem(SKEY)||'null');if(!s)return null;resolved=s.resolved||[];done=s.done||0;for(let i=QUEUE.length-1;i>=0;i--){if(resolved.includes(QUEUE[i].w))QUEUE.splice(i,1);}return s;}catch(e){return null;}}
 function resetDemo(){try{localStorage.removeItem(SKEY);}catch(e){}location.reload();}
+
+/* ===== единый движок ГПР: красная зона + очереди + KPI Ауры ===== */
+const AURA_IDS=['aura'];
+function isAura(o){return AURA_IDS.includes((o.id||'').toLowerCase())|| /аур/i.test(o.object||'');}
+
+function buildAura(D){
+  const o=(D.portfolio||[]).find(isAura);
+  if(!o)return null;
+  const blocks=o.blocks||[];
+  const facts=blocks.map(b=>b.fact||0);
+  const ready=facts.length?Math.round(facts.reduce((a,b)=>a+b,0)/facts.length):0;
+  // все срывы по объекту
+  const late=[];
+  blocks.forEach(b=>(b.works||[]).forEach(w=>{
+    const l=w.lag||0;
+    if(l>0)late.push({l,name:(w.name||'').trim(),spot:b.spot,queue:b.queue,fact:w.fact,section:w.section,contractor:w.contractor});
+  }));
+  late.sort((a,b)=>b.l-a.l);
+  // очереди = группировка блоков по queue
+  const qmap={};
+  blocks.forEach(b=>{const q=b.queue;(qmap[q]=qmap[q]||{queue:q,spots:[],facts:[]});qmap[q].spots.push(b.spot);qmap[q].facts.push(b.fact||0);});
+  const queues=Object.values(qmap).map(q=>({queue:q.queue,spots:q.spots,ready:Math.round(q.facts.reduce((a,b)=>a+b,0)/q.facts.length)})).sort((a,b)=>a.queue-b.queue);
+  return {name:o.object,blocks:blocks.length,ready,nlate:late.length,worst:late[0],late,queues};
+}
+
+function renderAura(A){
+  // KPI из движка
+  $('k-ready').innerHTML=A.ready+'<small>%</small>';
+  const kp=$('kpis');
+  const alarmKpis=kp.querySelectorAll('.kpi.alarm');
+  if(alarmKpis[0])alarmKpis[0].querySelector('.v').innerHTML=A.nlate;
+  if(A.worst){$('k-worst').innerHTML='−'+A.worst.l+'<small>д</small>';$('k-worst-sub').textContent=A.worst.name;}
+
+  // красная зона: топ системных срывов Ауры
+  const top=A.late.slice(0,5);
+  $('risk').innerHTML=top.map(x=>{
+    const amber=x.section==='Благоустройство';
+    const fact=(x.fact!=null)?x.fact+'% · ':'';
+    return `<div class="rr">
+      <span class="dot${amber?' a':''}"></span>
+      <div class="d${amber?' a':''} tnum">−${x.l}<small>д</small></div>
+      <div class="bd"><div class="t">${x.name} · пятно ${x.spot} (${x.queue} оч)</div><div class="s">${fact}${x.section||''} · одна и та же система тормозит разные блоки</div></div>
+      <button class="esc" onclick="esc(this,'Эскалировано директору · ${x.name.replace(/['&quot;]/g,'')} (пятно ${x.spot})')">${amber?'Решить':'Эскалировать'}</button>
+    </div>`;
+  }).join('')||'<div class="loading">По Ауре системных срывов нет 🎉</div>';
+
+  // очереди
+  $('ques').innerHTML=A.queues.map(q=>{
+    const fin=q.ready>=95;
+    return `<div class="qline"><div class="qn">${q.queue} очередь<small>блоки ${q.spots.join(', ')}</small></div><div class="qt"><i class="${fin?'fin':''}" style="width:${q.ready}%"></i></div><div class="qv tnum">${q.ready}%</div></div>`;
+  }).join('');
+}
+
+/* загрузка движка */
+fetch('gpr-engine/gpr_data.json',{cache:'no-store'})
+  .then(r=>{if(!r.ok)throw 0;return r.json();})
+  .then(D=>{
+    const stamp=(D.status_date||'2026-05-28').split('-').reverse().join('.');
+    $('stamp').textContent=stamp;
+    $('riskstamp').textContent='из движка ГПР · '+stamp.slice(0,5);
+    const A=buildAura(D);
+    if(!A){$('risk').innerHTML='<div class="loading">ЖК «Аура» не найден в движке.</div>';$('ques').innerHTML='';return;}
+    renderAura(A);
+    // восстановить состояние эскалаций после рендера красной зоны
+    if(_s&&_s.esc){const _e=document.querySelectorAll('.esc');_s.esc.forEach((d,i)=>{if(d&&_e[i])markEsc(_e[i]);});}
+  })
+  .catch(()=>{
+    $('risk').innerHTML='<div class="loading">Не удалось прочитать данные движка (gpr-engine/gpr_data.json).<br>Открой через сервер или GitHub Pages.</div>';
+    $('ques').innerHTML='<div class="loading">нет данных движка</div>';
+  });
+
+/* инициализация очереди подтверждения */
 const _s=load();
-render();
-if(_s&&_s.esc){const _e=document.querySelectorAll('.esc');_s.esc.forEach((d,i)=>{if(d&&_e[i])markEsc(_e[i]);});}
+renderQueue();
 </script>
 </body>
 </html>

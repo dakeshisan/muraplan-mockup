@@ -171,7 +171,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="lbl">Узкие места компании <span class="n">одни и те же работы тормозят все объекты — туда и бить</span></div>
   <div class="card bn" id="bottlenecks"></div>
 
-  <div class="note">Командный центр · читает единый источник — данные движка ГПР на <b>28.05.2026</b> (4 ЖК · <span id="nblk">—</span> блоков · <span id="nwrk">—</span> работ). Срыв = факт ниже плана по сроку. Это и есть «один движок» в действии: экран не хранит свои цифры, а показывает движок. · <a href="index.html">← Все экраны</a></div>
+  <div class="note">Командный центр · читает единый источник — данные движка ГПР на <b>28.05.2026</b> (4 ЖК · <span id="nblk">—</span> блоков · <span id="nwrk">—</span> работ). Срыв = факт ниже плана по сроку. Это и есть «один движок» в действии: экран не хранит свои цифры, а показывает движок. · <a href="portfolio.html">Портфель</a> · <a href="gpr.html">Полный ГПР</a> · <a href="league.html">Лига</a> · <a href="index.html">← Все экраны</a></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -181,8 +181,7 @@ const $=id=>document.getElementById(id);
 let toastT; function toast(m){const e=$('toast');e.innerHTML=m;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),2200);}
 function setRole(btn,name){document.querySelectorAll('.top .role button').forEach(b=>b.classList.toggle('on',b===btn));$('me').innerHTML=name+'<small>все объекты компании</small>';}
 function sev(l){return l>=60?'crit':l>=30?'high':l>=14?'mid':'low';}
-const objHref={'ЖК «Аура»':'object.html'};
-function goObj(name){const h=objHref[name];if(h)location.href=h;else toast('Экран объекта «'+name+'» — <b>скоро</b>');}
+function goObj(id){if(id)location.href='object.html?zk='+encodeURIComponent(id);}
 
 let MODEL=null, filter='all';
 
@@ -236,7 +235,7 @@ function render(){
     const st=o.worst>=60?'red':o.worst>=30?'amber':o.worst>0?'teal':'green';
     const wcls=o.worst>0?'':'ok';
     const hot=filter==='all'||filter===o.name;
-    return `<div class="obj" style="${hot?'':'opacity:.4'}" onclick="goObj('${o.name.replace(/'/g,"\\'")}')">
+    return `<div class="obj" style="${hot?'':'opacity:.4'}" onclick="goObj('${o.id}')">
       <span class="dot ${st}"></span>
       <div class="nm">${o.name}<small>${o.blocks} блоков</small></div>
       <div class="barwrap"><div class="bar"><i style="width:${o.ready}%"></i></div><div class="pct tnum">${o.ready}%</div></div>

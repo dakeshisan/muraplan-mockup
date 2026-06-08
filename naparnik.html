@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#284157">
+<meta name="robots" content="noindex,nofollow">
+<title>ATLAS · Напарник — рабочее место мастера</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1EFE7;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#9C958685;--line:#E6E2D7;--line2:#EFEDE5;
+  --accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--navy:#284157;--navy-d:#1d3142;
+  --gold:#CFB372;--gold-d:#A88E48;
+  --green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-d:#A23A33;--red-bg:#F7E7E2;--amber:#C98A2C;--amber-bg:#FBF1DF;
+  --shadow:0 14px 34px -20px rgba(40,65,87,.55);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{color-scheme:light}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;-webkit-tap-highlight-color:transparent;font-feature-settings:"ss03","cv11"}
+.tnum{font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:12px}
+
+/* ===== шапка на весь экран ===== */
+.top{position:sticky;top:0;z-index:30;background:linear-gradient(110deg,var(--navy),var(--navy-d));color:#fff;display:flex;align-items:center;gap:16px;padding:12px clamp(16px,2.4vw,40px)}
+.top .lg{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;font-family:'Cormorant',Georgia,serif;flex:none}
+.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:23px;line-height:1}
+.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px;letter-spacing:.01em}
+.top .obsbadge{margin-left:6px;font-size:11px;font-weight:700;border-radius:999px;padding:5px 12px;background:rgba(207,179,114,.18);color:var(--gold);white-space:nowrap}
+.top .meta{margin-left:auto;display:flex;align-items:center;gap:16px}
+.top .stamp{font-size:11.5px;color:#9db4c6;font-weight:600;text-align:right;line-height:1.3}
+.top .stamp b{color:#fff;display:block;font-weight:700}
+.top .me{display:flex;align-items:center;gap:10px}
+.top .me .who{text-align:right;font-size:12.5px;font-weight:700;line-height:1.15}
+.top .me .who small{display:block;font-weight:500;color:#9db4c6;font-size:10.5px}
+.top .me .av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex:none}
+
+/* ===== wrap на весь экран ===== */
+.wrap{padding:0 clamp(16px,2.4vw,40px) 48px;max-width:2100px;margin:0 auto}
+.crumbs{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12px;font-weight:600;color:var(--mut);margin:14px 2px 0}
+.crumbs a{color:var(--accent-d);font-weight:700;text-decoration:none}
+.crumbs a:active{opacity:.6}
+.crumbs .sep{color:var(--faint)}
+.crumbs b{color:var(--ink)}
+.lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9c9586;margin:22px 2px 11px}
+.lbl .n{margin-left:auto;font-weight:600;color:var(--accent-d);text-transform:none;letter-spacing:0;font-size:12.5px}
+.lbl .obs{margin-left:auto;font-size:11px;font-weight:600;border-radius:999px;padding:4px 11px;background:var(--accent-soft);color:var(--accent-d);text-transform:none;letter-spacing:0}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow)}
+.loading{padding:60px;text-align:center;color:var(--mut);font-weight:600}
+
+/* ===== HERO-лента геймификации (морковка СПЕРЕДИ) ===== */
+.herostrip{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:18px;align-items:stretch}
+.hcard{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:18px 20px}
+/* грейд + кольцо */
+.hgrade-card{display:flex;gap:18px;align-items:center}
+.ring{position:relative;width:84px;height:84px;flex:none}
+.ringv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ringv b{font-size:22px;font-weight:800}.ringv span{font-size:9px;color:var(--mut)}
+.hgrade{min-width:0;flex:1}
+.hgrade .cap{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint)}
+.hgrade .gname{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:30px;line-height:1;color:var(--navy);margin-top:2px}
+.hgrade .gbar{height:8px;border-radius:5px;background:#EAD9AE;margin:9px 0 6px;overflow:hidden}
+.hgrade .gbar i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--gold),#e6cf94)}
+.hgrade .gnext{font-size:11.5px;color:var(--mut);font-weight:600;line-height:1.4}
+.hgrade .gnext b{color:var(--gold-d)}
+/* очки недели hero */
+.hxpcard .cap{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint)}
+.hxpcard .big{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:48px;line-height:1;color:var(--gold-d);margin-top:2px}
+.hxpcard .big small{font-family:'Jost',sans-serif;font-size:15px;font-weight:700;color:var(--faint)}
+.hxpcard .hxpsub{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:6px;line-height:1.4}
+.hchips{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.hchip{flex:1;min-width:78px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:9px 6px;text-align:center;text-decoration:none;color:inherit}
+.hchip b{display:block;font-size:17px;font-weight:800;color:var(--navy);line-height:1.1}
+.hchip span{display:block;font-size:10px;color:var(--faint);font-weight:600;margin-top:3px;line-height:1.2}
+/* зона недели + carrot */
+.hcard .zone{display:flex;align-items:center;gap:10px;border-radius:13px;padding:11px 13px;font-weight:700;font-size:13px;background:var(--green-bg);color:var(--green);line-height:1.35}
+.hcard .zone.warn{background:var(--amber-bg);color:var(--amber)}
+.hcard .zone .e{font-size:18px;flex:none}
+.carrot{background:linear-gradient(135deg,#FBF5E6,#F5EAD0);border:1px solid #E7D4A6;border-radius:14px;padding:12px 14px;margin-top:12px}
+.carrot .t{font-size:13px;font-weight:800;color:var(--ink)}.carrot .t b{color:var(--gold-d)}
+.carrot .bar{height:9px;border-radius:6px;background:#EAD9AE;margin:10px 0 7px;overflow:hidden}
+.carrot .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--gold),#e6cf94)}
+.carrot .s{font-size:11.5px;color:var(--gold-d);font-weight:600;line-height:1.5}
+
+/* ===== основной 3-колоночный дашборд рабочего места ===== */
+.grid3{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1.25fr) minmax(0,1fr);gap:20px;align-items:start;margin-top:4px}
+.col{min-width:0;display:flex;flex-direction:column;gap:0}
+
+/* МОЯ НЕДЕЛЯ */
+.week{padding:6px 0}
+.wk{display:flex;align-items:center;gap:12px;padding:13px 20px;border-top:1px solid var(--line2)}
+.wk:first-child{border-top:none}
+.wk .dot{width:11px;height:11px;border-radius:50%;flex:none}
+.dot.red{background:var(--red)}.dot.amber{background:var(--amber)}.dot.teal{background:var(--accent)}.dot.green{background:var(--green)}.dot.todo{background:#cfc8b8}
+.wk .bd{flex:1;min-width:0}
+.wk .t{font-weight:700;font-size:13.5px;line-height:1.2}
+.wk .s{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wk .rt{flex:none;text-align:right}
+.wk .rt .p{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:22px;line-height:1;color:var(--navy)}
+.wk .rt .lag{font-size:10px;font-weight:700;color:var(--red);margin-top:2px}
+.wk .rt .lag.ok{color:var(--green)}
+.wkstat{display:flex;gap:9px;padding:14px 20px 4px}
+.wkstat .c{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:10px 8px;text-align:center}
+.wkstat .c .gl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--faint)}
+.wkstat .c .gn{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:27px;line-height:1;margin-top:2px;color:var(--navy)}
+.wkstat .c .gn.fact{color:var(--accent-d)}.wkstat .c .gn.lag{color:var(--red)}
+.wkstat .c .gn .gu{font-family:'Jost',sans-serif;font-size:11px;font-weight:600;color:var(--faint)}
+.subhead{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);padding:14px 20px 4px}
+
+/* индикатор поставки (демо) */
+.supplyflag{display:flex;align-items:center;gap:8px;margin:8px 20px 4px;background:linear-gradient(135deg,#fff,#f3f6f3);border:1px dashed #cdd9cf;border-radius:11px;padding:9px 12px;font-size:11.5px;font-weight:700;color:var(--mut)}
+.supplyflag .ic{font-size:15px;flex:none}
+.supplyflag .soon{margin-left:auto;font-size:9.5px;font-weight:700;color:var(--gold-d);background:#FBF5E6;border:1px solid #E7D4A6;border-radius:999px;padding:3px 8px;white-space:nowrap}
+.wk .stk{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--red);background:var(--red-bg);border-radius:999px;padding:3px 8px;margin-top:3px}
+
+/* ===== КАНБАН: подтверди сделанное ===== */
+.khead{padding:12px 18px;font-size:12px;font-weight:700;color:var(--accent-d);background:var(--accent-soft);border-radius:14px 14px 0 0;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.khint{font-weight:700;color:var(--accent-d)}
+.kan{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px}
+.kcol{background:#EEEBE1;border-radius:14px;padding:8px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.kcol .kh{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:var(--mut);display:flex;justify-content:space-between;padding:3px 4px}
+.kcol .kh .c{color:var(--faint)}
+.kc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 11px;cursor:pointer;box-shadow:0 1px 2px rgba(30,30,30,.04)}
+.kc:active{transform:translateY(1px)}
+.kc .kt{font-size:12.5px;font-weight:700;line-height:1.22}
+.kc .km{font-size:10.5px;color:var(--faint);font-weight:600;margin-top:3px}
+.kc .kp{display:flex;align-items:center;justify-content:space-between;margin-top:9px;gap:6px}
+.kc .kpct{font-size:17px;font-weight:800}
+.kc .ktag{font-size:9.5px;font-weight:700;border-radius:6px;padding:2px 7px;white-space:nowrap}
+.kc.late{border-color:#e9c3bb}.kc.late .ktag{background:var(--red-bg);color:var(--red)}
+.kc.done{border-color:#bfe0cc}.kc.done .kpct{color:var(--green)}.kc.done .ktag{background:var(--green-bg);color:var(--green)}
+.kc .ksup{margin-top:8px;font-size:9.5px;font-weight:700;color:var(--gold-d);background:#FBF5E6;border:1px dashed #E7D4A6;border-radius:8px;padding:5px 8px;line-height:1.3}
+.kmark{margin-top:10px;padding-top:10px;border-top:1px solid var(--line2);display:flex;flex-wrap:wrap;gap:6px}
+.chip{flex:1;min-width:46px;padding:8px 0;border-radius:9px;font-weight:800;font-size:12.5px;border:1.5px solid var(--line);background:#fff;text-align:center;color:var(--accent-d)}
+.chip.ok{flex-basis:100%;border-color:#bfe0cc;color:var(--green);background:var(--green-bg)}
+.chip.stk{flex-basis:100%;border-color:#e9c3bb;color:var(--red)}
+@keyframes pop{0%{transform:scale(1)}35%{transform:scale(1.05)}100%{transform:scale(1)}}
+.kc.cele{animation:pop .42s ease;border-color:var(--gold)!important;box-shadow:0 0 0 3px #F5EAD0}
+.cf{position:fixed;width:8px;height:8px;border-radius:2px;pointer-events:none;z-index:70;will-change:transform,opacity;animation:cf .72s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes cf{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--dx),var(--dy)) rotate(240deg) scale(.5);opacity:0}}
+.bump{animation:bump .42s cubic-bezier(.2,.8,.3,1)}
+@keyframes bump{0%{transform:scale(1)}45%{transform:scale(1.28)}100%{transform:scale(1)}}
+
+/* ===== ЧТО ГОТОВИТЬ ЗАРАНЕЕ ===== */
+.ahead .arow{display:flex;gap:13px;padding:13px 20px;border-top:1px solid var(--line2)}
+.ahead .arow:first-child{border-top:none}
+.arow .when{flex:none;width:74px;font-size:12px;font-weight:800;color:var(--accent-d);line-height:1.15}
+.arow .when small{display:block;font-weight:600;color:var(--faint);font-size:10px;margin-top:1px}
+.arow .bd{min-width:0}
+.arow .bd .t{font-weight:700;font-size:13px;line-height:1.2}
+.arow .bd .prep{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:3px;line-height:1.4}
+.arow .bd .prep b{color:var(--ink)}
+.arow .bd .supwait{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--gold-d);background:#FBF5E6;border:1px dashed #E7D4A6;border-radius:999px;padding:3px 8px;margin-top:5px}
+.aheadfoot{padding:11px 20px;font-size:11.5px;font-weight:700;color:var(--gold-d);background:linear-gradient(135deg,#FBF5E6,#F5EAD0);border-top:1px solid #E7D4A6;line-height:1.4;border-radius:0 0 18px 18px}
+
+/* ===== ОБЩАЯ ЦЕЛЬ КОМАНДЫ ===== */
+.goal{padding:18px 20px;background:linear-gradient(160deg,#fff,#fbfaf4)}
+.goalhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.goalcap{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint)}
+.goaltitle{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:24px;line-height:1.02;color:var(--navy);margin-top:2px}
+.goaldate{flex:none;text-align:right}
+.goaldate b{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:23px;color:var(--accent-d);line-height:1}
+.goaldate span{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--faint);margin-top:2px}
+.goalbar{position:relative;height:24px;border-radius:9px;background:#e7edf2;overflow:hidden;margin:14px 0 8px}
+.goalbar i{position:absolute;left:0;top:0;bottom:0;border-radius:9px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.goalbar .goalpct{position:absolute;right:11px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:800;color:var(--navy);z-index:1}
+.goalsub{font-size:12px;color:var(--mut);font-weight:600;line-height:1.45}.goalsub b{color:var(--ink)}
+.plots{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.plotrow{display:flex;align-items:center;gap:10px}
+.plotrow .pn{flex:none;width:104px;font-size:12px;font-weight:700}
+.plotrow .pn small{color:var(--gold-d);font-weight:800}
+.plotrow .pt{flex:1;height:8px;border-radius:5px;background:#e7edf2;overflow:hidden;min-width:0}
+.plotrow .pt i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.plotrow .pt i.pyou{background:linear-gradient(90deg,var(--gold),var(--gold-d))}
+.plotrow .pv{flex:none;width:42px;text-align:right;font-size:12px;font-weight:800}
+.goalyou{margin-top:14px;background:linear-gradient(135deg,#FBF5E6,#F5EAD0);border:1px solid #E7D4A6;border-radius:13px;padding:11px 13px;font-size:12.5px;font-weight:700;color:var(--gold-d);line-height:1.45}
+.goalyou b{color:var(--ink)}
+.goalreward{margin-top:9px;display:flex;align-items:center;gap:10px;background:var(--accent-soft);border-radius:13px;padding:11px 13px;font-size:12.5px;font-weight:700;color:var(--accent-d);line-height:1.4}
+.goalreward .e{font-size:18px;flex:none}
+
+/* маршрут мастера */
+.route{display:flex;align-items:flex-start;margin:6px 0 2px}
+.route .stp{flex:1;text-align:center;position:relative}
+.route .stp::before{content:"";position:absolute;top:10px;left:-50%;width:100%;height:3px;background:var(--line)}
+.route .stp:first-child::before{display:none}
+.route .stp.pass::before,.route .stp.on::before{background:var(--gold)}
+.route .rdot{width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid var(--line);margin:0 auto;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--faint)}
+.route .stp.pass .rdot{background:var(--gold);border-color:var(--gold);color:#fff}
+.route .stp.on .rdot{border-color:var(--gold);color:var(--gold-d);box-shadow:0 0 0 4px #F5EAD0}
+.route .rn{font-size:10px;font-weight:700;margin-top:7px;color:var(--mut);line-height:1.2}
+.route .stp.on .rn,.route .stp.pass .rn{color:var(--gold-d)}
+
+/* очки — оси */
+.xpb{display:flex;flex-direction:column;gap:9px}
+.xpb .xr{display:flex;align-items:center;gap:10px}
+.xpb .xr .xn{flex:none;width:128px;font-size:12px;font-weight:700;line-height:1.15}
+.xpb .xr .xn small{display:block;font-size:9.5px;color:var(--faint);font-weight:600}
+.xpb .xr .xt{flex:1;height:9px;border-radius:5px;background:var(--line2);overflow:hidden;min-width:0}
+.xpb .xr .xt i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.xpb .xr .xv{flex:none;width:46px;text-align:right;font-size:13px;font-weight:800;color:var(--accent-d)}
+.xptot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:11px;border-top:1px solid var(--line);font-weight:800;font-size:13px;color:var(--mut)}
+.xptot b{font-family:'Cormorant',Georgia,serif;font-size:25px;color:var(--gold-d)}
+.gain{margin-top:12px;background:var(--accent-soft);border-radius:13px;padding:11px 13px;font-size:12px;font-weight:700;color:var(--accent-d);line-height:1.5}
+.gain b{color:var(--ink)}.gain .row{display:flex;gap:7px;align-items:flex-start;margin-top:6px}
+.gain .row:first-child{margin-top:0}.gain .e{flex:none}
+
+/* достижения */
+.ach{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;padding:14px 20px}
+.ach .a{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}
+.ach .a.got{border-color:#E7D4A6;background:linear-gradient(135deg,#FBF5E6,#F5EAD0)}
+.ach .a.lock{opacity:.78;filter:grayscale(.35)}
+.ach .a.wide{grid-column:1/-1}
+.ach .a .ai{font-size:22px;line-height:1}
+.ach .a .at{font-size:12.5px;font-weight:800;margin-top:6px;line-height:1.15}
+.ach .a.got .at::after{content:" ✓";color:var(--green)}
+.ach .a .ad{font-size:11px;color:var(--mut);font-weight:600;margin-top:3px;line-height:1.3}
+.ach .a .ap{height:6px;border-radius:4px;background:var(--line2);margin-top:9px;overflow:hidden}
+.ach .a .ap i{display:block;height:100%;background:var(--gold);border-radius:4px}
+.ach .a .apn{font-size:10px;font-weight:700;color:var(--faint);margin-top:5px}
+
+/* KPI-инварианты блок */
+.invar{padding:16px 20px}
+.invar .iz{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.bdg{border:1px solid var(--line);border-radius:12px;padding:10px 13px;font-size:12.5px;font-weight:700}
+.bdg span{display:block;font-size:11px;color:var(--faint);font-weight:500;margin-top:2px;line-height:1.35}
+.bdg.ok{border-color:#bfe0cc;background:var(--green-bg)}
+.bdg.wide{grid-column:1/-1}
+.note2{font-size:11.5px;color:var(--faint);margin-top:12px;line-height:1.55}.note2 b{color:var(--mut)}
+
+.note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:24px;line-height:1.6}
+.note a{color:var(--accent-d);font-weight:700;text-decoration:none}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(22px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:14px;font-size:13px;font-weight:700;box-shadow:0 16px 36px -12px rgba(40,65,87,.65);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.2,.8,.3,1),opacity .28s;z-index:60;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast b{color:var(--gold)}
+
+@media(max-width:1180px){
+  .herostrip{grid-template-columns:1fr 1fr}
+  .hcard:last-child{grid-column:1/-1}
+  .grid3{grid-template-columns:1fr 1fr}
+  .grid3 .col:nth-child(3){grid-column:1/-1}
+}
+@media(max-width:760px){
+  .herostrip{grid-template-columns:1fr}
+  .hgrade-card{grid-column:auto}
+  .grid3{grid-template-columns:1fr}
+  .grid3 .col:nth-child(3){grid-column:auto}
+  .kan{grid-template-columns:1fr}
+  .ach{grid-template-columns:1fr}
+  .invar .iz{grid-template-columns:1fr}
+  .top .stamp{display:none}
+  .route .rn{font-size:9px}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="lg">A</div>
+  <div class="nm">ATLAS · Напарник<small>рабочее место мастера · стройка</small></div>
+  <span class="obsbadge" title="Очки и грейд считаются, но на премию пока не влияют — деньги включатся в Фазе 2">наблюдательный режим</span>
+  <div class="meta">
+    <div class="stamp">данные из движка ГПР<b id="stamp">28.05.2026</b></div>
+    <div class="me"><div class="who" id="me-who">—<small id="me-sub">—</small></div><div class="av" id="me-av">·</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ХЛЕБНЫЕ КРОШКИ -->
+  <div class="crumbs"><a href="portfolio.html">Портфель</a><span class="sep">▸</span><a id="cr-obj" href="object.html?zk=aura">ЖК «Аура»</a><span class="sep">▸</span><span id="cr-q">очередь</span><span class="sep">▸</span><b id="cr-b">блок</b></div>
+
+  <!-- HERO: геймификация-морковка СПЕРЕДИ -->
+  <div class="herostrip" id="herostrip">
+    <div class="hcard hgrade-card">
+      <div class="ring"><svg viewBox="0 0 78 78" width="84" height="84" aria-hidden="true"><circle cx="39" cy="39" r="33" fill="none" stroke="#e6ebf1" stroke-width="8"/><circle id="hring" cx="39" cy="39" r="33" fill="none" stroke="var(--green)" stroke-width="8" stroke-linecap="round" stroke-dasharray="207" stroke-dashoffset="29" transform="rotate(-90 39 39)"/></svg><div class="ringv"><b class="tnum" id="hkpi">—</b><span>неделя</span></div></div>
+      <div class="hgrade">
+        <div class="cap">Грейд · маршрут мастера</div>
+        <div class="gname" id="hgname">—</div>
+        <div class="gbar"><i id="hgbar" style="width:0%"></i></div>
+        <div class="gnext" id="hgnext">—</div>
+      </div>
+    </div>
+
+    <div class="hcard hxpcard">
+      <div class="cap">Очки недели</div>
+      <div class="big tnum"><span id="hxp">0</span><small> XP</small></div>
+      <div class="hxpsub" id="hxpsub">за работы в срок, качество, план и достоверный факт</div>
+      <div class="hchips">
+        <div class="hchip"><b id="hstreak">🔥 —</b><span>недели серии</span></div>
+        <a class="hchip" href="league.html"><b id="hrank">🏅 —</b><span>лига · достоверность</span></a>
+        <div class="hchip"><b id="hgrade2">—</b><span>грейд мастера</span></div>
+      </div>
+    </div>
+
+    <div class="hcard">
+      <div class="zone" id="zone"><span class="e" id="zone-e">·</span><div id="zone-line">—</div></div>
+      <div class="carrot">
+        <div class="t">Месяц на коэффициент <b>×1.2</b> — закрыто <b id="carrot-pct">—</b></div>
+        <div class="bar"><i id="carrot-bar" style="width:0%"></i></div>
+        <div class="s">дойдёшь до 100% за месяц → <b>×1.2 ко всему пулу</b> (Фаза 2). Перевыполнение объёмом сверх 100% не премируется (кап).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ОБЩАЯ ЦЕЛЬ КОМАНДЫ -->
+  <div class="lbl">Общая цель команды <span class="n">все участки — к сдаче очереди</span></div>
+  <div class="card goal">
+    <div class="goalhead">
+      <div><div class="goalcap" id="g-cap">—</div><div class="goaltitle" id="g-title">—</div></div>
+      <div class="goaldate"><b class="tnum" id="g-date">—</b><span>срок сдачи</span></div>
+    </div>
+    <div class="goalbar"><i id="g-bar" style="width:0%"></i><span class="goalpct tnum" id="g-pct">—</span></div>
+    <div class="goalsub" id="g-sub">—</div>
+    <div class="plots" id="plots"></div>
+    <div class="goalyou" id="g-you">—</div>
+    <div class="goalreward"><span class="e">🏁</span><div>Сдадим очередь в срок всей командой → бейдж <b>«Очередь сдана»</b> и общий бонусный пул (Фаза 2)</div></div>
+  </div>
+
+  <!-- ТРИ КОЛОНКИ РАБОЧЕГО МЕСТА -->
+  <div class="grid3">
+
+    <!-- (1) МОЯ НЕДЕЛЯ -->
+    <div class="col">
+      <div class="lbl" style="margin-top:0">Моя неделя <span class="n">что идёт около среза</span></div>
+      <div class="card">
+        <div class="wkstat">
+          <div class="c"><div class="gl">Факт</div><div class="gn fact tnum"><span id="g-fact">—</span>%</div></div>
+          <div class="c"><div class="gl">План</div><div class="gn tnum"><span id="g-plan">—</span>%</div></div>
+          <div class="c"><div class="gl">Отставание</div><div class="gn lag tnum" id="g-lagstat">—</div></div>
+        </div>
+        <div class="subhead">В работе сейчас · подтверди факт</div>
+        <div class="week" id="week-now"><div class="loading">Загружаю данные движка…</div></div>
+      </div>
+    </div>
+
+    <!-- (2) ПОДТВЕРДИ СДЕЛАННОЕ -->
+    <div class="col">
+      <div class="lbl" style="margin-top:0">Подтверди сделанное <span class="n"><span class="khint">тап по карточке → % / 📷 готово</span></span></div>
+      <div class="card">
+        <div class="khead"><span>Отметка факта → очки и фото-пруф у РП</span><span class="khint" id="k-closed">закрыто 0</span></div>
+        <div class="kan" id="kan"><div class="loading">Загружаю…</div></div>
+      </div>
+    </div>
+
+    <!-- (3) ЧТО ГОТОВИТЬ ЗАРАНЕЕ -->
+    <div class="col">
+      <div class="lbl" style="margin-top:0">Что готовить заранее <span class="n">материал · фронт · бригада</span></div>
+      <div class="card ahead">
+        <div id="ahead-rows"><div class="loading">Загружаю…</div></div>
+        <div class="aheadfoot">📦 Подготовил заранее (материал · бригада · фронт) → очки «План» и бейдж «Запасливый». Планирование — половина срока.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ГЕЙМИФИКАЦИЯ: маршрут, оси очков, достижения -->
+  <div class="lbl">Прогресс и награды — что ты получишь <span class="obs" title="Очки и грейд считаются, но на премию пока не влияют — деньги включатся в Фазе 2">наблюдательный режим</span></div>
+  <div class="grid3">
+    <div class="col">
+      <div class="card invar">
+        <div class="cap" style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);margin-bottom:9px">Маршрут мастера</div>
+        <div class="route" id="route"></div>
+        <div class="note2" id="route-note" style="margin-top:9px">—</div>
+        <div class="iz" style="margin-top:16px">
+          <div class="bdg ok wide">✓ Считается по <b>подтверждённому РП факту</b><span>не самоотметка — РП подтверждает отметку и фото-пруф</span></div>
+          <div class="bdg ok">Оклад <b>≥75%</b><span>премия — поощрение, не штраф</span></div>
+          <div class="bdg ok">Кап на <b>100%</b><span>перевыполнение объёмом не премируется</span></div>
+          <div class="bdg wide">Простой/срыв не по твоей вине — <b>по коду причины</b>, премию не режут<span>деньги включаются в Фазе 2 · сейчас наблюдательный режим</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card invar">
+        <div class="cap" style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);margin-bottom:12px">Очки недели — по осям</div>
+        <div class="xpb" id="xpb"></div>
+        <div class="xptot"><span>Итого за неделю</span><b class="tnum" id="xptot">0</b></div>
+        <div class="gain" id="gain"></div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card">
+        <div class="cap" style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);padding:16px 20px 0">Достижения</div>
+        <div class="ach" id="ach"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">Напарник мастера: моя неделя · подтверди факт · готовь наперёд · награды спереди. <span id="note-data">Данные из движка ГПР.</span> · <a href="rp.html">Кабинет РП</a> · <a href="dashboard.html">Командный центр</a> · <a href="league.html">Лига</a> · <a href="index.html">Все экраны</a> · <a href="#" onclick="resetDemo();return false;">↺ сбросить демо</a></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+let toastT;
+function toast(msg){const el=$('toast');el.innerHTML=msg;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2200);}
+
+/* ?block=N (default 3) */
+const _bp=parseInt(new URLSearchParams(location.search).get('block'),10);
+const BN=Number.isFinite(_bp)?_bp:3;
+const SKEY='naparnik_v1_b'+BN;
+
+/* имя НУ по блоку */
+function nuName(n){return n===3?'Асхат Б.':n===4?'Дамир Е.':'НУ блок '+n;}
+function avLetter(name){const m=name.match(/[А-ЯЁA-Z]/);return m?m[0]:'·';}
+
+/* ====== материалозависимые работы — для индикатора поставки (демо, «след. слой») ====== */
+const MATERIAL_WORKS={
+  'Перегородки ГКЛ':'материал ГКЛ',
+  'Бордюры и поребрики':'бордюрный камень',
+  'Брусчатка':'брусчатка',
+  'Асфальтирование':'асфальт/смесь',
+  'Озеление':'саженцы/грунт',
+  'Наружное освещение':'опоры/светильники',
+  'Кладка стен':'кладочные материалы',
+  'Фасад':'фасадные материалы',
+  'Монтаж окон':'оконные блоки',
+  'Керамогранит (полы)':'керамогранит'
+};
+function matNeed(name){for(const k in MATERIAL_WORKS){if(name.indexOf(k)>=0)return MATERIAL_WORKS[k];}return null;}
+
+/* раздел → подсказка по подготовке */
+const PREP_HINT={
+  'Общестрой':'арматура/бетон + бригада · проверить фронт',
+  'Отделка':'материал + бригада отделки · фронт от каркаса',
+  'Инженерка':'подрядчик/оборудование · фронт по шахте',
+  'Благоустройство':'подрядчик + вывоз грунта + материалы'
+};
+
+/* колонка канбана по факту */
+function colOf(w){return w.fact>=100?'done':(w.fact>0?'prog':'todo');}
+function dayDiff(a,b){return Math.round((new Date(a)-new Date(b))/86400000);}
+function fmtD(s){const p=(s||'').split('-');return p.length===3?p[2]+'.'+p[1]:s;}
+
+let SD='2026-05-28', BLOCK=null, WORKS=[], NU='', GAME={}, XP=[], ACH=[], ROUTE=[], closed=0;
+let openIdx=null;
+
+/* грейд по KPI факта */
+function gradeFor(kpi){
+  const steps=[['Стажёр',0],['Специалист',60],['Старший',80],['Мастер',90],['Эксперт',97]];
+  let gi=0; for(let i=0;i<steps.length;i++){if(kpi>=steps[i][1])gi=i;}
+  return {idx:gi,name:steps[gi][0],steps:steps.map(s=>s[0]),next:steps[gi+1]?steps[gi+1][0]:null};
+}
+
+/* ===== построение модели блока из движка ===== */
+function buildBlock(o,b){
+  const works=(b.works||[]).map((w,i)=>({
+    no:w.no, idx:i, name:(w.name||'').trim(), section:(w.section||'').trim(),
+    plan:w.plan==null?100:w.plan, fact:w.fact||0, lag:w.lag||0,
+    start:w.start, end:w.end, contractor:w.contractor||null,
+    col:colOf(w), saved:false, tag:null
+  }));
+  // отметим late-tag и поставку
+  works.forEach(w=>{
+    if(w.lag>0 && w.fact<100) w.tag='−'+w.lag+' д';
+    if(w.fact<100) w.mat=matNeed(w.name);
+  });
+  const fact=b.fact||0, plan=b.plan==null?100:b.plan;
+  const lag=Math.max(0,...works.map(w=>w.lag||0));
+  // baseFact = авторитетная готовность блока из движка (block.fact, как есть);
+  // baseAvg = среднее по работам на старте — чтобы отметки сдвигали fact дельтой, не теряя block.fact
+  const baseAvg=works.length?works.reduce((a,w)=>a+w.fact,0)/works.length:0;
+  return {o,b,queue:b.queue,spot:b.spot,fact,baseFact:fact,baseAvg,plan,lag,works};
+}
+
+/* ===== очки недели — оси (демо-старт, считается по факту блока) ===== */
+function seedXP(B){
+  // базовая раскладка пропорционально готовности/срыву (наблюдательный демо-старт)
+  const closedW=B.works.filter(w=>w.fact>=100).length;
+  const onTime=Math.min(220,closedW*8);
+  const trust=Math.round(onTime*0.28);
+  const plan=B.works.filter(w=>w.fact<100 && w.fact>0).length*8;
+  const qual=B.lag>40?80:120;
+  return [
+    {k:'time',n:'В срок',s:'закрытый фронт',v:onTime},
+    {k:'qual',n:'Качество',s:'0 дефектов класса A',v:qual},
+    {k:'plan',n:'План',s:'материал/фронт заранее',v:Math.min(90,plan)},
+    {k:'trust',n:'Достоверность',s:'факт подтверждён РП',v:trust}
+  ];
+}
+const xpTotal=()=>XP.reduce((a,x)=>a+x.v,0);
+
+/* ===== анимация очков + конфетти (механика из nu.html) ===== */
+function animXP(){
+  const el=$('hxp'); if(!el)return;
+  const from=parseInt(el.textContent,10)||0, to=GAME.weekXP;
+  el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
+  if(from===to)return;
+  const t0=performance.now(), dur=560;
+  (function step(now){
+    const p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(from+(to-from)*e);
+    if(p<1)requestAnimationFrame(step); else el.textContent=to;
+  })(t0);
+}
+function confetti(el){
+  if(!el)return;
+  const r=el.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+14;
+  const cols=['#CFB372','#007484','#2E8F5B','#A88E48','#284157'];
+  for(let i=0;i<16;i++){
+    const s=document.createElement('span'); s.className='cf';
+    const dist=42+Math.random()*64, ang=(Math.random()*2-1)*1.15;
+    s.style.left=cx+'px'; s.style.top=cy+'px'; s.style.background=cols[i%cols.length];
+    s.style.setProperty('--dx',(Math.sin(ang)*dist).toFixed(0)+'px');
+    s.style.setProperty('--dy',(-Math.abs(Math.cos(ang))*dist-22).toFixed(0)+'px');
+    s.style.animationDelay=(Math.random()*50).toFixed(0)+'ms';
+    document.body.appendChild(s); setTimeout(()=>s.remove(),820);
+  }
+}
+function addXP(k,n,msg){const x=XP.find(p=>p.k===k);if(x)x.v=Math.max(0,x.v+n);GAME.weekXP=xpTotal();animXP();renderXPB();if(msg)toast(msg);save();}
+
+/* ===== render: HERO ===== */
+function renderHero(){
+  const kpi=BLOCK.fact;
+  const g=gradeFor(kpi);
+  ROUTE=g.steps; GAME.gradeIdx=g.idx;
+  $('hkpi').textContent=kpi+'%';
+  $('hring').setAttribute('stroke-dashoffset',Math.round(207*(1-kpi/100)));
+  const col=kpi>=80?'var(--green)':kpi>=60?'var(--accent)':'var(--amber)';
+  $('hring').setAttribute('stroke',col);
+  $('hgname').textContent=g.name;
+  const pct=g.next?Math.round((kpi-[0,60,80,90,97][g.idx])/( [60,80,90,97,100][g.idx]-[0,60,80,90,97][g.idx])*100):100;
+  $('hgbar').style.width=Math.max(8,Math.min(100,pct))+'%';
+  $('hgnext').innerHTML=g.next?('до <b>«'+g.next+'»</b> — держи KPI стабильно'):'высший грейд маршрута';
+  $('hgrade2').textContent=g.name;
+  $('hxp').textContent=GAME.weekXP;
+  $('hstreak').textContent=BLOCK.lag<=20?'🔥 4':BLOCK.lag<=40?'🔥 2':'🔥 1';
+  $('hrank').textContent=BLOCK.lag<=20?'🏅 #2':'🏅 #4';
+  // зона недели
+  const z=$('zone'), warn=BLOCK.lag>30;
+  z.className='zone'+(warn?' warn':'');
+  $('zone-e').textContent=warn?'➤':'✓';
+  $('zone-line').innerHTML=warn
+    ? 'Темп ниже плана — отставание <b>'+BLOCK.lag+' дн</b> на критическом пути. Добей просроченное → вернёшься в зелёную зону.'
+    : 'В зелёной зоне — задание идёт в график, серия держится. Так держать.';
+  // carrot
+  const cp=Math.min(100,Math.round(kpi*0.84));
+  $('carrot-pct').textContent=cp+'%'; $('carrot-bar').style.width=cp+'%';
+  // hxpsub
+  $('hxpsub').textContent='за работы в срок, качество, план и достоверный факт';
+}
+
+/* ===== render: общая цель команды ===== */
+function renderGoal(){
+  const o=BLOCK.o, q=BLOCK.queue;
+  const mates=(o.blocks||[]).filter(b=>b.queue===q);
+  const avg=Math.round(mates.reduce((a,b)=>a+(b.fact||0),0)/Math.max(1,mates.length));
+  const dates={2:'30.09',3:'2027',4:'2027',1:'30.06',5:'2028',6:'2028'};
+  $('g-cap').textContent='Финиш · '+o.object.replace('ЖК ','').replace(/[«»]/g,'')+' · '+q+' очередь';
+  $('g-title').textContent='Сдать '+q+' очередь в срок';
+  $('g-date').textContent=dates[q]||'—';
+  $('g-bar').style.width=avg+'%'; $('g-pct').textContent=avg+'%';
+  $('g-sub').innerHTML='Готовность очереди · цель <b>100%</b>. Каждая работа, закрытая в срок, двигает этот % — финиш у команды общий.';
+  $('plots').innerHTML=mates.map(b=>{
+    const you=String(b.spot)===String(BN);
+    return '<div class="plotrow"><div class="pn">Блок '+b.spot+' '+(you?'<small>· ты</small>':'')+'</div><div class="pt"><i class="'+(you?'pyou':'')+'" style="width:'+(b.fact||0)+'%"></i></div><div class="pv"'+(you?' style="color:var(--gold-d)"':'')+'>'+(b.fact||0)+'%</div></div>';
+  }).join('');
+  // твой вклад: главный риск = работы с макс lag
+  const risk=[...BLOCK.works].filter(w=>w.lag>0).sort((a,b)=>b.lag-a.lag)[0];
+  $('g-you').innerHTML='🎯 Твой вклад: <b>блок '+BN+' ('+q+' очередь)</b>. '+(risk?('Закроешь «'+risk.name+'» (−'+risk.lag+' дн) — снимешь главный риск сдачи '+q+' очереди.'):'Держи темп — ранний задел тащит весь срок очереди.');
+}
+
+/* ===== render: МОЯ НЕДЕЛЯ ===== */
+function renderWeek(){
+  $('g-fact').textContent=BLOCK.fact;
+  $('g-plan').textContent=BLOCK.plan;
+  $('g-lagstat').innerHTML=BLOCK.lag>0?(BLOCK.lag+'<span class="gu"> дн</span>'):'0<span class="gu"> дн</span>';
+  // «идут/должны идти около среза»: незавершённые работы; приоритет lag↓, затем близость end к срезу
+  const live=BLOCK.works.filter(w=>w.fact<100)
+    .map(w=>({...w,prox:Math.abs(dayDiff(w.end,SD))}))
+    .sort((a,b)=>(b.lag-a.lag)|| (a.prox-b.prox))
+    .slice(0,8);
+  $('week-now').innerHTML=live.map(w=>{
+    const dot=w.lag>=40?'red':w.lag>=20?'amber':w.lag>0?'teal':(w.fact>0?'teal':'todo');
+    const lagtxt=w.lag>0?'−'+w.lag+' дн от плана':'в графике';
+    const lagcls=w.lag>0?'':'ok';
+    const sup=w.mat?'<span class="stk">⛔ ждём поставку: '+w.mat+' →</span>':'';
+    return '<div class="wk"><span class="dot '+dot+'"></span><div class="bd"><div class="t">'+w.name+'</div><div class="s">'+w.section+(w.contractor?' · '+w.contractor.split(',')[0]:'')+' · до '+fmtD(w.end)+'</div>'+sup+'</div><div class="rt"><div class="p tnum">'+w.fact+'%</div><div class="lag '+lagcls+'">'+lagtxt+'</div></div></div>';
+  }).join('')||'<div class="loading">Все работы недели закрыты 🎉</div>';
+}
+
+/* ===== КАНБАН: подтверди сделанное (механика nu.html) ===== */
+const COLS=[['todo','К выполнению'],['prog','В работе'],['done','Сделано']];
+function chips(idx,cur){
+  let opts=[];for(let v=Math.ceil((cur+1)/5)*5; v<100 && opts.length<3; v+=5) opts.push(v);
+  return opts.map(v=>'<button class="chip" onclick="mark(event,'+idx+','+v+')">'+v+'%</button>').join('')
+    +'<button class="chip ok" onclick="mark(event,'+idx+',100)">📷 Готово + фото</button>'
+    +'<button class="chip stk" onclick="mark(event,'+idx+',-1)">⚠ Стоит · причина</button>';
+}
+function card(w){
+  const idx=w.idx;
+  const tag = w.tag?'<span class="ktag late">'+w.tag+'</span>':(w.col==='done'?'<span class="ktag done">📷 фото ✓</span>':(w.saved?'<span class="ktag done">отмечено ✓</span>':''));
+  const sup = (w.col!=='done' && w.mat)?'<div class="ksup">⛔ ждём поставку: '+w.mat+' → <span style="font-weight:600">демо · след. слой</span></div>':'';
+  const mk = openIdx===idx?'<div class="kmark">'+chips(idx,w.fact)+'</div>':'';
+  return '<div class="kc '+w.col+(w.lag>0&&w.fact<100?' late':'')+'" data-idx="'+idx+'" onclick="openCard('+idx+')"><div class="kt">'+w.name+'</div><div class="km">'+w.section+'</div><div class="kp"><span class="kpct tnum">'+w.fact+'%</span>'+tag+'</div>'+sup+mk+'</div>';
+}
+function renderKan(){
+  // показываем приоритетные работы: незакрытые + недавно закрытые (ограничим, чтобы канбан был рабочим)
+  const pool=[...BLOCK.works].sort((a,b)=>{
+    const ao=a.col==='done'?2:(a.col==='prog'?0:1), bo=b.col==='done'?2:(b.col==='prog'?0:1);
+    return ao-bo || b.lag-a.lag;
+  });
+  // ограничим до 12 видимых, но сохраним все «done» отметки пользователя
+  const visible=pool.filter((w,i)=> w.col!=='todo' || i<12 ).slice(0,15);
+  $('kan').innerHTML=COLS.map(([key,title])=>{
+    const items=visible.filter(w=>w.col===key);
+    return '<div class="kcol"><div class="kh"><span>'+title+'</span><span class="c">'+items.length+'</span></div>'+items.map(card).join('')+'</div>';
+  }).join('');
+  $('k-closed').textContent='закрыто '+closed;
+}
+function openCard(idx){openIdx=(openIdx===idx?null:idx);renderKan();}
+function celebrate(idx){const el=document.querySelector('.kc[data-idx="'+idx+'"]');if(el){el.classList.add('cele');confetti(el);setTimeout(()=>el.classList.remove('cele'),440);}}
+function mark(e,idx,v){
+  e.stopPropagation();
+  const w=BLOCK.works.find(x=>x.idx===idx); if(!w)return;
+  if(v===-1){w.saved=true;openIdx=null;renderKan();addXP('trust',5,'⚠ Причина отправлена РП · <b>+5 XP</b>');return;}
+  const wasDone=w.col==='done';
+  w.fact=v;w.saved=true;w.tag=null;
+  if(v>=100)w.lag=0;
+  w.col=v>=100?'done':'prog';
+  openIdx=null;
+  recalc(); renderKan(); renderWeek(); renderHero(); renderGoal();
+  if(v>=100 && !wasDone){closed++;addXP('time',25,'✓ Готово · 📷 фото у РП · <b>+25 XP</b>');celebrate(idx);}
+  else addXP('time',10,'Факт отправлен РП · <b>+10 XP</b>');
+  $('k-closed').textContent='закрыто '+closed;
+}
+/* пересчёт факта/отставания блока после отметки.
+   Готовность блока = block.fact из движка (авторитет) + дельта от подтверждённых отметок,
+   чтобы не расходиться с движком и одновременно реагировать на закрытие работ. */
+function recalc(){
+  const avgNow=BLOCK.works.length?BLOCK.works.reduce((a,w)=>a+w.fact,0)/BLOCK.works.length:0;
+  const delta=avgNow-BLOCK.baseAvg;
+  BLOCK.fact=Math.max(0,Math.min(100,Math.round(BLOCK.baseFact+delta)));
+  BLOCK.lag=Math.max(0,...BLOCK.works.map(w=>w.fact<100?w.lag:0));
+}
+
+/* ===== ЧТО ГОТОВИТЬ ЗАРАНЕЕ ===== */
+function renderAhead(){
+  const fut=BLOCK.works.filter(w=>w.fact<100)
+    .sort((a,b)=>new Date(a.start)-new Date(b.start))
+    .filter(w=>new Date(w.start)>=new Date(SD) || w.fact===0)
+    .slice(0,6);
+  const rows=(fut.length?fut:BLOCK.works.filter(w=>w.fact<100).slice(0,5));
+  $('ahead-rows').innerHTML=rows.map(w=>{
+    const when=fmtD(w.start);
+    const sub=new Date(w.start)>new Date(SD)?'через '+Math.max(1,dayDiff(w.start,SD))+' дн':'просрочено';
+    const hint=PREP_HINT[w.section]||'материал + бригада заранее';
+    const wait=w.mat?'<span class="supwait">⛔ ждём поставку: '+w.mat+'</span>':'';
+    return '<div class="arow"><div class="when">'+when+'<small>'+sub+'</small></div><div class="bd"><div class="t">'+w.name+'</div><div class="prep">подготовить: <b>'+hint+'</b></div>'+wait+'</div></div>';
+  }).join('')||'<div class="loading">Будущих работ нет — всё закрыто.</div>';
+}
+
+/* ===== маршрут мастера ===== */
+function renderRoute(){
+  const gi=GAME.gradeIdx;
+  $('route').innerHTML=ROUTE.map((nm,i)=>{
+    const cls=i<gi?'pass':(i===gi?'on':'');
+    const mk=i<gi?'✓':(i===gi?'★':String(i+1));
+    return '<div class="stp '+cls+'"><div class="rdot">'+mk+'</div><div class="rn">'+nm+'</div></div>';
+  }).join('');
+  const g=gradeFor(BLOCK.fact);
+  $('route-note').innerHTML='Грейд растёт за <b>стабильный KPI в срок</b>, <b>0 дефектов</b> и <b>достоверный факт</b>.'+(g.next?(' Следующий — «'+g.next+'»: держи серию.'):'');
+}
+
+/* ===== очки по осям ===== */
+function renderXPB(){
+  const mx=Math.max(...XP.map(x=>x.v),1);
+  $('xpb').innerHTML=XP.map(x=>'<div class="xr"><div class="xn">'+x.n+'<small>'+x.s+'</small></div><div class="xt"><i style="width:'+Math.round(x.v/mx*100)+'%"></i></div><div class="xv tnum">'+x.v+'</div></div>').join('');
+  $('xptot').textContent=xpTotal();
+  $('hxp').textContent=GAME.weekXP;
+}
+function renderGain(){
+  $('gain').innerHTML=
+    '<div class="row"><span class="e">⏱</span><div>Закроешь работу <b>в срок</b> → +25 XP и ось «В срок». В график → к коэффициенту <b>×1.2</b> (Фаза 2).</div></div>'+
+    '<div class="row"><span class="e">🚀</span><div>Сдашь раздел <b>раньше срока</b> → бейдж «Раньше срока» и буст к грейду маршрута.</div></div>'+
+    '<div class="row"><span class="e">📦</span><div>Готовый материал/фронт заранее → очки «План» и бейдж «Запасливый».</div></div>';
+}
+
+/* ===== достижения ===== */
+function renderAch(){
+  const kpi=BLOCK.fact, g=gradeFor(kpi);
+  ACH=[
+    {ic:'🔥',t:'На серии',d:'4 недели подряд ≥85%',got:BLOCK.lag<=20},
+    {ic:'🛡',t:'Без брака',d:'месяц без дефектов класса A',got:true},
+    {ic:'🤝',t:'Достоверный',d:'10 отметок подтверждены РП',p:[Math.min(10,closed+6),10]},
+    {ic:'📦',t:'Запасливый',d:'материалы заказаны за 2 недели',p:[2,3]},
+    {ic:'⏱',t:'Раньше срока',d:'сдать раздел до плановой даты',p:[Math.min(1,closed),1]},
+    {ic:'🏗',t:g.next||'Эксперт',d:'достичь следующего грейда',p:[kpi,100]},
+    {ic:'🏁',t:'Очередь сдана',d:'довести '+BLOCK.queue+' очередь до сдачи всей командой',p:[BLOCK.fact,100],wide:true}
+  ];
+  $('ach').innerHTML=ACH.map(a=>{
+    const w=a.wide?' wide':'';
+    if(a.got) return '<div class="a got'+w+'"><div class="ai">'+a.ic+'</div><div class="at">'+a.t+'</div><div class="ad">'+a.d+'</div></div>';
+    const pc=Math.round(a.p[0]/a.p[1]*100);
+    const txt=a.p[1]===100?a.p[0]+'%':a.p[0]+' из '+a.p[1];
+    return '<div class="a lock'+w+'"><div class="ai">'+a.ic+'</div><div class="at">'+a.t+'</div><div class="ad">'+a.d+'</div><div class="ap"><i style="width:'+pc+'%"></i></div><div class="apn">'+txt+'</div></div>';
+  }).join('');
+}
+
+/* ===== localStorage ===== */
+function snapshot(){return {works:BLOCK.works.map(w=>({fact:w.fact,col:w.col,lag:w.lag,saved:!!w.saved,tag:w.tag||null})),xp:XP.map(x=>x.v),closed:closed};}
+function save(){try{localStorage.setItem(SKEY,JSON.stringify(snapshot()));}catch(e){}}
+function loadState(){try{const s=JSON.parse(localStorage.getItem(SKEY)||'null');if(!s)return;
+  if(s.works)s.works.forEach((sv,i)=>{if(BLOCK.works[i])Object.assign(BLOCK.works[i],sv);});
+  if(typeof s.closed==='number')closed=s.closed;
+  if(s.xp)s.xp.forEach((v,i)=>{if(XP[i])XP[i].v=v;});
+}catch(e){}}
+function resetDemo(){try{localStorage.removeItem(SKEY);}catch(e){}location.reload();}
+
+/* ===== применить статичные подписи ===== */
+function applyStatic(){
+  NU=nuName(BN);
+  document.title='ATLAS · Напарник · блок '+BN+' · '+NU;
+  $('me-who').innerHTML=NU+'<small id="me-sub">НУ · '+BLOCK.o.object.replace('ЖК ','').replace(/[«»]/g,'')+' · блок '+BN+'</small>';
+  $('me-av').textContent=avLetter(NU);
+  // крошка «объект» ведёт в тот объект, которому реально принадлежит блок (не жёстко Аура)
+  $('cr-obj').href='object.html?zk='+encodeURIComponent(BLOCK.o.id||'aura');
+  $('cr-obj').textContent=BLOCK.o.object;
+  $('cr-q').textContent=BLOCK.queue+' очередь';
+  $('cr-b').textContent='блок '+BN;
+  $('note-data').textContent='Данные из движка ГПР на '+SD.split('-').reverse().join('.')+' · '+BLOCK.o.object+', блок '+BN+' · '+BLOCK.queue+' очередь; геймификация — демо.';
+}
+
+/* ===== boot ===== */
+function boot(D){
+  SD=D.status_date||SD;
+  $('stamp').textContent=SD.split('-').reverse().join('.');
+  const aura=D.portfolio.find(o=>o.id==='aura')||D.portfolio[0];
+  let blk=(aura.blocks||[]).find(b=>String(b.spot)===String(BN));
+  let host=aura;
+  if(!blk){ // запасной поиск по любому объекту
+    for(const o of D.portfolio){const f=(o.blocks||[]).find(b=>String(b.spot)===String(BN));if(f){blk=f;host=o;break;}}
+  }
+  if(!blk){blk=aura.blocks[0];host=aura;}
+  BLOCK=buildBlock(host,blk);
+  XP=seedXP(BLOCK);
+  loadState();
+  recalc();
+  GAME.weekXP=xpTotal();
+  applyStatic();
+  renderHero(); renderGoal(); renderWeek(); renderKan(); renderAhead();
+  renderRoute(); renderXPB(); renderGain(); renderAch();
+}
+
+fetch('gpr-engine/gpr_data.json',{cache:'no-store'})
+  .then(r=>{if(!r.ok)throw 0;return r.json();})
+  .then(boot)
+  .catch(()=>{
+    const msg='<div class="loading">Не удалось прочитать данные движка (gpr-engine/gpr_data.json).<br>Открой через сервер или GitHub Pages.</div>';
+    $('week-now').innerHTML=msg; $('kan').innerHTML=msg; $('ahead-rows').innerHTML=msg;
+  });
+</script>
+</body>
+</html>

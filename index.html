@@ -1,115 +1,244 @@
 <!DOCTYPE html>
-<html lang="ru" style="color-scheme:light">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#284157">
-<title>ATLAS · мокапы Фазы 1</title>
+<meta name="robots" content="noindex,nofollow">
+<title>ATLAS · строительная ERP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F7F5EE;--card:#FBFBFB;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;
-  --line:#E0DDD3;--navy:#284157;--accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--gold:#CFB372;--gold-d:#A88E48;
+  --bg:#F1EFE7;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#9C958685;--line:#E6E2D7;--line2:#EFEDE5;
+  --accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--navy:#284157;--navy-d:#1d3142;
+  --gold:#CFB372;--gold-d:#A88E48;
+  --green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-d:#A23A33;--red-bg:#F7E7E2;--amber:#C98A2C;--amber-bg:#FBF1DF;
+  --shadow:0 14px 34px -22px rgba(40,65,87,.5);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100vh;font-family:'Jost','Futura PT',-apple-system,sans-serif;color:var(--ink);
-  background:var(--bg);
-  background-image:radial-gradient(circle at 18% 10%,rgba(0,116,132,.06),transparent 42%),radial-gradient(circle at 86% 92%,rgba(207,179,114,.10),transparent 44%);
-  padding:44px 22px;-webkit-font-smoothing:antialiased;font-feature-settings:"ss03","cv11"}
-.wrap{max-width:1000px;margin:0 auto}
-.kick{font-size:11.5px;letter-spacing:.26em;color:var(--gold-d);text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:11px}
+html{color-scheme:light}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;font-feature-settings:"ss03","cv11"}
+.tnum{font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+a{text-decoration:none;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:10px}
+
+/* ===== шапка на весь экран ===== */
+.top{position:sticky;top:0;z-index:30;background:linear-gradient(110deg,var(--navy),var(--navy-d));color:#fff;display:flex;align-items:center;gap:16px;padding:12px clamp(16px,2.4vw,40px)}
+.top .lg{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;font-family:'Cormorant',Georgia,serif;flex:none}
+.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:23px;line-height:1}
+.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px;letter-spacing:.01em}
+.top .meta{margin-left:auto;display:flex;align-items:center;gap:18px}
+.top .stamp{font-size:11.5px;color:#9db4c6;font-weight:600;text-align:right;line-height:1.3}
+.top .stamp b{color:#fff;display:block;font-weight:700}
+.top .me{text-align:right;font-size:12.5px;font-weight:700;line-height:1.15}
+.top .me small{display:block;font-weight:500;color:#9db4c6;font-size:10.5px}
+
+/* ===== герой ===== */
+.hero{padding:clamp(34px,6vw,72px) clamp(16px,2.4vw,40px) clamp(20px,3vw,34px);max-width:2100px;margin:0 auto;position:relative}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle at 14% 8%,rgba(0,116,132,.06),transparent 42%),radial-gradient(circle at 90% 96%,rgba(207,179,114,.12),transparent 46%)}
+.kick{position:relative;font-size:11.5px;letter-spacing:.26em;color:var(--gold-d);text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:11px}
 .kick::before{content:"";width:34px;height:1px;background:var(--accent)}
-.logo{display:flex;align-items:center;gap:14px;margin:18px 0 8px}
-.logo .m{width:50px;height:50px;border-radius:13px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:27px;font-family:'Cormorant',Georgia,serif;box-shadow:inset 0 0 0 1px rgba(207,179,114,.4)}
-h1{font-family:'Cormorant',Georgia,serif;font-size:clamp(30px,5vw,50px);font-weight:700;line-height:1.02;color:var(--navy)}
-h1 .g{color:var(--gold-d)}
-.lead{color:var(--mut);font-size:15px;margin-top:12px;max-width:680px;line-height:1.55}
+.brand{position:relative;display:flex;align-items:flex-end;gap:18px;margin:16px 0 0;flex-wrap:wrap}
+.brand .word{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:clamp(58px,11vw,140px);line-height:.86;color:var(--navy);letter-spacing:-.01em}
+.brand .word .g{color:var(--gold-d)}
+.sub{position:relative;font-family:'Cormorant',Georgia,serif;font-weight:600;font-size:clamp(18px,2.6vw,30px);color:var(--accent-d);line-height:1.1;margin-top:10px}
+.lead{position:relative;color:var(--mut);font-size:15px;margin-top:14px;max-width:760px;line-height:1.6;font-weight:500}
+.lead b{color:var(--navy);font-weight:700}
+.snap{position:relative;display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.snap .pill{display:flex;align-items:baseline;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:9px 15px;box-shadow:var(--shadow)}
+.snap .pill b{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:24px;color:var(--navy);line-height:1}
+.snap .pill.alarm b{color:var(--red)}
+.snap .pill span{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:#9c9586}
 
-.sec{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);margin:34px 2px 14px;display:flex;align-items:center;gap:10px}
-.sec::after{content:"";flex:1;height:1px;background:var(--line)}
+/* ===== общий контейнер ===== */
+.wrap{padding:0 clamp(16px,2.4vw,40px) 52px;max-width:2100px;margin:0 auto}
+.lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9c9586;margin:30px 2px 14px}
+.lbl .n{margin-left:auto;font-weight:600;color:var(--accent-d);text-transform:none;letter-spacing:0;font-size:12.5px}
 
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:15px}
-.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;transition:.18s;box-shadow:0 1px 2px rgba(30,30,30,.04);position:relative;overflow:hidden}
-.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent);opacity:0;transition:.18s}
-.card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 14px 30px -16px rgba(40,65,87,.4)}
-.card:hover::before{opacity:1}
-.card .ic{font-size:26px;margin-bottom:12px}
-.card .role{font-size:11px;color:var(--gold-d);text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:8px}
-.card h2{font-family:'Cormorant',Georgia,serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:7px;line-height:1.05}
-.card p{font-size:12.5px;color:var(--mut);line-height:1.5}
-.card .go{margin-top:14px;font-size:12.5px;color:var(--accent-d);font-weight:700}
+/* ===== роль-карты во всю ширину ===== */
+.roles{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-items:stretch}
+.role-card{position:relative;display:flex;flex-direction:column;background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px 22px 20px;overflow:hidden;transition:transform .16s,box-shadow .16s;min-height:230px}
+.role-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent);opacity:.0;transition:.16s}
+.role-card:hover{transform:translateY(-4px);box-shadow:0 22px 44px -22px rgba(40,65,87,.6)}
+.role-card:hover::before{opacity:1}
+.role-card .ic{width:46px;height:46px;border-radius:13px;background:var(--accent-soft);color:var(--accent-d);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
+.role-card .role{font-size:10.5px;color:var(--gold-d);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-top:16px}
+.role-card h2{font-family:'Cormorant',Georgia,serif;font-size:26px;font-weight:700;color:var(--navy);line-height:1.02;margin-top:5px}
+.role-card p{font-size:12.5px;color:var(--mut);line-height:1.5;margin-top:8px;font-weight:500;flex:1}
+.role-card .go{margin-top:14px;font-size:12.5px;color:var(--accent-d);font-weight:700;display:flex;align-items:center;gap:6px}
+.role-card .go .ar{transition:transform .16s}
+.role-card:hover .go .ar{transform:translateX(4px)}
+/* акцент-варианты */
+.role-card.lead-card .ic{background:var(--navy);color:var(--gold)}
+.role-card.lead-card::before{background:var(--gold)}
+.role-card.own .ic{background:#FBF5E6;color:var(--gold-d)}
+.role-card.own::before{background:var(--gold)}
 
-.more{display:flex;flex-wrap:wrap;gap:10px}
-.more a{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 15px;font-size:13.5px;font-weight:600;transition:.16s}
-.more a:hover{border-color:var(--accent);color:var(--accent-d);background:#fff}
-.more a .e{font-size:17px}
-.more a small{color:var(--faint);font-weight:500;margin-left:2px}
+/* ===== карта системы ===== */
+.sysgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.sys{display:flex;align-items:flex-start;gap:13px;background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:16px 18px;transition:transform .16s,box-shadow .16s}
+.sys:hover{transform:translateY(-3px);box-shadow:0 18px 38px -20px rgba(40,65,87,.55)}
+.sys .e{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#f3f6f3,#e8eee9);display:flex;align-items:center;justify-content:center;font-size:20px;flex:none}
+.sys .t{font-weight:700;font-size:14px;color:var(--navy);line-height:1.1}
+.sys .s{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:3px;line-height:1.4}
+.sys .badge{display:inline-block;margin-top:7px;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--accent-d);background:var(--accent-soft);border-radius:999px;padding:3px 9px}
 
-.foot{margin-top:36px;font-size:12px;color:var(--faint);line-height:1.6;border-top:1px solid var(--line);padding-top:18px}
-.foot b{color:var(--mut)}
-@media(max-width:640px){.cards{grid-template-columns:1fr}}
+.note{font-size:12px;color:#9c9586;text-align:center;margin-top:34px;line-height:1.7}
+.note a{color:var(--accent-d);font-weight:700;text-decoration:none}
+.note b{color:var(--mut)}
+
+@media(max-width:1280px){
+  .roles{grid-template-columns:repeat(3,1fr)}
+  .sysgrid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:1040px){
+  .roles{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:620px){
+  .roles{grid-template-columns:1fr}
+  .sysgrid{grid-template-columns:1fr}
+  .top .me{display:none}
+  .brand{align-items:flex-start}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="kick">ATLAS · Фаза 1 · отслеживание стройки</div>
-  <div class="logo"><div class="m">A</div><h1>Рабочее место <span class="g">стройки</span></h1></div>
-  <p class="lead">Прототипы для согласования. Один продукт, разные экраны по роли: начальник участка отмечает факт → РП подтверждает → директор и собственник видят портфель. Достоверный факт собирается ботом «Флэш». Данные условные.</p>
 
-  <!-- ВХОД ПО РОЛИ -->
-  <div class="sec">Войти по роли</div>
-  <div class="cards">
-    <a class="card" href="dashboard.html">
+<div class="top">
+  <div class="lg">A</div>
+  <div class="nm">ATLAS<small>строительная ERP · вход по роли</small></div>
+  <div class="meta">
+    <div class="stamp">данные из движка ГПР<b id="stamp">28.05.2026</b></div>
+    <div class="me">ATAMŪRA GROUP<small>единый движок ГПР · 4 ЖК</small></div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="kick">строительная ERP · единый движок ГПР</div>
+  <div class="brand">
+    <h1 class="word">ATL<span class="g">A</span>S</h1>
+  </div>
+  <div class="sub">строительная ERP · проектный менеджмент и операционка</div>
+  <p class="lead">Один продукт — разные экраны по роли. <b>Начальник участка</b> отмечает факт → <b>РП</b> подтверждает → <b>директор и собственник</b> видят портфель. Все экраны читают <b>один движок ГПР</b> — никто не хранит свои цифры. Выберите, кто вы.</p>
+  <div class="snap" id="snap">
+    <div class="pill"><b class="tnum">—</b><span>жилых комплекса</span></div>
+    <div class="pill"><b class="tnum">—</b><span>блоков</span></div>
+    <div class="pill"><b class="tnum">—</b><span>работ в плане</span></div>
+    <div class="pill alarm"><b class="tnum">—</b><span>работ не в срок</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="lbl">Войти по роли <span class="n">каждая роль — свой экран ATLAS</span></div>
+  <div class="roles">
+
+    <a class="role-card lead-card" href="dashboard.html">
       <div class="ic">🛰️</div>
       <div class="role">CEO · директор по стройке</div>
       <h2>Командный центр</h2>
-      <p>Все ЖК на одном экране: где горит, что не в срок, узкие места компании. На весь экран, данные из движка ГПР.</p>
-      <div class="go">Открыть командный центр →</div>
+      <p>Все ЖК на одном экране: где горит, что не в срок, узкие места компании. На весь экран, из движка ГПР.</p>
+      <div class="go">Открыть центр <span class="ar">→</span></div>
     </a>
-    <a class="card" href="portfolio.html">
+
+    <a class="role-card own" href="portfolio.html">
       <div class="ic">👑</div>
-      <div class="role">собственник · CEO</div>
+      <div class="role">собственник</div>
       <h2>Портфель</h2>
-      <p>Все объекты компании: ЖК → очереди → блоки, статус-риск, общий прогресс, операционные потоки.</p>
-      <div class="go">Открыть портфель →</div>
+      <p>Все объекты компании: ЖК → очереди → блоки, статус-риск, общий прогресс и операционные потоки.</p>
+      <div class="go">Открыть портфель <span class="ar">→</span></div>
     </a>
-    <a class="card" href="object.html">
+
+    <a class="role-card" href="object.html">
       <div class="ic">🏢</div>
       <div class="role">директор</div>
-      <h2>Объект (ЖК)</h2>
-      <p>Обзор одного ЖК: очереди и блоки с готовностью, красная зона, сводный план ГПР.</p>
-      <div class="go">Открыть объект →</div>
+      <h2>Разбор объекта</h2>
+      <p>Один ЖК целиком: очереди и блоки с готовностью, красная зона, сводный план ГПР объекта.</p>
+      <div class="go">Открыть объект <span class="ar">→</span></div>
     </a>
-    <a class="card" href="rp.html">
+
+    <a class="role-card" href="rp.html">
       <div class="ic">🧭</div>
       <div class="role">руководитель проекта</div>
       <h2>Пульт РП</h2>
-      <p>Подтверждение факта на объекте, красная зона с эскалацией, команда НУ, поручения.</p>
-      <div class="go">Открыть пульт →</div>
+      <p>Подтверждение факта на объекте, красная зона с эскалацией, команда НУ и поручения.</p>
+      <div class="go">Открыть пульт <span class="ar">→</span></div>
     </a>
-    <a class="card" href="nu.html">
+
+    <a class="role-card" href="naparnik.html">
       <div class="ic">🏗</div>
-      <div class="role">начальник участка</div>
-      <h2>Моё рабочее место</h2>
-      <p>Отметка факта, недельный KPI, цели, маршрут мастера, общая цель команды — геймифицировано.</p>
-      <div class="go">Открыть участок →</div>
+      <div class="role">нач. участка · прораб · мастер</div>
+      <h2>Напарник</h2>
+      <p>Рабочее место: отметка факта, недельный KPI, цели, маршрут мастера, общая цель команды.</p>
+      <div class="go">Открыть участок <span class="ar">→</span></div>
     </a>
+
   </div>
 
-  <!-- ЕЩЁ -->
-  <div class="sec">Ещё экраны и инструменты</div>
-  <div class="more">
-    <a href="league.html"><span class="e">🏆</span>Лига участков<small>рейтинг НУ</small></a>
-    <a href="gpr.html"><span class="e">📊</span>Полный план ГПР<small>как MS Project</small></a>
-    <a href="gpr-engine/"><span class="e">⚙️</span>ГПР-движок<small>план ↔ факт, пересчёт</small></a>
-    <a href="atlas_supply_roles_brand.html"><span class="e">📦</span>Снабжение материалов<small>модуль</small></a>
-    <a href="bot.html"><span class="e">📱</span>Бот «Флэш»<small>Telegram</small></a>
-    <a href="web.html"><span class="e">🖥</span>Веб-панель<small>старая, все роли</small></a>
+  <div class="lbl">Карта системы <span class="n">общие модули и инструменты движка</span></div>
+  <div class="sysgrid">
+
+    <a class="sys" href="league.html">
+      <div class="e">🏆</div>
+      <div><div class="t">Лига участков</div><div class="s">рейтинг начальников участка по достоверному факту</div><span class="badge">геймификация</span></div>
+    </a>
+
+    <a class="sys" href="gpr.html">
+      <div class="e">📊</div>
+      <div><div class="t">Полный ГПР</div><div class="s">график производства работ — план ↔ факт, как MS Project</div><span class="badge">план</span></div>
+    </a>
+
+    <a class="sys" href="atlas_supply_roles_brand.html">
+      <div class="e">📦</div>
+      <div><div class="t">Снабжение</div><div class="s">материалы по ролям: заявка → закуп → поставка → срывы работ</div><span class="badge">модуль</span></div>
+    </a>
+
+    <a class="sys" href="gpr-engine/">
+      <div class="e">⚙️</div>
+      <div><div class="t">ГПР-движок</div><div class="s">единый источник: данные, пересчёт плана и факта, отставание</div><span class="badge">ядро</span></div>
+    </a>
+
   </div>
 
-  <div class="foot"><b>Это мокапы, не финальный продукт.</b> Иерархия: Портфель → Объект (ЖК) → Участок (блок). Полный план ГПР доступен внизу каждого экрана — чтобы любой сотрудник мог планировать. Данные условные, имена вымышленные. ATLAS · ATAMŪRA GROUP.</div>
+  <div class="note">Вход в ATLAS · все экраны читают <b>единый движок ГПР</b> на <b id="stamp2">28.05.2026</b> (<span id="snapline">4 ЖК · — блоков · — работ</span>). Это и есть «один движок» в действии: экран не хранит свои цифры, а показывает движок. Данные условные, имена вымышленные. · ATAMŪRA GROUP</div>
 </div>
+
+<script>
+const $=id=>document.getElementById(id);
+
+function build(D){
+  const allBlocks=D.portfolio.reduce((a,o)=>a+(o.blocks||[]).length,0);
+  const allWorks=D.portfolio.reduce((a,o)=>a+(o.blocks||[]).reduce((s,b)=>s+(b.works||[]).length,0),0);
+  let totalLate=0;
+  D.portfolio.forEach(o=>(o.blocks||[]).forEach(b=>(b.works||[]).forEach(w=>{if((w.lag||0)>0)totalLate++;})));
+  return {objects:D.portfolio.length,allBlocks,allWorks,totalLate};
+}
+
+function render(M){
+  const n=x=>x.toLocaleString('ru');
+  $('snap').innerHTML=[
+    {v:M.objects,k:'жилых комплекса'},
+    {v:M.allBlocks,k:'блоков'},
+    {v:M.allWorks,k:'работ в плане'},
+    {v:M.totalLate,k:'работ не в срок',alarm:true},
+  ].map(p=>`<div class="pill${p.alarm?' alarm':''}"><b class="tnum">${n(p.v)}</b><span>${p.k}</span></div>`).join('');
+  $('snapline').textContent=`${M.objects} ЖК · ${n(M.allBlocks)} блоков · ${n(M.allWorks)} работ`;
+}
+
+fetch('gpr-engine/gpr_data.json',{cache:'no-store'})
+  .then(r=>{if(!r.ok)throw 0;return r.json();})
+  .then(D=>{
+    const d=(D.status_date||'2026-05-28').split('-').reverse().join('.');
+    $('stamp').textContent=d; $('stamp2').textContent=d;
+    render(build(D));
+  })
+  .catch(()=>{
+    $('snap').innerHTML='<div class="pill"><span>Загружаю данные движка… (открой через сервер или GitHub Pages — gpr-engine/gpr_data.json)</span></div>';
+  });
+</script>
 </body>
 </html>
