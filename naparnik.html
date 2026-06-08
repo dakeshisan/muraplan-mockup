@@ -233,6 +233,67 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:24px;line-height:1.6}
 .note a{color:var(--accent-d);font-weight:700;text-decoration:none}
 
+/* ряд из двух карточек: фото-галерея + ОТиТБ */
+.grid2safe{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:20px;align-items:start;margin-top:4px}
+.grid2safe .col{min-width:0;display:flex;flex-direction:column}
+
+/* ===== ФОТО-ГАЛЕРЕЯ ПРОГРЕССА (демо-плейсхолдеры) ===== */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;padding:16px 20px}
+.gcard{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(30,30,30,.04)}
+.gthumb{position:relative;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--navy),var(--accent-d));overflow:hidden}
+.gthumb.done{background:linear-gradient(135deg,var(--green),#256f48)}
+.gthumb.prog{background:linear-gradient(135deg,var(--accent),var(--accent-d))}
+.gthumb::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 12px,rgba(255,255,255,0) 12px 24px)}
+.gthumb .cam{position:relative;font-size:34px;opacity:.92;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
+.gthumb .demo{position:absolute;top:8px;left:8px;font-size:9px;font-weight:700;color:#fff;background:rgba(0,0,0,.28);border-radius:999px;padding:3px 8px;letter-spacing:.02em;z-index:1}
+.gthumb .pc{position:absolute;bottom:8px;right:8px;font-size:11px;font-weight:800;color:var(--navy);background:rgba(255,255,255,.92);border-radius:8px;padding:3px 8px;z-index:1}
+.gthumb .pc.done{color:var(--green)}
+.gbody{padding:11px 12px}
+.gbody .gt{font-size:12.5px;font-weight:700;line-height:1.2}
+.gbody .gm{font-size:10.5px;color:var(--faint);font-weight:600;margin-top:4px;line-height:1.3}
+.gbody .gd{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:10.5px;font-weight:700}
+.gbody .gd .stat{border-radius:999px;padding:2px 8px;white-space:nowrap}
+.gbody .gd .stat.done{color:var(--green);background:var(--green-bg)}
+.gbody .gd .stat.prog{color:var(--accent-d);background:var(--accent-soft)}
+.gbody .gd .dt{margin-left:auto;color:var(--mut);font-weight:700}
+.galleryfoot{padding:12px 20px;font-size:11.5px;font-weight:700;color:var(--gold-d);background:linear-gradient(135deg,#FBF5E6,#F5EAD0);border-top:1px solid #E7D4A6;line-height:1.45;border-radius:0 0 18px 18px}
+.galleryfoot b{color:var(--ink)}
+.demoflag{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:var(--gold-d);background:#FBF5E6;border:1px solid #E7D4A6;border-radius:999px;padding:3px 9px}
+
+/* ===== ОТиТБ (охрана труда · ТБ) ===== */
+.safe{padding:18px 20px}
+.safehero{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;background:linear-gradient(135deg,#fff,#f3f6f3);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.safehero .big{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:52px;line-height:.92;color:var(--green);text-align:center;min-width:96px}
+.safehero .big small{display:block;font-family:'Jost',sans-serif;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--faint);margin-top:4px}
+.safehero .sb{min-width:0}
+.safehero .sb .st{font-size:13px;font-weight:800;line-height:1.25}
+.safehero .sb .ss{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:4px;line-height:1.4}
+/* мини-светофор безопасности */
+.siglight{display:flex;gap:7px;margin-top:11px}
+.siglight .lp{flex:1;border-radius:11px;padding:9px 8px;text-align:center;border:1px solid var(--line);background:#fff;opacity:.4}
+.siglight .lp.on{opacity:1}
+.siglight .lp .le{font-size:16px;line-height:1}
+.siglight .lp .ll{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;margin-top:4px}
+.siglight .lp.g.on{background:var(--green-bg);border-color:#bfe0cc}.siglight .lp.g .ll{color:var(--green)}
+.siglight .lp.a.on{background:var(--amber-bg);border-color:#e7d4a6}.siglight .lp.a .ll{color:var(--amber)}
+.siglight .lp.r.on{background:var(--red-bg);border-color:#e9c3bb}.siglight .lp.r .ll{color:var(--red)}
+.safelist{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.srow{display:flex;align-items:center;gap:11px;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.srow .si{font-size:17px;flex:none;width:24px;text-align:center}
+.srow .sd{flex:1;min-width:0}
+.srow .sd .t{font-size:12.5px;font-weight:700;line-height:1.2}
+.srow .sd .m{font-size:10.5px;color:var(--mut);font-weight:600;margin-top:2px;line-height:1.3}
+.srow .stag{flex:none;font-size:10px;font-weight:800;border-radius:999px;padding:4px 10px;white-space:nowrap}
+.srow .stag.ok{color:var(--green);background:var(--green-bg)}
+.srow .stag.warn{color:var(--amber);background:var(--amber-bg)}
+.srow .stag.bad{color:var(--red);background:var(--red-bg)}
+.safefoot{margin-top:14px;font-size:11.5px;color:var(--faint);line-height:1.5}.safefoot b{color:var(--mut)}
+
+@media(max-width:760px){
+  .gallery{grid-template-columns:1fr 1fr}
+  .safehero{grid-template-columns:1fr;text-align:center}
+}
+
 /* toast */
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(22px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:14px;font-size:13px;font-weight:700;box-shadow:0 16px 36px -12px rgba(40,65,87,.65);opacity:0;pointer-events:none;transition:transform .28s cubic-bezier(.2,.8,.3,1),opacity .28s;z-index:60;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -243,6 +304,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .hcard:last-child{grid-column:1/-1}
   .grid3{grid-template-columns:1fr 1fr}
   .grid3 .col:nth-child(3){grid-column:1/-1}
+  .grid2safe{grid-template-columns:1fr}
 }
 @media(max-width:760px){
   .herostrip{grid-template-columns:1fr}
@@ -387,6 +449,29 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <div class="card">
         <div class="cap" style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);padding:16px 20px 0">Достижения</div>
         <div class="ach" id="ach"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ФОТО-ПРУФ ПРОГРЕССА + ОХРАНА ТРУДА -->
+  <div class="lbl">Фото-пруф и безопасность участка <span class="n">подтверждение факта · ОТиТБ</span></div>
+  <div class="grid2safe">
+
+    <!-- (A) ФОТО-ГАЛЕРЕЯ ПРОГРЕССА -->
+    <div class="col">
+      <div class="lbl" style="margin-top:0">Фото-галерея прогресса <span class="n"><span class="demoflag">📷 демо-плейсхолдеры</span></span></div>
+      <div class="card">
+        <div class="khead" style="border-radius:18px 18px 0 0"><span>Каждая отметка факта — с фото-пруфом у РП</span><span class="khint" id="gal-count">— фото</span></div>
+        <div class="gallery" id="gallery"><div class="loading">Загружаю фото прогресса…</div></div>
+        <div class="galleryfoot">📷 Отметил «Готово» в канбане → к нему прикрепляется <b>фото-пруф</b>: РП видит снимок участка, а не только цифру. Так факт становится достоверным. <span class="demoflag" style="margin-left:4px">снимки демо · реальные подтянутся с участка</span></div>
+      </div>
+    </div>
+
+    <!-- (B) ОХРАНА ТРУДА · ТБ -->
+    <div class="col">
+      <div class="lbl" style="margin-top:0">Охрана труда · ТБ <span class="n"><span class="demoflag">демо-показатели</span></span></div>
+      <div class="card">
+        <div class="safe" id="safe"><div class="loading">Загружаю показатели ОТиТБ…</div></div>
       </div>
     </div>
   </div>
@@ -552,7 +637,7 @@ function renderGoal(){
   const mates=(o.blocks||[]).filter(b=>b.queue===q);
   const avg=Math.round(mates.reduce((a,b)=>a+(b.fact||0),0)/Math.max(1,mates.length));
   const dates={2:'30.09',3:'2027',4:'2027',1:'30.06',5:'2028',6:'2028'};
-  $('g-cap').textContent='Финиш · '+o.object.replace('ЖК ','').replace(/[«»]/g,'')+' · '+q+' очередь';
+  $('g-cap').textContent='Финиш · '+(o.object||'').replace('ЖК ','').replace(/[«»]/g,'')+' · '+q+' очередь';
   $('g-title').textContent='Сдать '+q+' очередь в срок';
   $('g-date').textContent=dates[q]||'—';
   $('g-bar').style.width=avg+'%'; $('g-pct').textContent=avg+'%';
@@ -625,7 +710,7 @@ function mark(e,idx,v){
   if(v>=100)w.lag=0;
   w.col=v>=100?'done':'prog';
   openIdx=null;
-  recalc(); renderKan(); renderWeek(); renderHero(); renderGoal();
+  recalc(); renderKan(); renderWeek(); renderHero(); renderGoal(); renderGallery(); renderSafety();
   if(v>=100 && !wasDone){closed++;addXP('time',25,'✓ Готово · 📷 фото у РП · <b>+25 XP</b>');celebrate(idx);}
   else addXP('time',10,'Факт отправлен РП · <b>+10 XP</b>');
   $('k-closed').textContent='закрыто '+closed;
@@ -704,6 +789,88 @@ function renderAch(){
   }).join('');
 }
 
+/* ===== ФОТО-ГАЛЕРЕЯ ПРОГРЕССА (демо-плейсхолдеры из реальных works движка) =====
+   Реальных снимков нет → аккуратные CSS-плитки (бренд-градиент + 📷).
+   Подпись = название работы + дата из движка (end, иначе start). Связь: каждая
+   отметка факта в канбане идёт с фото-пруфом — это и показываем. Guard-ы на поля. */
+function renderGallery(){
+  const el=$('gallery'); if(!el)return;
+  const ws=(BLOCK&&BLOCK.works)?BLOCK.works:[];
+  const dOf=w=>w&&(w.end||w.start)||null;          // дата для подписи (guard)
+  // недавно закрытые (фото-пруф уже есть) — по дате завершения вниз
+  const done=ws.filter(w=>w.fact>=100&&dOf(w))
+    .sort((a,b)=>new Date(dOf(b))-new Date(dOf(a)));
+  // в работе сейчас (фото будет при отметке «Готово»)
+  const prog=ws.filter(w=>w.fact>0&&w.fact<100)
+    .sort((a,b)=>(b.lag||0)-(a.lag||0));
+  // витрина: до 6 готовых + до 2 в работе (для раннего блока — сколько есть)
+  const cards=[...done.slice(0,6).map(w=>({w,kind:'done'})),
+               ...prog.slice(0,2).map(w=>({w,kind:'prog'}))];
+  if(!cards.length){
+    el.innerHTML='<div class="loading" style="grid-column:1/-1">Фото появятся, когда закроешь первую работу с отметкой «📷 Готово».</div>';
+    $('gal-count').textContent='0 фото';
+    return;
+  }
+  $('gal-count').textContent=done.length+' фото';
+  el.innerHTML=cards.map(({w,kind})=>{
+    const nm=(w.name||'работа').trim();
+    const sec=(w.section||'').trim();
+    const dt=dOf(w)?fmtD(dOf(w)):'—';
+    const isDone=kind==='done';
+    const badge=isDone?'фото-прув ✓':'в работе';
+    const pc=isDone?'<span class="pc done">100%</span>':'<span class="pc">'+(w.fact||0)+'%</span>';
+    const stat=isDone?'<span class="stat done">📷 закрыто</span>':'<span class="stat prog">📷 при сдаче</span>';
+    return '<div class="gcard"><div class="gthumb '+(isDone?'done':'prog')+'">'+
+             '<span class="demo">демо · '+badge+'</span><span class="cam">📷</span>'+pc+
+           '</div><div class="gbody"><div class="gt">'+nm+'</div><div class="gm">'+(sec||'участок')+' · блок '+BN+'</div>'+
+             '<div class="gd">'+stat+'<span class="dt">'+dt+'</span></div></div></div>';
+  }).join('');
+}
+
+/* ===== ОТиТБ (охрана труда · ТБ) — карточка-показатели (ДЕМО, помечено) =====
+   Стройка живёт безопасностью → повышает доверие. Числа стабильны (детерминированы
+   от блока), светофор красится по отставанию блока. Всё помечено как демо. */
+function renderSafety(){
+  const el=$('safe'); if(!el)return;
+  const ws=(BLOCK&&BLOCK.works)?BLOCK.works:[];
+  const lag=BLOCK?(BLOCK.lag||0):0;
+  const active=ws.filter(w=>w.fact>0&&w.fact<100).length;   // фронтов в работе → наряды
+  const fact=BLOCK?(BLOCK.fact||0):0;
+  // «дней без происшествий» — демо, стабильно от блока (не рандом при каждом рендере)
+  const days=42+((BN*7)%28)+(lag<=20?14:0);
+  // светофор: зелёный в графике, жёлтый при отставании, красный при сильном
+  const level=lag>40?'r':lag>20?'a':'g';
+  const sigTxt=level==='g'?'Зона безопасности — нарушений нет':level==='a'?'Повышенное внимание — темп ниже плана':'Зона риска — снять отставание по ТБ';
+  const naryad=Math.max(1,active);                 // открытых нарядов-допусков ≈ активные фронты
+  const naryadOk=Math.max(0,naryad-(lag>40?1:0));  // один просрочен при сильном отставании
+  const sizPc=lag>40?86:lag>20?94:100;             // чек СИЗ, %
+  const rows=[
+    {ic:'📋',t:'Наряды-допуски',m:naryadOk+' из '+naryad+' оформлены · высотные/огневые работы',
+     tag:naryadOk>=naryad?'ok':'warn',tagt:naryadOk>=naryad?'все ОК':(naryad-naryadOk)+' оформить'},
+    {ic:'🦺',t:'Чек СИЗ бригады',m:'каски · жилеты · страховка · обувь — утренний обход',
+     tag:sizPc>=100?'ok':sizPc>=90?'warn':'bad',tagt:sizPc+'%'},
+    {ic:'🚧',t:'Ограждения и знаки',m:'опасные зоны закрыты · разметка проходов',tag:'ok',tagt:'в норме'},
+    {ic:'🧯',t:'Пожарная безопасность',m:'огнетушители · пути эвакуации свободны',tag:level==='r'?'warn':'ok',tagt:level==='r'?'проверить':'в норме'},
+    {ic:'📅',t:'Инструктаж по ТБ',m:'вводный · на рабочем месте — журнал подписан',tag:'ok',tagt:'актуален'}
+  ];
+  el.innerHTML=
+    '<div class="safehero">'+
+      '<div class="big tnum">'+days+'<small>дней без происшествий</small></div>'+
+      '<div class="sb"><div class="st">'+sigTxt+'</div>'+
+        '<div class="ss">Безопасность участка · блок '+BN+' ('+BLOCK.queue+' очередь, готовность '+fact+'%). Светофор — демо-оценка по темпу относительно плана.</div>'+
+        '<div class="siglight">'+
+          '<div class="lp g'+(level==='g'?' on':'')+'"><div class="le">🟢</div><div class="ll">норма</div></div>'+
+          '<div class="lp a'+(level==='a'?' on':'')+'"><div class="le">🟡</div><div class="ll">внимание</div></div>'+
+          '<div class="lp r'+(level==='r'?' on':'')+'"><div class="le">🔴</div><div class="ll">риск</div></div>'+
+        '</div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="safelist">'+rows.map(r=>
+      '<div class="srow"><div class="si">'+r.ic+'</div><div class="sd"><div class="t">'+r.t+'</div><div class="m">'+r.m+'</div></div><span class="stag '+r.tag+'">'+r.tagt+'</span></div>'
+    ).join('')+'</div>'+
+    '<div class="safefoot"><b>Демо-показатели ОТиТБ.</b> В Фазе 2 наряды-допуски, чек СИЗ и журнал инструктажей подтянутся из единого движка — нарушение ТБ блокирует приёмку работы у РП. Стройка живёт безопасностью.</div>';
+}
+
 /* ===== localStorage ===== */
 function snapshot(){return {works:BLOCK.works.map(w=>({fact:w.fact,col:w.col,lag:w.lag,saved:!!w.saved,tag:w.tag||null})),xp:XP.map(x=>x.v),closed:closed};}
 function save(){try{localStorage.setItem(SKEY,JSON.stringify(snapshot()));}catch(e){}}
@@ -718,27 +885,36 @@ function resetDemo(){try{localStorage.removeItem(SKEY);}catch(e){}location.reloa
 function applyStatic(){
   NU=nuName(BN);
   document.title='ATLAS · Напарник · блок '+BN+' · '+NU;
-  $('me-who').innerHTML=NU+'<small id="me-sub">НУ · '+BLOCK.o.object.replace('ЖК ','').replace(/[«»]/g,'')+' · блок '+BN+'</small>';
+  const objName=BLOCK.o.object||'объект';
+  $('me-who').innerHTML=NU+'<small id="me-sub">НУ · '+objName.replace('ЖК ','').replace(/[«»]/g,'')+' · блок '+BN+'</small>';
   $('me-av').textContent=avLetter(NU);
   // крошка «объект» ведёт в тот объект, которому реально принадлежит блок (не жёстко Аура)
   $('cr-obj').href='object.html?zk='+encodeURIComponent(BLOCK.o.id||'aura');
-  $('cr-obj').textContent=BLOCK.o.object;
+  $('cr-obj').textContent=objName;
   $('cr-q').textContent=BLOCK.queue+' очередь';
   $('cr-b').textContent='блок '+BN;
-  $('note-data').textContent='Данные из движка ГПР на '+SD.split('-').reverse().join('.')+' · '+BLOCK.o.object+', блок '+BN+' · '+BLOCK.queue+' очередь; геймификация — демо.';
+  $('note-data').textContent='Данные из движка ГПР на '+SD.split('-').reverse().join('.')+' · '+objName+', блок '+BN+' · '+BLOCK.queue+' очередь; геймификация — демо.';
 }
 
 /* ===== boot ===== */
 function boot(D){
-  SD=D.status_date||SD;
+  SD=(D&&D.status_date)||SD;
   $('stamp').textContent=SD.split('-').reverse().join('.');
-  const aura=D.portfolio.find(o=>o.id==='aura')||D.portfolio[0];
-  let blk=(aura.blocks||[]).find(b=>String(b.spot)===String(BN));
-  let host=aura;
-  if(!blk){ // запасной поиск по любому объекту
-    for(const o of D.portfolio){const f=(o.blocks||[]).find(b=>String(b.spot)===String(BN));if(f){blk=f;host=o;break;}}
+  const portfolio=(D&&Array.isArray(D.portfolio))?D.portfolio:[];
+  // объект, у которого реально есть блоки (защита от пустого/битого движка)
+  const aura=portfolio.find(o=>o.id==='aura'&&(o.blocks||[]).length)
+            ||portfolio.find(o=>(o.blocks||[]).length)
+            ||portfolio[0]||null;
+  let host=aura, blk=(aura&&(aura.blocks||[]).find(b=>String(b.spot)===String(BN)))||null;
+  if(!blk){ // запасной поиск по любому объекту по ?block
+    for(const o of portfolio){const f=(o.blocks||[]).find(b=>String(b.spot)===String(BN));if(f){blk=f;host=o;break;}}
   }
-  if(!blk){blk=aura.blocks[0];host=aura;}
+  if(!blk&&aura){blk=(aura.blocks||[])[0]||null;host=aura;} // первый доступный блок
+  if(!blk){ // движок без единого блока → graceful, без рантайм-краша
+    const msg='<div class="loading">В данных движка нет ни одного блока для отображения.</div>';
+    ['week-now','kan','ahead-rows'].forEach(id=>{const el=$(id);if(el)el.innerHTML=msg;});
+    return;
+  }
   BLOCK=buildBlock(host,blk);
   XP=seedXP(BLOCK);
   loadState();
@@ -747,6 +923,7 @@ function boot(D){
   applyStatic();
   renderHero(); renderGoal(); renderWeek(); renderKan(); renderAhead();
   renderRoute(); renderXPB(); renderGain(); renderAch();
+  renderGallery(); renderSafety();
 }
 
 fetch('gpr-engine/gpr_data.json',{cache:'no-store'})

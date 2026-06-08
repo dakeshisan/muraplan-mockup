@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#284157">
+<meta name="robots" content="noindex,nofollow">
+<title>ATLAS · ПТО — взаиморасчёты с подрядчиками</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1EFE7;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#9C958685;--line:#E6E2D7;--line2:#EFEDE5;
+  --accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--navy:#284157;--navy-d:#1d3142;
+  --gold:#CFB372;--gold-d:#A88E48;
+  --green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-d:#A23A33;--red-bg:#F7E7E2;--amber:#C98A2C;--amber-bg:#FBF1DF;
+  --shadow:0 14px 34px -22px rgba(40,65,87,.5);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{color-scheme:light}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;font-feature-settings:"ss03","cv11"}
+.tnum{font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:10px}
+
+/* ===== шапка на весь экран ===== */
+.top{position:sticky;top:0;z-index:30;background:linear-gradient(110deg,var(--navy),var(--navy-d));color:#fff;display:flex;align-items:center;gap:16px;padding:12px clamp(16px,2.4vw,40px)}
+.top .lg{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;font-family:'Cormorant',Georgia,serif;flex:none}
+.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:23px;line-height:1}
+.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px;letter-spacing:.01em}
+.top .crumbs{margin-left:10px;display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:#9db4c6}
+.top .crumbs a{color:#cfe0ea;text-decoration:none}
+.top .crumbs a:hover{color:#fff}
+.top .crumbs b{color:#fff;font-weight:700}
+.top .crumbs .sep{opacity:.5}
+.top .meta{margin-left:auto;display:flex;align-items:center;gap:18px}
+.top .stamp{font-size:11.5px;color:#9db4c6;font-weight:600;text-align:right;line-height:1.3}
+.top .stamp b{color:#fff;display:block;font-weight:700}
+.top .role{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border-radius:11px;padding:6px 12px}
+.top .role .ic{font-size:17px}
+.top .role .t{font-size:12.5px;font-weight:700;line-height:1.15;color:#fff}
+.top .role .t small{display:block;font-weight:500;color:#9db4c6;font-size:10.5px}
+
+.wrap{padding:0 clamp(16px,2.4vw,40px) 48px;max-width:2100px;margin:0 auto}
+.lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9c9586;margin:26px 2px 11px}
+.lbl .n{margin-left:auto;font-weight:600;color:var(--accent-d);text-transform:none;letter-spacing:0;font-size:12.5px}
+
+/* ===== KPI-лента ===== */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+.kpi{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:15px 18px;position:relative;overflow:hidden}
+.kpi .v{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:38px;line-height:1;color:var(--navy)}
+.kpi .v small{font-size:18px;color:var(--faint)}
+.kpi .k{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#9c9586;margin-top:7px}
+.kpi .sub{font-size:11px;color:var(--mut);font-weight:600;margin-top:3px}
+.kpi.gold::after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--gold)}
+.kpi.gold .v{color:var(--gold-d)}
+.kpi.teal::after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent)}
+.kpi.teal .v{color:var(--accent-d)}
+
+/* ===== главный грид ===== */
+.grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px;align-items:start}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow)}
+
+/* реестр подрядчиков */
+.reg{padding:4px 0}
+.reghead,.regrow{display:grid;grid-template-columns:14px minmax(0,1.7fr) 96px minmax(80px,1fr) 1.15fr 1.15fr 22px;align-items:center;gap:14px;padding:11px 20px}
+.reghead{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);border-bottom:1px solid var(--line)}
+.reghead span:nth-child(3),.reghead span:nth-child(4){text-align:right}
+.regrow{border-top:1px solid var(--line2);cursor:pointer;transition:background .12s}
+.regrow:first-child{border-top:none}
+.regrow:hover{background:#fbfaf5}
+.regrow.sel{background:var(--accent-soft)}
+.regrow .dot{width:12px;height:12px;border-radius:50%;flex:none}
+.dot.red{background:var(--red)}.dot.amber{background:var(--amber)}.dot.green{background:var(--green)}.dot.teal{background:var(--accent)}
+.regrow .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:19px;color:var(--navy);line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.regrow .nm small{display:block;font-family:'Jost',sans-serif;font-size:10.5px;color:var(--faint);font-weight:600;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ratio{display:inline-flex;align-items:center;font-size:11.5px;font-weight:700;border-radius:999px;overflow:hidden;border:1px solid var(--line);white-space:nowrap}
+.ratio .m{background:#eef2f5;color:var(--navy);padding:3px 7px}
+.ratio .q{background:#FBF5E6;color:var(--gold-d);padding:3px 7px}
+.regrow .prog{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+.regrow .bar{width:54px;height:9px;border-radius:6px;background:#e7edf2;overflow:hidden;flex:none}
+.regrow .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.regrow .pct{font-weight:800;font-size:14px;color:var(--navy);width:38px;text-align:right}
+.regrow .rest{font-size:12px;font-weight:600;color:var(--mut);line-height:1.25}
+.regrow .rest b{font-family:'Cormorant',Georgia,serif;font-size:18px;font-weight:700;color:var(--navy);display:block}
+.regrow .rest.q b{color:var(--gold-d)}
+.regrow .rest .apt{display:inline-block;font-size:10.5px;font-weight:700;color:var(--gold-d);background:#FBF5E6;border:1px solid #E7D4A6;border-radius:999px;padding:1px 7px;margin-top:2px}
+.regrow .go{color:var(--accent-d);font-weight:700;font-size:18px;text-align:center}
+
+/* карточка-накопитель */
+.acc{padding:20px}
+.acc .ah{display:flex;align-items:flex-start;gap:14px;margin-bottom:4px}
+.acc .ah .name{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:27px;color:var(--navy);line-height:1.04}
+.acc .ah .name small{display:block;font-family:'Jost',sans-serif;font-size:12px;color:var(--mut);font-weight:600;margin-top:3px}
+.acc .ah .rt{margin-left:auto;text-align:right;flex:none}
+.acc .empty{padding:48px 20px;text-align:center;color:var(--mut);font-weight:600}
+.acc .empty .big{font-size:30px;margin-bottom:8px}
+
+.scales{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.scale{border:1px solid var(--line);border-radius:14px;padding:14px 15px;background:#fcfbf7}
+.scale.q{background:linear-gradient(160deg,#fffdf6,#faf3e3);border-color:#ecdfbe}
+.scale .sh{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#9c9586;margin-bottom:11px}
+.scale .sh .ic{font-size:15px}
+.scale.q .sh{color:var(--gold-d)}
+.scale .track{height:18px;border-radius:9px;background:#e9edf1;overflow:hidden;position:relative;display:flex}
+.scale .track i{height:100%;display:block}
+.scale .track .done{background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.scale .track .acc{background:repeating-linear-gradient(45deg,#bcd3d6,#bcd3d6 6px,#cfe0e2 6px,#cfe0e2 12px)}
+.scale.q .track .done{background:linear-gradient(90deg,var(--gold),var(--gold-d))}
+.scale.q .track .acc{background:repeating-linear-gradient(45deg,#e6cf95,#e6cf95 6px,#efdfb4 6px,#efdfb4 12px)}
+.scale .legend{display:flex;justify-content:space-between;gap:10px;margin-top:12px}
+.scale .lg2{flex:1}
+.scale .lg2 b{font-family:'Cormorant',Georgia,serif;font-size:23px;font-weight:700;color:var(--navy);display:block;line-height:1}
+.scale.q .lg2 b{color:var(--gold-d)}
+.scale .lg2 .done b{color:var(--accent-d)}
+.scale .lg2 span{font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--faint);letter-spacing:.03em}
+.scale .next{margin-top:12px;border-top:1px dashed #e2d8bf;padding-top:10px;font-size:12px;font-weight:600;color:var(--mut);display:flex;align-items:center;gap:8px}
+.scale .next b{font-family:'Cormorant',Georgia,serif;font-size:20px;color:var(--gold-d);font-weight:700}
+.scale .next .nbar{flex:1;height:8px;border-radius:5px;background:#ecdfbe;overflow:hidden;min-width:40px}
+.scale .next .nbar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-d))}
+.scale .moneynote{margin-top:12px;border-top:1px dashed #dfe3e8;padding-top:10px;font-size:11.5px;font-weight:600;color:var(--mut);display:flex;align-items:center;gap:7px}
+.scale .moneynote .lock{font-size:13px}
+
+/* привязанные квартиры */
+.apsub{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:9px;margin-top:14px}
+.ap{border:1px solid var(--line);border-radius:11px;padding:9px 11px;background:#fff;position:relative;overflow:hidden}
+.ap::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px}
+.ap.free::before{background:var(--green)}
+.ap.hold::before{background:var(--amber)}
+.ap.given::before{background:var(--accent)}
+.ap .no{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:18px;color:var(--navy);line-height:1}
+.ap .loc{font-size:10.5px;color:var(--mut);font-weight:600;margin-top:3px}
+.ap .ar{font-size:12px;font-weight:700;color:var(--navy);margin-top:4px}
+.ap .st{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin-top:5px;display:inline-block;padding:1px 7px;border-radius:999px}
+.ap.free .st{color:var(--green);background:var(--green-bg)}
+.ap.hold .st{color:var(--amber);background:var(--amber-bg)}
+.ap.given .st{color:var(--accent-d);background:var(--accent-soft)}
+
+/* ленты */
+.feeds{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.feed .fh{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#9c9586;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.fitem{display:flex;align-items:flex-start;gap:11px;padding:9px 0;border-top:1px solid var(--line2)}
+.fitem:first-child{border-top:none}
+.fitem .ic{width:26px;height:26px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px}
+.fitem.in .ic{background:var(--accent-soft);color:var(--accent-d)}
+.fitem.out .ic{background:#FBF5E6;color:var(--gold-d)}
+.fitem .bd{flex:1;min-width:0}
+.fitem .t{font-size:12.5px;font-weight:700;line-height:1.25}
+.fitem .s{font-size:11px;color:var(--mut);font-weight:600;margin-top:1px}
+.fitem .am{font-size:12.5px;font-weight:800;white-space:nowrap;text-align:right}
+.fitem.in .am{color:var(--accent-d)}
+.fitem.out .am{color:var(--gold-d)}
+.fitem .am small{display:block;font-weight:600;color:var(--faint);font-size:10px}
+
+/* свод фонда */
+.fund{display:grid;grid-template-columns:repeat(3,1fr) minmax(0,1.6fr);gap:0;padding:0}
+.fundcol{padding:18px 22px;border-left:1px solid var(--line2)}
+.fundcol:first-child{border-left:none}
+.fundcol .v{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:40px;line-height:1;color:var(--navy)}
+.fundcol .v small{font-size:18px;color:var(--faint)}
+.fundcol.given .v{color:var(--accent-d)}
+.fundcol.free .v{color:var(--green)}
+.fundcol .k{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#9c9586;margin-top:7px}
+.fundcol .sub{font-size:11px;color:var(--mut);font-weight:600;margin-top:3px}
+.fundcol.bars{display:flex;flex-direction:column;justify-content:center;gap:9px}
+.fbar{display:grid;grid-template-columns:78px 1fr auto;align-items:center;gap:12px}
+.fbar .nm{font-size:12px;font-weight:700;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fbar .track{height:13px;border-radius:7px;background:#eef1f4;overflow:hidden;display:flex}
+.fbar .track i{height:100%;display:block}
+.fbar .track .given{background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.fbar .track .hold{background:var(--amber)}
+.fbar .track .free{background:#cfe0d4}
+.fbar .cnt{font-size:11px;font-weight:700;color:var(--mut);white-space:nowrap}
+.freeze{display:flex;align-items:center;gap:12px;padding:14px 20px;background:linear-gradient(135deg,#fff,#f6f3ea);border-radius:14px;margin-top:14px;border:1px dashed #e2d8bf}
+.freeze .ic{font-size:22px}
+.freeze .t{font-weight:700;font-size:13.5px}
+.freeze .s{font-size:12px;color:var(--mut);font-weight:600;margin-top:1px}
+.freeze .big{margin-left:auto;font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:30px;color:var(--gold-d);text-align:right;line-height:1}
+.freeze .big small{display:block;font-family:'Jost',sans-serif;font-size:10px;font-weight:700;color:var(--faint);text-transform:uppercase}
+
+.note{font-size:12px;color:#9c9586;text-align:center;margin-top:26px;line-height:1.6}
+.note a{color:var(--accent-d);font-weight:700;text-decoration:none}
+.note b{color:var(--gold-d)}
+.loading{padding:60px;text-align:center;color:var(--mut);font-weight:600}
+.demo{font-size:10px;font-weight:700;color:var(--gold-d);background:#FBF5E6;border:1px solid #E7D4A6;border-radius:999px;padding:2px 9px;white-space:nowrap;display:inline-block}
+
+@media(max-width:1100px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .grid{grid-template-columns:1fr}
+  .fund{grid-template-columns:repeat(3,1fr)}
+  .fund .fundcol.bars{grid-column:1/-1;border-left:none;border-top:1px solid var(--line2)}
+}
+@media(max-width:760px){
+  .scales,.feeds{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .top .crumbs{display:none}
+  .reghead{display:none}
+  .regrow{grid-template-columns:12px 1fr auto;gap:10px}
+  .regrow .ratio,.regrow .rest:nth-child(5){display:none}
+  .fund{grid-template-columns:1fr 1fr}
+}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(22px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:13px;font-size:13px;font-weight:700;box-shadow:0 16px 36px -12px rgba(40,65,87,.6);opacity:0;pointer-events:none;transition:.28s;z-index:60}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast b{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="lg">A</div>
+  <div class="nm">ATLAS<small>взаиморасчёты · бартер-накопитель</small></div>
+  <div class="crumbs">
+    <a href="index.html">Все экраны</a><span class="sep">▸</span><b>ПТО</b>
+  </div>
+  <div class="meta">
+    <div class="role">
+      <span class="ic">🧮</span>
+      <div class="t">ПТО<small>производственно-технический отдел</small></div>
+    </div>
+    <div class="stamp">данные из движка ГПР<b id="stamp">28.05.2026</b></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="lbl" style="margin-top:22px">Бартер с подрядчиками <span class="n">оплата частью деньгами, частью квартирами — копим работу в двух «валютах»</span></div>
+  <div class="kpis" id="kpis">
+    <div class="kpi"><div class="loading" style="padding:18px">Загружаю движок…</div></div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="lbl" style="margin-top:24px">Реестр бартерных подрядчиков <span class="n" id="regnote">тап по строке → накопитель</span></div>
+      <div class="card">
+        <div class="reg">
+          <div class="reghead">
+            <span></span><span>Подрядчик</span><span>Ratio<br><small style="font-weight:600;letter-spacing:0">₸ / кв</small></span><span>Наработано</span><span>Остаток — деньги</span><span>Остаток — квартиры</span><span></span>
+          </div>
+          <div id="reg"><div class="loading">Собираю подрядчиков из движка…</div></div>
+        </div>
+      </div>
+      <div class="freeze">
+        <span class="ic">📦</span>
+        <div>
+          <div class="t">Накопитель питается от приёмки объёма</div>
+          <div class="s">тот же факт ГПР, что двигает план/факт — принял работу → квартирная часть подросла в м²</div>
+        </div>
+        <span class="demo" style="margin-left:auto">бартер-условия · ДЕМО</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="lbl" style="margin-top:24px">Карточка-накопитель <span class="n" id="accnote">выбери подрядчика слева</span></div>
+      <div class="card"><div class="acc" id="acc">
+        <div class="empty"><div class="big">👈</div>Выбери бартерного подрядчика в реестре —<br>покажу обе шкалы: деньги и квартиры.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="lbl">Свод квартирного фонда под бартер <span class="n">«замороженный» фонд — эти квартиры нельзя продавать</span></div>
+  <div class="card fund" id="fund"><div class="loading">…</div></div>
+
+  <div class="note">
+    Экран ПТО · подрядчики, объёмы и наработка — из <b style="color:var(--accent-d)">единого движка ГПР</b> на <b>28.05.2026</b>
+    (<span id="nctr">—</span> названных подрядчиков, из них бартерных <span id="nbar">—</span>).
+    Бартер-условия, цены зачёта (₸/м²) и закреплённые квартиры — <b>ДЕМО</b>.
+    Суммы в тенге онлайн не показываем: денежная часть — относительно/в % и скрыта; считаем % выполнения, м² и квартиры.
+    Накопитель растёт от приёмки объёма (fact% работ) — тот же факт, что двигает план/факт.
+    · <a href="dashboard.html">Командный центр</a> · <a href="portfolio.html">Портфель</a> · <a href="gpr.html">Полный ГПР</a> · <a href="index.html">← Все экраны</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+let toastT; function toast(m){const e=$('toast');e.innerHTML=m;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),2400);}
+const fmt=n=>Math.round(n).toLocaleString('ru');
+
+/* детерминированный хеш по строке — чтобы ДЕМО-данные были стабильны между загрузками */
+function hash(s){let h=2166136261>>>0;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h>>>0;}
+
+/* ДЕМО-условия бартера: ключ = имя подрядчика из движка.
+   ratio = [деньги%, квартиры%]; zachet = цена зачёта ₸/м² (условно, на экран не выводим суммой);
+   house/block = куда пишем квартиры в фонде. Назначаем крупным/названным подрядчикам. */
+const BARTER={
+  'ИП Слемов - Улан'      :{ratio:[30,70], zachet:520000, house:'Атмосфера', block:'Б-3'},
+  'ИП Султанов'           :{ratio:[50,50], zachet:540000, house:'Атмосфера', block:'Б-5'},
+  'ИП "БМ Prom Service"'  :{ratio:[60,40], zachet:600000, house:'Керуен',    block:'Б-2'},
+  'ИП Дана'               :{ratio:[70,30], zachet:560000, house:'Атмосфера', block:'Б-1'},
+  'ТОО Okna Daraturym'    :{ratio:[50,50], zachet:580000, house:'Атмосфера', block:'Б-2'},
+  'ИП Ногайбай'           :{ratio:[60,40], zachet:610000, house:'Керуен',    block:'Б-6'},
+  'ИП Дуйсенбаев'         :{ratio:[70,30], zachet:590000, house:'Керуен',    block:'Б-4'},
+  'ТОО OktoProf перила, навесы':{ratio:[50,50], zachet:560000, house:'Керуен', block:'Б-3'}
+};
+
+/* типовые площади квартир под зачёт (м²) — детерминированно тасуем по подрядчику */
+const AREAS=[42,46,54,58,62,68,74,82,46,54,62,72];
+const STREETS={'Атмосфера':'Атмосфера','Керуен':'Керуен','Аура':'Аура','Аксай резорт':'Аксай'};
+
+let MODEL=null, sel=null;
+
+function build(D){
+  const port=D.portfolio||[];
+  /* агрегируем НАЗВАННЫХ подрядчиков из движка */
+  const agg={};
+  port.forEach(o=>((o&&o.blocks)||[]).forEach(b=>((b&&b.works)||[]).forEach(w=>{
+    if(!w) return;
+    const c=(w.contractor||'').trim(); if(!c) return;
+    const a=agg[c]||(agg[c]={name:c,works:0,fsum:0,lag:0,objs:{},secs:{}});
+    a.works++; a.fsum+=(+w.fact||0); if((+w.lag||0)>0)a.lag++; // lag>0 = работа с отставанием
+    const on=(o&&o.object)||'—';
+    a.objs[on]=(a.objs[on]||0)+1;
+    if(w.section)a.secs[w.section]=(a.secs[w.section]||0)+1;
+  })));
+  const allCtr=Object.values(agg);
+
+  /* бартерные = те, у кого есть ДЕМО-условия */
+  const bar=allCtr.filter(c=>BARTER[c.name]).map(c=>{
+    const cfg=BARTER[c.name]||{};
+    const ratio=(Array.isArray(cfg.ratio)&&cfg.ratio.length>=2)?cfg.ratio:[50,50];
+    const done=c.works?Math.round(c.fsum/c.works):0;          // наработано %
+    const lagShare=c.works?c.lag/c.works:0;
+    const objs=Object.keys(c.objs);
+    const secs=Object.entries(c.secs).sort((a,b)=>b[1]-a[1]).map(x=>x[0]);
+
+    /* квартирный фонд (ДЕМО, детерминирован по имени) */
+    const h=hash(c.name);
+    const nApt=2+(h%3);                                        // 2..4 квартиры
+    const stFloor=4+(h%9);
+    const apts=[];
+    for(let i=0;i<nApt;i++){
+      const area=AREAS[(h+i*7)%AREAS.length];
+      const floor=stFloor+i*((h>>3)%3+1);
+      const no=100+((h>>(i+2))%9)*10+floor%9+i;
+      apts.push({no, floor, area, house:cfg.house, block:cfg.block});
+    }
+    apts.sort((a,b)=>a.area-b.area);                           // мелкие закрываем первыми
+    const totalM2=apts.reduce((s,a)=>s+a.area,0);
+
+    /* НАКОПИТЕЛЬ: квартирная часть копится в м² по наработке.
+       accruedM2 = весь обещанный квартирный фонд * наработано% */
+    const accruedM2=Math.round(totalM2*done/100);
+    /* жадно закрываем целые квартиры накопленными м² */
+    let pool=accruedM2, given=0;
+    apts.forEach(a=>{ if(pool>=a.area){pool-=a.area; a.status='given'; given++;}
+                      else if(pool>0){a.status='hold';}
+                      else a.status='free'; });
+    /* первый незакрытый = к нему копим */
+    const nextApt=apts.find(a=>a.status!=='given');
+    const towardNext=nextApt?Math.min(pool,nextApt.area):0;
+    const givenM2=apts.filter(a=>a.status==='given').reduce((s,a)=>s+a.area,0);
+
+    /* денежная часть — только относительно (% наработки), без ₸ */
+    const moneyDonePct=done;                                   // % денежной части «закрыто» приёмкой
+    const moneyRestPct=100-done;
+
+    /* светофор: по доле отстающих работ */
+    const light=lagShare>=.6?'red':lagShare>=.3?'amber':lagShare>0?'teal':'green';
+
+    /* ленты ДЕМО: начисления (приёмка) + списания (передачи) */
+    const feedsIn=secs.slice(0,3).map((s,i)=>({sec:s, m2:Math.round(totalM2*done/100/Math.max(secs.length,1))+8*(i+1), day:24-i*5}));
+    const feedsOut=apts.filter(a=>a.status==='given').map((a,i)=>({apt:a, day:18-i*7}));
+
+    return {...c, ratio, zachet:cfg.zachet, done, objs, secs, apts, totalM2,
+            accruedM2, given, givenM2, nextApt, towardNext,
+            moneyDonePct, moneyRestPct, light, feedsIn, feedsOut, house:cfg.house, block:cfg.block};
+  }).sort((a,b)=>b.totalM2-a.totalM2 || b.works-a.works);
+
+  /* свод фонда */
+  const fund={apt:0,m2:0,givenApt:0,givenM2:0,holdApt:0,holdM2:0,freeApt:0,freeM2:0};
+  bar.forEach(c=>c.apts.forEach(a=>{
+    fund.apt++; fund.m2+=a.area;
+    if(a.status==='given'){fund.givenApt++;fund.givenM2+=a.area;}
+    else if(a.status==='hold'){fund.holdApt++;fund.holdM2+=a.area;}
+    else {fund.freeApt++;fund.freeM2+=a.area;}
+  }));
+  /* по домам — для баров фонда */
+  const byHouse={};
+  bar.forEach(c=>c.apts.forEach(a=>{
+    const k=a.house; const v=byHouse[k]||(byHouse[k]={apt:0,m2:0,given:0,hold:0,free:0});
+    v.apt++; v.m2+=a.area;
+    if(a.status==='given')v.given++; else if(a.status==='hold')v.hold++; else v.free++;
+  }));
+
+  /* накоплено к передаче = сумма м², «зависших» в накопителях (towardNext по всем) */
+  const accToGo=bar.reduce((s,c)=>s+c.towardNext,0);
+
+  return {allCtr, bar, fund, byHouse, accToGo};
+}
+
+function render(){
+  const M=MODEL;
+  /* KPI */
+  $('kpis').innerHTML=[
+    {cls:'',     v:M.bar.length, k:'бартерных подрядчиков', sub:'из '+M.allCtr.length+' названных в движке'},
+    {cls:'gold', v:M.fund.apt, k:'квартир под бартер', sub:fmt(M.fund.m2)+' м² законтрактовано'},
+    {cls:'teal', v:M.fund.givenApt, k:'квартир передано', sub:fmt(M.fund.givenM2)+' м² · закрыто наработкой'},
+    {cls:'gold', v:fmt(M.accToGo)+'<small> м²</small>', k:'накоплено к передаче', sub:'дозревает до следующих квартир'},
+  ].map(t=>`<div class="kpi ${t.cls}"><div class="v tnum">${t.v}</div><div class="k">${t.k}</div><div class="sub">${t.sub}</div></div>`).join('');
+  $('nctr').textContent=M.allCtr.length; $('nbar').textContent=M.bar.length;
+  $('regnote').textContent=M.bar.length+' подрядчиков · тап → накопитель';
+
+  /* реестр */
+  $('reg').innerHTML=M.bar.map((c,i)=>{
+    const r=c.ratio||[50,50];
+    const apTxt=c.totalM2-c.givenM2;
+    const restApt=(c.apts||[]).filter(a=>a.status!=='given').length;
+    return `<div class="regrow ${sel===i?'sel':''}" onclick="pick(${i})">
+      <span class="dot ${c.light}"></span>
+      <div class="nm">${c.name}<small>${c.works} работ · ${c.objs.map(o=>o.replace('ЖК ','').replace(/[«»]/g,'')).join(', ')}</small></div>
+      <div style="text-align:right"><span class="ratio"><span class="m">${r[0]}</span><span class="q">${r[1]}</span></span></div>
+      <div class="prog"><div class="bar"><i style="width:${c.done}%"></i></div><div class="pct tnum">${c.done}%</div></div>
+      <div class="rest"><b class="tnum">${c.moneyRestPct}%</b>денежной части ост.</div>
+      <div class="rest q"><b class="tnum">${fmt(apTxt)} м²</b><span class="apt">${restApt} кв ост.</span></div>
+      <div class="go">›</div>
+    </div>`;
+  }).join('')||'<div class="loading">В движке нет бартерных подрядчиков с ДЕМО-условиями.</div>';
+
+  renderAcc();
+  renderFund();
+}
+
+function pick(i){sel=(sel===i?null:i);render();if(sel!==null){const c=MODEL.bar[sel];toast('Накопитель · <b>'+c.name+'</b>');}}
+
+function renderAcc(){
+  const el=$('acc');
+  if(sel===null){el.innerHTML=`<div class="empty"><div class="big">👈</div>Выбери бартерного подрядчика в реестре —<br>покажу обе шкалы: деньги и квартиры.</div>`; $('accnote').textContent='выбери подрядчика слева'; return;}
+  const c=MODEL.bar[sel];
+  if(!c){sel=null;el.innerHTML=`<div class="empty"><div class="big">👈</div>Выбери бартерного подрядчика в реестре —<br>покажу обе шкалы: деньги и квартиры.</div>`;return;}
+  const r=c.ratio||[50,50];
+  $('accnote').textContent=c.name;
+  /* квартирная шкала: done = переданные м², acc = накапливается к следующей */
+  const tot=c.totalM2||1; // защита от деления на ноль
+  const givenPct=Math.round(c.givenM2/tot*100);
+  const accPct=Math.round(c.towardNext/tot*100);
+  const nextPct=(c.nextApt&&c.nextApt.area)?Math.round(c.towardNext/c.nextApt.area*100):100;
+  /* денежная шкала — относительно (% наработки) */
+  const apList=c.apts.map(a=>{
+    const stTxt=a.status==='given'?'передана':a.status==='hold'?'бронь':'свободна';
+    return `<div class="ap ${a.status}">
+      <div class="no">№${a.no}</div>
+      <div class="loc">${STREETS[a.house]||a.house} · ${a.block} · ${a.floor} эт</div>
+      <div class="ar tnum">${a.area} м²</div>
+      <span class="st">${stTxt}</span>
+    </div>`;
+  }).join('');
+  const feedIn=c.feedsIn.map(f=>`<div class="fitem in">
+      <span class="ic">＋</span>
+      <div class="bd"><div class="t">Приёмка объёма · ${f.sec}</div><div class="s">${c.house} · ${c.block} · −${f.day} дн</div></div>
+      <div class="am tnum">+${f.m2} м²<small>в накопитель</small></div>
+    </div>`).join('')||'<div class="fitem in"><span class="ic">＋</span><div class="bd"><div class="t">Начислений пока нет</div><div class="s">ждём приёмку объёма</div></div></div>';
+  const feedOut=c.feedsOut.map(f=>`<div class="fitem out">
+      <span class="ic">🔑</span>
+      <div class="bd"><div class="t">Передача квартиры №${f.apt.no}</div><div class="s">${STREETS[f.apt.house]||f.apt.house} · ${f.apt.block} · ${f.apt.floor} эт · −${f.day} дн</div></div>
+      <div class="am tnum">−${f.apt.area} м²<small>списано</small></div>
+    </div>`).join('')||'<div class="fitem out"><span class="ic">🔑</span><div class="bd"><div class="t">Передач ещё не было</div><div class="s">копим до целой квартиры</div></div></div>';
+
+  el.innerHTML=`
+    <div class="ah">
+      <div>
+        <div class="name">${c.name}<small>${c.works} работ · ${c.objs.map(o=>o.replace('ЖК ','').replace(/[«»]/g,'')).join(', ')} · ${c.secs.slice(0,2).join(' · ')}</small></div>
+      </div>
+      <div class="rt">
+        <span class="ratio" style="font-size:13px"><span class="m">деньги ${r[0]}</span><span class="q">кв ${r[1]}</span></span>
+        <div style="margin-top:6px"><span class="demo">зачёт · ДЕМО</span></div>
+      </div>
+    </div>
+
+    <div class="scales">
+      <div class="scale">
+        <div class="sh"><span class="ic">💸</span>Денежная часть · ${r[0]}%</div>
+        <div class="track"><i class="done" style="width:${c.moneyDonePct}%"></i></div>
+        <div class="legend">
+          <div class="lg2 done"><b class="tnum">${c.moneyDonePct}%</b><span>закрыто приёмкой</span></div>
+          <div class="lg2" style="text-align:right"><b class="tnum">${c.moneyRestPct}%</b><span>остаток к оплате</span></div>
+        </div>
+        <div class="moneynote"><span class="lock">🔒</span>Сумма в ₸ онлайн не раскрывается — оперируем % выполнения денежной доли.</div>
+      </div>
+
+      <div class="scale q">
+        <div class="sh"><span class="ic">🏢</span>Квартирная часть · ${r[1]}%</div>
+        <div class="track"><i class="done" style="width:${givenPct}%"></i><i class="acc" style="width:${accPct}%"></i></div>
+        <div class="legend">
+          <div class="lg2"><b class="tnum">${fmt(c.totalM2)}</b><span>начислено, м²</span></div>
+          <div class="lg2" style="text-align:center"><b class="tnum">${c.given} <small style="font-size:13px">кв</small></b><span>передано · ${fmt(c.givenM2)} м²</span></div>
+          <div class="lg2" style="text-align:right"><b class="tnum">${fmt(c.towardNext)}</b><span>накоплено, м²</span></div>
+        </div>
+        ${c.nextApt?`<div class="next"><span>до кв №${c.nextApt.no} (${c.nextApt.area} м²):</span><div class="nbar"><i style="width:${nextPct}%"></i></div><b class="tnum">${nextPct}%</b></div>`
+                   :`<div class="next" style="color:var(--green)"><span>✓ весь квартирный фонд закрыт передачами</span></div>`}
+      </div>
+    </div>
+
+    <div class="lbl" style="margin:18px 0 0">Закреплённые квартиры <span class="n">${c.apts.length} кв · ${fmt(c.totalM2)} м² · фонд заморожен</span></div>
+    <div class="apsub">${apList}</div>
+
+    <div class="feeds">
+      <div class="feed"><div class="fh">＋ Начисления · приёмка объёма</div>${feedIn}</div>
+      <div class="feed"><div class="fh">🔑 Списания · передача / оплата</div>${feedOut}</div>
+    </div>`;
+}
+
+function renderFund(){
+  const M=MODEL, f=M.fund;
+  const houses=Object.entries(M.byHouse).sort((a,b)=>b[1].m2-a[1].m2);
+  const maxApt=Math.max(...houses.map(h=>h[1].apt),1);
+  const bars=houses.map(([nm,v])=>{
+    const w=k=>Math.round(v[k]/maxApt*100);
+    return `<div class="fbar">
+      <div class="nm">${nm}</div>
+      <div class="track"><i class="given" style="width:${w('given')}%"></i><i class="hold" style="width:${w('hold')}%"></i><i class="free" style="width:${w('free')}%"></i></div>
+      <div class="cnt">${v.apt} кв · ${fmt(v.m2)} м²</div>
+    </div>`;
+  }).join('');
+  $('fund').innerHTML=`
+    <div class="fundcol"><div class="v tnum">${f.apt} <small>кв</small></div><div class="k">обещано под бартер</div><div class="sub">${fmt(f.m2)} м² · ${M.bar.length} подрядчиков</div></div>
+    <div class="fundcol given"><div class="v tnum">${f.givenApt} <small>кв</small></div><div class="k">передано</div><div class="sub">${fmt(f.givenM2)} м² · закрыто наработкой</div></div>
+    <div class="fundcol free"><div class="v tnum">${f.freeApt+f.holdApt} <small>кв</small></div><div class="k">ещё заморожено</div><div class="sub">${fmt(f.freeM2+f.holdM2)} м² · нельзя продавать</div></div>
+    <div class="fundcol bars">${bars}</div>`;
+}
+
+fetch('gpr-engine/gpr_data.json',{cache:'no-store'})
+  .then(r=>{if(!r.ok)throw 0;return r.json();})
+  .then(D=>{
+    $('stamp').textContent=(D.status_date||'2026-05-28').split('-').reverse().join('.');
+    MODEL=build(D); render();
+  })
+  .catch(()=>{
+    $('kpis').innerHTML='';
+    $('reg').innerHTML='<div class="loading">Не удалось прочитать данные движка (gpr-engine/gpr_data.json).<br>Открой через сервер или GitHub Pages.</div>';
+    $('fund').innerHTML='<div class="loading">нет данных</div>';
+  });
+</script>
+</body>
+</html>
