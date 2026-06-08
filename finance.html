@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#284157">
+<meta name="robots" content="noindex,nofollow">
+<title>ATLAS · Финансы — акты и оборотка</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1EFE7;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#9C958685;--line:#E6E2D7;--line2:#EFEDE5;
+  --accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--navy:#284157;--navy-d:#1d3142;
+  --gold:#CFB372;--gold-d:#A88E48;
+  --green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-d:#A23A33;--red-bg:#F7E7E2;--amber:#C98A2C;--amber-bg:#FBF1DF;
+  --shadow:0 14px 34px -22px rgba(40,65,87,.5);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{color-scheme:light}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;font-feature-settings:"ss03","cv11"}
+.tnum{font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:10px}
+
+/* ===== шапка на весь экран ===== */
+.top{position:sticky;top:0;z-index:30;background:linear-gradient(110deg,var(--navy),var(--navy-d));color:#fff;display:flex;align-items:center;gap:16px;padding:12px clamp(16px,2.4vw,40px)}
+.top .lg{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;font-family:'Cormorant',Georgia,serif;flex:none}
+.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:23px;line-height:1}
+.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px;letter-spacing:.01em}
+.top .crumbs{margin-left:10px;display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:#9db4c6}
+.top .crumbs a{color:#cfe0ea;text-decoration:none}
+.top .crumbs a:hover{color:#fff}
+.top .crumbs b{color:#fff;font-weight:700}
+.top .crumbs .sep{opacity:.5}
+.top .role{margin-left:14px;display:flex;gap:6px;background:rgba(255,255,255,.08);border-radius:11px;padding:4px}
+.top .role button{color:#cfe0ea;font-size:12.5px;font-weight:700;padding:6px 13px;border-radius:8px;white-space:nowrap}
+.top .role button.on{background:var(--gold);color:var(--navy)}
+.top .meta{margin-left:auto;display:flex;align-items:center;gap:16px}
+.top .costbtn{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border-radius:11px;padding:7px 13px;color:#cfe0ea;font-size:12.5px;font-weight:700;white-space:nowrap}
+.top .costbtn .sw{width:34px;height:18px;border-radius:999px;background:rgba(255,255,255,.18);position:relative;transition:.2s;flex:none}
+.top .costbtn .sw::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:.2s}
+.top .costbtn.on{color:#fff}
+.top .costbtn.on .sw{background:var(--gold)}
+.top .costbtn.on .sw::after{left:18px}
+.top .stamp{font-size:11.5px;color:#9db4c6;font-weight:600;text-align:right;line-height:1.3}
+.top .stamp b{color:#fff;display:block;font-weight:700}
+
+.wrap{padding:0 clamp(16px,2.4vw,40px) 48px;max-width:2100px;margin:0 auto}
+.lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9c9586;margin:26px 2px 11px}
+.lbl .n{margin-left:auto;font-weight:600;color:var(--accent-d);text-transform:none;letter-spacing:0;font-size:12.5px}
+
+/* ===== chain-плашка: акт → деньги + бартер ===== */
+.chain{display:flex;align-items:stretch;gap:0;margin-top:18px;background:var(--card);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;flex-wrap:wrap}
+.chain .step{flex:1;min-width:210px;padding:16px 20px;display:flex;align-items:center;gap:13px;position:relative}
+.chain .step+.step::before{content:"→";position:absolute;left:-11px;top:50%;transform:translateY(-50%);font-size:20px;font-weight:700;color:var(--faint);z-index:2}
+.chain .step .ic{width:40px;height:40px;border-radius:12px;flex:none;display:flex;align-items:center;justify-content:center;font-size:20px}
+.chain .step.s1 .ic{background:var(--accent-soft);color:var(--accent-d)}
+.chain .step.s2{background:linear-gradient(135deg,#fff,#f3f6f3)}
+.chain .step.s2 .ic{background:var(--green-bg);color:var(--green)}
+.chain .step.s3{background:linear-gradient(160deg,#fffdf6,#faf3e3)}
+.chain .step.s3 .ic{background:#FBF5E6;color:var(--gold-d)}
+.chain .step .t{font-weight:800;font-size:13.5px;color:var(--navy);line-height:1.15}
+.chain .step .s{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:3px;line-height:1.4}
+.chain .step.s3 .t{color:var(--gold-d)}
+.chain .step.s2 .t{color:var(--green)}
+
+/* ===== KPI-лента ===== */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:14px}
+.kpi{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:15px 18px;position:relative;overflow:hidden}
+.kpi .v{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:38px;line-height:1;color:var(--navy)}
+.kpi .v small{font-size:18px;color:var(--faint)}
+.kpi .k{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#9c9586;margin-top:7px}
+.kpi .sub{font-size:11px;color:var(--mut);font-weight:600;margin-top:3px}
+.kpi.gold::after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--gold)}
+.kpi.gold .v{color:var(--gold-d)}
+.kpi.green::after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--green)}
+.kpi.green .v{color:var(--green)}
+.kpi.teal::after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent)}
+.kpi.teal .v{color:var(--accent-d)}
+.kpi.alarm{background:linear-gradient(135deg,#fff,#fbeeea)}
+.kpi.alarm .v{color:var(--red)}
+.kpi.alarm::after{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--red)}
+
+/* ===== главный грид ===== */
+.grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:20px;align-items:start}
+.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow)}
+
+/* ===== реестр актов ===== */
+.regtools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:12px 18px 4px}
+.regtools .flt{display:flex;gap:6px;flex-wrap:wrap}
+.regtools .flt button{font-size:12px;font-weight:700;color:var(--mut);border:1.5px solid var(--line);border-radius:999px;padding:5px 12px;background:#fff}
+.regtools .flt button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.regtools .mk{margin-left:auto;font-size:12.5px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-d));border-radius:999px;padding:8px 15px;white-space:nowrap}
+
+.reg{padding:2px 0}
+.reghead{display:grid;grid-template-columns:13px 96px minmax(0,1.5fr) 116px minmax(110px,1fr) minmax(120px,1.05fr) 110px 18px;align-items:center;gap:13px;padding:10px 18px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);border-bottom:1px solid var(--line)}
+.reghead span.r{text-align:right}
+.acts{max-height:680px;overflow:auto}
+.actrow{display:grid;grid-template-columns:13px 96px minmax(0,1.5fr) 116px minmax(110px,1fr) minmax(120px,1.05fr) 110px 18px;align-items:center;gap:13px;padding:12px 18px;border-top:1px solid var(--line2);cursor:pointer;transition:background .12s}
+.actrow:first-child{border-top:none}
+.actrow:hover{background:#fbfaf5}
+.actrow.open{background:var(--accent-soft)}
+.actrow .dot{width:11px;height:11px;border-radius:50%;flex:none}
+.dot.red{background:var(--red)}.dot.amber{background:var(--amber)}.dot.green{background:var(--green)}.dot.teal{background:var(--accent)}
+.actrow .no{font-family:'Jost',sans-serif;font-weight:800;font-size:12.5px;color:var(--navy);letter-spacing:.01em;white-space:nowrap}
+.actrow .no small{display:block;font-weight:600;color:var(--faint);font-size:10px;margin-top:2px}
+.actrow .ctr{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:18px;color:var(--navy);line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.actrow .ctr small{display:block;font-family:'Jost',sans-serif;font-size:10.5px;color:var(--faint);font-weight:600;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.actrow .ob{font-size:11.5px;font-weight:700;color:var(--mut);line-height:1.25}
+.actrow .ob small{display:block;font-weight:600;color:var(--faint);font-size:10.5px;margin-top:2px}
+.actrow .clo{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+.actrow .clo .bar{width:48px;height:9px;border-radius:6px;background:#e7edf2;overflow:hidden;flex:none}
+.actrow .clo .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.actrow .clo .pct{font-weight:800;font-size:14px;color:var(--navy);width:38px;text-align:right}
+.actrow .clo .pct small{display:block;font-weight:600;color:var(--faint);font-size:9.5px}
+.actrow .sum{text-align:right;font-weight:800;font-size:14px;color:var(--navy);white-space:nowrap}
+.actrow .sum.hidden{color:var(--faint);font-weight:700}
+.actrow .sum small{display:block;font-weight:600;color:var(--faint);font-size:10px}
+.split{display:inline-flex;align-items:center;font-size:11px;font-weight:700;border-radius:999px;overflow:hidden;border:1px solid var(--line);white-space:nowrap}
+.split .m{background:var(--green-bg);color:var(--green);padding:3px 7px}
+.split .q{background:#FBF5E6;color:var(--gold-d);padding:3px 7px}
+.split.allm .q{display:none}
+.actrow .stx{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:4px 9px;border-radius:999px;white-space:nowrap;text-align:center}
+.stx.draft{color:var(--mut);background:#eef0f2}
+.stx.sign{color:var(--amber);background:var(--amber-bg)}
+.stx.signed{color:var(--green);background:var(--green-bg)}
+.actrow .go{color:var(--accent-d);font-weight:700;font-size:16px;text-align:center;transition:transform .15s}
+.actrow.open .go{transform:rotate(90deg)}
+
+/* раскрытие акта */
+.actbody{padding:0 18px 16px 44px;border-top:1px solid var(--line2);background:#fcfbf7}
+.actbody .ah{display:flex;gap:14px;flex-wrap:wrap;align-items:center;padding:13px 0 11px}
+.actbody .ah .meta2{font-size:12px;font-weight:600;color:var(--mut)}
+.actbody .ah .meta2 b{color:var(--navy)}
+.actbody .ah .moneyrow{margin-left:auto;display:flex;gap:18px;text-align:right}
+.actbody .ah .moneyrow .c b{font-family:'Cormorant',Georgia,serif;font-size:21px;font-weight:700;display:block;line-height:1}
+.actbody .ah .moneyrow .c.m b{color:var(--green)}
+.actbody .ah .moneyrow .c.q b{color:var(--gold-d)}
+.actbody .ah .moneyrow .c span{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--faint)}
+.wk{display:grid;grid-template-columns:26px minmax(0,1fr) 70px 88px;align-items:center;gap:12px;padding:8px 0;border-top:1px solid var(--line2);font-size:12.5px}
+.wk:first-child{border-top:none}
+.wk .n{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:15px;color:var(--faint);text-align:center}
+.wk .nm{font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wk .sec{font-size:10px;font-weight:700;color:var(--accent-d);background:var(--accent-soft);border-radius:999px;padding:3px 9px;text-align:center;white-space:nowrap}
+.wk .wf{display:flex;align-items:center;gap:7px;justify-content:flex-end}
+.wk .wf .b{width:44px;height:8px;border-radius:5px;background:#e7edf2;overflow:hidden;flex:none}
+.wk .wf .b i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.wk .wf b{font-weight:800;font-size:12.5px;color:var(--navy);width:34px;text-align:right}
+
+/* правая колонка: оборотка + бартер */
+.flow{padding:16px 20px 20px}
+.flowhead{display:flex;align-items:flex-end;gap:10px;margin-bottom:6px}
+.flowhead .lg2{display:flex;gap:14px;margin-left:auto;font-size:11px;font-weight:700;color:var(--mut)}
+.flowhead .lg2 i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.flowhead .lg2 .accr i{background:linear-gradient(180deg,var(--accent),var(--accent-d))}
+.flowhead .lg2 .paid i{background:var(--gold)}
+.bars{display:flex;align-items:flex-end;gap:10px;height:170px;padding:10px 4px 0;border-bottom:1px solid var(--line);margin-top:6px}
+.bw{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;min-width:0;height:100%}
+.bw .pair{display:flex;align-items:flex-end;gap:3px;width:100%;justify-content:center;height:100%}
+.bw .b{width:42%;max-width:18px;border-radius:5px 5px 0 0;min-height:3px;transition:.2s}
+.bw .b.accr{background:linear-gradient(180deg,var(--accent),var(--accent-d))}
+.bw .b.paid{background:var(--gold)}
+.bw .b.peak{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--red-bg)}
+.bw .wkv{font-size:9.5px;font-weight:700;color:var(--faint);white-space:nowrap}
+.bw .wkn{font-size:10px;font-weight:700;color:var(--mut);white-space:nowrap}
+.flow .cum{margin-top:13px;font-size:12.5px;font-weight:600;color:var(--mut);line-height:1.5}
+.flow .cum b{color:var(--navy)}
+.flow .qnote{margin-top:12px;font-size:11.5px;font-weight:600;color:var(--gold-d);background:#FBF5E6;border:1px solid #E7D4A6;border-radius:12px;padding:10px 13px;line-height:1.5;display:flex;gap:9px;align-items:flex-start}
+.flow .qnote .ic{font-size:15px}
+
+/* бартер-счёт сводка */
+.bacc{padding:0}
+.bacctop{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.bacctop .c{padding:18px 20px;border-left:1px solid var(--line2)}
+.bacctop .c:first-child{border-left:none}
+.bacctop .c .v{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:34px;line-height:1;color:var(--navy)}
+.bacctop .c .v small{font-size:16px;color:var(--faint)}
+.bacctop .c.given .v{color:var(--accent-d)}
+.bacctop .c.left .v{color:var(--gold-d)}
+.bacctop .c .k{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#9c9586;margin-top:6px}
+.bacctop .c .s{font-size:11px;color:var(--mut);font-weight:600;margin-top:3px}
+.baccbar{padding:14px 20px 4px;border-top:1px solid var(--line2)}
+.baccbar .track{height:20px;border-radius:10px;background:#e9edf1;overflow:hidden;display:flex}
+.baccbar .track i{height:100%;display:block}
+.baccbar .track .given{background:linear-gradient(90deg,var(--accent),var(--accent-d))}
+.baccbar .track .acc{background:repeating-linear-gradient(45deg,#e6cf95,#e6cf95 6px,#efdfb4 6px,#efdfb4 12px)}
+.baccbar .track .free{background:#cfe0d4}
+.baccleg{display:flex;flex-wrap:wrap;gap:14px;margin-top:11px;font-size:11px;font-weight:700;color:var(--mut)}
+.baccleg i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.baccleg .given i{background:var(--accent-d)}.baccleg .acc i{background:#e6cf95}.baccleg .free i{background:#cfe0d4}
+.srcrow{display:flex;gap:14px;flex-wrap:wrap;padding:14px 20px}
+.src{flex:1;min-width:230px;border-radius:14px;padding:14px 16px;text-decoration:none}
+.src.pto{border:1.5px solid var(--accent);background:var(--accent-soft)}
+.src.snab{border:1.5px solid var(--line)}
+.src .t{font-weight:800;font-size:13.5px;color:var(--navy)}
+.src .s{font-size:12px;color:var(--mut);font-weight:600;margin-top:6px;line-height:1.5}
+.src .s b{color:var(--accent-d)}
+.src .go{color:var(--accent-d);font-weight:700}
+.warn{margin:0 20px 18px;font-size:12.5px;font-weight:600;color:var(--ink);background:#FBF1DF;border-radius:12px;padding:11px 14px;line-height:1.55}
+.warn b{font-weight:800}
+
+.note{font-size:12px;color:#9c9586;text-align:center;margin-top:26px;line-height:1.6}
+.note a{color:var(--accent-d);font-weight:700;text-decoration:none}
+.note b{color:var(--gold-d)}
+.loading{padding:60px;text-align:center;color:var(--mut);font-weight:600}
+.demo{font-size:10px;font-weight:700;color:var(--gold-d);background:#FBF5E6;border:1px solid #E7D4A6;border-radius:999px;padding:2px 9px;white-space:nowrap;display:inline-block}
+
+@media(max-width:1040px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .grid{grid-template-columns:1fr}
+  .bacctop{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:620px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .top .crumbs,.top .role{display:none}
+  .reghead{display:none}
+  .actrow{grid-template-columns:13px 1fr auto 18px;gap:10px}
+  .actrow .ob,.actrow .clo,.actrow .split,.actrow .sum{display:none}
+  .actbody{padding-left:18px}
+  .wk{grid-template-columns:22px 1fr 60px}
+  .wk .wf{display:none}
+  .bacctop{grid-template-columns:1fr}
+}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(22px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:13px;font-size:13px;font-weight:700;box-shadow:0 16px 36px -12px rgba(40,65,87,.6);opacity:0;pointer-events:none;transition:.28s;z-index:60}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast b{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="lg">A</div>
+  <div class="nm">ATLAS<small>финансы · акты и оборотка</small></div>
+  <div class="crumbs">
+    <a href="index.html">Все экраны</a><span class="sep">▸</span><b>Финансы</b>
+  </div>
+  <div class="role">
+    <button class="on" onclick="setRole(this,'CFO')">CFO · финдиректор</button>
+    <button onclick="setRole(this,'PTO')">ПТО</button>
+  </div>
+  <div class="meta">
+    <button class="costbtn" id="costbtn" onclick="toggleCost()"><span class="sw"></span><span id="costlbl">показать суммы ₸</span></button>
+    <div class="stamp">данные из движка ГПР<b id="stamp">28.05.2026</b></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="lbl" style="margin-top:22px">Акт закрывает факт → начисляет деньги и бартер <span class="n">приёмка объёма связывает ГПР с финансами</span></div>
+  <div class="chain">
+    <div class="step s1">
+      <span class="ic">📋</span>
+      <div><div class="t">АКТ (АВР / КС-2)</div><div class="s">принимает выполненный объём работ — берётся из факта ГПР</div></div>
+    </div>
+    <div class="step s2">
+      <span class="ic">💵</span>
+      <div><div class="t">Денежная часть → оборотка</div><div class="s">идёт в денежный поток, формирует «к оплате»</div></div>
+    </div>
+    <div class="step s3">
+      <span class="ic">🏠</span>
+      <div><div class="t">Бартерная часть → счёт «Бартер»</div><div class="s">квартиры (м²/шт), в деньги не идёт — в бартер-фонд</div></div>
+    </div>
+  </div>
+
+  <div class="kpis" id="kpis">
+    <div class="kpi"><div class="loading" style="padding:18px">Загружаю движок…</div></div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="lbl" style="margin-top:24px">Реестр актов · АВР / КС-2 <span class="n" id="regnote">тап по акту → какие работы вошли</span></div>
+      <div class="card">
+        <div class="regtools">
+          <div class="flt" id="flt"></div>
+          <button class="mk" onclick="mkAct()">📋 Закрыть объём → новый акт</button>
+        </div>
+        <div class="reg">
+          <div class="reghead">
+            <span></span><span># акта</span><span>Подрядчик</span><span>Объект · блок</span><span class="r">Закрытие %</span><span class="r">Сумма</span><span class="r">Сплит 💵/🏠</span><span></span>
+          </div>
+          <div class="acts" id="acts"><div class="loading">Собираю акты из факта ГПР…</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="lbl" style="margin-top:24px">Денежный поток по неделям <span class="n">начислено по актам ↔ оплачено</span></div>
+      <div class="card"><div class="flow" id="flow"><div class="loading">…</div></div></div>
+    </div>
+  </div>
+
+  <div class="lbl">Счёт «Бартер» · квартирные обязательства <span class="n">общий фонд из двух источников — ПТО + Снабжение</span></div>
+  <div class="card bacc" id="bacc"><div class="loading">…</div></div>
+
+  <div class="note">
+    Экран Финансы (CFO / ПТО) · подрядчики, объёмы, % закрытия и разделы — из <b style="color:var(--accent-d)">единого движка ГПР</b> на <b>28.05.2026</b>
+    (<span id="nctr">—</span> названных подрядчиков, актов <span id="nact">—</span>).
+    Номера актов, статусы (черновик · на подписи · подписан), бартер-условия, цены зачёта и квартиры — <b>ДЕМО</b>.
+    Суммы в тенге по умолчанию скрыты — оперируем % выполнения, долями оборотки, м² и квартирами; «показать суммы» включает ДЕМО-млн ₸.
+    Инвариант: бартерная часть = квартиры (не деньги), денежная часть = оборотка.
+    · <a href="pto.html">ПТО · бартер подрядчиков</a> · <a href="snab.html">Снабжение · бартер поставщиков</a> · <a href="dashboard.html">Командный центр</a> · <a href="portfolio.html">Портфель</a> · <a href="index.html">← Все экраны</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+let toastT; function toast(m){const e=$('toast');e.innerHTML=m;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),2400);}
+function setRole(btn,name){document.querySelectorAll('.top .role button').forEach(b=>b.classList.toggle('on',b===btn));toast('Роль · <b>'+(name==='CFO'?'CFO / финдиректор':'ПТО')+'</b> · тот же движок');}
+
+/* ===== деньги онлайн скрыты по умолчанию ===== */
+let SHOW_COST=false;
+const fmt=n=>Math.round(n).toLocaleString('ru');
+const mln=n=>(n/1e6>=10?Math.round(n/1e6):(Math.round(n/1e6*10)/10).toLocaleString('ru'))+' млн ₸';
+const money=n=>SHOW_COST?mln(n):'—';            // сумма: либо ДЕМО-млн, либо прочерк
+/* детерминированный хеш по строке — ДЕМО стабильно между загрузками */
+function hash(s){let h=2166136261>>>0;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}return h>>>0;}
+
+/* ДЕМО-условия бартера по подрядчику (как в ПТО): ratio=[деньги%, квартиры%]; house/block — куда пишем квартиры в фонде.
+   Кто НЕ в списке — 100% деньгами (обычный денежный подрядчик). */
+const BARTER={
+  'ИП Слемов - Улан'      :{ratio:[30,70], house:'Атмосфера', block:'Б-3'},
+  'ИП Султанов'           :{ratio:[50,50], house:'Атмосфера', block:'Б-5'},
+  'ИП КазСтройБлок'       :{ratio:[60,40], house:'Атмосфера', block:'Б-2'},
+  'ИП Дана'               :{ratio:[70,30], house:'Атмосфера', block:'Б-1'},
+  'ТОО Okna Daraturym'    :{ratio:[50,50], house:'Атмосфера', block:'Б-4'},
+  'ИП Ногайбай'           :{ratio:[60,40], house:'Керуен',    block:'Б-6'},
+  'ИП Дуйсенбаев'         :{ratio:[70,30], house:'Керуен',    block:'Б-4'},
+  'ТОО OktoProf перила, навесы':{ratio:[50,50], house:'Керуен', block:'Б-3'},
+  'ИП Абдирахманов'       :{ratio:[60,40], house:'Аура',      block:'Б-2'},
+  'ТОО Dostar лифт'       :{ratio:[40,60], house:'Аура',      block:'Б-5'}
+};
+const STREETS={'Атмосфера':'Атмосфера','Керуен':'Керуен','Аура':'Аура','Аксай резорт':'Аксай'};
+const AREAS=[42,46,54,58,62,68,74,82,46,54,62,72];
+/* ДЕМО «стоимость» работы в условных ₸ — детерминирована, видна только при SHOW_COST */
+function workCost(w,seed){const base=820000+(hash((w&&w.name||'')+seed)%3200000);const sz=0.4+((w&&w.days||20)/60);return Math.round(base*sz);}
+
+let MODEL=null, statusFilter='all', openId=null, EXTRA=[];
+
+/* ===== строим АКТЫ из движка: группируем именованные работы по (подрядчик · объект · раздел) ===== */
+function build(D){
+  const port=(D&&D.portfolio)||[];
+  const ctrSet=new Set();
+  const groups={}; // ключ: ctr|obj|sec
+  port.forEach(o=>{
+    const obj=(o&&o.object)||'—';
+    ((o&&o.blocks)||[]).forEach(b=>{
+      const spot=(b&&b.spot)||'—', queue=(b&&b.queue)||'';
+      ((b&&b.works)||[]).forEach(w=>{
+        if(!w) return;
+        const c=((w.contractor||'')+'').trim(); if(!c) return;
+        ctrSet.add(c);
+        const sec=(w.section||'Прочее');
+        const key=c+'|'+obj+'|'+sec;
+        const g=groups[key]||(groups[key]={ctr:c,obj,sec,spot,queue,works:[],fsum:0,lag:0});
+        g.works.push({no:w.no,name:(w.name||'').trim(),fact:(+w.fact||0),section:sec,days:(+w.days||0)});
+        g.fsum+=(+w.fact||0); if((+w.lag||0)>0)g.lag++;
+        // если работа в нескольких блоках — берём первое пятно для подписи
+      });
+    });
+  });
+
+  let acts=Object.values(groups).map(g=>{
+    const n=g.works.length||1;
+    const closed=Math.round(g.fsum/n);                 // средний fact% = процент закрытия акта
+    const cfg=BARTER[g.ctr]||null;
+    const ratio=cfg?cfg.ratio:[100,0];                 // не-бартерный = 100% деньгами
+    const isBarter=!!cfg;
+    // ДЕМО-сумма акта = сумма «стоимостей» вошедших работ * closed%
+    const fullCost=g.works.reduce((s,w)=>s+workCost(w,g.obj+g.sec),0);
+    const actSum=Math.round(fullCost*closed/100);
+    const cashSum=Math.round(actSum*ratio[0]/100);     // денежная часть → оборотка
+    const barterSum=Math.round(actSum*ratio[1]/100);   // бартерная часть → счёт Бартер (квартиры)
+    // статус акта (ДЕМО, детерминирован): высокое закрытие → подписан; среднее → на подписи; низкое/0 → черновик
+    const h=hash(g.ctr+g.obj+g.sec);
+    let status;
+    if(closed>=85) status=(h%6===0)?'sign':'signed';
+    else if(closed>=35) status=(h%3===0)?'signed':'sign';
+    else status=(h%4===0)?'sign':'draft';
+    // оплата (ДЕМО): подписанные акты оплачены частично/полностью
+    const paidShare=status==='signed'?(0.55+ (h%40)/100):status==='sign'?((h%25)/100):0;
+    const paidSum=Math.round(cashSum*Math.min(paidShare,1));
+    const light=g.lag/n>=.6?'red':g.lag/n>=.3?'amber':g.lag/n>0?'teal':'green';
+    return {ctr:g.ctr,obj:g.obj,sec:g.sec,spot:g.spot,queue:g.queue,works:g.works.sort((a,b)=>b.fact-a.fact),
+            n,closed,ratio,isBarter,actSum,cashSum,barterSum,paidSum,status,light,demo:false};
+  });
+  // приклеиваем ДЕМО-акты, созданные кнопкой
+  acts=acts.concat(EXTRA);
+  // нумеруем: АВР-<КОД ЖК>-NNN, стабильно по сорту
+  acts.sort((a,b)=>b.actSum-a.actSum || b.closed-a.closed);
+  const codes={'ЖК «Атмосфера»':'АТМ','ЖК «Керуен»':'КЕР','ЖК «Аура»':'АУР','ЖК «Аксай резорт»':'АКС'};
+  const seq={};
+  acts.forEach(a=>{const code=codes[a.obj]||'ОБJ';seq[code]=(seq[code]||0)+1;a.no=a.demo?a.no:('АВР-'+code+'-'+String(seq[code]).padStart(3,'0'));});
+
+  // ===== агрегаты для KPI =====
+  const totWorks=acts.reduce((s,a)=>s+a.n,0);
+  const totSum=acts.reduce((s,a)=>s+a.actSum,0);
+  const cashTot=acts.reduce((s,a)=>s+a.cashSum,0);
+  const barterTot=acts.reduce((s,a)=>s+a.barterSum,0);
+  const paidTot=acts.reduce((s,a)=>s+a.paidSum,0);
+  const toPay=cashTot-paidTot;                          // к оплате (денежная часть минус оплачено)
+  const overdue=acts.filter(a=>a.status==='signed').reduce((s,a)=>s+(a.cashSum-a.paidSum),0); // просрочено по оплате (ДЕМО: остаток по подписанным)
+  const onSign=acts.filter(a=>a.status==='sign');
+  const signedN=acts.filter(a=>a.status==='signed').length;
+  const avgClosed=acts.length?Math.round(acts.reduce((s,a)=>s+a.closed,0)/acts.length):0;
+
+  // ===== денежный поток по неделям (ДЕМО, детерминированное распределение начислено/оплачено) =====
+  const NW=8;
+  const weeks=[];
+  // базовая дата = четверг до status_date
+  const base=new Date((D&&D.status_date)||'2026-05-28');
+  for(let i=0;i<NW;i++){const dt=new Date(base);dt.setDate(dt.getDate()-(NW-1-i)*7);weeks.push({dt,accr:0,paid:0});}
+  acts.forEach(a=>{
+    const h=hash(a.ctr+a.sec);
+    const wi=h%NW;                                       // неделя начисления акта
+    weeks[wi].accr+=a.cashSum;
+    if(a.paidSum>0){const pj=Math.min(NW-1,wi+1+(h%2));weeks[pj].paid+=a.paidSum;} // оплата позже
+  });
+  const wkmax=Math.max(...weeks.map(w=>Math.max(w.accr,w.paid)),1);
+  const wkAccrTot=weeks.reduce((s,w)=>s+w.accr,0);
+  const wkPaidTot=weeks.reduce((s,w)=>s+w.paid,0);
+
+  // ===== счёт Бартер: квартирный фонд из бартерных подрядчиков (модель как в ПТО) =====
+  const fund={apt:0,m2:0,givenApt:0,givenM2:0,accM2:0,freeApt:0,freeM2:0,ctr:0};
+  Object.keys(BARTER).forEach(name=>{
+    if(!ctrSet.has(name)) return;                        // только реально присутствующие в движке
+    fund.ctr++;
+    const cfg=BARTER[name];
+    // средний fact% подрядчика по движку → наработка
+    let fs=0,cnt=0;
+    port.forEach(o=>((o&&o.blocks)||[]).forEach(b=>((b&&b.works)||[]).forEach(w=>{
+      if(w&&((w.contractor||'')+'').trim()===name){fs+=(+w.fact||0);cnt++;}
+    })));
+    const done=cnt?Math.round(fs/cnt):0;
+    const h=hash(name);
+    const nApt=2+(h%3);
+    const apts=[];
+    for(let i=0;i<nApt;i++){apts.push(AREAS[(h+i*7)%AREAS.length]);}
+    apts.sort((a,b)=>a-b);
+    const totalM2=apts.reduce((s,a)=>s+a,0);
+    const accruedM2=Math.round(totalM2*done/100);
+    let pool=accruedM2,given=0,givenM2=0;
+    apts.forEach(ar=>{ if(pool>=ar){pool-=ar;given++;givenM2+=ar;fund.givenApt++;fund.givenM2+=ar;}
+                       else {fund.freeApt++;fund.freeM2+=ar;} });
+    fund.apt+=apts.length; fund.m2+=totalM2; fund.accM2+=Math.min(pool,(apts.find((ar)=> true)||0)); // остаток в накопителе
+  });
+  // accM2: сколько м² «дозревает» к следующим квартирам (сумма хвостов)
+  // (пересчитаем чисто: накоплено = доля переданного фонда, к передаче = обещано*ср.готовность - передано)
+
+  return {acts,totWorks,totSum,cashTot,barterTot,paidTot,toPay,overdue,onSign,signedN,avgClosed,
+          ctrCount:ctrSet.size, weeks,wkmax,wkAccrTot,wkPaidTot, fund};
+}
+
+function render(){
+  const M=MODEL;
+  $('nctr').textContent=M.ctrCount; $('nact').textContent=M.acts.length;
+  $('costlbl').textContent=SHOW_COST?'суммы ₸ показаны (ДЕМО)':'показать суммы ₸';
+  $('costbtn').classList.toggle('on',SHOW_COST);
+  $('regnote').textContent=M.acts.length+' актов · тап → состав';
+
+  /* ===== KPI ===== */
+  const closedVol=M.acts.reduce((s,a)=>s+Math.round(a.n*a.closed/100),0); // объём работ, закрытых актами (взвеш.)
+  $('kpis').innerHTML=[
+    {cls:'teal', v:M.acts.length, k:'закрыто актами', sub:closedVol+' из '+M.totWorks+' работ · ср. '+M.avgClosed+'%'},
+    {cls:'green',v:SHOW_COST?mln(M.cashTot):Math.round(M.cashTot/M.totSum*100)+'<small>%</small>', k:'денежная часть', sub:SHOW_COST?'в оборотку':'доля суммы актов → оборотка'},
+    {cls:'gold', v:M.fund.apt+'<small> кв</small>', k:'счёт «Бартер»', sub:fmt(M.fund.m2)+' м² квартирных обязательств'},
+    {cls:'alarm',v:SHOW_COST?mln(M.toPay):Math.round(M.toPay/Math.max(M.cashTot,1)*100)+'<small>%</small>', k:'к оплате', sub:(SHOW_COST?mln(M.overdue):Math.round(M.overdue/Math.max(M.cashTot,1)*100)+'%')+' просрочено'},
+    {cls:'',     v:M.onSign.length, k:'на подписи', sub:M.signedN+' подписано · '+(M.acts.length-M.onSign.length-M.signedN)+' черновик'},
+  ].map(t=>`<div class="kpi ${t.cls}"><div class="v tnum">${t.v}</div><div class="k">${t.k}</div><div class="sub">${t.sub}</div></div>`).join('');
+
+  /* ===== фильтры статуса ===== */
+  const cnt=s=>M.acts.filter(a=>a.status===s).length;
+  $('flt').innerHTML=[
+    ['all','Все',M.acts.length],['draft','Черновик',cnt('draft')],['sign','На подписи',cnt('sign')],['signed','Подписан',cnt('signed')]
+  ].map(([k,t,n])=>`<button class="${statusFilter===k?'on':''}" onclick="setFlt('${k}')">${t} · ${n}</button>`).join('');
+
+  /* ===== реестр актов ===== */
+  const list=M.acts.filter(a=>statusFilter==='all'||a.status===statusFilter);
+  $('acts').innerHTML=list.map(a=>actRow(a)).join('')||'<div class="loading">Нет актов в этом статусе.</div>';
+  renderFlow();
+  renderBacc();
+}
+
+function statusTxt(s){return s==='signed'?['signed','подписан']:s==='sign'?['sign','на подписи']:['draft','черновик'];}
+
+function actRow(a){
+  const open=openId===a.no;
+  const [scls,stx]=statusTxt(a.status);
+  const r=a.ratio;
+  const splitHTML=a.isBarter
+    ? `<span class="split"><span class="m">💵${r[0]}</span><span class="q">🏠${r[1]}</span></span>`
+    : `<span class="split allm"><span class="m">💵 100</span></span>`;
+  const sumHTML=SHOW_COST
+    ? `<div class="sum">${mln(a.actSum)}<small>💵 ${mln(a.cashSum)}${a.isBarter?' · 🏠 '+mln(a.barterSum):''}</small></div>`
+    : `<div class="sum hidden">—<small>скрыто online</small></div>`;
+  let body='';
+  if(open){
+    const moneyrow=SHOW_COST
+      ? `<div class="moneyrow"><div class="c m"><b>${mln(a.cashSum)}</b><span>💵 в оборотку</span></div>${a.isBarter?`<div class="c q"><b>${mln(a.barterSum)}</b><span>🏠 в бартер</span></div>`:''}</div>`
+      : `<div class="moneyrow"><div class="c m"><b>${r[0]}%</b><span>💵 деньги</span></div>${a.isBarter?`<div class="c q"><b>${r[1]}%</b><span>🏠 квартиры</span></div>`:''}</div>`;
+    body=`<div class="actbody">
+      <div class="ah">
+        <div class="meta2">Состав акта · <b>${a.n}</b> работ · объект <b>${a.obj.replace('ЖК ','').replace(/[«»]/g,'')}</b> · пятно <b>${a.spot}</b> · раздел <b>${a.sec}</b> · среднее закрытие <b>${a.closed}%</b></div>
+        ${moneyrow}
+      </div>
+      ${a.works.slice(0,16).map(w=>`<div class="wk">
+        <div class="n tnum">${w.no||'·'}</div>
+        <div class="nm">${w.name||'—'}</div>
+        <div class="sec">${w.section||''}</div>
+        <div class="wf"><div class="b"><i style="width:${w.fact}%"></i></div><b class="tnum">${w.fact}%</b></div>
+      </div>`).join('')}
+      ${a.works.length>16?`<div class="wk"><div class="n">…</div><div class="nm" style="color:var(--faint)">ещё ${a.works.length-16} работ в акте</div></div>`:''}
+    </div>`;
+  }
+  return `<div class="actrow ${open?'open':''} ${a.demo?'':''}" onclick="openAct('${a.no.replace(/'/g,"")}')">
+    <span class="dot ${a.light}"></span>
+    <div class="no">${a.no}${a.demo?' <span class="demo" style="padding:1px 6px">new</span>':''}<small>${a.sec}</small></div>
+    <div class="ctr">${a.ctr}<small>${a.n} работ · ${a.queue?a.queue+' оч':''}</small></div>
+    <div class="ob">${a.obj.replace('ЖК ','').replace(/[«»]/g,'')}<small>пятно ${a.spot}</small></div>
+    <div class="clo"><div class="bar"><i style="width:${a.closed}%"></i></div><div class="pct tnum">${a.closed}<small>%</small></div></div>
+    ${sumHTML}
+    ${splitHTML}
+    <div class="stx ${scls}">${stx}</div>
+    <div class="go">›</div>
+  </div>${body}`;
+}
+function openAct(no){openId=(openId===no?null:no);render();}
+function setFlt(f){statusFilter=f;openId=null;render();}
+
+/* кнопка-демо: «закрыть объём → новый акт» — берём случайный бартерный подрядчик из движка, делаем черновик */
+function mkAct(){
+  if(!MODEL){return;}
+  const cands=MODEL.acts.filter(a=>a.closed<100&&!a.demo);
+  const src=cands[Math.floor(Math.random()*Math.max(cands.length,1))]||MODEL.acts[0];
+  if(!src){toast('Нет данных для акта');return;}
+  const seed=Date.now();
+  const closed=Math.min(100,(src.closed||0)+10+Math.floor(Math.random()*15));
+  const fullCost=src.works.reduce((s,w)=>s+workCost(w,src.obj+src.sec+seed),0)||1500000;
+  const actSum=Math.round(fullCost*closed/100);
+  EXTRA.push({ctr:src.ctr,obj:src.obj,sec:src.sec,spot:src.spot,queue:src.queue,
+    works:src.works.slice(0,Math.max(1,Math.round(src.works.length/2))),
+    n:Math.max(1,Math.round(src.works.length/2)),closed,ratio:src.ratio,isBarter:src.isBarter,
+    actSum,cashSum:Math.round(actSum*src.ratio[0]/100),barterSum:Math.round(actSum*src.ratio[1]/100),
+    paidSum:0,status:'draft',light:src.light,demo:true,no:'АВР-НОВ-'+String(EXTRA.length+1).padStart(3,'0')});
+  // пересобираем из исходного D-кеша
+  MODEL=build(_D);
+  statusFilter='draft';openId=null;render();
+  toast('Создан черновик акта · <b>'+src.ctr+'</b> · приёмка объёма');
+}
+
+function renderFlow(){
+  const M=MODEL;
+  const bars=M.weeks.map(w=>{
+    const ha=Math.max(3,Math.round(w.accr/M.wkmax*130));
+    const hp=Math.max(3,Math.round(w.paid/M.wkmax*130));
+    const peak=w.accr>=M.wkmax*0.9;
+    const lbl=SHOW_COST?(w.accr?mln(w.accr).replace(' ₸',''):'·'):(w.accr?Math.round(w.accr/M.wkAccrTot*100)+'%':'·');
+    const dd=String(w.dt.getDate()).padStart(2,'0')+'.'+String(w.dt.getMonth()+1).padStart(2,'0');
+    return `<div class="bw" title="${dd}: начислено ${SHOW_COST?mln(w.accr):Math.round(w.accr/M.wkAccrTot*100)+'%'} · оплачено ${SHOW_COST?mln(w.paid):Math.round(w.paid/Math.max(M.wkPaidTot,1)*100)+'%'}">
+      <div class="pair"><div class="b accr ${peak?'peak':''}" style="height:${ha}px"></div><div class="b paid" style="height:${hp}px"></div></div>
+      <div class="wkv">${lbl}</div><div class="wkn">${dd}</div>
+    </div>`;
+  }).join('');
+  $('flow').innerHTML=`
+    <div class="flowhead">
+      <div class="lg2"><span class="accr"><i></i>начислено</span><span class="paid"><i></i>оплачено</span></div>
+    </div>
+    <div class="bars">${bars}</div>
+    <div class="cum">За горизонт 8 недель начислено по актам <b>${SHOW_COST?mln(M.wkAccrTot):'100% денежной части'}</b>, оплачено <b>${SHOW_COST?mln(M.wkPaidTot):Math.round(M.wkPaidTot/Math.max(M.cashTot,1)*100)+'%'}</b> — это только <b>денежная</b> часть актов.</div>
+    <div class="qnote"><span class="ic">🏠</span><div>Квартирная (бартерная) часть актов в денежный поток <b>не входит</b> — она копится на счёте «Бартер» ниже (квартиры, ${fmt(M.fund.m2)} м²). Живых денег не требует.</div></div>`;
+}
+
+function renderBacc(){
+  const M=MODEL, f=M.fund;
+  // накоплено к передаче = обещано*готовность - передано (приблизительно через givenM2 и общий m2)
+  const accM2=Math.max(0,Math.round(f.m2*0.18)-0);     // ДЕМО-оценка «дозревающего» хвоста к следующим квартирам
+  const leftApt=f.apt-f.givenApt;
+  const leftM2=f.m2-f.givenM2;
+  const wG=Math.round(f.givenM2/Math.max(f.m2,1)*100);
+  const wA=Math.round(accM2/Math.max(f.m2,1)*100);
+  const wF=Math.max(0,100-wG-wA);
+  $('bacc').innerHTML=`
+    <div class="bacctop">
+      <div class="c"><div class="v tnum">${f.apt} <small>кв</small></div><div class="k">обещано под бартер</div><div class="s">${fmt(f.m2)} м² · ${f.ctr} подрядчиков · ${SHOW_COST?mln(M.barterTot):Math.round(M.barterTot/Math.max(M.totSum,1)*100)+'% суммы актов'}</div></div>
+      <div class="c given"><div class="v tnum">${f.givenApt} <small>кв</small></div><div class="k">передано</div><div class="s">${fmt(f.givenM2)} м² · закрыто наработкой</div></div>
+      <div class="c left"><div class="v tnum">${leftApt} <small>кв</small></div><div class="k">осталось / заморожено</div><div class="s">${fmt(leftM2)} м² · нельзя продавать</div></div>
+    </div>
+    <div class="baccbar">
+      <div class="track"><i class="given" style="width:${wG}%"></i><i class="acc" style="width:${wA}%"></i><i class="free" style="width:${wF}%"></i></div>
+      <div class="baccleg"><span class="given"><i></i>передано ${f.givenApt} кв</span><span class="acc"><i></i>дозревает ≈ ${fmt(accM2)} м²</span><span class="free"><i></i>в фонде ${leftApt} кв</span></div>
+    </div>
+    <div class="srcrow">
+      <a class="src pto" href="pto.html">
+        <div class="t">🧮 Подрядчики · работы</div>
+        <div class="s">Бартер за выполненные объёмы (приёмка ГПР) — наполняет фонд <b>отсюда, из актов</b>. Открыть накопитель → <span class="go">ПТО ↗</span></div>
+      </a>
+      <a class="src snab" href="snab.html">
+        <div class="t">📦 Поставщики · материалы</div>
+        <div class="s">Бартер за поставки (квартиры за материал) — второй источник того же фонда. Открыть → <span class="go" style="color:var(--accent-d)">Снабжение · 🏠 Бартер ↗</span></div>
+      </a>
+    </div>
+    <div class="warn">⚠ Счёт «Бартер» — <b>общий квартирный фонд из двух источников</b>: подрядчики (ПТО) + поставщики (Снабжение). <b>Одна квартира — один получатель</b> (подрядчик · поставщик · продажа). Денежная часть обоих идёт в оборотку, квартирная — сюда.</div>`;
+}
+
+function toggleCost(){SHOW_COST=!SHOW_COST;if(MODEL)render();toast(SHOW_COST?'Суммы ₸ показаны · <b>ДЕМО</b>':'Суммы скрыты · оперируем %, м², квартирами');}
+
+let _D=null;
+fetch('gpr-engine/gpr_data.json',{cache:'no-store'})
+  .then(r=>{if(!r.ok)throw 0;return r.json();})
+  .then(D=>{
+    _D=D;
+    $('stamp').textContent=((D&&D.status_date)||'2026-05-28').split('-').reverse().join('.');
+    MODEL=build(D); render();
+  })
+  .catch(()=>{
+    $('kpis').innerHTML='';
+    $('acts').innerHTML='<div class="loading">Не удалось прочитать данные движка (gpr-engine/gpr_data.json).<br>Открой через сервер или GitHub Pages.</div>';
+    $('flow').innerHTML='<div class="loading">нет данных</div>';
+    $('bacc').innerHTML='<div class="loading">нет данных</div>';
+  });
+</script>
+</body>
+</html>
