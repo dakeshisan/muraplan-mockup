@@ -33,10 +33,12 @@ root `CNAME` file — never modify it as part of publishing.
    ```
 
 5. **Rebase onto origin.** Other automation pushes snapshot commits to `main`
-   ("auto: обновление снимка Pages"), so the remote often moves:
+   ("auto: обновление снимка Pages"), so the remote often moves. Rebase recreates
+   commits, so it needs the inline identity too (verified 2026-06-11):
 
    ```sh
-   git rebase origin/main
+   git -c user.name="$LOGIN" -c user.email="$LOGIN@users.noreply.github.com" \
+       rebase origin/main
    ```
 
    On conflict: `git rebase --abort`, report the conflicting files and ask the user.
