@@ -85,6 +85,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .rew{padding:14px 18px;font-size:12.5px;color:var(--mut);font-weight:600;line-height:1.55}.rew b{color:var(--ink)}
 .note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:22px;line-height:1.55}
 .note a{color:var(--accent-d);font-weight:700;text-decoration:none}
+.loading{padding:60px 20px;text-align:center;color:var(--mut);font-weight:600}
 .dt{margin-top:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .dt>summary{list-style:none;cursor:pointer;padding:13px 16px;font-size:13px;font-weight:700;color:var(--accent-d);display:flex;align-items:center;gap:8px}
 .dt>summary::-webkit-details-marker{display:none}
@@ -109,7 +110,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="top">
     <div class="lg">A</div>
     <div class="nm">ATLAS<small>лига участков</small></div>
-    <div class="me">Сезон · июнь<small>наблюдательно</small></div>
+    <div class="me">Сезон · июнь<small id="stamp">наблюдательно</small></div>
   </div>
 
   <div class="crumbs"><a href="portfolio.html">‹ Портфель</a><span class="sep">·</span><a href="nu.html">Мой участок</a><span class="sep">·</span><b>Лига</b></div>
@@ -117,9 +118,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <!-- ТВОЁ МЕСТО -->
   <div class="lbl">Твоё место в лиге</div>
   <div class="card you">
-    <div class="rk"><b id="y-rk">2</b><span>место</span></div>
-    <div class="yb"><div class="yt">Асхат Б. · Аура · блок 3</div><div class="ys">До <b>#1</b> — ещё <b id="y-gap">8</b> очков. Держи достоверность и серию — обойдёшь Нурбола.</div></div>
-    <div class="ysc"><b class="tnum" id="y-sc">88</b><span>очки</span></div>
+    <div class="rk"><b id="y-rk">…</b><span>место</span></div>
+    <div class="yb"><div class="yt">Асхат Б. · Аура · блок 3</div><div class="ys" id="y-ys">Загружаю данные движка…</div></div>
+    <div class="ysc"><b class="tnum" id="y-sc">…</b><span>очки</span></div>
   </div>
 
   <!-- КОМАНДНАЯ ЦЕЛЬ -->
@@ -135,32 +136,59 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <div class="seg" id="seg">
     <button class="on" data-m="score" onclick="sortBy('score',this)">🏆 Очки</button>
     <button data-m="trust" onclick="sortBy('trust',this)">🤝 Достоверность</button>
-    <button data-m="kpi" onclick="sortBy('kpi',this)">⚡ Темп (KPI)</button>
+    <button data-m="kpi" onclick="sortBy('kpi',this)" title="KPI = выполнение плана по движку ГПР">⚡ Выполнение плана</button>
     <button data-m="streak" onclick="sortBy('streak',this)">🔥 Серия</button>
   </div>
-  <div class="card" id="board" style="margin-top:11px"></div>
+  <div class="card" id="board" style="margin-top:11px"><div class="loading">Загружаю данные движка…</div></div>
   <div class="card rew" style="margin-top:11px">🏅 <b>Топ-3 сезона</b> — бейдж «Эталон достоверности» и ускоренный грейд. Серии 🔥 и качество без дефектов дают бонусные очки. <b>Места считаются по подтверждённому РП факту</b> — накрутить самоотметками нельзя.</div>
 
   <!-- ПОЛНЫЙ ПЛАН ГПР -->
   <div class="lbl">Полный план ГПР <span class="n">планировать наперёд</span></div>
   <details class="dt"><summary>Раскрыть план — все работы по срокам (как MS Project)</summary><iframe class="gprframe" src="gpr.html?embed=1" title="Полный план ГПР" loading="lazy"></iframe></details>
 
-  <div class="note">Лига — про мастерство и командный уровень, не про штрафы. Данные условные. <a href="nu.html">← Мой участок</a> · <a href="portfolio.html">Портфель</a></div>
+  <div class="note">Лига — про мастерство и командный уровень, не про штрафы. Серии и очки — демо; выполнение плана — из движка ГПР. <a href="nu.html">← Мой участок</a> · <a href="portfolio.html">Портфель</a></div>
 </div>
 
 <script>
-const NU=[
-  {nm:'Нурбол Т.', obj:'Атмосфера · 4 оч', av:'Н', trust:95, kpi:90, streak:6},
-  {nm:'Асхат Б.',  obj:'Аура · блок 3',    av:'А', trust:92, kpi:86, streak:4, you:true, block:3},
-  {nm:'Жанна К.',  obj:'Keruen · 1 оч',    av:'Ж', trust:88, kpi:84, streak:3},
-  {nm:'Дамир Е.',  obj:'Аура · блок 4',    av:'Д', trust:78, kpi:81, streak:2, block:4},
-  {nm:'Серик М.',  obj:'Атмосфера · 5 оч', av:'С', trust:75, kpi:79, streak:1},
-  {nm:'Болат А.',  obj:'Keruen · 3 оч',    av:'Б', trust:70, kpi:76, streak:0},
-];
-NU.forEach(n=>n.score=Math.round(n.trust*0.5+n.kpi*0.4+n.streak*2));
-const MET={score:['очки',n=>n.score],trust:['достов.',n=>n.trust+'%'],kpi:['KPI',n=>n.kpi+'%'],streak:['серия',n=>'🔥'+n.streak]};
 const $=id=>document.getElementById(id);
 const medals=['🥇','🥈','🥉'];
+function esc(s){return String(s).replace(/'/g,"\\'");}
+
+let NU=[
+  {nm:'Нурбол Т.', obj:'Атмосфера · 5 оч', av:'Н', trust:95, streak:6, oid:'atmo', q:5},
+  {nm:'Асхат Б.',  obj:'Аура · блок 3',    av:'А', trust:92, streak:4, you:true, block:3, oid:'aura', spot:'3'},
+  {nm:'Жанна К.',  obj:'Керуен · 1 оч',    av:'Ж', trust:88, streak:3, oid:'keruen', q:1},
+  {nm:'Дамир Е.',  obj:'Аура · блок 4',    av:'Д', trust:78, streak:2, block:4, oid:'aura', spot:'4'},
+  {nm:'Серик М.',  obj:'Атмосфера · 6 оч', av:'С', trust:75, streak:1, oid:'atmo', q:6},
+  {nm:'Болат А.',  obj:'Керуен · 3 оч',    av:'Б', trust:70, streak:0, oid:'keruen', q:3},
+];
+const MET={score:['очки',n=>n.score],trust:['достов.',n=>n.trust+'%'],kpi:['план',n=>n.kpi+'%'],streak:['серия',n=>'🔥'+n.streak]};
+let READY=false;
+
+function scopePlanFact(o,n){
+  if(n.spot){
+    const b=(o.blocks||[]).find(b=>String(b.spot)===String(n.spot));
+    if(!b)throw 0;
+    return {plan:b.plan||0,fact:b.fact||0};
+  }
+  const list=(o.blocks||[]).filter(b=>String(b.queue)===String(n.q));
+  if(!list.length)throw 0;
+  return {
+    plan:Math.round(list.reduce((a,b)=>a+(b.plan||0),0)/list.length),
+    fact:Math.round(list.reduce((a,b)=>a+(b.fact||0),0)/list.length)
+  };
+}
+function bind(D){
+  // map builds a fresh array so a throw mid-way never leaves NU half-mutated
+  return NU.map(n=>{
+    const o=D.portfolio.find(o=>o.id===n.oid);
+    if(!o)throw 0;
+    const {plan,fact}=scopePlanFact(o,n);
+    // kpi = plan adherence (fact vs plan by status date), not absolute readiness
+    const kpi=plan>0?Math.min(100,Math.round(fact/plan*100)):0;
+    return {...n,kpi,score:Math.round(n.trust*0.5+kpi*0.4+n.streak*2)};
+  });
+}
 
 function render(metric){
   const sorted=[...NU].sort((a,b)=>b[metric]-a[metric]);
@@ -168,9 +196,9 @@ function render(metric){
     const rk=i<3?`<div class="rk medal">${medals[i]}</div>`:`<div class="rk">${i+1}</div>`;
     const ut=n.you?'<span class="ut">ты</span>':'';
     const val=MET[metric][1](n);
-    const open=n.block?` onclick="location.href='nu.html?block=${n.block}'" style="cursor:pointer" title="Открыть участок →"`:'';
+    const open=n.block?` onclick="location.href='nu.html?block=${esc(n.block)}'" style="cursor:pointer" title="Открыть участок →"`:'';
     return `<div class="lr${n.you?' me':''}"${open}>${rk}<div class="av">${n.av}</div>
-      <div class="bd"><div class="nm">${n.nm}${ut}${n.block?' <span style="color:var(--accent-d);font-weight:700">›</span>':''}</div><div class="sub">${n.obj} · <b>дост ${n.trust}%</b> · KPI ${n.kpi} · 🔥${n.streak}</div></div>
+      <div class="bd"><div class="nm">${n.nm}${ut}${n.block?' <span style="color:var(--accent-d);font-weight:700">›</span>':''}</div><div class="sub">${n.obj} · <b>дост ${n.trust}%</b> · план ${n.kpi}% · 🔥${n.streak}</div></div>
       <div class="val"><b class="tnum">${val}</b><span>${MET[metric][0]}</span></div></div>`;
   }).join('');
   // твоё место по выбранной метрике
@@ -178,14 +206,31 @@ function render(metric){
   const myRank=sorted.findIndex(n=>n.you)+1;
   $('y-rk').textContent=myRank;
   $('y-sc').textContent=MET[metric][1](you);
-  const above=sorted[myRank-2];
-  $('y-gap').textContent=above?(above[metric]-you[metric]):0;
+  $('y-ys').innerHTML=myRank===1
+    ? `Ты <b>#1</b> — отрыв от второго места <b>${you[metric]-sorted[1][metric]}</b>. Держи достоверность и серию.`
+    : `До <b>#1</b> — ещё <b>${sorted[0][metric]-you[metric]}</b>. Держи достоверность и серию.`;
 }
 function sortBy(m,btn){
+  if(!READY)return;
   document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b===btn));
   render(m);
 }
-render('score');
+
+fetch('gpr-engine/gpr_data.json',{cache:'no-store'})
+  .then(r=>{if(!r.ok)throw 0;return r.json();})
+  .then(D=>{
+    $('stamp').textContent='отчёт от '+(D.status_date||'28.05.2026').split('-').reverse().join('.');
+    NU=bind(D);
+    READY=true;
+    render('score');
+  })
+  .catch(e=>{
+    console.error(e);
+    $('board').innerHTML='<div class="loading">Не удалось прочитать данные движка (gpr-engine/gpr_data.json).<br>Открой через сервер или GitHub Pages.</div>';
+    $('y-rk').textContent='—';
+    $('y-sc').textContent='—';
+    $('y-ys').textContent='нет данных движка';
+  });
 </script>
 </body>
 </html>

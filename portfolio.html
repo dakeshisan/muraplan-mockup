@@ -97,6 +97,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .pc-sub{font-size:12px;color:var(--mut);font-weight:600;margin-top:8px;line-height:1.4}
 
 .hide{display:none}
+.loading{padding:60px 20px;text-align:center;color:var(--mut);font-weight:600}
 .note{font-size:11.5px;color:var(--faint);text-align:center;margin-top:24px;line-height:1.55}
 .note a{color:var(--accent-d);font-weight:700;text-decoration:none}
 .dt{margin-top:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
@@ -134,9 +135,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <!-- СВОДКА -->
   <div class="lbl">Сводка по компании <span class="n">все объекты</span></div>
   <div class="card sum">
-    <div class="sst"><div class="sn tnum" id="s-zhk">4</div><div class="sl">ЖК</div></div>
-    <div class="sst"><div class="sn tnum" id="s-q">11</div><div class="sl">очередей в работе</div></div>
-    <div class="sst"><div class="sn tnum" id="s-b">41</div><div class="sl">блоков</div></div>
+    <div class="sst"><div class="sn tnum" id="s-zhk">—</div><div class="sl">ЖК</div></div>
+    <div class="sst"><div class="sn tnum" id="s-q">—</div><div class="sl">очередей в работе</div></div>
+    <div class="sst"><div class="sn tnum" id="s-b">—</div><div class="sl">блоков</div></div>
     <div class="sst"><div class="sn tnum" id="s-avg">—</div><div class="sl">ср. готовность</div></div>
   </div>
   <div class="legend"><span><i class="d pit"></i>Котлован</span><span><i class="d build"></i>Строится</span><span><i class="d fin"></i>Завершается</span></div>
@@ -150,46 +151,27 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
   <!-- ЖК -->
   <div class="lbl grp" data-g="zhk">🏗 Жилые комплексы <span class="n">очередь → блоки</span></div>
-  <div class="cards grp" data-g="zhk" id="zhk"></div>
+  <div class="cards grp" data-g="zhk" id="zhk"><div class="loading">Загружаю данные движка…</div></div>
 
   <!-- ОПЕРАЦИОННЫЕ -->
   <div class="lbl grp" data-g="ops">📦 Операционные потоки <span class="n">не по объектам</span></div>
   <div class="cards grp" data-g="ops" id="ops"></div>
 
   <!-- ПОЛНЫЙ ПЛАН ГПР -->
-  <div class="lbl">План ГПР <span class="n">ЖК «Аура» · 28.05.26</span></div>
+  <div class="lbl">План ГПР <span class="n" id="gprStamp">ЖК «Аура» · 28.05.26</span></div>
   <details class="dt"><summary>Раскрыть план — работы по срокам (как MS Project)</summary><iframe class="gprframe" src="gpr.html?embed=1" title="План ГПР" loading="lazy"></iframe></details>
 
-  <div class="note">Портфель ATLAS · уровень компании. Тап по очереди → внутрь (объект → участок). Данные из отчёта ГПР на 28.05.2026 (часть очередей — оценочно).<br><a href="rp.html">Пульт РП →</a> · <a href="league.html">Лига →</a> · <a href="nu.html">Участок →</a> · <a href="index.html">все мокапы</a></div>
+  <div class="note">Портфель ATLAS · уровень компании. Тап по очереди → внутрь (объект → участок). Данные из отчёта ГПР на <span id="noteDate">28.05.2026</span>.<br><a href="rp.html">Пульт РП →</a> · <a href="league.html">Лига →</a> · <a href="nu.html">Участок →</a> · <a href="index.html">все мокапы</a></div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 const ST={ fin:{t:'Завершается',c:'fin'}, build:{t:'Строится',c:'build'}, pit:{t:'Котлован',c:'pit'} };
-const ZHK=[
-  {nm:'ЖК «Атмосфера»', loc:'отчёт ГПР · 28.05.26', queues:[
-    {q:'4 очередь', st:'fin',   bl:'блоки А–Е',          nb:6, pct:95},
-    {q:'5 очередь', st:'build', bl:'блоки А Б В Г Д Е',  nb:6, pct:24},
-    {q:'6 очередь', st:'build', bl:'блоки А Б В Г Д Е',  nb:6, pct:10},
-    {q:'7 очередь', st:'pit',   bl:'блоки А Б В',        nb:3, pct:4},
-  ]},
-  {nm:'ЖК «Aura»', loc:'Алатау · отчёт 28.05.26', obj:'object.html', queues:[
-    {q:'2 очередь', st:'build', bl:'блоки 3, 4 · участок НУ', nb:2, pct:84, you:true, risk:'−48 дн', href:'nu.html'},
-    {q:'3 очередь', st:'build', bl:'блоки 5, 6', nb:2, pct:10},
-    {q:'4 очередь', st:'build', bl:'блоки 7, 8', nb:2, pct:10},
-  ]},
-  {nm:'ЖК «Keruen»', loc:'отчёт ГПР · 28.05.26', queues:[
-    {q:'1 очередь', st:'build', bl:'блоки 1, 1.1', nb:2, pct:29},
-    {q:'2 очередь', st:'build', bl:'блоки 2, 2.1', nb:2, pct:84},
-    {q:'3 очередь', st:'build', bl:'блоки 3, 3.1', nb:2, pct:48},
-    {q:'4 очередь', st:'build', bl:'блоки 4, 4.1', nb:2, pct:14},
-    {q:'5 очередь', st:'pit',   bl:'блоки 5, 5.1', nb:2, pct:9},
-  ]},
-  {nm:'ЖК «Aqsai Resort»', loc:'отчёт ГПР · 28.05.26', queues:[
-    {q:'1 очередь', st:'build', bl:'8 блоков (1.1–4.2)', nb:8, pct:15},
-  ]},
-];
+// static overlay: navigation and labels that the engine data does not carry
+const CFG={
+  aura:{loc:'Алатау · отчёт', obj:'object.html', q:{2:{you:true, href:'nu.html', suffix:' · участок НУ'}}},
+};
 const OPS=[
   {ic:'📦', nm:'Снабжение материалов', metric:'34 заявки', sub:'в срок 86% · просрочено 5 · по всем стройкам', href:'atlas_supply_roles_brand.html'},
   {ic:'🏢', nm:'Закуп офиса / АХО',     metric:'7 закупок', sub:'мебель, техника, расходники · 2 на согласовании'},
@@ -200,33 +182,56 @@ let toastT;
 function toast(m){const e=$('toast');e.innerHTML=m;e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove('show'),2200);}
 function go(h){location.href=h;}
 function soon(){toast('Экран объекта — <b>в работе</b>');}
+function esc(s){return String(s).replace(/'/g,"\\'");}
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 const avg=a=>Math.round(a.reduce((s,x)=>s+x,0)/a.length);
+function fmtDate(iso){const p=(iso||'').split('-');return p.length===3?p[2]+'.'+p[1]+'.'+p[0]:'—';}
+function fmtShort(iso){const p=(iso||'').split('-');return p.length===3?p[2]+'.'+p[1]+'.'+p[0].slice(2):'—';}
+function statusOf(fact){return fact>=90?'fin':fact<10?'pit':'build';}
 
-function qrowHTML(z,i){
-  return z.queues.map((q,j)=>{
+function buildZhk(D){
+  const stamp=fmtShort(D.status_date);
+  return (D.portfolio||[]).map(o=>{
+    const cfg=CFG[o.id]||{};
+    const byQ={};
+    (o.blocks||[]).forEach(b=>{(byQ[b.queue]=byQ[b.queue]||[]).push(b);});
+    const queues=Object.keys(byQ).sort((a,b)=>a-b).map(qn=>{
+      const list=byQ[qn];
+      const pct=avg(list.map(b=>b.fact||0));
+      let worst=0; list.forEach(b=>(b.works||[]).forEach(w=>{const l=w.lag||0;if(l>worst)worst=l;}));
+      const qc=(cfg.q||{})[qn]||{};
+      return {q:qn+' очередь', st:statusOf(pct), bl:'блоки '+list.map(b=>b.spot).join(', ')+(qc.suffix||''),
+        nb:list.length, pct, risk:worst>=30?'−'+worst+' дн':'', you:qc.you, href:qc.href};
+    });
+    return {nm:o.object, loc:(cfg.loc||'отчёт ГПР ·')+' '+stamp, obj:cfg.obj, queues};
+  });
+}
+
+function qrowHTML(z){
+  return z.queues.map(q=>{
     const st=ST[q.st];
-    const click=q.href?`onclick="go('${q.href}')"`:`onclick="soon()"`;
+    const click=q.href?`onclick="go('${esc(q.href)}')"`:`onclick="soon()"`;
     const you=q.you?'<span class="you-tag">ты</span>':'';
     const risk=q.risk?` · <span class="rsk">${q.risk}</span>`:'';
     const go=q.href?'<span class="q-go">›</span>':'';
     return `<div class="qrow tap${q.you?' you':''}" ${click}>
-      <div class="q-nm">${q.q}${you}<small>${q.bl}${risk}</small></div>
+      <div class="q-nm">${escHtml(q.q)}${you}<small>${escHtml(q.bl)}${risk}</small></div>
       <span class="chip2 ${st.c}">${st.t}</span>
       <div class="q-pct tnum">${q.pct}%</div>${go}
     </div>`;
   }).join('');
 }
-function zcardHTML(z,i){
+function zcardHTML(z){
   const pct=avg(z.queues.map(q=>q.pct));
   return `<div class="zcard">
-    <div class="z-top"><div class="z-nm">${z.nm}<small>${z.loc} · ${z.queues.reduce((s,q)=>s+q.nb,0)} блоков</small></div><div class="z-pct tnum">${pct}<span>%</span></div></div>
+    <div class="z-top"><div class="z-nm">${escHtml(z.nm)}<small>${escHtml(z.loc)} · ${z.queues.reduce((s,q)=>s+q.nb,0)} блоков</small></div><div class="z-pct tnum">${pct}<span>%</span></div></div>
     <div class="z-bar"><i style="width:${pct}%"></i></div>
-    <div class="queues">${qrowHTML(z,i)}</div>
+    <div class="queues">${qrowHTML(z)}</div>
     ${z.obj?`<div class="z-obj"><a href="${z.obj}">Обзор объекта · все очереди ›</a></div>`:''}
   </div>`;
 }
 function opsHTML(c){
-  const click=c.href?`onclick="go('${c.href}')"`:`onclick="soon()"`;
+  const click=c.href?`onclick="go('${esc(c.href)}')"`:`onclick="soon()"`;
   return `<div class="pcard" ${click}>
     <div class="pc-top"><div class="pc-nm">${c.ic} ${c.nm}</div><div class="pc-metric">${c.metric}</div></div>
     <div class="pc-sub">${c.sub}${c.href?' · <b style="color:var(--accent-d)">открыть пульт ›</b>':''}</div>
@@ -237,12 +242,26 @@ function filt(f,btn){
   document.querySelectorAll('.grp').forEach(el=>el.classList.toggle('hide', !(f==='all'||el.dataset.g===f)));
 }
 
-$('zhk').innerHTML=ZHK.map(zcardHTML).join('');
 $('ops').innerHTML=OPS.map(opsHTML).join('');
-$('s-zhk').textContent=ZHK.length;
-$('s-q').textContent=ZHK.reduce((s,z)=>s+z.queues.length,0);
-$('s-b').textContent=ZHK.reduce((s,z)=>s+z.queues.reduce((a,q)=>a+q.nb,0),0);
-const _aq=ZHK.flatMap(z=>z.queues);$('s-avg').textContent=Math.round(_aq.reduce((a,q)=>a+q.pct,0)/_aq.length)+'%';
+
+fetch('gpr-engine/gpr_data.json',{cache:'no-store'})
+  .then(r=>{if(!r.ok)throw 0;return r.json();})
+  .then(D=>{
+    const ZHK=buildZhk(D);
+    $('zhk').innerHTML=ZHK.map(zcardHTML).join('');
+    $('s-zhk').textContent=ZHK.length;
+    document.querySelector('#seg [data-f="zhk"]').textContent='🏗 Стройки · '+ZHK.length;
+    $('s-q').textContent=ZHK.reduce((s,z)=>s+z.queues.length,0);
+    $('s-b').textContent=ZHK.reduce((s,z)=>s+z.queues.reduce((a,q)=>a+q.nb,0),0);
+    const aq=ZHK.flatMap(z=>z.queues);
+    $('s-avg').textContent=aq.length?avg(aq.map(q=>q.pct))+'%':'—';
+    $('gprStamp').textContent='ЖК «Аура» · '+fmtShort(D.status_date);
+    $('noteDate').textContent=fmtDate(D.status_date);
+  })
+  .catch(()=>{
+    $('zhk').innerHTML='<div class="loading">Не удалось прочитать данные движка (gpr-engine/gpr_data.json).<br>Открой через сервер или GitHub Pages.</div>';
+    ['s-zhk','s-q','s-b','s-avg'].forEach(id=>$(id).textContent='—');
+  });
 </script>
 </body>
 </html>

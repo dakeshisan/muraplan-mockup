@@ -314,7 +314,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   <!-- ПРОФИЛЬ-ПРОГРЕСС -->
   <div class="card hero">
     <div class="htop">
-      <div class="ring"><svg viewBox="0 0 78 78" width="74" height="74" aria-hidden="true"><circle cx="39" cy="39" r="33" fill="none" stroke="#e6ebf1" stroke-width="8"/><circle id="hring" cx="39" cy="39" r="33" fill="none" stroke="var(--green)" stroke-width="8" stroke-linecap="round" stroke-dasharray="207" stroke-dashoffset="29" transform="rotate(-90 39 39)"/></svg><div class="ringv"><b class="tnum" id="hkpi">86%</b><span>неделя</span></div></div>
+      <div class="ring"><svg viewBox="0 0 78 78" width="74" height="74" aria-hidden="true"><circle cx="39" cy="39" r="33" fill="none" stroke="#e6ebf1" stroke-width="8"/><circle id="hring" cx="39" cy="39" r="33" fill="none" stroke="var(--green)" stroke-width="8" stroke-linecap="round" stroke-dasharray="207" stroke-dashoffset="17" transform="rotate(-90 39 39)"/></svg><div class="ringv"><b class="tnum" id="hkpi">92%</b><span>неделя</span></div></div>
       <div class="hgrade">
         <div class="cap">Грейд · маршрут мастера</div>
         <div class="gname" id="hgname">Специалист</div>
@@ -450,28 +450,16 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-/* ===== участок: данные по блокам (?block=N) ===== */
-function early(n,q,mates){return {
-  nu:'НУ блок '+n, av:String(n), sub:'НУ · Аура · блок '+n+' · ранний этап', q:q, blk:'блок '+n,
-  kpi:80, grade:'Стажёр', gradePct:30, gnext:'до <b>«Специалиста»</b> — набери серию ≥85%', wxp:240, streak:'🔥 1', rank:'🏅 —',
-  gCap:'Старт · Аура · '+q+' очередь', gTitle:'Возвести '+q+' очередь', gDate:'2027', gBar:10, gPct:10,
+/* ===== участок: статичная демо-конфигурация по блокам (?block=N); числа — из движка ===== */
+function early(n,q){return {
+  nu:'НУ блок '+n, av:String(n), sub:'НУ · Аура · блок '+n+' · ранний этап', blk:'блок '+n,
+  grade:'Стажёр', gradePct:30, gnext:'до <b>«Специалиста»</b> — набери серию ≥85%', streak:'🔥 1', rank:'🏅 —',
+  gCap:'Старт · Аура · '+q+' очередь', gTitle:'Возвести '+q+' очередь', gDate:'2027',
   gSub:'Готовность очереди · <b>ранний этап</b>. Сейчас каркас и общестрой — это фундамент срока сдачи.',
-  gPlotsCap:'Блоки '+q+' очереди', plots:mates.map(m=>({b:'Блок '+m, sub:(m===n?'· ты · ':'')+q+' оч', pct:10, you:m===n})),
+  gPlotsCap:'Блоки '+q+' очереди',
   gYou:'🎯 Твой вклад: <b>блок '+n+' ('+q+' очередь)</b>. Держи темп каркаса — ранний задел тащит весь срок очереди.',
-  gprLabel:'Аура · блок '+n, fact:10, plan:12, lag:9,
-  gpr:[['Земляные + бетон','5 работ',100,'done','в срок'],['ЖБ каркас','8 работ',56,'late','−9 дн'],['Кладка + фасад','9 работ',0,'todo','впереди'],['Отделка + инженерка','14 работ',0,'todo','впереди']],
-  fc:{cls:'ok',verdict:'✓ В графике',tempo:'+9%<small> /нед</small>',left:'90%',eta:'по плану',etaR:false,
-    line:'Ранний этап: ведётся <b>ЖБ каркас</b> (−9 дн — некритично). Главное — не потерять темп каркаса, он держит срок всей очереди.',
-    prep:'📋 Готовить наперёд: <b>арматура и бетон</b> на верхние этажи, <b>кладочные материалы</b>.'},
-  works:[
-    {name:'ЖБ каркас · текущий эт.',sec:'Общестрой · каркас',cur:56,col:'prog',tag:'−9 д',late:1},
-    {name:'ЖБ каркас · след. эт.',sec:'Общестрой · каркас',cur:0,col:'todo'},
-    {name:'Кладка стен',sec:'Общестрой',cur:0,col:'todo'},
-    {name:'Земляные работы',sec:'Общестрой',cur:100,col:'done'},
-    {name:'Бетон до отм. 0.000',sec:'Общестрой',cur:100,col:'done'},
-  ],
-  ahead:[['сейчас','','ЖБ каркас · верхние этажи','арматура + бетон точно по графику'],['далее','','Кладка стен','кладочные материалы заранее'],['далее','','Фасад','леса + фасадные материалы'],['позже','','Инженерка и отделка','финишные этапы '+q+' очереди']],
-  stuck:[{cls:'task',t:'ЖБ каркас — держать темп (−9 дн)',s:'некритично, но не накапливать',btn:'Взять',msg:'Взято в работу'}],
+  gprLabel:'Аура · блок '+n,
+  stuck:[{cls:'task',t:'ЖБ каркас — держать темп',s:'некритично, но не накапливать',btn:'Взять',msg:'Взято в работу'}],
   zone:{e:'➤',line:'Ранний этап — каркас идёт, держи темп; серия наберётся к финишным работам'},
   xp:[{k:'time',n:'В срок',s:'закрытый фронт',v:120},{k:'qual',n:'Качество',s:'0 дефектов класса A',v:80},{k:'plan',n:'План',s:'материалы заранее',v:40},{k:'trust',n:'Достоверность',s:'факт подтверждён РП',v:0}],
   ach:[{ic:'🔥',t:'На серии',d:'набрать 4 недели ≥85%',p:[1,4]},{ic:'🛡',t:'Без брака',d:'месяц без дефектов класса A',got:true},{ic:'📦',t:'Запасливый',d:'материалы заказаны за 2 недели',p:[1,3]},{ic:'🏗',t:'Специалист',d:'достичь следующего грейда',p:[30,100]},{ic:'🏁',t:'Очередь сдана',d:'довести '+q+' очередь «Ауры» до сдачи',p:[10,100],wide:true}],
@@ -480,61 +468,33 @@ function early(n,q,mates){return {
 };}
 
 const BLOCKS={
- 3:{nu:'Асхат Б.',av:'А',sub:'НУ · Аура · блок 3',q:2,blk:'блок 3',
-   kpi:86,grade:'Специалист',gradePct:64,gnext:'до <b>«Старшего»</b> — держи KPI ещё ~2 мес',wxp:430,streak:'🔥 4',rank:'🏅 #2',
-   gCap:'Финиш · Аура · 2 очередь',gTitle:'Сдать 2 очередь в срок',gDate:'30.09',gBar:84,gPct:84,
+ 3:{nu:'Асхат Б.',av:'А',sub:'НУ · Аура · блок 3',blk:'блок 3',
+   grade:'Специалист',gradePct:64,gnext:'до <b>«Старшего»</b> — держи KPI ещё ~2 мес',streak:'🔥 4',rank:'🏅 #2',
+   gCap:'Финиш · Аура · 2 очередь',gTitle:'Сдать 2 очередь в срок',gDate:'30.09',
    gSub:'Готовность очереди · цель <b>100%</b>. До сдачи <b>~116 дней</b>. Каждая работа, закрытая в срок, двигает этот % — финиш общий.',
-   gPlotsCap:'Блоки 2 очереди — к сдаче вместе',plots:[{b:'Блок 3',sub:'· ты · 2 оч',pct:84,you:true},{b:'Блок 4',sub:'2 оч',pct:83}],
+   gPlotsCap:'Блоки 2 очереди — к сдаче вместе',
    gYou:'🎯 Твой вклад: <b>блок 3 (2 очередь)</b>. Закроешь инженерку и лифты — снимешь главный риск сдачи 2 очереди.',
-   gprLabel:'Аура · блок 3',fact:84,plan:91,lag:48,
-   gpr:[['Общестрой','7 работ',100,'done','в срок'],['Отделка + окна','10 работ',100,'done','в срок'],['Инженерка + лифт','14 работ',88,'late','−48 дн'],['Благоустройство','8 работ',5,'late','−19 дн']],
-   fc:{cls:'late',verdict:'⚠ Отстаём от срока',tempo:'+6%<small> /нед</small>',left:'16%',eta:'~28.06',etaR:true,
-     line:'Критический путь: <b>инженерка + монтаж лифтов</b> (−48 дн) — именно он держит сдачу 2 очереди. Ускоришь его → вытащишь срок всего блока.',
-     prep:'📋 Готовить ближайшие 2 недели: <b>материал ГКЛ</b> (перегородки 10.06) и <b>фронт под лифты</b>. Чтобы выйти в срок — нужен темп <b>+8%/нед</b>.'},
-   works:[
-     {name:'Стяжка полов · 6 эт.',sec:'Отделка · своя бригада',cur:0,col:'todo'},
-     {name:'Озеленение',sec:'Благоустройство',cur:0,col:'todo'},
-     {name:'Монтаж лифтов',sec:'Инженерка · ТОО ЛифтМонтаж',cur:85,col:'prog',tag:'−21 д',late:1},
-     {name:'Перегородки ГКЛ · 6 эт.',sec:'Отделка',cur:25,col:'prog'},
-     {name:'Видеонаблюдение',sec:'Инженерка · подрядчик',cur:67,col:'prog',tag:'стоит',late:1},
-     {name:'Фасад',sec:'Общестрой · ИП Дана',cur:100,col:'done'},
-     {name:'Монтаж окон',sec:'Отделка · ТОО Окна',cur:100,col:'done'},
-   ],
-   ahead:[['с 10.06','через нед.','Перегородки ГКЛ · 7–8 эт.','подготовить: <b>материал ГКЛ + бригада</b>'],['с 16.06','','Стяжка полов · 6–8 эт.','нужен <b>фронт от каркаса</b> — проверить с РП'],['с 24.06','','Благоустройство: бордюры, брусчатка','заранее: <b>подрядчик + вывоз грунта</b>'],['июль','','Озеленение, МАФы','подать <b>заявку на материалы</b> уже сейчас']],
-   stuck:[{cls:'',t:'Видеонаблюдение — стоит 2 недели',s:'подрядчик не вышел · фронт готов',btn:'Сообщить РП',msg:'Сообщил РП · видеонаблюдение'},{cls:'',t:'Монтаж лифтов — нужен фронт',s:'ждём смежников по шахте',btn:'Сообщить РП',msg:'Сообщил РП · монтаж лифтов'},{cls:'task',t:'Поручение РП: подготовить фронт под лифты к 10.06',s:'с планёрки 01.06',btn:'Взять',msg:'Поручение взято в работу'}],
+   gprLabel:'Аура · блок 3',
+   stuck:[{cls:'task',t:'Поручение РП: подготовить фронт под лифты к 10.06',s:'с планёрки 01.06',btn:'Взять',msg:'Поручение взято в работу'}],
    zone:{e:'✓',line:'В зелёной зоне — задание идёт в график, серия 🔥 4 недели держится'},
    xp:[{k:'time',n:'В срок',s:'закрытый фронт',v:180},{k:'qual',n:'Качество',s:'0 дефектов класса A',v:120},{k:'plan',n:'План',s:'материалы/фронт заранее',v:80},{k:'trust',n:'Достоверность',s:'факт подтверждён РП',v:50}],
    ach:[{ic:'🔥',t:'На серии',d:'4 недели подряд ≥85%',got:true},{ic:'🛡',t:'Без брака',d:'месяц без дефектов класса A',got:true},{ic:'🤝',t:'Достоверный',d:'10 отметок подтверждены РП',p:[7,10]},{ic:'📦',t:'Запасливый',d:'материалы заказаны за 2 недели',p:[2,3]},{ic:'⏱',t:'Раньше срока',d:'сдать раздел до плановой даты',p:[0,1]},{ic:'🏗',t:'Старший',d:'достичь следующего грейда',p:[64,100]},{ic:'🏁',t:'Объект сдан',d:'довести 2 очередь «Ауры» до сдачи всей командой',p:[84,100],wide:true}],
    quests:[{t:'Закрыть 2 работы недели до вс',s:'→ закроет неделю на 100%',xp:60,k:'time',done:false,auto:'close2'},{t:'Подтвердить факт у РП по всем отметкам',s:'достоверный факт',xp:30,k:'trust',done:false},{t:'Подготовить фронт под лифты к 10.06',s:'поручение РП с планёрки 01.06',xp:40,k:'plan',done:false},{t:'Заказать материал ГКЛ (перегородки 7–8 эт.)',s:'к работам с 10.06',xp:30,k:'plan',done:false}],
    note:'Данные условные · ЖК «Аура», блок 3 · 2 очередь.',plot:3,fpLabel:'Аура блок 3'},
- 4:{nu:'Дамир Е.',av:'Д',sub:'НУ · Аура · блок 4',q:2,blk:'блок 4',
-   kpi:81,grade:'Специалист',gradePct:52,gnext:'до <b>«Старшего»</b> — нужна серия ≥85% ещё ~3 мес',wxp:360,streak:'🔥 2',rank:'🏅 #4',
-   gCap:'Финиш · Аура · 2 очередь',gTitle:'Сдать 2 очередь в срок',gDate:'30.09',gBar:84,gPct:84,
+ 4:{nu:'Дамир Е.',av:'Д',sub:'НУ · Аура · блок 4',blk:'блок 4',
+   grade:'Специалист',gradePct:52,gnext:'до <b>«Старшего»</b> — нужна серия ≥85% ещё ~3 мес',streak:'🔥 2',rank:'🏅 #4',
+   gCap:'Финиш · Аура · 2 очередь',gTitle:'Сдать 2 очередь в срок',gDate:'30.09',
    gSub:'Готовность очереди · цель <b>100%</b>. До сдачи <b>~116 дней</b>. Каждая работа, закрытая в срок, двигает этот % — финиш общий.',
-   gPlotsCap:'Блоки 2 очереди — к сдаче вместе',plots:[{b:'Блок 3',sub:'2 оч',pct:84},{b:'Блок 4',sub:'· ты · 2 оч',pct:83,you:true}],
+   gPlotsCap:'Блоки 2 очереди — к сдаче вместе',
    gYou:'🎯 Твой вклад: <b>блок 4 (2 очередь)</b>. Слаботочка (видео/домофоны) и лифты — твой главный риск сдачи 2 очереди.',
-   gprLabel:'Аура · блок 4',fact:83,plan:91,lag:38,
-   gpr:[['Общестрой','7 работ',100,'done','в срок'],['Отделка + окна','10 работ',100,'done','в срок'],['Инженерка + лифт','14 работ',85,'late','−38 дн'],['Благоустройство','8 работ',0,'late','−19 дн']],
-   fc:{cls:'late',verdict:'⚠ Отстаём от срока',tempo:'+5%<small> /нед</small>',left:'17%',eta:'~05.07',etaR:true,
-     line:'Критический путь: <b>слаботочка (видео/домофоны) + лифты</b> (−38 дн). Закроешь их → снимешь риск сдачи 2 очереди.',
-     prep:'📋 Готовить 2 недели: <b>подрядчик слаботочки</b> (видео/домофоны −38 дн) и <b>фронт под лифты</b>. Нужен темп <b>+7%/нед</b>.'},
-   works:[
-     {name:'Видеонаблюдение',sec:'Инженерка · подрядчик',cur:67,col:'prog',tag:'−38 д',late:1},
-     {name:'Домофоны',sec:'Инженерка · подрядчик',cur:67,col:'prog',tag:'−38 д',late:1},
-     {name:'Монтаж лифтов',sec:'Инженерка · ТОО ЛифтМонтаж',cur:79,col:'prog',tag:'−27 д',late:1},
-     {name:'Благоустройство · брусчатка',sec:'Благоустройство',cur:0,col:'todo'},
-     {name:'Озеленение',sec:'Благоустройство',cur:0,col:'todo'},
-     {name:'Фасад',sec:'Общестрой',cur:100,col:'done'},
-     {name:'Перегородки ГКЛ',sec:'Отделка',cur:100,col:'done'},
-   ],
-   ahead:[['сейчас','просрочено','Видеонаблюдение + домофоны','подрядчик слаботочки — эскалировать РП'],['с 12.06','','Монтаж лифтов · добить 79→100','фронт по шахте + приёмка'],['с 20.06','','Благоустройство: бордюры, брусчатка','подрядчик + вывоз грунта'],['июль','','Озеленение, МАФы','заявка на материалы заранее']],
-   stuck:[{cls:'',t:'Видеонаблюдение — 67%, −38 дн',s:'слаботочка тянется с декабря',btn:'Сообщить РП',msg:'Сообщил РП · видеонаблюдение'},{cls:'',t:'Домофоны — 67%, −38 дн',s:'в связке со слаботочкой',btn:'Сообщить РП',msg:'Сообщил РП · домофоны'},{cls:'',t:'Монтаж лифтов — 79%, −27 дн',s:'критический путь сдачи',btn:'Сообщить РП',msg:'Сообщил РП · лифты'}],
+   gprLabel:'Аура · блок 4',
+   stuck:[],
    zone:{e:'➤',line:'Темп ниже плана по слаботочке — серия 🔥 2 недели; добей видео/домофоны, чтобы вернуться в зелёную зону'},
    xp:[{k:'time',n:'В срок',s:'закрытый фронт',v:150},{k:'qual',n:'Качество',s:'0 дефектов класса A',v:120},{k:'plan',n:'План',s:'материалы/фронт заранее',v:60},{k:'trust',n:'Достоверность',s:'факт подтверждён РП',v:30}],
    ach:[{ic:'🔥',t:'На серии',d:'2 недели подряд ≥80%',got:true},{ic:'🛡',t:'Без брака',d:'месяц без дефектов класса A',got:true},{ic:'🤝',t:'Достоверный',d:'10 отметок подтверждены РП',p:[6,10]},{ic:'📦',t:'Запасливый',d:'материалы заказаны за 2 недели',p:[1,3]},{ic:'⏱',t:'Раньше срока',d:'сдать раздел до плановой даты',p:[0,1]},{ic:'🏗',t:'Старший',d:'достичь следующего грейда',p:[52,100]},{ic:'🏁',t:'Объект сдан',d:'довести 2 очередь «Ауры» до сдачи всей командой',p:[83,100],wide:true}],
    quests:[{t:'Поднять видео+домофоны до 80%',s:'→ снимет часть −38 дн',xp:60,k:'time',done:false},{t:'Подтвердить факт у РП по всем отметкам',s:'достоверный факт',xp:30,k:'trust',done:false},{t:'Добить монтаж лифтов 79→100',s:'критический путь',xp:50,k:'time',done:false},{t:'Заявка на материал благоустройства',s:'брусчатка/бордюры впереди',xp:30,k:'plan',done:false}],
    note:'Данные участка из отчёта ГПР 28.05.2026 · ЖК «Аура», блок 4 · 2 очередь; геймификация — демо.',plot:4,fpLabel:'Аура блок 4'},
- 5:early(5,3,[5,6]),6:early(6,3,[5,6]),7:early(7,4,[7,8]),8:early(8,4,[7,8])
+ 5:early(5,3),6:early(6,3),7:early(7,4),8:early(8,4)
 };
 const _bp=parseInt(new URLSearchParams(location.search).get('block'),10);
 const BN=[3,4,5,6,7,8].indexOf(_bp)>=0?_bp:3;
@@ -543,14 +503,77 @@ const BLK=BLOCKS[BN];
 const COLS=[['todo','К выполнению'],['prog','В работе'],['done','Сделано']];
 let openIdx=null, closed=0;
 const GAME={weekXP:0};
-const WORKS=BLK.works, XP=BLK.xp, ACH=BLK.ach, QUESTS=BLK.quests;
+let WORKS=[];
+const XP=BLK.xp, ACH=BLK.ach, QUESTS=BLK.quests;
 
 /* ===== helpers ===== */
 const $=id=>document.getElementById(id);
 const xpTotal=()=>XP.reduce((a,x)=>a+x.v,0);
+function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+// WHY: esc — для JS-строки внутри onclick-атрибута: нужны оба слоя — JS-кавычки и HTML-сущности
+function esc(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function plural(n,one,few,many){const m=n%100,d=n%10;if(m>=11&&m<=14)return many;if(d===1)return one;if(d>=2&&d<=4)return few;return many;}
+function fmtDM(iso){return iso?iso.slice(8,10)+'.'+iso.slice(5,7):'—';}
+function shiftDM(iso,days){const d=new Date(iso+'T00:00:00');d.setDate(d.getDate()+days);return String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0');}
 let toastT;
 function toast(msg){const el=$('toast');el.innerHTML=msg;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2200);}
 function addXP(k,n,msg){const x=XP.find(p=>p.k===k);if(x)x.v=Math.max(0,x.v+n);GAME.weekXP=xpTotal();animXP();renderXPB();if(msg)toast(msg);save();}
+
+/* ===== числа из движка ГПР ===== */
+const RATE=6;
+function derive(D,o,b){
+  const sd=D.status_date||'';
+  const works=(b.works||[]).map(w=>({name:escH((w.name||'').trim()),section:escH(w.section||''),sec:escH((w.section||'')+(w.contractor?' · '+w.contractor:'')),fact:w.fact||0,start:w.start||'',end:w.end||'',lag:w.lag||0}));
+  const worst=works.reduce((a,w)=>Math.max(a,w.lag),0);
+  const fact=b.fact||0, plan=b.plan||0;
+
+  const order=[],byS={};
+  works.forEach(w=>{if(!byS[w.section]){byS[w.section]=[];order.push(w.section);}byS[w.section].push(w);});
+  const sections=order.map(nm=>{
+    const L=byS[nm];
+    const avg=Math.round(L.reduce((a,w)=>a+w.fact,0)/L.length);
+    const wl=L.reduce((a,w)=>Math.max(a,w.lag),0);
+    const st=L.every(w=>w.fact>=100)?'done':wl>0?'late':'prog';
+    return {nm,n:L.length,avg,wl,st,lab:st==='done'?'в срок':st==='late'?'−'+wl+' дн':'в работе'};
+  });
+  const gpr=sections.map(s=>[s.nm,s.n+' '+plural(s.n,'работа','работы','работ'),s.avg,s.st,s.lab]);
+  const crit=sections.reduce((a,s)=>s.wl>(a?a.wl:0)?s:a,null);
+
+  const prog=works.filter(w=>w.fact>0&&w.fact<100).sort((a,b)=>b.lag-a.lag)
+    .map(w=>({name:w.name,sec:w.sec,cur:w.fact,col:'prog',tag:w.lag>0?'−'+w.lag+' д':null,late:w.lag>0?1:0}));
+  const todo=works.filter(w=>!w.fact).sort((a,b)=>a.start<b.start?-1:1).slice(0,2)
+    .map(w=>({name:w.name,sec:w.sec,cur:0,col:'todo'}));
+  const done=works.filter(w=>w.fact>=100).sort((a,b)=>a.end<b.end?1:-1).slice(0,2)
+    .map(w=>({name:w.name,sec:w.sec,cur:100,col:'done'}));
+  const board=[...todo,...prog,...done];
+
+  let aheadW=works.filter(w=>w.start>sd).sort((a,b)=>a.start<b.start?-1:1).slice(0,4);
+  // WHY: у зрелых блоков все плановые старты в прошлом — показываем не начатые работы
+  if(!aheadW.length)aheadW=works.filter(w=>!w.fact).sort((a,b)=>a.start<b.start?-1:1).slice(0,4);
+  const ahead=aheadW.map(w=>[w.start>sd?'с '+fmtDM(w.start):'старт был '+fmtDM(w.start),w.start>sd?'':'не начато',w.name,w.sec]);
+
+  const stuck=works.filter(w=>w.fact<100&&w.lag>=14).sort((a,b)=>b.lag-a.lag)
+    .map(w=>({cls:'',t:w.name+' — '+w.fact+'%, −'+w.lag+' дн',s:w.sec,btn:'Сообщить РП',msg:'Сообщил РП · '+w.name}));
+
+  const left=Math.max(0,100-fact);
+  const late=worst>0;
+  const fc={cls:late?'late':'ok',verdict:late?'⚠ Отстаём от срока':'✓ Идём в график',
+    tempo:'+'+RATE+'%<small> /нед</small>',left:left+'%',
+    eta:left?'~'+shiftDM(sd,Math.ceil(left/RATE)*7):'готово',etaR:late,
+    line:crit&&crit.wl>0
+      ?'Критический путь: <b>'+crit.nm+'</b> (−'+crit.wl+' дн) — он держит срок блока и всей очереди.'
+      :'Отставаний по разделам нет — держи текущий темп.',
+    prep:aheadW.length
+      ?'📋 Готовить заранее: '+aheadW.slice(0,2).map(w=>'<b>'+w.name+'</b> ('+(w.start>sd?'с ':'старт был ')+fmtDM(w.start)+')').join(' и ')+' — материал · бригада · фронт.'
+      :'📋 Новых работ по плану нет — добивай текущие.'};
+
+  const qb=(o.blocks||[]).filter(x=>x.queue===b.queue)
+    .slice().sort((a,b)=>String(a.spot).localeCompare(String(b.spot),undefined,{numeric:true}));
+  const gPct=qb.length?Math.round(qb.reduce((a,x)=>a+(x.fact||0),0)/qb.length):0;
+  const plots=qb.map(x=>({b:'Блок '+x.spot,sub:(x.spot===b.spot?'· ты · ':'')+x.queue+' оч',pct:x.fact||0,you:x.spot===b.spot}));
+
+  return {queue:b.queue,fact,plan,lag:worst,kpi:plan?Math.min(100,Math.round(fact/plan*100)):0,gpr,board,ahead,stuck,fc,gPct,plots};
+}
 
 /* ===== render: профиль ===== */
 function renderHero(){$('hxp').textContent=GAME.weekXP;}
@@ -649,52 +672,77 @@ function markProactBtn(btn){btn.textContent='✓ отправлено';btn.style
 function proact(btn,msg){markProactBtn(btn);addXP('trust',15,'🤝 '+msg+' · <b>+15 XP</b>');}
 
 /* ===== сохранение демо (localStorage) ===== */
-const SKEY='atlas_nu_v1_b'+BN;
+// WHY: v2 — состав работ теперь из движка, старые v1-снапшоты по индексам несовместимы
+const SKEY='atlas_nu_v2_b'+BN;
 function snapshot(){return{works:WORKS.map(w=>({cur:w.cur,col:w.col,saved:!!w.saved,tag:w.tag||null,late:w.late||0})),xp:XP.map(x=>x.v),quests:QUESTS.map(q=>q.done),closed:closed,proact:[...document.querySelectorAll('.tell')].map(b=>b.disabled?1:0)};}
 function save(){try{localStorage.setItem(SKEY,JSON.stringify(snapshot()));}catch(e){}}
 function load(){try{const s=JSON.parse(localStorage.getItem(SKEY)||'null');if(!s)return null;if(s.works)s.works.forEach((w,i)=>WORKS[i]&&Object.assign(WORKS[i],w));if(s.xp)s.xp.forEach((v,i)=>{if(XP[i])XP[i].v=v;});if(s.quests)s.quests.forEach((d,i)=>{if(QUESTS[i])QUESTS[i].done=d;});if(typeof s.closed==='number')closed=s.closed;return s;}catch(e){return null;}}
 function resetDemo(){try{localStorage.removeItem(SKEY);}catch(e){}location.reload();}
 
 /* ===== применить блок к статичным местам ===== */
-function applyBlock(B){
+function applyBlock(B,E){
   document.title='ATLAS · '+B.blk+' · '+B.nu;
   $('me-who').innerHTML=B.nu+'<small id="me-sub">'+B.sub+'</small>';
   $('me-av').textContent=B.av;
-  $('cr-q').textContent=B.q+' очередь'; $('cr-b').textContent=B.blk;
-  $('hkpi').textContent=B.kpi+'%';
-  $('hring').setAttribute('stroke-dashoffset', Math.round(207*(1-B.kpi/100)));
+  $('cr-q').textContent=E.queue+' очередь'; $('cr-b').textContent=B.blk;
+  $('hkpi').textContent=E.kpi+'%';
+  $('hring').setAttribute('stroke-dashoffset', Math.round(207*(1-E.kpi/100)));
   $('hgname').textContent=B.grade; $('hgbar').style.width=B.gradePct+'%'; $('hgnext').innerHTML=B.gnext;
   $('hstreak').textContent=B.streak; $('hrank').textContent=B.rank;
   $('g-cap').textContent=B.gCap; $('g-title').textContent=B.gTitle; $('g-date').textContent=B.gDate;
-  $('g-bar').style.width=B.gBar+'%'; $('g-pct').textContent=B.gPct+'%';
+  $('g-bar').style.width=E.gPct+'%'; $('g-pct').textContent=E.gPct+'%';
   $('g-sub').innerHTML=B.gSub; $('g-plotscap').textContent=B.gPlotsCap; $('g-you').innerHTML=B.gYou;
-  $('plots').innerHTML=B.plots.map(p=>`<div class="plotrow"><div class="pn">${p.b} <small>${p.sub}</small></div><div class="pt"><i class="${p.you?'pyou':''}" style="width:${p.pct}%"></i></div><div class="pv"${p.you?' style="color:var(--gold-d)"':''}>${p.pct}%</div></div>`).join('');
+  $('plots').innerHTML=E.plots.map(p=>`<div class="plotrow"><div class="pn">${p.b} <small>${p.sub}</small></div><div class="pt"><i class="${p.you?'pyou':''}" style="width:${p.pct}%"></i></div><div class="pv"${p.you?' style="color:var(--gold-d)"':''}>${p.pct}%</div></div>`).join('');
   $('gpr-label').textContent=B.gprLabel;
-  $('g-fact').textContent=B.fact; $('g-plan').textContent=B.plan;
-  $('g-lagstat').innerHTML=B.lag+'<span class="gu"> дн</span>';
-  $('gpr-sections').innerHTML=B.gpr.map(([nm,wk,pct,st,lab])=>{
+  $('g-fact').textContent=E.fact; $('g-plan').textContent=E.plan;
+  $('g-lagstat').innerHTML=E.lag+'<span class="gu"> дн</span>';
+  $('gpr-sections').innerHTML=E.gpr.map(([nm,wk,pct,st,lab])=>{
     const fc=st==='done'?'done':(st==='late'?'late':'');
     const sm=st==='done'?`<small class="ok">${lab}</small>`:(st==='late'?`<small class="lag">${lab}</small>`:`<small>${lab}</small>`);
     return `<div class="srow2"><div class="gnm">${nm}<small>${wk}</small></div><div class="gtrack"><div class="gfill ${fc}" style="width:${pct}%"></div></div><div class="gpf">${pct}%${sm}</div></div>`;
   }).join('')+`<div class="gleg">полоса = план (100% к сроку) · заливка = факт · красным — отставание по графику</div>`;
   $('fc-blk').textContent=B.blk;
-  const v=$('fc-verdict'); v.className='fc-verdict '+B.fc.cls; v.textContent=B.fc.verdict;
-  $('fc-tempo').innerHTML=B.fc.tempo; $('fc-left').textContent=B.fc.left;
-  const e=$('fc-eta'); e.className='fc-v'+(B.fc.etaR?' r':''); e.textContent=B.fc.eta;
-  $('fc-line').innerHTML=B.fc.line; $('fc-prep').innerHTML=B.fc.prep;
-  $('ahead-rows').innerHTML=B.ahead.map(([w,sub,t,prep])=>`<div class="arow"><div class="when">${w}${sub?`<small>${sub}</small>`:''}</div><div class="bd"><div class="t">${t}</div><div class="prep">${prep}</div></div></div>`).join('');
-  $('stuck').innerHTML=B.stuck.map(s=>`<div class="srow"><span class="dot ${s.cls}"></span><div class="bd"><div class="t">${s.t}</div><div class="s">${s.s}</div></div><button class="tell" onclick="proact(this,'${s.msg}')">${s.btn}</button></div>`).join('');
+  const v=$('fc-verdict'); v.className='fc-verdict '+E.fc.cls; v.textContent=E.fc.verdict;
+  $('fc-tempo').innerHTML=E.fc.tempo; $('fc-left').textContent=E.fc.left;
+  const e=$('fc-eta'); e.className='fc-v'+(E.fc.etaR?' r':''); e.textContent=E.fc.eta;
+  $('fc-line').innerHTML=E.fc.line; $('fc-prep').innerHTML=E.fc.prep;
+  $('ahead-rows').innerHTML=E.ahead.map(([w,sub,t,prep])=>`<div class="arow"><div class="when">${w}${sub?`<small>${sub}</small>`:''}</div><div class="bd"><div class="t">${t}</div><div class="prep">${prep}</div></div></div>`).join('');
+  $('stuck').innerHTML=E.stuck.concat(B.stuck||[]).map(s=>`<div class="srow"><span class="dot ${s.cls}"></span><div class="bd"><div class="t">${s.t}</div><div class="s">${s.s}</div></div><button class="tell" onclick="proact(this,'${esc(s.msg)}')">${s.btn}</button></div>`).join('');
   $('zone-e').textContent=B.zone.e; $('zone-line').innerHTML=B.zone.line;
   $('fp-label').textContent=B.fpLabel; $('fp-frame').src='gpr.html?embed=1&plot='+B.plot;
   $('note-data').textContent=B.note;
 }
 
-/* ===== init ===== */
-applyBlock(BLK);
-const _saved=load();
-GAME.weekXP=xpTotal();
-renderKan();renderQuests();renderAch();renderHero();renderXPB();
-if(_saved&&_saved.proact){const _t=document.querySelectorAll('.tell');_saved.proact.forEach((d,i)=>{if(d&&_t[i])markProactBtn(_t[i]);});}
+/* ===== init: страница ждёт движок, геймификация поверх ===== */
+function engineFail(){
+  const m='<div style="grid-column:1/-1;padding:34px 18px;text-align:center;color:var(--mut);font-weight:600">Не удалось прочитать данные движка (gpr-engine/gpr_data.json).<br>Открой через сервер или GitHub Pages.</div>';
+  ['gpr-sections','kan','ahead-rows','stuck','plots'].forEach(id=>{$(id).innerHTML=m;});
+  $('hkpi').textContent='—';
+  $('hring').setAttribute('stroke-dashoffset',207);
+  $('g-bar').style.width='0';
+  $('g-pct').textContent='—';
+  $('g-fact').textContent='—';$('g-plan').textContent='—';$('g-lagstat').textContent='—';
+  const v=$('fc-verdict');v.className='fc-verdict';v.textContent='нет данных';
+  $('fc-tempo').textContent='—';$('fc-left').textContent='—';
+  const e=$('fc-eta');e.className='fc-v';e.textContent='—';
+  $('fc-line').textContent='Нет данных движка — показатели блока недоступны.';
+  $('fc-prep').style.display='none';
+}
+fetch('gpr-engine/gpr_data.json',{cache:'no-store'})
+  .then(r=>{if(!r.ok)throw 0;return r.json();})
+  .then(D=>{
+    const o=(D.portfolio||[]).find(x=>x.id==='aura');
+    const b=o&&(o.blocks||[]).find(x=>String(x.spot)===String(BN));
+    if(!b)throw 0;
+    const E=derive(D,o,b);
+    WORKS=E.board;
+    applyBlock(BLK,E);
+    const _saved=load();
+    GAME.weekXP=xpTotal();
+    renderKan();renderQuests();renderAch();renderHero();renderXPB();
+    if(_saved&&_saved.proact){const _t=document.querySelectorAll('.tell');_saved.proact.forEach((d,i)=>{if(d&&_t[i])markProactBtn(_t[i]);});}
+  })
+  .catch(engineFail);
 </script>
 </body>
 </html>
