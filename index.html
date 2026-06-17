@@ -5,256 +5,407 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#284157">
 <meta name="robots" content="noindex,nofollow">
-<title>ATLAS · строительная ERP</title>
+<title>ATLAS · строительная ERP · вход по роли</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#F1EFE7;--card:#fff;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#9C958685;--line:#E6E2D7;--line2:#EFEDE5;
-  --accent:#007484;--accent-d:#005763;--accent-soft:#E2EFF0;--navy:#284157;--navy-d:#1d3142;
-  --gold:#CFB372;--gold-d:#A88E48;
-  --green:#2E8F5B;--green-bg:#E8F2EA;--red:#C8554C;--red-d:#A23A33;--red-bg:#F7E7E2;--amber:#C98A2C;--amber-bg:#FBF1DF;
-  --shadow:0 14px 34px -22px rgba(40,65,87,.5);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{color-scheme:light}
-body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4;font-feature-settings:"ss03","cv11"}
-.tnum{font-variant-numeric:tabular-nums}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
-a{text-decoration:none;color:inherit}
-:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:10px}
+  :root{
+    --navy:#284157; --navy-700:#1d3142; --navy-900:#15242f;
+    --teal:#007484; --teal-600:#00606e; --teal-tint:#e2eef0;
+    --gold:#CFB372; --gold-deep:#b7995a; --gold-soft:#f0e6cf; --gold-ink:#8a6d2f;
+    --cream:#F7F5EE; --cream-deep:#efece1; --paper:#fffefb;
+    --ink:#23303a; --muted:#5f6b75; --muted-soft:#8b96a0;
+    --good:#1f7a4d; --bad:#b5482e; --bad-soft:#f6e6e0;
+    --line:#e6e2d6; --line-strong:#d8d3c4;
 
-/* ===== шапка на весь экран ===== */
-.top{position:sticky;top:0;z-index:30;background:linear-gradient(110deg,var(--navy),var(--navy-d));color:#fff;display:flex;align-items:center;gap:16px;padding:12px clamp(16px,2.4vw,40px)}
-.top .lg{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;font-family:'Cormorant',Georgia,serif;flex:none}
-.top .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:23px;line-height:1}
-.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px;letter-spacing:.01em}
-.top .meta{margin-left:auto;display:flex;align-items:center;gap:18px}
-.top .stamp{font-size:11.5px;color:#9db4c6;font-weight:600;text-align:right;line-height:1.3}
-.top .stamp b{color:#fff;display:block;font-weight:700}
-.top .me{text-align:right;font-size:12.5px;font-weight:700;line-height:1.15}
-.top .me small{display:block;font-weight:500;color:#9db4c6;font-size:10.5px}
+    --shadow-sm:0 1px 2px rgba(21,36,47,.04), 0 1px 3px rgba(21,36,47,.05);
+    --shadow-md:0 2px 4px rgba(21,36,47,.04), 0 8px 24px rgba(21,36,47,.07);
+    --shadow-lg:0 4px 8px rgba(21,36,47,.05), 0 20px 48px rgba(21,36,47,.12);
+    --shadow-navy:0 12px 36px rgba(40,65,87,.28);
+    --shadow-gold:0 10px 30px rgba(183,153,90,.30);
 
-/* ===== герой ===== */
-.hero{padding:clamp(34px,6vw,72px) clamp(16px,2.4vw,40px) clamp(20px,3vw,34px);max-width:2100px;margin:0 auto;position:relative}
-.hero::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background-image:radial-gradient(circle at 14% 8%,rgba(0,116,132,.06),transparent 42%),radial-gradient(circle at 90% 96%,rgba(207,179,114,.12),transparent 46%)}
-.kick{position:relative;font-size:11.5px;letter-spacing:.26em;color:var(--gold-d);text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:11px}
-.kick::before{content:"";width:34px;height:1px;background:var(--accent)}
-.brand{position:relative;display:flex;align-items:flex-end;gap:18px;margin:16px 0 0;flex-wrap:wrap}
-.brand .word{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:clamp(58px,11vw,140px);line-height:.86;color:var(--navy);letter-spacing:-.01em}
-.brand .word .g{color:var(--gold-d)}
-.sub{position:relative;font-family:'Cormorant',Georgia,serif;font-weight:600;font-size:clamp(18px,2.6vw,30px);color:var(--accent-d);line-height:1.1;margin-top:10px}
-.lead{position:relative;color:var(--mut);font-size:15px;margin-top:14px;max-width:760px;line-height:1.6;font-weight:500}
-.lead b{color:var(--navy);font-weight:700}
-.snap{position:relative;display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
-.snap .pill{display:flex;align-items:baseline;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:9px 15px;box-shadow:var(--shadow)}
-.snap .pill b{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:24px;color:var(--navy);line-height:1}
-.snap .pill.alarm b{color:var(--red)}
-.snap .pill span{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:#9c9586}
+    --r-sm:10px; --r-md:16px; --r-lg:22px; --r-xl:28px;
+    --sidebar-w:84px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
 
-/* ===== общий контейнер ===== */
-.wrap{padding:0 clamp(16px,2.4vw,40px) 52px;max-width:2100px;margin:0 auto}
-.lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#9c9586;margin:30px 2px 14px}
-.lbl .n{margin-left:auto;font-weight:600;color:var(--accent-d);text-transform:none;letter-spacing:0;font-size:12.5px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;color-scheme:light}
+  body{
+    font-family:'Jost',-apple-system,'Segoe UI',sans-serif;
+    color:var(--ink);
+    background-color:var(--cream);
+    background-image:
+      radial-gradient(1200px 600px at 8% -5%, rgba(0,116,132,.06), transparent 60%),
+      radial-gradient(900px 500px at 105% 0%, rgba(207,179,114,.10), transparent 55%),
+      radial-gradient(1000px 700px at 50% 120%, rgba(40,65,87,.05), transparent 60%);
+    background-attachment:fixed;
+    min-height:100vh;line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:.005em;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  }
+  h1,h2,h3,h4,.display{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;letter-spacing:.01em;color:var(--navy);line-height:1.08}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  :focus-visible{outline:2.5px solid var(--teal);outline-offset:3px;border-radius:6px}
+  .tnum{font-variant-numeric:tabular-nums}
 
-/* ===== роль-карты во всю ширину ===== */
-.roles{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-items:stretch}
-.role-card{position:relative;display:flex;flex-direction:column;background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px 22px 20px;overflow:hidden;transition:transform .16s,box-shadow .16s;min-height:230px}
-.role-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent);opacity:.0;transition:.16s}
-.role-card:hover{transform:translateY(-4px);box-shadow:0 22px 44px -22px rgba(40,65,87,.6)}
-.role-card:hover::before{opacity:1}
-.role-card .ic{width:46px;height:46px;border-radius:13px;background:var(--accent-soft);color:var(--accent-d);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
-.role-card .role{font-size:10.5px;color:var(--gold-d);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-top:16px}
-.role-card h2{font-family:'Cormorant',Georgia,serif;font-size:26px;font-weight:700;color:var(--navy);line-height:1.02;margin-top:5px}
-.role-card p{font-size:12.5px;color:var(--mut);line-height:1.5;margin-top:8px;font-weight:500;flex:1}
-.role-card .go{margin-top:14px;font-size:12.5px;color:var(--accent-d);font-weight:700;display:flex;align-items:center;gap:6px}
-.role-card .go .ar{transition:transform .16s}
-.role-card:hover .go .ar{transform:translateX(4px)}
-/* акцент-варианты */
-.role-card.lead-card .ic{background:var(--navy);color:var(--gold)}
-.role-card.lead-card::before{background:var(--gold)}
-.role-card.own .ic{background:#FBF5E6;color:var(--gold-d)}
-.role-card.own::before{background:var(--gold)}
+  .shell{position:relative;z-index:1;display:flex;min-height:100vh}
 
-/* ===== карта системы ===== */
-.sysgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.sys{display:flex;align-items:flex-start;gap:13px;background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:16px 18px;transition:transform .16s,box-shadow .16s}
-.sys:hover{transform:translateY(-3px);box-shadow:0 18px 38px -20px rgba(40,65,87,.55)}
-.sys .e{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#f3f6f3,#e8eee9);display:flex;align-items:center;justify-content:center;font-size:20px;flex:none}
-.sys .t{font-weight:700;font-size:14px;color:var(--navy);line-height:1.1}
-.sys .s{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:3px;line-height:1.4}
-.sys .badge{display:inline-block;margin-top:7px;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--accent-d);background:var(--accent-soft);border-radius:999px;padding:3px 9px}
+  /* ============ SIDEBAR RAIL ============ */
+  aside.nav{
+    position:sticky;top:0;height:100vh;width:var(--sidebar-w);flex-shrink:0;
+    background:linear-gradient(180deg,var(--navy) 0%, var(--navy-900) 100%);
+    display:flex;flex-direction:column;align-items:center;padding:22px 0 18px;gap:6px;z-index:30;
+    box-shadow:var(--shadow-navy);
+  }
+  .brand-mark{
+    width:46px;height:46px;border-radius:13px;
+    background:linear-gradient(150deg,var(--gold) 0%, var(--gold-deep) 100%);
+    display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;color:var(--navy-900);
+    box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px;
+  }
+  nav.rail{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;flex:1}
+  .rail a{
+    position:relative;width:60px;padding:11px 0 9px;border-radius:15px;
+    display:flex;flex-direction:column;align-items:center;gap:5px;
+    color:rgba(231,238,242,.62);transition:all .28s var(--ease);
+  }
+  .rail a .ic{width:23px;height:23px;display:block;transition:transform .28s var(--ease)}
+  .rail a .nav-lbl{font-size:9.5px;font-weight:500;letter-spacing:.02em;line-height:1;text-align:center;white-space:nowrap}
+  .rail a:hover{color:#fff;background:rgba(255,255,255,.07)}
+  .rail a:hover .ic{transform:translateY(-2px) scale(1.06)}
+  .rail a.active{color:var(--navy-900);background:linear-gradient(150deg,#fff,#f3efe2)}
+  .rail a.active::before{
+    content:"";position:absolute;left:-16px;top:50%;transform:translateY(-50%);
+    width:5px;height:30px;border-radius:0 5px 5px 0;background:var(--gold);box-shadow:0 0 14px rgba(207,179,114,.7);
+  }
+  .rail-bottom{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;padding-top:8px;border-top:1px solid rgba(255,255,255,.09)}
+  .nav-avatar{
+    width:42px;height:42px;border-radius:13px;margin-top:4px;
+    background:linear-gradient(150deg,var(--teal),var(--teal-600));
+    display:grid;place-items:center;color:#fff;font-weight:600;font-size:13px;letter-spacing:.02em;
+    border:2px solid rgba(255,255,255,.25);box-shadow:0 4px 10px rgba(0,0,0,.25);
+  }
 
-.note{font-size:12px;color:#9c9586;text-align:center;margin-top:34px;line-height:1.7}
-.note a{color:var(--accent-d);font-weight:700;text-decoration:none}
-.note b{color:var(--mut)}
+  /* ============ MAIN ============ */
+  main{flex:1;min-width:0;padding:30px clamp(20px,3vw,52px) 56px;max-width:1640px;margin:0 auto;width:100%}
 
-@media(max-width:1280px){
-  .roles{grid-template-columns:repeat(3,1fr)}
-  .sysgrid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:1040px){
-  .roles{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:620px){
-  .roles{grid-template-columns:1fr}
-  .sysgrid{grid-template-columns:1fr}
-  .top .me{display:none}
-  .brand{align-items:flex-start}
-}
+  header.top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+  .eyebrow::before{content:"";width:24px;height:1.5px;background:var(--teal);display:inline-block;opacity:.6}
+  .top-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .stamp-chip{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:9px 15px;box-shadow:var(--shadow-sm)}
+  .stamp-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none;animation:pulse-dot 2.4s infinite}
+  @keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(0,116,132,.45)}70%{box-shadow:0 0 0 8px rgba(0,116,132,0)}100%{box-shadow:0 0 0 0 rgba(0,116,132,0)}}
+  .stamp-chip .t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .stamp-chip .v{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
+  .group-chip{text-align:right;line-height:1.2}
+  .group-chip b{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--navy)}
+  .group-chip small{display:block;font-size:11px;color:var(--muted);font-weight:500;margin-top:1px}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;margin-top:clamp(22px,3.4vw,40px)}
+  .hero .word{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:clamp(56px,9vw,116px);line-height:.86;color:var(--navy);letter-spacing:-.012em}
+  .hero .word .g{color:var(--gold-deep)}
+  .hero .sub{font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:clamp(19px,2.7vw,32px);color:var(--teal-600);line-height:1.12;margin-top:12px}
+  .hero .lead{color:var(--muted);font-size:15px;margin-top:16px;max-width:780px;line-height:1.65;font-weight:400}
+  .hero .lead b{color:var(--navy);font-weight:600}
+
+  .snap{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  .snap .pill{display:flex;flex-direction:column;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:13px 18px;box-shadow:var(--shadow-sm);min-width:128px;transition:all .25s var(--ease)}
+  .snap .pill:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--line-strong)}
+  .snap .pill b{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;color:var(--navy);line-height:1}
+  .snap .pill span{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .snap .pill.alarm b{color:var(--bad)}
+  .snap .pill.alarm{border-color:var(--bad-soft);background:linear-gradient(165deg,#fffaf8,var(--bad-soft))}
+
+  /* ===== section label ===== */
+  .lbl{display:flex;align-items:center;gap:11px;margin:clamp(34px,5vw,52px) 2px 18px}
+  .lbl h2{font-size:27px}
+  .lbl .ln{flex:1;height:1px;background:var(--line)}
+  .lbl .n{font-size:12.5px;color:var(--muted);font-weight:500}
+
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-md);position:relative;overflow:hidden}
+
+  /* ===== featured protagonist (CEO) ===== */
+  .feature{
+    background:
+      radial-gradient(120% 130% at 92% 0%, rgba(0,116,132,.5), transparent 55%),
+      linear-gradient(150deg,var(--navy) 0%, var(--navy-900) 100%);
+    color:#eef4f6;border:none;box-shadow:var(--shadow-navy);
+    display:grid;grid-template-columns:1.5fr 1fr;gap:24px;padding:30px clamp(24px,2.6vw,38px);align-items:center;
+  }
+  .feature::after{content:"";position:absolute;right:-50px;bottom:-70px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(207,179,114,.2),transparent 70%);pointer-events:none}
+  .feature .role{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600;display:inline-flex;align-items:center;gap:9px}
+  .feature .role .ic{width:18px;height:18px}
+  .feature h3{font-size:clamp(30px,3.4vw,42px);color:#fff;margin:12px 0 10px;line-height:1.02}
+  .feature p{font-size:13.5px;color:rgba(238,244,246,.8);line-height:1.6;max-width:94%}
+  .feature .main-col{min-width:0}
+  .feature .side{display:flex;flex-direction:column;align-items:flex-start;gap:16px;position:relative;z-index:1}
+  .btn-gold{
+    display:inline-flex;align-items:center;gap:10px;background:linear-gradient(150deg,var(--gold),var(--gold-deep));
+    color:var(--navy-900);font-weight:600;font-size:14.5px;padding:14px 26px;border-radius:13px;box-shadow:var(--shadow-gold);
+    transition:all .26s var(--ease);letter-spacing:.01em;
+  }
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(183,153,90,.45)}
+  .btn-gold svg{width:18px;height:18px;transition:transform .26s var(--ease)}
+  .feature:hover .btn-gold svg{transform:translateX(3px)}
+  .feature .note{font-size:12px;color:rgba(238,244,246,.62);line-height:1.5;display:flex;align-items:center;gap:8px}
+  .feature .note svg{width:15px;height:15px;flex:none;opacity:.85}
+
+  /* ===== role grid ===== */
+  .roles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+  .role-card{display:flex;flex-direction:column;padding:24px 24px 22px;transition:transform .18s var(--ease),box-shadow .18s var(--ease);min-height:208px}
+  .role-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--teal);opacity:0;transition:opacity .18s}
+  .role-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--line-strong)}
+  .role-card:hover::before{opacity:1}
+  .role-card .ic{width:48px;height:48px;border-radius:14px;background:var(--teal-tint);color:var(--teal-600);display:grid;place-items:center;flex:none}
+  .role-card .ic svg{width:25px;height:25px}
+  .role-card .role{font-size:10.5px;color:var(--gold-ink);text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-top:18px}
+  .role-card h3{font-size:25px;margin-top:5px}
+  .role-card p{font-size:12.5px;color:var(--muted);line-height:1.55;margin-top:9px;font-weight:400;flex:1}
+  .role-card .go{margin-top:16px;font-size:12.5px;color:var(--teal-600);font-weight:600;display:flex;align-items:center;gap:7px}
+  .role-card .go svg{width:15px;height:15px;transition:transform .18s var(--ease)}
+  .role-card:hover .go svg{transform:translateX(4px)}
+  .role-card.gold .ic{background:var(--gold-soft);color:var(--gold-deep)}
+  .role-card.gold::before{background:var(--gold)}
+  .role-card.gold .go{color:var(--gold-ink)}
+
+  /* ===== system tiles ===== */
+  .sysgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .sys{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;transition:transform .18s var(--ease),box-shadow .18s var(--ease)}
+  .sys:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--line-strong)}
+  .sys .e{width:42px;height:42px;border-radius:12px;background:linear-gradient(150deg,var(--cream),var(--cream-deep));color:var(--navy);display:grid;place-items:center;flex:none;border:1px solid var(--line)}
+  .sys .e svg{width:21px;height:21px}
+  .sys .t{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px;color:var(--navy);line-height:1.05}
+  .sys .s{font-size:11.5px;color:var(--muted);font-weight:400;margin-top:4px;line-height:1.45}
+  .sys .badge{display:inline-block;margin-top:9px;font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--teal-600);background:var(--teal-tint);border-radius:999px;padding:3px 10px}
+
+  /* ===== creed footer ===== */
+  .creed{margin-top:clamp(36px,5vw,54px);padding:28px clamp(24px,3vw,34px);border-radius:var(--r-lg);background:linear-gradient(135deg,var(--navy) 0%, var(--navy-900) 100%);color:#eef4f6;display:flex;align-items:center;gap:22px;box-shadow:var(--shadow-navy);position:relative;overflow:hidden}
+  .creed::after{content:"";position:absolute;right:-30px;bottom:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(207,179,114,.16),transparent 70%)}
+  .creed .mk{font-family:'Cormorant Garamond',serif;font-size:62px;color:var(--gold);line-height:.6;opacity:.6;flex:none}
+  .creed .tx .q{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;font-style:italic;color:#fff;line-height:1.22}
+  .creed .tx .a{font-size:12.5px;color:rgba(238,244,246,.65);margin-top:8px;letter-spacing:.03em}
+  .creed .tx .a b{color:var(--gold);font-weight:600}
+
+  /* ===== reveal ===== */
+  .reveal{opacity:0;transform:translateY(16px);animation:rise .7s var(--ease) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  /* ===== responsive ===== */
+  @media (max-width:1180px){.roles{grid-template-columns:repeat(2,1fr)}.sysgrid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:900px){.feature{grid-template-columns:1fr}.feature .side{margin-top:6px}}
+  @media (max-width:720px){
+    :root{--sidebar-w:62px}
+    aside.nav{padding:16px 0 14px}
+    .brand-mark{width:38px;height:38px;font-size:20px;margin-bottom:14px}
+    .rail a{width:50px}.rail a .nav-lbl{display:none}.rail a .ic{width:22px;height:22px}
+    main{padding:22px 16px 44px}
+    .roles{grid-template-columns:1fr}.sysgrid{grid-template-columns:1fr}
+    .creed{flex-direction:column;text-align:center;gap:12px}.creed .mk{display:none}
+    header.top{gap:14px}.group-chip{text-align:left}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
+<div class="shell">
 
-<div class="top">
-  <div class="lg">A</div>
-  <div class="nm">ATLAS<small>строительная ERP · вход по роли</small></div>
-  <div class="meta">
-    <div class="stamp">данные из движка ГПР<b id="stamp">28.05.2026</b></div>
-    <div class="me">ATAMŪRA GROUP<small>единый движок ГПР · 4 ЖК</small></div>
-  </div>
-</div>
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="nav" aria-label="Главное меню ATLAS">
+    <div class="brand-mark" title="ATAMŪRA GROUP" aria-hidden="true">Ā</div>
+    <nav class="rail" aria-label="Модули ATLAS">
+      <a href="index.html" class="active" aria-current="page">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+        <span class="nav-lbl">Вход</span>
+      </a>
+      <a href="dashboard.html">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        <span class="nav-lbl">Центр</span>
+      </a>
+      <a href="portfolio.html">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg>
+        <span class="nav-lbl">Портфель</span>
+      </a>
+      <a href="gpr.html">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+        <span class="nav-lbl">ГПР</span>
+      </a>
+      <a href="atlas_supply_roles_brand.html">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+        <span class="nav-lbl">Снабж.</span>
+      </a>
+      <a href="league.html">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+        <span class="nav-lbl">Лига</span>
+      </a>
+    </nav>
+    <div class="rail-bottom">
+      <div class="nav-avatar" title="Профиль" aria-label="Профиль: проектный офис">ПО</div>
+    </div>
+  </aside>
 
-<div class="hero">
-  <div class="kick">строительная ERP · единый движок ГПР</div>
-  <div class="brand">
-    <h1 class="word">ATL<span class="g">A</span>S</h1>
-  </div>
-  <div class="sub">строительная ERP · проектный менеджмент и операционка</div>
-  <p class="lead">Один продукт — разные экраны по роли. <b>Начальник участка</b> отмечает факт → <b>РП</b> подтверждает → <b>директор и собственник</b> видят портфель. Все экраны читают <b>один движок ГПР</b> — никто не хранит свои цифры. Выберите, кто вы.</p>
-  <div class="snap" id="snap">
-    <div class="pill"><b class="tnum">—</b><span>жилых комплекса</span></div>
-    <div class="pill"><b class="tnum">—</b><span>блоков</span></div>
-    <div class="pill"><b class="tnum">—</b><span>работ в плане</span></div>
-    <div class="pill alarm"><b class="tnum">—</b><span>работ не в срок</span></div>
-  </div>
-</div>
+  <!-- ===== MAIN ===== -->
+  <main>
 
-<div class="wrap">
+    <header class="top reveal" style="animation-delay:.04s">
+      <span class="eyebrow">Строительная ERP · единый движок ГПР</span>
+      <div class="top-meta">
+        <div class="stamp-chip" title="Дата среза движка ГПР">
+          <span class="dot" aria-hidden="true"></span>
+          <span><span class="t">данные движка</span><br><span class="v tnum" id="stamp">28.05.2026</span></span>
+        </div>
+        <div class="group-chip"><b>ATAMŪRA GROUP</b><small>единый движок ГПР · 4 ЖК</small></div>
+      </div>
+    </header>
 
-  <div class="lbl">Войти по роли <span class="n">каждая роль — свой экран ATLAS</span></div>
-  <div class="roles">
+    <!-- HERO -->
+    <section class="hero reveal" style="animation-delay:.1s" aria-label="ATLAS">
+      <h1 class="word">ATL<span class="g">A</span>S</h1>
+      <p class="sub">проектный менеджмент и операционка стройки</p>
+      <p class="lead">Один продукт — разные экраны по роли. <b>Начальник участка</b> отмечает факт → <b>РП</b> подтверждает → <b>директор и собственник</b> видят портфель. Все экраны читают <b>один движок ГПР</b> — никто не хранит свои цифры. Выберите, кто вы.</p>
+      <div class="snap" id="snap">
+        <div class="pill"><b class="tnum">4</b><span>жилых комплекса</span></div>
+        <div class="pill"><b class="tnum">36</b><span>блоков</span></div>
+        <div class="pill"><b class="tnum">1&nbsp;322</b><span>работ в плане</span></div>
+        <div class="pill alarm"><b class="tnum">666</b><span>работ не в срок</span></div>
+      </div>
+    </section>
 
-    <a class="role-card lead-card" href="dashboard.html">
-      <div class="ic">🛰️</div>
-      <div class="role">CEO · директор по стройке</div>
-      <h2>Командный центр</h2>
-      <p>Все ЖК на одном экране: где горит, что не в срок, узкие места компании. На весь экран, из движка ГПР.</p>
-      <div class="go">Открыть центр <span class="ar">→</span></div>
+    <!-- ROLE ENTRY -->
+    <div class="lbl reveal" style="animation-delay:.16s"><h2>Войти по роли</h2><span class="ln"></span><span class="n">каждая роль — свой экран ATLAS</span></div>
+
+    <!-- featured: CEO command center -->
+    <a class="card feature reveal" href="dashboard.html" style="animation-delay:.2s" aria-label="Командный центр — CEO, директор по стройке">
+      <div class="main-col">
+        <span class="role"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 7a5 5 0 0 1 5 5"/></svg>CEO · директор по стройке</span>
+        <h3>Командный центр</h3>
+        <p>Все ЖК на одном экране: где горит, что не в срок, узкие места компании. На весь экран, прямо из движка ГПР.</p>
+      </div>
+      <div class="side">
+        <span class="btn-gold">Открыть командный центр
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+        <span class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>один движок ГПР · срез 28.05.2026</span>
+      </div>
     </a>
 
-    <a class="role-card own" href="portfolio.html">
-      <div class="ic">👑</div>
-      <div class="role">собственник</div>
-      <h2>Портфель</h2>
-      <p>Все объекты компании: ЖК → очереди → блоки, статус-риск, общий прогресс и операционные потоки.</p>
-      <div class="go">Открыть портфель <span class="ar">→</span></div>
-    </a>
+    <!-- other roles -->
+    <div class="roles">
+      <a class="card role-card gold reveal" href="portfolio.html" style="animation-delay:.24s">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z"/><path d="M5 21h14"/></svg></div>
+        <div class="role">собственник</div>
+        <h3>Портфель</h3>
+        <p>Все объекты компании: ЖК → очереди → блоки, статус-риск, общий прогресс и операционные потоки.</p>
+        <span class="go">Открыть портфель <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
 
-    <a class="role-card" href="object.html">
-      <div class="ic">🏢</div>
-      <div class="role">директор</div>
-      <h2>Разбор объекта</h2>
-      <p>Один ЖК целиком: очереди и блоки с готовностью, красная зона, сводный план ГПР объекта.</p>
-      <div class="go">Открыть объект <span class="ar">→</span></div>
-    </a>
+      <a class="card role-card reveal" href="object.html" style="animation-delay:.28s">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg></div>
+        <div class="role">директор</div>
+        <h3>Разбор объекта</h3>
+        <p>Один ЖК целиком: очереди и блоки с готовностью, красная зона, сводный план ГПР объекта.</p>
+        <span class="go">Открыть объект <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
 
-    <a class="role-card" href="rp.html">
-      <div class="ic">🧭</div>
-      <div class="role">руководитель проекта</div>
-      <h2>Пульт РП</h2>
-      <p>Подтверждение факта на объекте, красная зона с эскалацией, команда НУ и поручения.</p>
-      <div class="go">Открыть пульт <span class="ar">→</span></div>
-    </a>
+      <a class="card role-card reveal" href="rp.html" style="animation-delay:.32s">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
+        <div class="role">руководитель проекта</div>
+        <h3>Пульт РП</h3>
+        <p>Подтверждение факта на объекте, красная зона с эскалацией, команда НУ и поручения.</p>
+        <span class="go">Открыть пульт <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
 
-    <a class="role-card" href="naparnik.html">
-      <div class="ic">🏗</div>
-      <div class="role">нач. участка · прораб · мастер</div>
-      <h2>Напарник</h2>
-      <p>Рабочее место: отметка факта, недельный KPI, цели, маршрут мастера, общая цель команды.</p>
-      <div class="go">Открыть участок <span class="ar">→</span></div>
-    </a>
+      <a class="card role-card reveal" href="naparnik.html" style="animation-delay:.36s">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1z"/><path d="M10 10V6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4"/><path d="M4 15v-3a6 6 0 0 1 6-6"/><path d="M14 6a6 6 0 0 1 6 6v3"/></svg></div>
+        <div class="role">нач. участка · прораб · мастер</div>
+        <h3>Напарник</h3>
+        <p>Рабочее место: отметка факта, недельный KPI, цели, маршрут мастера, общая цель команды.</p>
+        <span class="go">Открыть участок <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
 
-    <a class="role-card" href="pto.html">
-      <div class="ic">🧮</div>
-      <div class="role">ПТО · взаиморасчёты</div>
-      <h2>Подрядчики и бартер</h2>
-      <p>Взаиморасчёты с подрядчиками, бартер-накопитель (деньги + квартиры), квартирный фонд под бартер.</p>
-      <div class="go">Открыть ПТО <span class="ar">→</span></div>
-    </a>
+      <a class="card role-card reveal" href="pto.html" style="animation-delay:.4s">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01"/></svg></div>
+        <div class="role">ПТО · взаиморасчёты</div>
+        <h3>Подрядчики и бартер</h3>
+        <p>Взаиморасчёты с подрядчиками, бартер-накопитель (деньги + квартиры), квартирный фонд под бартер.</p>
+        <span class="go">Открыть ПТО <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
 
-    <a class="role-card" href="finance.html">
-      <div class="ic">💵</div>
-      <div class="role">CFO · финдиректор</div>
-      <h2>Финансы и акты</h2>
-      <p>Акты АВР/КС-2, денежный поток по неделям, счёт «Бартер» — финансовая картина для руководства.</p>
-      <div class="go">Открыть финансы <span class="ar">→</span></div>
-    </a>
+      <a class="card role-card reveal" href="finance.html" style="animation-delay:.44s">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></svg></div>
+        <div class="role">CFO · финдиректор</div>
+        <h3>Финансы и акты</h3>
+        <p>Акты АВР/КС-2, денежный поток по неделям, счёт «Бартер» — финансовая картина для руководства.</p>
+        <span class="go">Открыть финансы <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      </a>
+    </div>
 
-  </div>
+    <!-- SYSTEM MAP -->
+    <div class="lbl reveal"><h2>Карта системы</h2><span class="ln"></span><span class="n">общие модули и инструменты движка</span></div>
+    <div class="sysgrid">
+      <a class="card sys reveal" href="league.html">
+        <div class="e"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></div>
+        <div><div class="t">Лига участков</div><div class="s">рейтинг начальников участка по достоверному факту</div><span class="badge">геймификация</span></div>
+      </a>
+      <a class="card sys reveal" href="gpr.html">
+        <div class="e"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></div>
+        <div><div class="t">Полный ГПР</div><div class="s">график производства работ — план ↔ факт, как MS&nbsp;Project</div><span class="badge">план</span></div>
+      </a>
+      <a class="card sys reveal" href="atlas_supply_roles_brand.html">
+        <div class="e"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div>
+        <div><div class="t">Снабжение</div><div class="s">материалы по ролям: заявка → закуп → поставка → срывы</div><span class="badge">модуль</span></div>
+      </a>
+      <a class="card sys reveal" href="gpr-engine/">
+        <div class="e"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg></div>
+        <div><div class="t">ГПР-движок</div><div class="s">единый источник: данные, пересчёт плана и факта, отставание</div><span class="badge">ядро</span></div>
+      </a>
+    </div>
 
-  <div class="lbl">Карта системы <span class="n">общие модули и инструменты движка</span></div>
-  <div class="sysgrid">
+    <!-- CREED -->
+    <footer class="creed reveal">
+      <span class="mk" aria-hidden="true">“</span>
+      <div class="tx">
+        <div class="q">Один движок ГПР. Каждая роль — свой экран. Никто не хранит свои цифры.</div>
+        <div class="a">Вход в ATLAS · данные условные, имена вымышленные · <b>ATAMŪRA GROUP — мы создаём наследие</b></div>
+      </div>
+    </footer>
 
-    <a class="sys" href="league.html">
-      <div class="e">🏆</div>
-      <div><div class="t">Лига участков</div><div class="s">рейтинг начальников участка по достоверному факту</div><span class="badge">геймификация</span></div>
-    </a>
-
-    <a class="sys" href="gpr.html">
-      <div class="e">📊</div>
-      <div><div class="t">Полный ГПР</div><div class="s">график производства работ — план ↔ факт, как MS Project</div><span class="badge">план</span></div>
-    </a>
-
-    <a class="sys" href="atlas_supply_roles_brand.html">
-      <div class="e">📦</div>
-      <div><div class="t">Снабжение</div><div class="s">материалы по ролям: заявка → закуп → поставка → срывы работ</div><span class="badge">модуль</span></div>
-    </a>
-
-    <a class="sys" href="gpr-engine/">
-      <div class="e">⚙️</div>
-      <div><div class="t">ГПР-движок</div><div class="s">единый источник: данные, пересчёт плана и факта, отставание</div><span class="badge">ядро</span></div>
-    </a>
-
-  </div>
-
-  <div class="note">Вход в ATLAS · все экраны читают <b>единый движок ГПР</b> на <b id="stamp2">28.05.2026</b> (<span id="snapline">4 ЖК · — блоков · — работ</span>). Это и есть «один движок» в действии: экран не хранит свои цифры, а показывает движок. Данные условные, имена вымышленные. · ATAMŪRA GROUP</div>
+  </main>
 </div>
 
 <script>
-const $=id=>document.getElementById(id);
-
-function build(D){
-  const allBlocks=D.portfolio.reduce((a,o)=>a+(o.blocks||[]).length,0);
-  const allWorks=D.portfolio.reduce((a,o)=>a+(o.blocks||[]).reduce((s,b)=>s+(b.works||[]).length,0),0);
-  let totalLate=0;
-  D.portfolio.forEach(o=>(o.blocks||[]).forEach(b=>(b.works||[]).forEach(w=>{if((w.lag||0)>0)totalLate++;})));
-  return {objects:D.portfolio.length,allBlocks,allWorks,totalLate};
-}
-
-function render(M){
-  const n=x=>x.toLocaleString('ru');
-  $('snap').innerHTML=[
-    {v:M.objects,k:'жилых комплекса'},
-    {v:M.allBlocks,k:'блоков'},
-    {v:M.allWorks,k:'работ в плане'},
-    {v:M.totalLate,k:'работ не в срок',alarm:true},
-  ].map(p=>`<div class="pill${p.alarm?' alarm':''}"><b class="tnum">${n(p.v)}</b><span>${p.k}</span></div>`).join('');
-  $('snapline').textContent=`${M.objects} ЖК · ${n(M.allBlocks)} блоков · ${n(M.allWorks)} работ`;
-}
-
-fetch('gpr-engine/gpr_data.json',{cache:'no-store'})
-  .then(r=>{if(!r.ok)throw 0;return r.json();})
-  .then(D=>{
-    const d=(D.status_date||'2026-05-28').split('-').reverse().join('.');
-    $('stamp').textContent=d; $('stamp2').textContent=d;
-    render(build(D));
-  })
-  .catch(()=>{
-    $('snap').innerHTML='<div class="pill"><span>Загружаю данные движка… (открой через сервер или GitHub Pages — gpr-engine/gpr_data.json)</span></div>';
-  });
+  const $=id=>document.getElementById(id);
+  function build(D){
+    const port=D.portfolio||[];
+    const allBlocks=port.reduce((a,o)=>a+(o.blocks||[]).length,0);
+    const allWorks=port.reduce((a,o)=>a+(o.blocks||[]).reduce((s,b)=>s+(b.works||[]).length,0),0);
+    let totalLate=0;
+    port.forEach(o=>(o.blocks||[]).forEach(b=>(b.works||[]).forEach(w=>{if((w.lag||0)>0)totalLate++;})));
+    return {objects:port.length,allBlocks,allWorks,totalLate};
+  }
+  function render(M){
+    const n=x=>x.toLocaleString('ru');
+    $('snap').innerHTML=[
+      {v:M.objects,k:'жилых комплекса'},
+      {v:M.allBlocks,k:'блоков'},
+      {v:M.allWorks,k:'работ в плане'},
+      {v:M.totalLate,k:'работ не в срок',alarm:true},
+    ].map(p=>`<div class="pill${p.alarm?' alarm':''}"><b class="tnum">${n(p.v)}</b><span>${p.k}</span></div>`).join('');
+  }
+  fetch('gpr-engine/gpr_data.json',{cache:'no-store'})
+    .then(r=>{if(!r.ok)throw 0;return r.json();})
+    .then(D=>{
+      const d=(D.status_date||'2026-05-28').split('-').reverse().join('.');
+      $('stamp').textContent=d;
+      render(build(D));
+    })
+    .catch(()=>{/* keep static prefilled snapshot */});
 </script>
 </body>
 </html>

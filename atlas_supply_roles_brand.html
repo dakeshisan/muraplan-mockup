@@ -7,40 +7,94 @@
 <title>ATLAS · снабжение — интерфейсы по ролям</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* brandbook ATAMURA: тёплый крем, бирюза + золото, навы */
-  --bg:#F7F5EE;--card:#FBFBFB;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#9C9486;
-  --line:#E0DDD3;--line-soft:#ECEAE2;
-  --accent:#007484;--accent-d:#005763;--accent-soft:#E0EEF0;
-  --gold:#CFB372;--gold-soft:#EFE6CD;--gold-deep:#A88E48;--gold-ink:#7A5E1E;
-  --navy:#284157;--navy-d:#1A2B3A;
-  --green:#3E9B66;--green-bg:#E7F1E7;--amber:#C07A1E;--amber-bg:#F5E9D2;--red:#C7544A;--red-bg:#F6E4DF;--blue:#3C6E8B;--blue-bg:#E4ECF1;--violet:#7A66A6;--violet-bg:#ECE7F3;
+  --navy:#284157; --navy-700:#1d3142; --navy-d:#1d3142; --navy-900:#15242f;
+  --teal:#007484; --teal-600:#00606e; --teal-tint:#e2eef0;
+  --gold:#CFB372; --gold-deep:#b7995a; --gold-soft:#f0e6cf; --gold-ink:#8a6d2f;
+  --cream:#F7F5EE; --cream-deep:#efece1; --paper:#fffefb;
+  --ink:#23303a; --muted:#5f6b75; --muted-soft:#8b96a0;
+  --good:#1f7a4d; --good-soft:#e6f0ea;
+  --line:#e6e2d6; --line-strong:#d8d3c4;
+  --shadow-sm:0 1px 2px rgba(21,36,47,.04), 0 1px 3px rgba(21,36,47,.05);
+  --shadow-md:0 2px 4px rgba(21,36,47,.04), 0 8px 24px rgba(21,36,47,.07);
+  --shadow-lg:0 4px 8px rgba(21,36,47,.05), 0 20px 48px rgba(21,36,47,.12);
+  --shadow-navy:0 12px 36px rgba(40,65,87,.28);
+  --shadow-gold:0 10px 30px rgba(183,153,90,.30);
+  --r-sm:10px; --r-md:16px; --r-lg:22px; --sidebar-w:84px; --ease:cubic-bezier(.22,.61,.36,1);
+  /* legacy aliases → new palette */
+  --bg:var(--cream); --card:var(--paper); --mut:var(--muted); --faint:var(--muted-soft); --line2:var(--cream-deep);
+  --accent:var(--teal); --accent-d:var(--teal-600); --accent-soft:var(--teal-tint); --gold-d:var(--gold-ink);
+  --green:var(--good); --green-bg:var(--good-soft);
+  --red:#b5482e; --red-d:#8f3a25; --red-bg:#f6e6e0; --amber:#c2862a; --amber-bg:#f6ecd6; --amber-ink:#8a5a12;
+  --shadow:var(--shadow-md);
+  /* screen-specific aliases (Снабжение) → new palette */
+  --line-soft:var(--cream-deep);
+  --blue:#3C6E8B; --blue-bg:#e4ecf1; --violet:#7A66A6; --violet-bg:#ece7f3;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Jost','Futura PT','Futura',-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
-.serif{font-family:'Cormorant',Georgia,'Times New Roman',serif}
+html{color-scheme:light}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;color:var(--ink);background-color:var(--cream);
+  background-image:radial-gradient(1200px 600px at 8% -5%, rgba(0,116,132,.06), transparent 60%),radial-gradient(900px 500px at 105% 0%, rgba(207,179,114,.10), transparent 55%),radial-gradient(1000px 700px at 50% 120%, rgba(40,65,87,.05), transparent 60%);
+  background-attachment:fixed;min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.4;-webkit-tap-highlight-color:transparent;font-feature-settings:"ss03","cv11"}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;color:var(--navy);line-height:1.08;letter-spacing:.01em}
+
+/* ===== shell + rail + header (design system) ===== */
+.shell{position:relative;z-index:1;display:flex;min-height:100vh}
+aside.nav{position:sticky;top:0;height:100vh;width:var(--sidebar-w);flex-shrink:0;background:linear-gradient(180deg,var(--navy) 0%, var(--navy-900) 100%);display:flex;flex-direction:column;align-items:center;padding:22px 0 18px;gap:6px;z-index:30;box-shadow:var(--shadow-navy)}
+.brand-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(150deg,var(--gold),var(--gold-deep));display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;color:var(--navy-900);box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px}
+nav.rail{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;flex:1}
+.rail a{position:relative;width:60px;padding:11px 0 9px;border-radius:15px;display:flex;flex-direction:column;align-items:center;gap:5px;color:rgba(231,238,242,.62);transition:all .28s var(--ease)}
+.rail a .ic{width:23px;height:23px;display:block;transition:transform .28s var(--ease)}
+.rail a .nav-lbl{font-size:9.5px;font-weight:500;letter-spacing:.02em;line-height:1;text-align:center;white-space:nowrap}
+.rail a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.rail a:hover .ic{transform:translateY(-2px) scale(1.06)}
+.rail a.active{color:var(--navy-900);background:linear-gradient(150deg,#fff,#f3efe2)}
+.rail a.active::before{content:"";position:absolute;left:-16px;top:50%;transform:translateY(-50%);width:5px;height:30px;border-radius:0 5px 5px 0;background:var(--gold);box-shadow:0 0 14px rgba(207,179,114,.7)}
+.rail-bottom{display:flex;flex-direction:column;align-items:center;padding-top:8px;border-top:1px solid rgba(255,255,255,.09)}
+.nav-avatar{width:42px;height:42px;border-radius:13px;margin-top:4px;background:linear-gradient(150deg,var(--teal),var(--teal-600));display:grid;place-items:center;color:#fff;font-weight:600;font-size:15px;border:2px solid rgba(255,255,255,.25);box-shadow:0 4px 10px rgba(0,0,0,.25)}
+main{flex:1;min-width:0;padding:24px clamp(16px,2.4vw,40px) 48px;max-width:1900px;margin:0 auto;width:100%}
+.hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:4px}
+.hdr .hl{display:flex;flex-direction:column;align-items:flex-start}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.eyebrow::before{content:"";width:24px;height:1.5px;background:var(--teal);opacity:.6}
+.hdr h1{font-size:clamp(28px,3.2vw,40px);margin:7px 0 0}
+.hdr .obsbadge{margin-top:11px;font-size:11px;font-weight:600;border-radius:999px;padding:6px 13px;background:var(--gold-soft);color:var(--gold-ink);border:1px solid #e7d4a6;white-space:normal;line-height:1.3;max-width:340px}
+.top-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:4px}
+.stamp-chip{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:9px 15px;box-shadow:var(--shadow-sm)}
+.stamp-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none;animation:pulse-dot 2.4s infinite}
+@keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(0,116,132,.45)}70%{box-shadow:0 0 0 8px rgba(0,116,132,0)}100%{box-shadow:0 0 0 0 rgba(0,116,132,0)}}
+.stamp-chip .t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.stamp-chip .v{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
+.id-chip{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:7px 9px 7px 15px;box-shadow:var(--shadow-sm)}
+.id-chip .who{text-align:right;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--navy);line-height:1.1}
+.id-chip .who small{display:block;font-family:'Jost',sans-serif;font-size:10.5px;color:var(--muted);font-weight:500;margin-top:1px}
+.id-chip .av{width:38px;height:38px;border-radius:11px;background:linear-gradient(150deg,var(--teal),var(--teal-600));color:#fff;display:grid;place-items:center;font-weight:600;font-size:14px;flex:none}
+@media(max-width:720px){
+  :root{--sidebar-w:62px}
+  aside.nav{padding:16px 0 14px}
+  .brand-mark{width:38px;height:38px;font-size:20px;margin-bottom:14px}
+  .rail a{width:50px}.rail a .nav-lbl{display:none}.rail a .ic{width:22px;height:22px}
+  main{padding:18px 14px 40px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.serif{font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif}
 .tnum{font-variant-numeric:tabular-nums}
 button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
 :where(button,a,select):focus-visible{outline:none;box-shadow:0 0 0 3px rgba(0,116,132,.35);border-radius:8px}
 
-.top{background:var(--navy);color:#fff;position:sticky;top:0;z-index:20}
-.top .row{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:12px}
-.brand .lg{width:34px;height:34px;border-radius:9px;background:var(--gold);display:flex;align-items:center;justify-content:center}
-.brand .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:21px;letter-spacing:.02em;line-height:1}
-.brand .sb{font-size:11.5px;color:#A9BBC9;margin-top:2px;letter-spacing:.01em}
-.top .meta{margin-left:auto;font-size:12.5px;color:#A9BBC9}.top .meta b{color:#fff;font-weight:600}
-.roles{background:var(--navy-d);border-top:1px solid rgba(255,255,255,.08)}
-.roles .row{max-width:1180px;margin:0 auto;padding:0 28px;display:flex;gap:2px;overflow-x:auto}
-.roles button{padding:12px 15px;color:#A9BBC9;font-size:13.5px;font-weight:500;white-space:nowrap;border-bottom:2px solid transparent}
-.roles button .who{display:block;font-size:10.5px;font-weight:400;color:#7E93A6;margin-top:2px}
-.roles button[aria-selected="true"]{color:#fff;border-bottom-color:var(--gold)}
-.roles button[aria-selected="true"] .who{color:var(--gold)}
-.roles .grp{align-self:center;font-size:10px;color:#6E8398;text-transform:uppercase;letter-spacing:.12em;padding:0 8px;white-space:nowrap}
+/* ===== табы ролей (бывшая навигация .top) ===== */
+.roles{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-sm);margin-top:11px}
+.roles .row{display:flex;gap:2px;overflow-x:auto;padding:0 6px}
+.roles button{padding:12px 15px;color:var(--muted);font-size:13.5px;font-weight:500;white-space:nowrap;border-bottom:2px solid transparent}
+.roles button .who{display:block;font-size:10.5px;font-weight:400;color:var(--muted-soft);margin-top:2px}
+.roles button[aria-selected="true"]{color:var(--navy);border-bottom-color:var(--gold)}
+.roles button[aria-selected="true"] .who{color:var(--gold-ink)}
+.roles .grp{align-self:center;font-size:10px;color:var(--faint);text-transform:uppercase;letter-spacing:.12em;padding:0 8px;white-space:nowrap}
 
-.wrap{max-width:1180px;margin:0 auto;padding:26px 28px 64px}
+.wrap{width:100%}
 .view{display:none}.view.on{display:block}
 @media(prefers-reduced-motion:no-preference){.view.on{animation:f .2s ease}@keyframes f{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}}
 .eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink);margin-bottom:10px}
@@ -52,9 +106,9 @@ h2.sec{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:
 h2.sec:first-of-type{margin-top:0}
 .pill{font-size:10.5px;font-weight:600;color:var(--gold-ink);background:var(--gold-soft);border-radius:999px;padding:3px 10px;text-transform:none;letter-spacing:.01em}
 
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-md)}
 .badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px}
-.b-green{background:var(--green-bg);color:var(--green)}.b-amber{background:var(--amber-bg);color:var(--amber)}.b-red{background:var(--red-bg);color:var(--red)}.b-blue{background:var(--blue-bg);color:var(--blue)}.b-violet{background:var(--violet-bg);color:var(--violet)}.b-gray{background:#EFEBDF;color:var(--mut)}
+.b-green{background:var(--green-bg);color:var(--green)}.b-amber{background:var(--amber-bg);color:var(--amber-ink)}.b-red{background:var(--red-bg);color:var(--red)}.b-blue{background:var(--blue-bg);color:var(--blue)}.b-violet{background:var(--violet-bg);color:var(--violet)}.b-gray{background:#EFEBDF;color:var(--mut)}
 .btn{font-size:13px;font-weight:600;padding:9px 16px;border-radius:11px;border:1px solid var(--line);color:var(--ink)}
 .btn:hover{border-color:var(--ink)}.btn.pri{background:var(--accent);color:#fff;border-color:var(--accent)}.btn.pri:hover{background:var(--accent-d);border-color:var(--accent-d)}
 .btn.ok{color:var(--green);border-color:#bfe0c9}.btn.ok:hover{background:var(--green-bg)}
@@ -64,7 +118,7 @@ h2.sec:first-of-type{margin-top:0}
 .kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:17px 19px;border-top:3px solid var(--accent)}
 .kpi.g{border-top-color:var(--green)}.kpi.a{border-top-color:var(--gold-deep)}.kpi.r{border-top-color:var(--red)}.kpi.v{border-top-color:var(--violet)}
 .kpi .l{font-size:12px;color:var(--mut);margin-bottom:8px}
-.kpi .v{font-family:'Cormorant',Georgia,serif;font-size:34px;font-weight:700;line-height:1}.kpi .v small{font-size:14px;color:var(--faint);font-weight:600;font-family:'Jost',sans-serif}
+.kpi .v{font-family:'Cormorant Garamond',Georgia,serif;font-size:34px;font-weight:700;line-height:1}.kpi .v small{font-size:14px;color:var(--faint);font-weight:600;font-family:'Jost',sans-serif}
 .kpi .h{font-size:11.5px;color:var(--faint);margin-top:7px}
 
 /* gamified KPI */
@@ -72,7 +126,7 @@ h2.sec:first-of-type{margin-top:0}
 .gcard{padding:20px 22px;overflow:hidden}
 .ring{position:relative;width:88px;height:88px;float:left;margin:0 18px 6px 0}
 .ringv{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.ringv b{font-family:'Cormorant',Georgia,serif;font-size:25px;font-weight:700;line-height:1}.ringv span{font-size:10px;color:var(--mut)}
+.ringv b{font-family:'Cormorant Garamond',Georgia,serif;font-size:25px;font-weight:700;line-height:1}.ringv span{font-size:10px;color:var(--mut)}
 .gcard .t{font-weight:600;font-size:14.5px;margin-bottom:5px}.gcard .s{font-size:12.5px;color:var(--mut)}.gcard .s b{color:var(--ink)}
 .track{height:12px;border-radius:999px;background:var(--line);position:relative;margin:13px 0 10px;overflow:hidden}
 .track .fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:999px}
@@ -87,7 +141,7 @@ h2.sec:first-of-type{margin-top:0}
 .step{flex:1;text-align:center;font-size:11px;font-weight:600;padding:8px 5px;border-radius:999px;background:var(--line-soft);color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .step.done{background:var(--accent-soft);color:var(--accent-d)}
 .step.now{background:var(--gold);color:#1E1E1E}
-.bignum{font-family:'Cormorant',Georgia,serif;font-size:36px;font-weight:700;color:var(--gold-ink);line-height:1;margin:8px 0}.bignum small{font-size:15px;font-family:'Jost',sans-serif;color:var(--faint);font-weight:600}
+.bignum{font-family:'Cormorant Garamond',Georgia,serif;font-size:36px;font-weight:700;color:var(--gold-ink);line-height:1;margin:8px 0}.bignum small{font-size:15px;font-family:'Jost',sans-serif;color:var(--faint);font-weight:600}
 .nextstep{margin-top:11px;font-size:12px;font-weight:600;color:var(--accent-d);background:var(--accent-soft);border-radius:11px;padding:9px 13px;line-height:1.5}
 .formula{padding:18px 22px}
 .formula .ft{font-weight:600;font-size:13.5px;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
@@ -105,7 +159,7 @@ h2.sec:first-of-type{margin-top:0}
 .wsbar{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:14px}
 .wsseg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;border-left:3px solid var(--accent)}
 .wsseg.g{border-left-color:var(--green)}.wsseg.a{border-left-color:var(--amber)}.wsseg.r{border-left-color:var(--red)}.wsseg.b{border-left-color:var(--blue)}
-.wsseg .n{font-family:'Cormorant',Georgia,serif;font-size:27px;font-weight:700;line-height:1}
+.wsseg .n{font-family:'Cormorant Garamond',Georgia,serif;font-size:27px;font-weight:700;line-height:1}
 .wsseg .l{font-size:11.5px;color:var(--mut);margin-top:5px;line-height:1.3}
 #wsqueue .lrow .pf{min-width:150px;text-align:right}
 @media(max-width:700px){.wsbar{grid-template-columns:1fr 1fr}}
@@ -177,22 +231,22 @@ h2.sec:first-of-type{margin-top:0}
 .plots{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
 .plot{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
 .plot .ph{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:11px}
-.plot .pn{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:19px}.plot .pq{font-size:11.5px;color:var(--faint)}
+.plot .pn{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:19px}.plot .pq{font-size:11.5px;color:var(--faint)}
 .bw{height:7px;border-radius:999px;background:var(--line);position:relative;overflow:hidden}.bw .f{position:absolute;left:0;top:0;bottom:0;border-radius:999px}
 .bl{display:flex;justify-content:space-between;font-size:11.5px;color:var(--mut);margin-top:8px}
 
 /* ABC / optimization */
 .abc{display:flex;flex-direction:column;gap:12px;padding:18px 20px}
 .abcrow{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center}
-.abcrow .lt{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;font-family:'Cormorant',Georgia,serif}
+.abcrow .lt{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;font-family:'Cormorant Garamond',Georgia,serif}
 .abcrow.A .lt{background:var(--gold);color:#1E1E1E}.abcrow.B .lt{background:var(--accent)}.abcrow.C .lt{background:var(--faint)}
 .abcrow .nm{font-size:12.5px;color:var(--mut)}.abcrow .nm b{color:var(--ink);font-weight:600}
 .abcrow .bar{height:9px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:6px}.abcrow .bar i{display:block;height:100%;border-radius:999px}
 .abcrow.A .bar i{background:var(--gold)}.abcrow.B .bar i{background:var(--accent)}.abcrow.C .bar i{background:var(--faint)}
-.abcrow .pct{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:18px;text-align:right;min-width:48px}
+.abcrow .pct{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:18px;text-align:right;min-width:48px}
 .varsum{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:13px}
 .varc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 17px}
-.varc .vl{font-size:11.5px;color:var(--mut)}.varc .vv{font-family:'Cormorant',Georgia,serif;font-size:27px;font-weight:700;margin-top:5px}.varc .vh{font-size:11px;color:var(--faint);margin-top:5px}
+.varc .vl{font-size:11.5px;color:var(--mut)}.varc .vv{font-family:'Cormorant Garamond',Georgia,serif;font-size:27px;font-weight:700;margin-top:5px}.varc .vh{font-size:11px;color:var(--faint);margin-top:5px}
 
 .cta{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}.cta .btn{padding:12px 22px;font-size:14px}.cta .pri{flex:1;min-width:200px}
 .linkrow{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap}
@@ -203,24 +257,41 @@ h2.sec:first-of-type{margin-top:0}
 </style>
 </head>
 <body>
-  <div class="top">
-    <div class="row">
-      <div class="brand">
-        <div class="lg" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#284157" stroke-width="2" stroke-linejoin="round"><path d="M3 7.5l9-4.5 9 4.5v9l-9 4.5-9-4.5v-9z"/><path d="M3 7.5l9 4.5 9-4.5M12 12v9"/></svg></div>
-        <div><div class="nm">ATLAS · снабжение</div><div class="sb">обеспечение работ материалами</div></div>
+<div class="shell">
+
+  <aside class="nav" aria-label="Главное меню ATLAS">
+    <div class="brand-mark" title="ATAMŪRA GROUP" aria-hidden="true">Ā</div>
+    <nav class="rail" aria-label="Модули ATLAS">
+      <a href="index.html" title="Вход"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg><span class="nav-lbl">Вход</span></a>
+      <a href="dashboard.html" title="Командный центр"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg><span class="nav-lbl">Центр</span></a>
+      <a href="portfolio.html" title="Портфель"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg><span class="nav-lbl">Портфель</span></a>
+      <a href="gpr.html" title="ГПР"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg><span class="nav-lbl">ГПР</span></a>
+      <a href="atlas_supply_roles_brand.html" class="active" aria-current="page" title="Снабжение"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg><span class="nav-lbl">Снабж.</span></a>
+      <a href="league.html" title="Лига"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg><span class="nav-lbl">Лига</span></a>
+    </nav>
+    <div class="rail-bottom"><div class="nav-avatar" title="Профиль" aria-label="Профиль снабженца">Сн</div></div>
+  </aside>
+
+  <main>
+    <header class="hdr">
+      <div class="hl">
+        <span class="eyebrow">ATLAS · модуль снабжения</span>
+        <h1>Снабжение</h1>
+        <div class="roles"><div class="row" role="tablist" aria-label="Роль">
+          <span class="grp">Снабжение</span>
+          <button role="tab" aria-selected="true" data-r="snab">Снабженец<span class="who">заявки · приход · KPI</span></button>
+          <button role="tab" aria-selected="false" data-r="lead">Руководитель снабжения<span class="who">свод · согласования · цены</span></button>
+          <span class="grp">Управление</span>
+          <button role="tab" aria-selected="false" data-r="dir">Директор<span class="who">акцепт · обеспеченность</span></button>
+          <button role="tab" aria-selected="false" data-r="ceo">CEO<span class="who">портфель</span></button>
+          <button role="tab" aria-selected="false" data-r="owner">Собственник<span class="who">надзор · оборотка</span></button>
+        </div></div>
       </div>
-      <div class="meta">ЖК «Аура» · неделя <b>01–07.06</b></div>
-    </div>
-    <div class="roles"><div class="row" role="tablist" aria-label="Роль">
-      <span class="grp">Снабжение</span>
-      <button role="tab" aria-selected="true" data-r="snab">Снабженец<span class="who">заявки · приход · KPI</span></button>
-      <button role="tab" aria-selected="false" data-r="lead">Руководитель снабжения<span class="who">свод · согласования · цены</span></button>
-      <span class="grp">Управление</span>
-      <button role="tab" aria-selected="false" data-r="dir">Директор<span class="who">акцепт · обеспеченность</span></button>
-      <button role="tab" aria-selected="false" data-r="ceo">CEO<span class="who">портфель</span></button>
-      <button role="tab" aria-selected="false" data-r="owner">Собственник<span class="who">надзор · оборотка</span></button>
-    </div></div>
-  </div>
+      <div class="top-meta">
+        <div class="stamp-chip" title="Текущая неделя обеспечения"><span class="dot" aria-hidden="true"></span><span><span class="t">неделя</span><br><span class="v tnum">01–07.06</span></span></div>
+        <div class="id-chip"><div class="who">ЖК «Аура»<small>обеспечение работ материалами</small></div><div class="av">А</div></div>
+      </div>
+    </header>
 
   <div class="wrap">
 
@@ -351,7 +422,7 @@ h2.sec:first-of-type{margin-top:0}
 
       <h2 class="sec">Оптимизация по смете <span class="pill">наблюдательно · суммы условные</span></h2>
       <div class="varsum">
-        <div class="varc"><div class="vl">Закуп vs смета (портфель)</div><div class="vv" style="color:var(--amber)">+1.8%</div><div class="vh">валовое отклонение по принятому объёму</div></div>
+        <div class="varc"><div class="vl">Закуп vs смета (портфель)</div><div class="vv" style="color:var(--amber-ink)">+1.8%</div><div class="vh">валовое отклонение по принятому объёму</div></div>
         <div class="varc"><div class="vl">↳ рыночный сдвиг (не вина снабжения)</div><div class="vv" style="color:var(--red)">+3.2%</div><div class="vh">смета vs датир. эталон Бэтмена</div></div>
         <div class="varc"><div class="vl">↳ закупочная разница</div><div class="vv" style="color:var(--green)">−1.4%</div><div class="vh">факт vs эталон на дату заявки</div></div>
       </div>
@@ -418,6 +489,8 @@ h2.sec:first-of-type{margin-top:0}
     </div>
     <p class="foot">Второй модуль ATLAS: ГПР отслеживает <b>выполнение</b> работ, снабжение — <b>обеспечение</b> работ материалами. Мост — «материал к сроку работы»: срыв поставки сцепляется со срывом фронта ГПР по единому коду причины (один work_uid — один виновник). KPI везде в наблюдательном режиме (боевой расчёт с деньгами — Фаза 2, после оцифровки приёмки и заключения юриста ТК РК). Оформление по брендбуку ATAMURA. Данные условные по ЖК «Аура», поставщики и имена вымышленные, цены и суммы не реальные.</p>
   </div>
+  </main>
+</div>
 
 <script>
 // ——— Заявки недели (канбан снабженца) ———
