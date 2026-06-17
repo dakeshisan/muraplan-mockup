@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#284157">
+<meta name="robots" content="noindex,nofollow">
+<title>ATLAS · Закрывающие документы</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#284157; --navy-700:#1d3142; --navy-d:#1d3142; --navy-900:#15242f;
+    --teal:#007484; --teal-600:#00606e; --teal-tint:#e2eef0;
+    --gold:#CFB372; --gold-deep:#b7995a; --gold-soft:#f0e6cf; --gold-ink:#8a6d2f;
+    --cream:#F7F5EE; --cream-deep:#efece1; --paper:#fffefb;
+    --ink:#23303a; --muted:#5f6b75; --muted-soft:#8b96a0;
+    --good:#1f7a4d; --good-soft:#e6f0ea; --bad:#b5482e; --bad-d:#8f3a25; --bad-soft:#f6e6e0;
+    --amber:#c2862a; --amber-soft:#f6ecd6; --amber-ink:#8a5a12;
+    --line:#e6e2d6; --line-strong:#d8d3c4;
+    --shadow-sm:0 1px 2px rgba(21,36,47,.04), 0 1px 3px rgba(21,36,47,.05);
+    --shadow-md:0 2px 4px rgba(21,36,47,.04), 0 8px 24px rgba(21,36,47,.07);
+    --shadow-lg:0 4px 8px rgba(21,36,47,.05), 0 20px 48px rgba(21,36,47,.12);
+    --shadow-navy:0 12px 36px rgba(40,65,87,.28);
+    --shadow-gold:0 10px 30px rgba(183,153,90,.30);
+    --r-sm:10px; --r-md:16px; --r-lg:22px;
+    --sidebar-w:84px; --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{color-scheme:light;scroll-behavior:smooth}
+  body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;color:var(--ink);background-color:var(--cream);
+    background-image:radial-gradient(1200px 600px at 8% -5%, rgba(0,116,132,.06), transparent 60%),radial-gradient(900px 500px at 105% 0%, rgba(207,179,114,.10), transparent 55%),radial-gradient(1000px 700px at 50% 120%, rgba(40,65,87,.05), transparent 60%);
+    background-attachment:fixed;min-height:100vh;line-height:1.45;-webkit-font-smoothing:antialiased;letter-spacing:.005em}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")}
+  h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;color:var(--navy);line-height:1.08;letter-spacing:.01em}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  :focus-visible{outline:2.5px solid var(--teal);outline-offset:3px;border-radius:6px}
+  .tnum{font-variant-numeric:tabular-nums}
+
+  .shell{position:relative;z-index:1;display:flex;min-height:100vh}
+  aside.nav{position:sticky;top:0;height:100vh;width:var(--sidebar-w);flex-shrink:0;background:linear-gradient(180deg,var(--navy) 0%, var(--navy-900) 100%);display:flex;flex-direction:column;align-items:center;padding:22px 0 18px;gap:6px;z-index:30;box-shadow:var(--shadow-navy)}
+  .brand-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(150deg,var(--gold),var(--gold-deep));display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;color:var(--navy-900);box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px}
+  nav.rail{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;flex:1}
+  .rail a{position:relative;width:60px;padding:11px 0 9px;border-radius:15px;display:flex;flex-direction:column;align-items:center;gap:5px;color:rgba(231,238,242,.62);transition:all .28s var(--ease)}
+  .rail a .ic{width:23px;height:23px;display:block;transition:transform .28s var(--ease)}
+  .rail a .nav-lbl{font-size:9.5px;font-weight:500;letter-spacing:.02em;line-height:1;text-align:center;white-space:nowrap}
+  .rail a:hover{color:#fff;background:rgba(255,255,255,.07)}
+  .rail a:hover .ic{transform:translateY(-2px) scale(1.06)}
+  .rail a.active{color:var(--navy-900);background:linear-gradient(150deg,#fff,#f3efe2)}
+  .rail a.active::before{content:"";position:absolute;left:-16px;top:50%;transform:translateY(-50%);width:5px;height:30px;border-radius:0 5px 5px 0;background:var(--gold);box-shadow:0 0 14px rgba(207,179,114,.7)}
+  .rail-bottom{display:flex;flex-direction:column;align-items:center;padding-top:8px;border-top:1px solid rgba(255,255,255,.09)}
+  .nav-avatar{width:42px;height:42px;border-radius:13px;margin-top:4px;background:linear-gradient(150deg,var(--teal),var(--teal-600));display:grid;place-items:center;color:#fff;font-weight:600;font-size:13px;border:2px solid rgba(255,255,255,.25);box-shadow:0 4px 10px rgba(0,0,0,.25)}
+
+  main{flex:1;min-width:0;padding:28px clamp(18px,2.6vw,44px) 52px;max-width:1820px;margin:0 auto;width:100%}
+  header.hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;flex-wrap:wrap;margin-bottom:6px}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+  .eyebrow::before{content:"";width:24px;height:1.5px;background:var(--teal);opacity:.6}
+  header.hdr h1{font-size:clamp(30px,3.4vw,42px);margin-top:7px}
+  .preset{display:inline-flex;gap:6px;background:var(--cream-deep);border:1px solid var(--line);border-radius:12px;padding:4px;margin-top:13px;flex-wrap:wrap}
+  .preset button{color:var(--muted);font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:9px;white-space:nowrap;transition:all .2s var(--ease)}
+  .preset button.on{background:var(--navy);color:#fff;box-shadow:var(--shadow-sm)}
+  .top-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:4px}
+  .stamp-chip{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:9px 15px;box-shadow:var(--shadow-sm)}
+  .stamp-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none;animation:pulse-dot 2.4s infinite}
+  @keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(0,116,132,.45)}70%{box-shadow:0 0 0 8px rgba(0,116,132,0)}100%{box-shadow:0 0 0 0 rgba(0,116,132,0)}}
+  .stamp-chip .t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .stamp-chip .v{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
+  .id-chip{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:8px 15px;box-shadow:var(--shadow-sm);font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--navy);line-height:1.1}
+  .id-chip small{display:block;font-family:'Jost',sans-serif;font-size:11px;color:var(--muted);font-weight:500;margin-top:2px}
+
+  .lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted-soft);margin:26px 2px 12px}
+  .lbl::before{content:"";width:14px;height:1.5px;background:var(--teal);opacity:.7;flex:none}
+  .lbl .n{margin-left:auto;font-weight:500;color:var(--teal-600);text-transform:none;letter-spacing:0;font-size:12.5px}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-md);overflow:hidden}
+
+  /* KPI */
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:16px}
+  .kpi{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-sm);padding:15px 17px;position:relative;overflow:hidden;transition:transform .18s var(--ease),box-shadow .18s var(--ease)}
+  .kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--line-strong)}
+  .kpi .v{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:33px;line-height:1;color:var(--navy)}
+  .kpi .v small{font-size:15px;color:var(--muted-soft)}
+  .kpi .k{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-top:8px}
+  .kpi .sub{font-size:11px;color:var(--muted-soft);font-weight:500;margin-top:3px}
+  .kpi.alarm{background:linear-gradient(165deg,#fffaf8,var(--bad-soft));border-color:var(--bad-soft)}
+  .kpi.alarm .v{color:var(--bad)}
+  .kpi.alarm::after{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--bad)}
+  .kpi.gold .v{color:var(--gold-ink)}
+
+  /* pipeline */
+  .pipe{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:4px}
+  .pst{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-sm);padding:15px 16px;position:relative;cursor:pointer;transition:all .18s var(--ease)}
+  .pst:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--line-strong)}
+  .pst.on{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal-tint),var(--shadow-md)}
+  .pst .pi{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--teal-tint);color:var(--teal-600);margin-bottom:10px}
+  .pst .pi svg{width:18px;height:18px}
+  .pst .pn{font-size:11.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+  .pst .pc{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;color:var(--navy);line-height:1;margin-top:5px}
+  .pst .psum{font-size:11px;color:var(--muted-soft);font-weight:500;margin-top:3px}
+  .pst .arr{position:absolute;right:-9px;top:50%;transform:translateY(-50%);z-index:1;color:var(--line-strong);font-size:16px;font-weight:700}
+  .pst:last-child .arr{display:none}
+  .pst.pay .pi{background:var(--gold-soft);color:var(--gold-ink)}
+  .pst.paid .pi{background:var(--good-soft);color:var(--good)}
+
+  /* layout 2-col */
+  .layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:20px;align-items:start}
+  .col-right{display:flex;flex-direction:column;gap:18px;position:sticky;top:18px}
+
+  /* filters */
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 2px 12px}
+  .filters button{font-size:12.5px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 13px;background:var(--paper);transition:all .18s var(--ease)}
+  .filters button:hover{border-color:var(--line-strong)}
+  .filters button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+  /* register table */
+  .reg{padding:4px 0}
+  .doc{display:grid;grid-template-columns:30px 1.5fr 1.2fr auto auto 26px;align-items:center;gap:14px;padding:13px 20px;border-top:1px solid var(--cream-deep);cursor:pointer;transition:background .14s}
+  .doc:first-child{border-top:none}
+  .doc:hover{background:var(--cream)}
+  .doc.sel{background:var(--teal-tint)}
+  .doc .vd{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;flex:none}
+  .vd.green{background:var(--good-soft);color:var(--good)}.vd.yellow{background:var(--amber-soft);color:var(--amber-ink)}.vd.red{background:var(--bad-soft);color:var(--bad)}.vd.none{background:var(--cream-deep);color:var(--muted-soft)}
+  .vd svg{width:13px;height:13px}
+  .doc .dt{min-width:0}
+  .doc .dt .t{font-weight:600;font-size:13.5px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .doc .dt .s{font-size:11px;color:var(--muted-soft);font-weight:500;margin-top:2px}
+  .doc .pty{min-width:0}
+  .doc .pty .nm{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .doc .pty .kind{display:inline-block;font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.03em;border-radius:999px;padding:2px 8px;margin-top:3px}
+  .kind.con{background:var(--teal-tint);color:var(--teal-600)}.kind.sup{background:#ece4f2;color:#6a4f8a}
+  .doc .amt{text-align:right;white-space:nowrap}
+  .doc .amt b{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px;color:var(--navy)}
+  .doc .amt .bt{font-size:10px;font-weight:600;color:var(--gold-ink);margin-top:2px}
+  .doc .stg{font-size:10.5px;font-weight:600;border-radius:999px;padding:5px 10px;white-space:nowrap;text-align:center}
+  .stg.intake{background:var(--cream-deep);color:var(--muted)}.stg.check{background:var(--teal-tint);color:var(--teal-600)}.stg.dir,.stg.findir{background:var(--gold-soft);color:var(--gold-ink)}.stg.pay{background:#eaf3ee;color:var(--good)}.stg.paid{background:var(--good);color:#fff}
+  .doc .go{color:var(--muted-soft);font-weight:700;font-size:18px;text-align:center}
+
+  /* detail panel */
+  .dp{padding:0;overflow:hidden}
+  .dp-top{background:linear-gradient(150deg,var(--navy),var(--navy-900));padding:20px 22px 18px;color:#eef4f6;position:relative}
+  .dp-top::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(0,116,132,.4),transparent 70%)}
+  .dp-top .lab{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .dp-top h3{color:#fff;font-size:24px;margin:6px 0 3px}
+  .dp-top .meta{font-size:12px;color:rgba(238,244,246,.75);position:relative}
+  .dp-top .amt{font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:600;color:#fff;margin-top:10px;position:relative}
+  .dp-top .amt small{font-family:'Jost',sans-serif;font-size:12px;color:var(--gold);font-weight:600;margin-left:8px}
+  .dp-body{padding:18px 22px 20px}
+  .dp-sec{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted-soft);margin:4px 0 9px}
+  .dp-fields{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px;margin-bottom:16px}
+  .dp-fields .f .fl{font-size:10.5px;color:var(--muted-soft);font-weight:500}
+  .dp-fields .f .fv{font-size:13px;font-weight:600;color:var(--ink);margin-top:1px}
+  .flag{display:flex;align-items:flex-start;gap:10px;border-radius:11px;padding:10px 12px;margin-bottom:7px;border:1px solid}
+  .flag.red{background:var(--bad-soft);border-color:#e9c3bb}.flag.yellow{background:var(--amber-soft);border-color:#e7d4a6}.flag.green{background:var(--good-soft);border-color:#bfe0cc}
+  .flag .fc{font-size:9.5px;font-weight:700;border-radius:6px;padding:2px 6px;flex:none;white-space:nowrap}
+  .flag.red .fc{background:var(--bad);color:#fff}.flag.yellow .fc{background:var(--amber-ink);color:#fff}.flag.green .fc{background:var(--good);color:#fff}
+  .flag .ft{font-size:12px;font-weight:600;line-height:1.3}.flag.red .ft{color:var(--bad-d)}.flag.yellow .ft{color:var(--amber-ink)}.flag.green .ft{color:var(--good)}
+  .chain{list-style:none;position:relative;margin:4px 0 6px;padding-left:22px}
+  .chain::before{content:"";position:absolute;left:6px;top:6px;bottom:8px;width:2px;background:var(--cream-deep)}
+  .chain li{position:relative;padding:0 0 13px}
+  .chain li::before{content:"";position:absolute;left:-19px;top:3px;width:13px;height:13px;border-radius:50%;background:var(--cream-deep);border:2.5px solid var(--line-strong)}
+  .chain li.done::before{background:var(--teal);border-color:var(--teal)}
+  .chain li.cur::before{background:var(--gold);border-color:#fff;box-shadow:0 0 0 3px rgba(207,179,114,.4)}
+  .chain li .ca{font-size:13px;font-weight:600;color:var(--ink)}
+  .chain li .cm{font-size:11px;color:var(--muted);font-weight:500;margin-top:1px}
+  .botlink{display:inline-flex;align-items:center;gap:8px;margin-top:8px;background:var(--cream);border:1px solid var(--line);border-radius:11px;padding:9px 13px;font-size:12px;font-weight:600;color:var(--teal-600);transition:all .2s var(--ease)}
+  .botlink:hover{border-color:var(--teal);transform:translateY(-1px)}
+  .botlink svg{width:15px;height:15px}
+  .dp-empty{padding:40px 22px;text-align:center;color:var(--muted);font-weight:500;font-size:13px}
+
+  /* red zone */
+  .rz{padding:8px 0 6px}
+  .rzr{display:flex;align-items:center;gap:11px;padding:11px 20px;border-top:1px solid var(--cream-deep);cursor:pointer;transition:background .14s}
+  .rzr:first-child{border-top:none}.rzr:hover{background:var(--cream)}
+  .rzr .d{width:8px;height:8px;border-radius:50%;flex:none}.rzr.red .d{background:var(--bad)}.rzr.yellow .d{background:var(--amber)}
+  .rzr .bd{flex:1;min-width:0}
+  .rzr .t{font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rzr .s{font-size:11px;color:var(--muted);font-weight:500;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rzr .sum{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:16px;color:var(--bad);flex:none}
+
+  .note{font-size:12px;color:var(--muted-soft);text-align:center;margin-top:28px;line-height:1.7}
+  .note a{color:var(--teal-600);font-weight:600}.note b{color:var(--muted)}
+
+  @media(max-width:1180px){.kpis{grid-template-columns:repeat(3,1fr)}.layout{grid-template-columns:1fr}.col-right{position:static}.pipe{grid-template-columns:repeat(5,1fr)}}
+  @media(max-width:760px){.pipe{grid-template-columns:1fr 1fr}.pst .arr{display:none}}
+  @media(max-width:720px){
+    :root{--sidebar-w:62px}
+    aside.nav{padding:16px 0 14px}.brand-mark{width:38px;height:38px;font-size:20px;margin-bottom:14px}
+    .rail a{width:50px}.rail a .nav-lbl{display:none}.rail a .ic{width:22px;height:22px}
+    main{padding:20px 14px 44px}
+    .kpis{grid-template-columns:1fr 1fr}
+    .doc{grid-template-columns:24px 1.4fr auto 26px;gap:10px}.doc .pty,.doc .stg{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <aside class="nav" aria-label="Главное меню ATLAS">
+    <div class="brand-mark" title="ATAMŪRA GROUP" aria-hidden="true">Ā</div>
+    <nav class="rail" aria-label="Модули ATLAS">
+      <a href="index.html" title="Вход"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg><span class="nav-lbl">Вход</span></a>
+      <a href="dashboard.html" title="Командный центр"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg><span class="nav-lbl">Центр</span></a>
+      <a href="portfolio.html" title="Портфель"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg><span class="nav-lbl">Портфель</span></a>
+      <a href="gpr.html" title="ГПР"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg><span class="nav-lbl">ГПР</span></a>
+      <a href="atlas_supply_roles_brand.html" title="Снабжение"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg><span class="nav-lbl">Снабж.</span></a>
+      <a href="league.html" title="Лига"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg><span class="nav-lbl">Лига</span></a>
+      <a href="docs.html" class="active" aria-current="page" title="Документы"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></svg><span class="nav-lbl">Документы</span></a>
+    </nav>
+    <div class="rail-bottom"><div class="nav-avatar" title="Профиль" aria-label="Профиль">ПТО</div></div>
+  </aside>
+
+  <main>
+    <header class="hdr">
+      <div class="hl">
+        <span class="eyebrow">ATLAS · закрывающие документы</span>
+        <h1>Закрывающие документы</h1>
+        <div class="preset" id="preset" role="group" aria-label="Роль">
+          <button class="on" data-p="all" onclick="setPreset(this)">Все</button>
+          <button data-p="intake" onclick="setPreset(this)">ПТО · приёмка</button>
+          <button data-p="dir" onclick="setPreset(this)">Дир по стройке</button>
+          <button data-p="findir" onclick="setPreset(this)">Финдир</button>
+        </div>
+      </div>
+      <div class="top-meta">
+        <div class="stamp-chip" title="Дата среза"><span class="dot" aria-hidden="true"></span><span><span class="t">срез на</span><br><span class="v tnum" id="stamp">28.05.2026</span></span></div>
+        <div class="id-chip">Конвейер<small>Рэмбо → Шерлок → Баффетт</small></div>
+      </div>
+    </header>
+
+    <!-- KPI -->
+    <div class="kpis" id="kpis"></div>
+
+    <!-- PIPELINE -->
+    <div class="lbl">Конвейер закрывающих документов <span class="n">Рэмбо принял → Шерлок проверил → дир и финдир согласовали → Баффетт к оплате</span></div>
+    <div class="pipe" id="pipe"></div>
+
+    <!-- LAYOUT -->
+    <div class="layout">
+      <div class="col-left">
+        <div class="lbl">Реестр документов <span class="n" id="regnote">все подрядчики и поставщики</span></div>
+        <div class="filters" id="filters"></div>
+        <div class="card reg" id="reg"></div>
+      </div>
+      <aside class="col-right">
+        <div class="lbl" style="margin-top:0">Карточка документа</div>
+        <div class="card dp" id="detail"><div class="dp-empty">Выберите документ в реестре, чтобы увидеть распознанные поля, проверки Шерлока и цепочку согласования.</div></div>
+        <div class="lbl">Красная зона СБ <span class="n" id="rznote"></span></div>
+        <div class="card rz" id="redzone"></div>
+      </aside>
+    </div>
+
+    <div class="note">Закрывающие документы · единый реестр КС-2/КС-3/АВР по подрядчикам и поставщикам — зеркало конвейера <b>Рэмбо → ПТО → Шерлок → дир/финдир → Баффетт</b>. Приёмка и согласование выполняются в ботах. <b>Данные условные, имена вымышленные; суммы демонстрационные.</b> · <a href="pto.html">ПТО</a> · <a href="finance.html">Финансы</a> · <a href="dashboard.html">Командный центр</a> · <a href="index.html">← Все экраны</a></div>
+  </main>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const fmt=n=>n.toLocaleString('ru');
+const STAGES=[
+  {k:'intake',n:'Приёмка ПТО',cls:'intake'},
+  {k:'check',n:'Проверка СБ',cls:'check'},
+  {k:'dir',n:'Дир по стройке',cls:'dir'},
+  {k:'findir',n:'Финдир',cls:'findir'},
+  {k:'pay',n:'К оплате',cls:'pay'},
+];
+const STAGE_NAME={intake:'Приёмка ПТО',check:'Проверка Шерлока',dir:'Дир по стройке',findir:'Финдир',pay:'К оплате (Баффетт)',paid:'Оплачено'};
+
+// ===== ДЕМО-ДАННЫЕ (условные; форма реального конвейера Рэмбо→Шерлок→Баффетт) =====
+const DOCS=[
+  {id:'АВР-АТМ-014',type:'АВР',date:'27.05',party:'ТОО «ОктоПроф»',kind:'con',obj:'Атмосфера',work:'Металлоконструкции · перила',amount:4820000,barter:0,stage:'check',verdict:'red',bot:'sherlock',
+   flags:[{c:'RC1',sev:'red',t:'Контрагент в реестре adata — статус «ликвидация»'},{c:'R5',sev:'red',t:'Не приложен договор подряда'}],
+   chain:[{r:'Рэмбо',a:'Документ распознан и принят в ПТО',m:'27.05 09:14',s:'done'},{r:'Шерлок',a:'🔴 Проверка СБ — 2 стопа',m:'27.05 09:15',s:'cur'}]},
+  {id:'КС-2-КЕР-031',type:'КС-2',date:'26.05',party:'ИП Сатыбалдиев Н.',kind:'con',obj:'Керуен',work:'Отделка · 1 очередь',amount:7350000,barter:0,stage:'findir',verdict:'yellow',bot:'sherlock',
+   flags:[{c:'S2',sev:'yellow',t:'Похоже на дробление: 3-й акт того же объёма за 30 дней'},{c:'НДС',sev:'green',t:'НДС 16% — ставка корректна'}],
+   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'26.05 11:02',s:'done'},{r:'Шерлок',a:'🟡 1 сигнал — на согласование',m:'26.05 11:03',s:'done'},{r:'Дир по стройке',a:'Согласовал (Б. Нурлан)',m:'26.05 15:40',s:'done'},{r:'Финдир',a:'Ожидает согласования',m:'—',s:'cur'}]},
+  {id:'АВР-АУР-008',type:'АВР',date:'26.05',party:'ТОО «СтройМонолит KZ»',kind:'con',obj:'Аура',work:'Монолит · блок 4',amount:12900000,barter:0,stage:'pay',verdict:'green',bot:'buffett',
+   flags:[{c:'R1',sev:'green',t:'Суммы сходятся: субитог + НДС + удержание'},{c:'Док',sev:'green',t:'Договор, счёт, АВР приложены'}],
+   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'25.05 10:20',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'25.05 10:21',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'25.05 12:10',s:'done'},{r:'Финдир',a:'Согласовал (А. Айгуль)',m:'25.05 17:30',s:'done'},{r:'Баффетт',a:'В реестре к оплате',m:'26.05 09:00',s:'cur'}]},
+  {id:'СЧ-АТМ-220',type:'счёт',date:'27.05',party:'ТОО «Цемент Снаб»',kind:'sup',obj:'Атмосфера',work:'Поставка · цемент М500',amount:3150000,barter:0,stage:'check',verdict:'yellow',bot:'sherlock',
+   flags:[{c:'S1',sev:'yellow',t:'Новый поставщик: <2 заявок за 6 мес'},{c:'RC0',sev:'yellow',t:'Не найден в реестре adata'}],
+   chain:[{r:'Рэмбо',a:'Счёт принят в ПТО',m:'27.05 08:40',s:'done'},{r:'Шерлок',a:'🟡 2 сигнала — на согласование',m:'27.05 08:41',s:'cur'}]},
+  {id:'КС-3-КЕР-019',type:'КС-3',date:'25.05',party:'ТОО «ФасадПро»',kind:'con',obj:'Керуен',work:'Фасад · витражи',amount:9870000,barter:0,stage:'paid',verdict:'green',bot:'buffett',
+   flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}],
+   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'22.05',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'22.05',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'22.05',s:'done'},{r:'Финдир',a:'Согласовал',m:'23.05',s:'done'},{r:'Баффетт',a:'Оплачено',m:'24.05',s:'done'}]},
+  {id:'АВР-АУР-009',type:'АВР',date:'27.05',party:'ИП Дюсенов А.',kind:'con',obj:'Аура',work:'Электромонтаж · 2 очередь',amount:5640000,barter:0,stage:'intake',verdict:null,bot:'rambo',
+   flags:[],
+   chain:[{r:'Рэмбо',a:'Документ распознан, ждёт приёмки ПТО',m:'27.05 16:05',s:'cur'}]},
+  {id:'КС-2-АТМ-027',type:'КС-2',date:'24.05',party:'ТОО «АлматыИнжиниринг»',kind:'con',obj:'Атмосфера',work:'Инженерные сети',amount:1,barter:0,stage:'check',verdict:'red',bot:'sherlock',
+   flags:[{c:'R7',sev:'red',t:'Абсурдная сумма: 1 ₸ — ошибка ввода/документа'}],
+   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'24.05 13:10',s:'done'},{r:'Шерлок',a:'🔴 Стоп — абсурдная сумма',m:'24.05 13:11',s:'cur'}]},
+  {id:'АВР-КЕР-022',type:'АВР',date:'25.05',party:'ТОО «КровляСервис»',kind:'con',obj:'Керуен',work:'Кровля · гидроизоляция',amount:6730000,barter:0,stage:'dir',verdict:'yellow',bot:'sherlock',
+   flags:[{c:'S3',sev:'yellow',t:'Спешка: создан и подан < 24 ч'}],
+   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'25.05 09:30',s:'done'},{r:'Шерлок',a:'🟡 1 сигнал',m:'25.05 09:31',s:'done'},{r:'Дир по стройке',a:'Ожидает согласования',m:'—',s:'cur'}]},
+  {id:'СЧ-АУР-118',type:'счёт',date:'26.05',party:'ТОО «МеталлТорг Астана»',kind:'sup',obj:'Аура',work:'Поставка · арматура А500С',amount:8420000,barter:0,stage:'pay',verdict:'green',bot:'buffett',
+   flags:[{c:'R1',sev:'green',t:'Суммы и НДС сходятся'}],
+   chain:[{r:'Рэмбо',a:'Счёт принят',m:'24.05',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'24.05',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'25.05',s:'done'},{r:'Финдир',a:'Согласовал',m:'25.05',s:'done'},{r:'Баффетт',a:'В реестре к оплате',m:'26.05',s:'cur'}]},
+  {id:'КС-2-АТМ-028',type:'КС-2',date:'27.05',party:'ИП Кенжебаев Е.',kind:'con',obj:'Атмосфера',work:'Благоустройство · бордюры',amount:2380000,barter:0,stage:'intake',verdict:null,bot:'rambo',flags:[],
+   chain:[{r:'Рэмбо',a:'Распознан, ждёт приёмки ПТО',m:'27.05 17:22',s:'cur'}]},
+  {id:'АВР-АУР-010',type:'АВР',date:'25.05',party:'ТОО «СтройМонолит KZ»',kind:'con',obj:'Аура',work:'Монолит · блок 3',amount:11200000,barter:3200000,stage:'findir',verdict:'green',bot:'sherlock',
+   flags:[{c:'R1',sev:'green',t:'Суммы сходятся'},{c:'Бартер',sev:'green',t:'Часть оплаты — бартер (квартиры) → счёт «Бартер»'}],
+   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'25.05 10:00',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'25.05 10:01',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'25.05 14:00',s:'done'},{r:'Финдир',a:'Ожидает согласования',m:'—',s:'cur'}]},
+  {id:'КС-3-КЕР-020',type:'КС-3',date:'23.05',party:'ИП Сатыбалдиев Н.',kind:'con',obj:'Керуен',work:'Отделка · 1 очередь (этап 2)',amount:4100000,barter:0,stage:'paid',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'},{c:'R2',sev:'green',t:'Не дубль: другой этап того же договора (≠ КС-3-КЕР-019)'}],
+   chain:[{r:'Рэмбо',a:'Принят',m:'20.05',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'20.05',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'21.05',s:'done'},{r:'Финдир',a:'Согласовал',m:'21.05',s:'done'},{r:'Баффетт',a:'Оплачено',m:'22.05',s:'done'}]},
+  {id:'СЧ-КЕР-077',type:'счёт',date:'27.05',party:'ТОО «ЭлектроКомплект»',kind:'sup',obj:'Керуен',work:'Поставка · кабель ВВГ',amount:5910000,barter:0,stage:'check',verdict:'yellow',bot:'sherlock',
+   flags:[{c:'S8',sev:'yellow',t:'Серия: 3 счёта ±5% за 14 дней'}],
+   chain:[{r:'Рэмбо',a:'Счёт принят',m:'27.05 10:10',s:'done'},{r:'Шерлок',a:'🟡 1 сигнал',m:'27.05 10:11',s:'cur'}]},
+  {id:'АВР-АКС-004',type:'АВР',date:'26.05',party:'ТОО «ФасадПро»',kind:'con',obj:'Аксай резорт',work:'Фасад · штукатурка',amount:3680000,barter:0,stage:'dir',verdict:'green',bot:'sherlock',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}],
+   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'26.05 12:00',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'26.05 12:01',s:'done'},{r:'Дир по стройке',a:'Ожидает согласования',m:'—',s:'cur'}]},
+  {id:'АВР-АТМ-015',type:'АВР',date:'27.05',party:'ТОО «ОктоПрофф»',kind:'con',obj:'Атмосфера',work:'Металлоконструкции · козырьки',amount:2940000,barter:0,stage:'check',verdict:'red',bot:'sherlock',
+   flags:[{c:'RC1·S6',sev:'red',t:'Возможен обход блокировки: имя ≈ ликвидированный контрагент ТОО «ОктоПроф» (АВР-АТМ-014)'}],
+   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'27.05 11:40',s:'done'},{r:'Шерлок',a:'🟡 1 сигнал',m:'27.05 11:41',s:'cur'}]},
+  {id:'КС-2-АУР-012',type:'КС-2',date:'24.05',party:'ИП Дюсенов А.',kind:'con',obj:'Аура',work:'Электромонтаж · 1 очередь',amount:6280000,barter:0,stage:'paid',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}],
+   chain:[{r:'Рэмбо',a:'Принят',m:'19.05',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'19.05',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'20.05',s:'done'},{r:'Финдир',a:'Согласовал',m:'20.05',s:'done'},{r:'Баффетт',a:'Оплачено',m:'21.05',s:'done'}]},
+  {id:'СЧ-АТМ-221',type:'счёт',date:'25.05',party:'ТОО «БетонБаза»',kind:'sup',obj:'Атмосфера',work:'Поставка · товарный бетон',amount:4470000,barter:0,stage:'pay',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}],
+   chain:[{r:'Рэмбо',a:'Счёт принят',m:'23.05',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'23.05',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'24.05',s:'done'},{r:'Финдир',a:'Согласовал',m:'24.05',s:'done'},{r:'Баффетт',a:'В реестре к оплате',m:'25.05',s:'cur'}]},
+  {id:'АВР-КЕР-023',type:'АВР',date:'22.05',party:'ТОО «КровляСервис»',kind:'con',obj:'Керуен',work:'Кровля · 2 секция',amount:3920000,barter:0,stage:'paid',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}],
+   chain:[{r:'Рэмбо',a:'Принят',m:'18.05',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'18.05',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'19.05',s:'done'},{r:'Финдир',a:'Согласовал',m:'19.05',s:'done'},{r:'Баффетт',a:'Оплачено',m:'20.05',s:'done'}]},
+  {id:'КС-2-АКС-005',type:'КС-2',date:'27.05',party:'ИП Кенжебаев Е.',kind:'con',obj:'Аксай резорт',work:'Благоустройство · озеленение',amount:1980000,barter:0,stage:'intake',verdict:null,bot:'rambo',flags:[],
+   chain:[{r:'Рэмбо',a:'Распознан, ждёт приёмки ПТО',m:'27.05 18:01',s:'cur'}]},
+  {id:'СЧ-АУР-119',type:'счёт',date:'26.05',party:'ТОО «Сантех Опт»',kind:'sup',obj:'Аура',work:'Поставка · трубы ПП',amount:2760000,barter:0,stage:'dir',verdict:'green',bot:'sherlock',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}],
+   chain:[{r:'Рэмбо',a:'Счёт принят',m:'26.05 09:50',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'26.05 09:51',s:'done'},{r:'Дир по стройке',a:'Ожидает согласования',m:'—',s:'cur'}]},
+  {id:'АВР-АТМ-013',type:'АВР',date:'24.05',party:'ТОО «АлматыИнжиниринг»',kind:'con',obj:'Атмосфера',work:'Инженерные сети · водопровод',amount:8150000,barter:0,stage:'findir',verdict:'green',bot:'sherlock',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}],
+   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'24.05 10:30',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'24.05 10:31',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'24.05 16:00',s:'done'},{r:'Финдир',a:'Ожидает согласования',m:'—',s:'cur'}]},
+  {id:'КС-2-КЕР-032',type:'КС-2',date:'23.05',party:'ТОО «СтройМонолит KZ»',kind:'con',obj:'Керуен',work:'Монолит · блок 2',amount:13400000,barter:4100000,stage:'paid',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'},{c:'Бартер',sev:'green',t:'Часть — бартер → счёт «Бартер»'}],
+   chain:[{r:'Рэмбо',a:'Принят',m:'19.05',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'19.05',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'20.05',s:'done'},{r:'Финдир',a:'Согласовал',m:'20.05',s:'done'},{r:'Баффетт',a:'Оплачено',m:'21.05',s:'done'}]},
+];
+
+let preset='all', fStage=null, fKind=null, selId=null;
+
+function visible(){
+  return DOCS.filter(d=>{
+    if(preset==='intake' && d.stage!=='intake') return false;
+    if(preset==='dir' && d.stage!=='dir') return false;
+    if(preset==='findir' && d.stage!=='findir') return false;
+    if(fStage && d.stage!==fStage) return false;
+    if(fKind && d.kind!==fKind) return false;
+    return true;
+  });
+}
+
+function renderKPI(){
+  const c=k=>DOCS.filter(d=>d.stage===k).length;
+  const toPay=DOCS.filter(d=>['check','dir','findir','pay'].includes(d.stage) && d.verdict!=='red').reduce((a,d)=>a+d.amount,0);
+  const red=DOCS.filter(d=>d.verdict==='red').length, yel=DOCS.filter(d=>d.verdict==='yellow').length;
+  const kpi=[
+    {v:c('intake'),k:'в приёмке',sub:'ждут ПТО'},
+    {v:c('check'),k:'проверка СБ',sub:'Шерлок'},
+    {v:c('dir')+c('findir'),k:'на согласовании',sub:'дир + финдир'},
+    {v:c('pay'),k:'к оплате',sub:'реестр Баффетта'},
+    {v:'₸'+(toPay/1e6).toFixed(1)+'<small> млн</small>',k:'сумма к оплате',sub:'не оплачено',gold:true},
+    {v:red+yel,k:'красная зона',sub:red+' 🔴 · '+yel+' 🟡',alarm:true},
+  ];
+  $('kpis').innerHTML=kpi.map(t=>`<div class="kpi${t.alarm?' alarm':''}${t.gold?' gold':''}"><div class="v tnum">${t.v}</div><div class="k">${t.k}</div><div class="sub">${t.sub}</div></div>`).join('');
+}
+
+const SVG={
+  inbox:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',
+  shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+  hard:'<path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1z"/><path d="M10 10V6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4"/><path d="M4 15v-3a6 6 0 0 1 6-6"/><path d="M14 6a6 6 0 0 1 6 6v3"/>',
+  wallet:'<path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2"/>',
+  bank:'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>',
+  check:'<polyline points="20 6 9 17 4 12"/>', warn:'<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+  x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>', dot:'<circle cx="12" cy="12" r="4"/>',
+  bot:'<rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/>'
+};
+const STAGE_ICON={intake:SVG.inbox,check:SVG.shield,dir:SVG.hard,findir:SVG.bank,pay:SVG.wallet};
+
+function renderPipe(){
+  $('pipe').innerHTML=STAGES.map(s=>{
+    const items=DOCS.filter(d=>d.stage===s.k);
+    const sum=items.reduce((a,d)=>a+d.amount,0);
+    const on=fStage===s.k?' on':'';
+    return `<div class="pst ${s.cls}${on}" onclick="setStage('${s.k}')"><div class="pi">${svg(STAGE_ICON[s.k])}</div><div class="pn">${s.n}</div><div class="pc tnum">${items.length}</div><div class="psum">${sum?'₸'+(sum/1e6).toFixed(1)+' млн':'—'}</div><span class="arr">›</span></div>`;
+  }).join('');
+}
+function svg(p){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;}
+
+function renderFilters(){
+  const f=(active,label,fn)=>`<button class="${active?'on':''}" onclick="${fn}">${label}</button>`;
+  $('filters').innerHTML=
+    f(!fKind,'Все контрагенты','setKind(null)')+
+    f(fKind==='con','Подрядчики','setKind(\'con\')')+
+    f(fKind==='sup','Поставщики','setKind(\'sup\')')+
+    f(!fStage,'Все этапы','setStage(null,true)');
+}
+
+function vdIcon(v){const m={green:SVG.check,yellow:SVG.warn,red:SVG.x,null:SVG.dot};return svg(m[v]||SVG.dot);}
+function vdCls(v){return v||'none';}
+
+function renderReg(){
+  const list=visible();
+  $('regnote').textContent=list.length+' документов'+(fKind==='con'?' · подрядчики':fKind==='sup'?' · поставщики':'');
+  if(!list.length){$('reg').innerHTML='<div class="dp-empty">Нет документов под фильтр.</div>';return;}
+  $('reg').innerHTML=list.map(d=>{
+    const bt=d.barter?`<div class="bt">+ бартер ₸${(d.barter/1e6).toFixed(1)} млн</div>`:'';
+    return `<div class="doc${selId===d.id?' sel':''}" onclick="sel('${d.id}')">
+      <span class="vd ${vdCls(d.verdict)}">${vdIcon(d.verdict)}</span>
+      <div class="dt"><div class="t">${d.type} · ${d.id}</div><div class="s">${d.obj} · ${d.work}</div></div>
+      <div class="pty"><div class="nm">${d.party}</div><span class="kind ${d.kind}">${d.kind==='con'?'подрядчик':'поставщик'}</span></div>
+      <div class="amt"><b>₸${fmt(d.amount)}</b>${bt}</div>
+      <div class="stg ${d.stage}">${STAGE_NAME[d.stage]}</div>
+      <span class="go">›</span>
+    </div>`;
+  }).join('');
+}
+
+function renderDetail(){
+  const d=DOCS.find(x=>x.id===selId);
+  if(!d){$('detail').innerHTML='<div class="dp-empty">Выберите документ в реестре, чтобы увидеть распознанные поля, проверки Шерлока и цепочку согласования.</div>';return;}
+  const flags=d.flags.length?d.flags.map(f=>`<div class="flag ${f.sev}"><span class="fc">${f.c}</span><span class="ft">${f.t}</span></div>`).join(''):'<div class="flag green"><span class="fc">—</span><span class="ft">Проверка ещё не запускалась (документ в приёмке ПТО).</span></div>';
+  const chain=d.chain.map(c=>`<li class="${c.s}"><div class="ca">${c.r} — ${c.a}</div><div class="cm">${c.m}</div></li>`).join('');
+  const isBot=(d.bot==='rambo'||d.bot==='sherlock');
+  const botName=d.bot==='rambo'?'@rambo_murabot':d.bot==='sherlock'?'@sherlok_murabot':'Баффетт · реестр платежей';
+  const botLabel=(isBot?'Открыть в боте · ':'Открыть · ')+botName;
+  const bt=d.barter?` <small>+ бартер ₸${fmt(d.barter)}</small>`:'';
+  $('detail').innerHTML=`
+    <div class="dp-top">
+      <div class="lab">${d.type} · ${STAGE_NAME[d.stage]}</div>
+      <h3>${d.id}</h3>
+      <div class="meta">${d.party} · ${d.obj}</div>
+      <div class="amt">₸${fmt(d.amount)}${bt}</div>
+    </div>
+    <div class="dp-body">
+      <div class="dp-sec">Распознанные поля</div>
+      <div class="dp-fields">
+        <div class="f"><div class="fl">Контрагент</div><div class="fv">${d.party} · ${d.kind==='con'?'подрядчик':'поставщик'}</div></div>
+        <div class="f"><div class="fl">Объект</div><div class="fv">${d.obj}</div></div>
+        <div class="f"><div class="fl">Работа / поставка</div><div class="fv">${d.work}</div></div>
+        <div class="f"><div class="fl">Дата документа</div><div class="fv">${d.date}.2026</div></div>
+      </div>
+      <div class="dp-sec">Проверка Шерлока</div>
+      ${flags}
+      <div class="dp-sec" style="margin-top:16px">Цепочка согласования</div>
+      <ul class="chain">${chain}</ul>
+      <a class="botlink" href="#" onclick="return false;">${svg(SVG.bot)} ${botLabel}</a>
+    </div>`;
+}
+
+function renderRedzone(){
+  const list=DOCS.filter(d=>d.verdict==='red'||d.verdict==='yellow').sort((a,b)=>(a.verdict==='red'?0:1)-(b.verdict==='red'?0:1));
+  $('rznote').textContent=list.length+' на проверке';
+  $('redzone').innerHTML=list.map(d=>`<div class="rzr ${d.verdict}" onclick="sel('${d.id}')">
+    <span class="d"></span>
+    <div class="bd"><div class="t">${d.id} · ${d.party}</div><div class="s">${d.flags[0]?d.flags[0].t:''}</div></div>
+    <span class="sum">₸${(d.amount/1e6).toFixed(1)}м</span>
+  </div>`).join('')||'<div class="dp-empty">Красных флагов нет 🎉</div>';
+}
+
+function renderAll(){renderKPI();renderPipe();renderFilters();renderReg();renderDetail();renderRedzone();}
+function sel(id){selId=(selId===id?null:id);renderReg();renderDetail();}
+function setPreset(btn){document.querySelectorAll('#preset button').forEach(b=>b.classList.toggle('on',b===btn));preset=btn.dataset.p;fStage=null;renderAll();}
+function setStage(k,clear){fStage=(clear||fStage===k)?null:k;renderPipe();renderFilters();renderReg();}
+function setKind(k){fKind=k;renderFilters();renderReg();}
+
+// preselect the first red-flagged doc so the detail panel is populated
+selId=(DOCS.find(d=>d.verdict==='red')||DOCS[0]).id;
+renderAll();
+</script>
+</body>
+</html>
