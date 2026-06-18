@@ -6,37 +6,96 @@
 <title>ATLAS · Флэш — мокап интерфейса</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bp:#102536; --bp2:#17324c; --line:rgba(170,160,140,.16);
-  --teal:#1b9c95; --gold:#CFB372; --ink:#0e2233;
+  --navy:#284157; --navy-700:#1d3142; --navy-d:#1d3142; --navy-900:#15242f;
+  --teal:#007484; --teal-600:#00606e; --teal-tint:#e2eef0;
+  --gold:#CFB372; --gold-deep:#b7995a; --gold-soft:#f0e6cf; --gold-ink:#8a6d2f;
+  --cream:#F7F5EE; --cream-deep:#efece1; --paper:#fffefb;
+  --ink:#23303a; --muted:#5f6b75; --muted-soft:#8b96a0;
+  --good:#1f7a4d; --good-soft:#e6f0ea;
+  --line:#e6e2d6; --line-strong:#d8d3c4;
+  --shadow-sm:0 1px 2px rgba(21,36,47,.04), 0 1px 3px rgba(21,36,47,.05);
+  --shadow-md:0 2px 4px rgba(21,36,47,.04), 0 8px 24px rgba(21,36,47,.07);
+  --shadow-lg:0 4px 8px rgba(21,36,47,.05), 0 20px 48px rgba(21,36,47,.12);
+  --shadow-navy:0 12px 36px rgba(40,65,87,.28);
+  --shadow-gold:0 10px 30px rgba(183,153,90,.30);
+  --r-sm:10px; --r-md:16px; --r-lg:22px; --sidebar-w:84px; --ease:cubic-bezier(.22,.61,.36,1);
+  /* legacy aliases → new palette */
+  --bg:var(--cream); --card:var(--paper); --mut:var(--muted); --faint:var(--muted-soft); --line2:var(--cream-deep);
+  --accent:var(--teal); --accent-d:var(--teal-600); --accent-soft:var(--teal-tint); --gold-d:var(--gold-ink);
+  --green:var(--good); --green-bg:var(--good-soft);
+  --red:#b5482e; --red-d:#8f3a25; --red-bg:#f6e6e0; --amber:#c2862a; --amber-bg:#f6ecd6;
+  --shadow:var(--shadow-md);
+  /* screen-specific (Флэш mockup): navy plate behind phones + realistic Telegram chrome inside the phone screens */
+  --bp:var(--navy-900); --bp2:var(--navy-700);
+  --amber-ink:#8a5e1e;
   --tg-bg:#cfd8e0; --tg-bot:#ffffff; --tg-me:#e4fece; --tg-blue:#3390ec; --tg-gray:#707991;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:'Jost','Futura PT','Futura',-apple-system,sans-serif;
-  background:var(--bp);
-  color:#e7eef3;
-  background-image:
-    linear-gradient(var(--line) 1px,transparent 1px),
-    linear-gradient(90deg,var(--line) 1px,transparent 1px),
-    radial-gradient(circle at 18% 12%, rgba(25,179,176,.10), transparent 45%),
-    radial-gradient(circle at 85% 80%, rgba(224,169,63,.08), transparent 40%);
-  background-size:34px 34px,34px 34px,100% 100%,100% 100%;
-  -webkit-font-smoothing:antialiased;
+html{color-scheme:light}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;color:var(--ink);background-color:var(--cream);
+  background-image:radial-gradient(1200px 600px at 8% -5%, rgba(0,116,132,.06), transparent 60%),radial-gradient(900px 500px at 105% 0%, rgba(207,179,114,.10), transparent 55%),radial-gradient(1000px 700px at 50% 120%, rgba(40,65,87,.05), transparent 60%);
+  background-attachment:fixed;min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.4;-webkit-tap-highlight-color:transparent;font-feature-settings:"ss03","cv11"}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;color:var(--navy);line-height:1.08;letter-spacing:.01em}
+
+/* ===== shell + rail + header (design system) ===== */
+.shell{position:relative;z-index:1;display:flex;min-height:100vh}
+aside.nav{position:sticky;top:0;height:100vh;width:var(--sidebar-w);flex-shrink:0;background:linear-gradient(180deg,var(--navy) 0%, var(--navy-900) 100%);display:flex;flex-direction:column;align-items:center;padding:22px 0 18px;gap:6px;z-index:30;box-shadow:var(--shadow-navy)}
+.brand-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(150deg,var(--gold),var(--gold-deep));display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;color:var(--navy-900);box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px}
+nav.rail{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;flex:1}
+.rail a{position:relative;width:60px;padding:11px 0 9px;border-radius:15px;display:flex;flex-direction:column;align-items:center;gap:5px;color:rgba(231,238,242,.62);transition:all .28s var(--ease)}
+.rail a .ic{width:23px;height:23px;display:block;transition:transform .28s var(--ease)}
+.rail a .nav-lbl{font-size:9.5px;font-weight:500;letter-spacing:.02em;line-height:1;text-align:center;white-space:nowrap}
+.rail a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.rail a:hover .ic{transform:translateY(-2px) scale(1.06)}
+.rail a.active{color:var(--navy-900);background:linear-gradient(150deg,#fff,#f3efe2)}
+.rail a.active::before{content:"";position:absolute;left:-16px;top:50%;transform:translateY(-50%);width:5px;height:30px;border-radius:0 5px 5px 0;background:var(--gold);box-shadow:0 0 14px rgba(207,179,114,.7)}
+.rail-bottom{display:flex;flex-direction:column;align-items:center;padding-top:8px;border-top:1px solid rgba(255,255,255,.09)}
+.nav-avatar{width:42px;height:42px;border-radius:13px;margin-top:4px;background:linear-gradient(150deg,var(--teal),var(--teal-600));display:grid;place-items:center;color:#fff;font-weight:600;font-size:15px;border:2px solid rgba(255,255,255,.25);box-shadow:0 4px 10px rgba(0,0,0,.25)}
+main{flex:1;min-width:0;padding:24px clamp(16px,2.4vw,40px) 48px;max-width:1900px;margin:0 auto;width:100%}
+.hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:4px}
+.hdr .hl{display:flex;flex-direction:column;align-items:flex-start}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.eyebrow::before{content:"";width:24px;height:1.5px;background:var(--teal);opacity:.6}
+.hdr h1{font-size:clamp(28px,3.2vw,40px);margin:7px 0 0}
+.hdr .obsbadge{margin-top:11px;font-size:11px;font-weight:600;border-radius:999px;padding:6px 13px;background:var(--gold-soft);color:var(--gold-ink);border:1px solid #e7d4a6;white-space:normal;line-height:1.3;max-width:340px}
+.top-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:4px}
+.stamp-chip{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:9px 15px;box-shadow:var(--shadow-sm)}
+.stamp-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none;animation:pulse-dot 2.4s infinite}
+@keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(0,116,132,.45)}70%{box-shadow:0 0 0 8px rgba(0,116,132,0)}100%{box-shadow:0 0 0 0 rgba(0,116,132,0)}}
+.stamp-chip .t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.stamp-chip .v{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
+.id-chip{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:7px 9px 7px 15px;box-shadow:var(--shadow-sm)}
+.id-chip .who{text-align:right;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--navy);line-height:1.1}
+.id-chip .who small{display:block;font-family:'Jost',sans-serif;font-size:10.5px;color:var(--muted);font-weight:500;margin-top:1px}
+.id-chip .av{width:38px;height:38px;border-radius:11px;background:linear-gradient(150deg,var(--teal),var(--teal-600));color:#fff;display:grid;place-items:center;font-weight:600;font-size:14px;flex:none}
+@media(max-width:720px){
+  :root{--sidebar-w:62px}
+  aside.nav{padding:16px 0 14px}
+  .brand-mark{width:38px;height:38px;font-size:20px;margin-bottom:14px}
+  .rail a{width:50px}.rail a .nav-lbl{display:none}.rail a .ic{width:22px;height:22px}
+  main{padding:18px 14px 40px}
 }
-.wrap{max-width:1340px;margin:0 auto;padding:40px 26px 70px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.tnum{font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:12px}
+
+/* ===== wrap на весь экран ===== */
+.wrap{width:100%}
 
 /* header */
 header.top{margin-bottom:14px}
 .kicker{font-family:'Jost','Futura PT',sans-serif;font-size:12px;letter-spacing:.32em;color:var(--teal);text-transform:uppercase;display:flex;align-items:center;gap:10px}
 .kicker::before{content:"";width:34px;height:1px;background:var(--teal)}
-h1{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:clamp(32px,5vw,56px);line-height:1.04;letter-spacing:.01em;margin:14px 0 6px;color:#fff}
+h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:clamp(32px,5vw,56px);line-height:1.04;letter-spacing:.01em;margin:14px 0 6px;color:var(--navy)}
 h1 .g{color:var(--gold)}
-.lead{font-size:16px;max-width:680px;color:#9fb6c6;line-height:1.5}
+.lead{font-size:16px;max-width:680px;color:var(--muted);line-height:1.5}
 .flowbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;font-family:'Jost','Futura PT',sans-serif;font-size:12.5px}
-.flowbar .node{padding:7px 13px;border:1px solid var(--line);border-radius:30px;background:rgba(255,255,255,.03);color:#bcd2e0}
+.flowbar .node{padding:7px 13px;border:1px solid var(--line);border-radius:30px;background:var(--paper);color:var(--muted)}
 .flowbar .node b{color:var(--gold)}
 .flowbar .arr{color:var(--teal);align-self:center}
 .obs{margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-family:'Jost','Futura PT',sans-serif;font-size:11.5px;color:#0e2233;background:var(--gold);padding:6px 12px;border-radius:6px;font-weight:700}
@@ -46,8 +105,8 @@ h1 .g{color:var(--gold)}
 .scene{position:relative}
 .tag{font-family:'Jost','Futura PT',sans-serif;font-size:11.5px;color:var(--teal);letter-spacing:.05em;margin-bottom:6px;display:flex;gap:8px;align-items:baseline}
 .tag .num{color:var(--gold);font-weight:700}
-.cap{font-family:'Jost','Futura PT',sans-serif;font-size:12px;color:#8ea7b8;line-height:1.5;margin-bottom:14px;min-height:34px}
-.cap b{color:#dbe9f1}
+.cap{font-family:'Jost','Futura PT',sans-serif;font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:14px;min-height:34px}
+.cap b{color:var(--ink)}
 
 /* phone */
 .phone{background:#0c0c0e;border-radius:34px;padding:9px;box-shadow:0 30px 60px -20px rgba(0,0,0,.7),0 0 0 1px rgba(120,190,210,.12),0 0 40px -12px rgba(25,179,176,.25);max-width:330px;margin:0 auto}
@@ -88,28 +147,52 @@ h1 .g{color:var(--gold)}
 .composer .ic{color:#7c8b96}
 
 /* footer */
-footer{margin-top:54px;border-top:1px solid var(--line);padding-top:20px;font-family:'Jost','Futura PT',sans-serif;font-size:11.5px;color:#7e98aa;line-height:1.6}
-footer b{color:#b9d0de}
+footer{margin-top:54px;border-top:1px solid var(--line);padding-top:20px;font-family:'Jost','Futura PT',sans-serif;font-size:11.5px;color:var(--muted);line-height:1.6}
+footer b{color:var(--ink)}
 .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .legend span{padding:4px 10px;border:1px solid var(--line);border-radius:20px}
 @media(max-width:700px){.flowbar{font-size:11px}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <div class="kicker">ATLAS · Фаза 1 · бот Флэш</div>
-    <h1>Как выглядит <span class="g">сбор факта ГПР</span><br>в Telegram</h1>
-    <p class="lead">Еженедельный контур: начальник участка отмечает факт по активным работам → руководитель проекта подтверждает → директор акцептует «красную зону». Экраны на данных ЖК «Аура», пятно 3. Имена условные.</p>
-    <div class="flowbar">
-      <span class="node"><b>ПН</b> Флэш → НУ: задание</span><span class="arr">→</span>
-      <span class="node">НУ вводит % + причина/фото</span><span class="arr">→</span>
-      <span class="node"><b>СР</b> РП ✓ / вернуть</span><span class="arr">→</span>
-      <span class="node"><b>ЧТ</b> директор: акцепт</span><span class="arr">→</span>
-      <span class="node">дашборд + показатели</span>
-    </div>
-    <div class="obs">● НАБЛЮДАТЕЛЬНЫЙ РЕЖИМ — на премии не влияет</div>
-  </header>
+<div class="shell">
+
+  <aside class="nav" aria-label="Главное меню ATLAS">
+    <div class="brand-mark" title="ATAMŪRA GROUP" aria-hidden="true">Ā</div>
+    <nav class="rail" aria-label="Модули ATLAS">
+      <a href="index.html" title="Вход"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg><span class="nav-lbl">Вход</span></a>
+      <a href="dashboard.html" title="Командный центр"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg><span class="nav-lbl">Центр</span></a>
+      <a href="portfolio.html" title="Портфель"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg><span class="nav-lbl">Портфель</span></a>
+      <a href="gpr.html" title="ГПР"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg><span class="nav-lbl">ГПР</span></a>
+      <a href="atlas_supply_roles_brand.html" title="Снабжение"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg><span class="nav-lbl">Снабж.</span></a>
+      <a href="league.html" title="Лига"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg><span class="nav-lbl">Лига</span></a>
+      <a href="docs.html" title="Документы"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></svg><span class="nav-lbl">Документы</span></a>
+    </nav>
+    <div class="rail-bottom"><div class="nav-avatar" title="Профиль" aria-label="Профиль">Фл</div></div>
+  </aside>
+
+  <main>
+    <header class="hdr">
+      <div class="hl">
+        <span class="eyebrow">ATLAS · Флэш</span>
+        <h1>Как выглядит <span class="g">сбор факта ГПР</span><br>в Telegram</h1>
+        <span class="obsbadge" title="Очки и грейд считаются, но на премию пока не влияют — деньги включатся в Фазе 2">● наблюдательный режим — на премии не влияет</span>
+      </div>
+      <div class="top-meta">
+        <div class="stamp-chip" title="Демо-данные мокапа"><span class="dot" aria-hidden="true"></span><span><span class="t">демо-данные</span><br><span class="v">ЖК «Аура» · П3</span></span></div>
+        <div class="id-chip"><div class="who">Флэш · ГПР<small>мокап интерфейса</small></div><div class="av">Фл</div></div>
+      </div>
+    </header>
+
+    <div class="wrap">
+  <p class="lead">Еженедельный контур: начальник участка отмечает факт по активным работам → руководитель проекта подтверждает → директор акцептует «красную зону». Экраны на данных ЖК «Аура», пятно 3. Имена условные.</p>
+  <div class="flowbar">
+    <span class="node"><b>ПН</b> Флэш → НУ: задание</span><span class="arr">→</span>
+    <span class="node">НУ вводит % + причина/фото</span><span class="arr">→</span>
+    <span class="node"><b>СР</b> РП ✓ / вернуть</span><span class="arr">→</span>
+    <span class="node"><b>ЧТ</b> директор: акцепт</span><span class="arr">→</span>
+    <span class="node">дашборд + показатели</span>
+  </div>
 
   <section class="scenes">
 
@@ -236,6 +319,8 @@ footer b{color:#b9d0de}
       <span>фото для 100%</span><span>РП = физпроверка</span><span>директор = красная зона</span><span>лаг Рэмбо</span>
     </div>
   </footer>
+    </div>
+  </main>
 </div>
 </body>
 </html>
