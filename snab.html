@@ -170,7 +170,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 #zakup .zk-sub{font-size:12.5px;color:var(--muted);font-weight:500;margin-top:5px;max-width:580px;line-height:1.5}
 #zakup .zk-route{display:inline-flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:9px 15px;box-shadow:var(--shadow-sm);font-size:12px;font-weight:600;color:var(--navy);white-space:nowrap}
 #zakup .zk-route small{font-family:'Jost',sans-serif;font-size:10.5px;color:var(--muted);font-weight:500;margin-top:3px}
-#zakup .zk-pipe{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:16px 0 4px}
+#zakup .zk-pipe{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin:16px 0 4px}
 #zakup .zk-pst{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-sm);padding:14px 15px;position:relative;cursor:pointer;transition:all .18s var(--ease)}
 #zakup .zk-pst:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--line-strong)}
 #zakup .zk-pst.on{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal-tint),var(--shadow-md)}
@@ -213,7 +213,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 #zakup .zk-row .zk-stg{font-size:10px;font-weight:600;border-radius:999px;padding:5px 9px;white-space:nowrap;text-align:center}
 #zakup .zk-stg.mura{background:#ece4f2;color:#6a4f8a}
 #zakup .zk-stg.l1{background:var(--teal-tint);color:var(--teal-600)}
-#zakup .zk-stg.dir,#zakup .zk-stg.snab,#zakup .zk-stg.findir{background:var(--gold-soft);color:var(--gold-ink)}
+#zakup .zk-stg.ruk,#zakup .zk-stg.dir,#zakup .zk-stg.snab,#zakup .zk-stg.findir{background:var(--gold-soft);color:var(--gold-ink)}
 #zakup .zk-stg.done{background:var(--good);color:#fff}
 #zakup .zk-row .zk-go{color:var(--muted-soft);font-weight:700;font-size:17px;text-align:center}
 #zakup .zk-dp{padding:0;overflow:hidden}
@@ -309,9 +309,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
       <div>
         <span class="zk-eyebrow">ATLAS · снабжение</span>
         <h2 class="zk-title">Заявки на закуп · согласование</h2>
-        <div class="zk-sub">Маршрут потребности в материале: бот <b>Муравей</b> принимает заявку с объекта, дальше два уровня согласования, снабжение закупает, финдир — по бюджету. Это отдельный поток от закрывающих документов (КС-2/АВР идут через ПТО).</div>
+        <div class="zk-sub">Маршрут потребности в материале: бот <b>Муравей</b> принимает заявку с объекта, дальше согласование (прораб/НУ → руководитель проекта → директор), снабжение закупает, финдир — по бюджету. Это отдельный поток от закрывающих документов (КС-2/АВР идут через ПТО).</div>
       </div>
-      <div class="zk-route">Маршрут согласования<small>Муравей → прораб/НУ → директор → снабжение → финдир</small></div>
+      <div class="zk-route">Маршрут согласования<small>Муравей → прораб/НУ → руководитель → директор → снабжение → финдир</small></div>
     </div>
     <div class="zk-pipe" id="zkPipe"></div>
     <div class="zk-layout">
@@ -325,7 +325,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
         <div class="zk-card zk-dp" id="zkDetail"><div class="zk-empty">Выберите заявку в реестре — увидите позицию, обоснование и цепочку согласования.</div></div>
       </aside>
     </div>
-    <div class="zk-note">Зеркало маршрута <b>Муравей → прораб/НУ → директор по стройке → снабжение → финдир</b>. Создание и согласование заявок выполняются в боте <b>@muravey_murabot</b> и Bitrix24 — здесь режим просмотра. <b>Данные условные, имена вымышленные, суммы демонстрационные.</b> · Закрывающие документы (КС-2/КС-3/АВР) — <a href="docs.html">отдельный маршрут через ПТО →</a></div>
+    <div class="zk-note">Зеркало маршрута <b>Муравей → прораб/НУ → руководитель проекта → директор по стройке → снабжение → финдир</b>. Создание и согласование заявок выполняются в боте <b>@muravey_murabot</b> и Bitrix24 — здесь режим просмотра. <b>Данные условные, имена вымышленные, суммы демонстрационные.</b> · Закрывающие документы (КС-2/КС-3/АВР) — <a href="docs.html">отдельный маршрут через ПТО →</a></div>
   </section>
 
   </div>
@@ -541,6 +541,7 @@ render();
   var I_BOT='<rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8.01" y2="16"/><line x1="16" y1="16" x2="16.01" y2="16"/>';
   var IC={
     mura:I_BOT, bot:I_BOT,
+    ruk:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
     l1:'<path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1z"/><path d="M10 10V6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4"/><path d="M4 15v-3a6 6 0 0 1 6-6"/><path d="M14 6a6 6 0 0 1 6 6v3"/>',
     dir:'<path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/>',
     snab:'<path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>',
@@ -552,34 +553,36 @@ render();
   var STAGES=[
     {k:'mura',n:'Муравей · заявка',cls:'mura'},
     {k:'l1',n:'Прораб / НУ',cls:'l1'},
+    {k:'ruk',n:'Руководитель',cls:'ruk'},
     {k:'dir',n:'Директор',cls:'dir'},
     {k:'snab',n:'Снабжение',cls:'snab'},
     {k:'findir',n:'Финдир',cls:'findir'},
     {k:'done',n:'Закуплено',cls:'done'}
   ];
-  var STAGE_NAME={mura:'Заявка · Муравей',l1:'Согласование · прораб/НУ',dir:'Согласование · директор',snab:'Закупка · снабжение',findir:'Бюджет · финдир',done:'Закуплено'};
+  var STAGE_NAME={mura:'Заявка · Муравей',l1:'Согласование · прораб/НУ',ruk:'Согласование · руководитель',dir:'Согласование · директор',snab:'Закупка · снабжение',findir:'Бюджет · финдир',done:'Закуплено'};
   var ROUTE=[
     {who:'Муравей · бот',done:'заявка принята с объекта',cur:'заявка создана, готова к согласованию'},
     {who:'Прораб / НУ',done:'согласовал (ур.1)',cur:'на согласовании (ур.1)'},
-    {who:'Директор по стройке',done:'согласовал (ур.2)',cur:'на согласовании (ур.2)'},
+    {who:'Руководитель проекта',done:'согласовал (ур.2)',cur:'на согласовании (ур.2)'},
+    {who:'Директор по стройке',done:'согласовал (ур.3)',cur:'на согласовании (ур.3)'},
     {who:'Снабжение',done:'закупка оформлена',cur:'подбирает поставщика, оформляет'},
     {who:'Финдиректор',done:'бюджет/оплата проведена',cur:'проводит оплату по бюджету'},
     {who:'Закуплено',done:'материал заказан / на объекте',cur:'к выдаче'}
   ];
-  var STAGE_IDX={mura:0,l1:1,dir:2,snab:3,findir:4,done:6};
+  var STAGE_IDX={mura:0,l1:1,ruk:2,dir:3,snab:4,findir:5,done:7};
   var DATA=[
     {id:'ЗК-АУР-041',date:'27.05',obj:'Аура',item:'Арматура А500С ⌀12',qty:'18 т',amount:8640000,who:'М. Ержанов',role:'прораб',stage:'l1',urgent:true,work:'Монолит · блок 4',reason:'Под бетонирование блока 4 — старт через 5 дней, арматура на исходе.'},
     {id:'ЗК-АТМ-118',date:'27.05',obj:'Атмосфера',item:'Товарный бетон В25',qty:'247 м³',amount:7680000,who:'К. Оспанов',role:'нач. участка',stage:'dir',urgent:true,work:'Перекрытие · 7 этаж',reason:'Заливка перекрытия 7 этажа по ГПР — бетон нужен к четвергу.'},
     {id:'ЗК-КЕР-077',date:'26.05',obj:'Керуен',item:'Газоблок D500',qty:'415 м³',amount:6300000,who:'А. Сабитов',role:'прораб',stage:'snab',urgent:false,work:'Кладка · 2 секция',reason:'Кладка наружных стен 2 секции, плановая потребность.'},
     {id:'ЗК-АУР-042',date:'26.05',obj:'Аура',item:'Кабель ВВГнг 3×2.5',qty:'4 км',amount:2360000,who:'Д. Тлеубаев',role:'прораб',stage:'findir',urgent:false,work:'Электромонтаж · 2 очередь',reason:'Электромонтаж 2 очереди — текущая потребность участка.'},
     {id:'ЗК-АТМ-119',date:'28.05',obj:'Атмосфера',item:'Цемент М500',qty:'40 т',amount:2100000,who:'М. Ержанов',role:'прораб',stage:'mura',urgent:false,work:'Штукатурные работы',reason:'Восполнение склада цемента под штукатурные работы.'},
-    {id:'ЗК-КЕР-078',date:'25.05',obj:'Керуен',item:'Минвата фасадная',qty:'1 600 м²',amount:4480000,who:'С. Ахметов',role:'нач. участка',stage:'l1',urgent:false,work:'Фасад · утепление',reason:'Утепление фасада, северная сторона.'},
+    {id:'ЗК-КЕР-078',date:'25.05',obj:'Керуен',item:'Минвата фасадная',qty:'1 600 м²',amount:4480000,who:'С. Ахметов',role:'нач. участка',stage:'ruk',urgent:false,work:'Фасад · утепление',reason:'Утепление фасада, северная сторона.'},
     {id:'ЗК-АКС-014',date:'22.05',obj:'Аксай',item:'Профлист С8 оцинк.',qty:'1 200 м²',amount:3840000,who:'А. Сабитов',role:'прораб',stage:'done',urgent:false,work:'Кровля · паркинг',reason:'Кровля паркинга — закуплено, на объекте.'},
     {id:'ЗК-АУР-043',date:'26.05',obj:'Аура',item:'Окна ПВХ 2-камерные',qty:'64 шт',amount:5760000,who:'Д. Тлеубаев',role:'прораб',stage:'dir',urgent:false,work:'Остекление · 1 очередь',reason:'Остекление квартир 1 очереди.'},
     {id:'ЗК-АТМ-120',date:'25.05',obj:'Атмосфера',item:'Гипсокартон ГКЛВ',qty:'900 листов',amount:1530000,who:'К. Оспанов',role:'нач. участка',stage:'snab',urgent:false,work:'Перегородки · 3 этаж',reason:'Перегородки 3 этажа.'},
     {id:'ЗК-КЕР-079',date:'27.05',obj:'Керуен',item:'Керамогранит 600×600',qty:'1 800 м²',amount:8100000,who:'А. Сабитов',role:'прораб',stage:'findir',urgent:true,work:'Отделка · холлы',reason:'Отделка входных групп и холлов — сдача 1 очереди в графике.'},
     {id:'ЗК-АУР-044',date:'21.05',obj:'Аура',item:'Трубы ПП ⌀110',qty:'600 м',amount:1320000,who:'М. Ержанов',role:'прораб',stage:'done',urgent:false,work:'Внутренние сети ВС',reason:'Внутренние сети водоснабжения — закуплено.'},
-    {id:'ЗК-АТМ-121',date:'24.05',obj:'Атмосфера',item:'Фасадные витражи (алюм.)',qty:'720 м²',amount:18400000,who:'С. Ахметов',role:'нач. участка',stage:'l1',urgent:true,work:'Фасад · витражные группы',reason:'Витражные группы входной зоны — срок изготовления 45 дней, заказывать сейчас под график.'}
+    {id:'ЗК-АТМ-121',date:'24.05',obj:'Атмосфера',item:'Фасадные витражи (алюм.)',qty:'720 м²',amount:18400000,who:'С. Ахметов',role:'нач. участка',stage:'ruk',urgent:true,work:'Фасад · витражные группы',reason:'Витражные группы входной зоны — срок изготовления 45 дней, заказывать сейчас под график.'}
   ];
   var S={obj:null,urgent:false,stage:null,sel:null};
   function visible(){return DATA.filter(function(d){if(S.obj&&d.obj!==S.obj)return false;if(S.urgent&&!d.urgent)return false;if(S.stage&&d.stage!==S.stage)return false;return true;});}
