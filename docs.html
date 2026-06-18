@@ -89,7 +89,7 @@
   .kpi.gold .v{color:var(--gold-ink)}
 
   /* pipeline */
-  .pipe{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:4px}
+  .pipe{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:4px}
   .pst{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-sm);padding:15px 16px;position:relative;cursor:pointer;transition:all .18s var(--ease)}
   .pst:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--line-strong)}
   .pst.on{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal-tint),var(--shadow-md)}
@@ -133,7 +133,7 @@
   .doc .amt b{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px;color:var(--navy)}
   .doc .amt .bt{font-size:10px;font-weight:600;color:var(--gold-ink);margin-top:2px}
   .doc .stg{font-size:10.5px;font-weight:600;border-radius:999px;padding:5px 10px;white-space:nowrap;text-align:center}
-  .stg.intake{background:var(--cream-deep);color:var(--muted)}.stg.check{background:var(--teal-tint);color:var(--teal-600)}.stg.dir,.stg.findir{background:var(--gold-soft);color:var(--gold-ink)}.stg.pay{background:#eaf3ee;color:var(--good)}.stg.paid{background:var(--good);color:#fff}
+  .stg.intake{background:var(--cream-deep);color:var(--muted)}.stg.check{background:var(--teal-tint);color:var(--teal-600)}.stg.ruk,.stg.dir,.stg.findir{background:var(--gold-soft);color:var(--gold-ink)}.stg.pay{background:#eaf3ee;color:var(--good)}.stg.paid{background:var(--good);color:#fff}
   .doc .go{color:var(--muted-soft);font-weight:700;font-size:18px;text-align:center}
 
   /* detail panel */
@@ -161,6 +161,8 @@
   .chain li::before{content:"";position:absolute;left:-19px;top:3px;width:13px;height:13px;border-radius:50%;background:var(--cream-deep);border:2.5px solid var(--line-strong)}
   .chain li.done::before{background:var(--teal);border-color:var(--teal)}
   .chain li.cur::before{background:var(--gold);border-color:#fff;box-shadow:0 0 0 3px rgba(207,179,114,.4)}
+  .chain li.stop::before{background:var(--bad);border-color:#fff;box-shadow:0 0 0 3px rgba(181,72,46,.32)}
+  .chain li.stop .ca{color:var(--bad-d)}
   .chain li .ca{font-size:13px;font-weight:600;color:var(--ink)}
   .chain li .cm{font-size:11px;color:var(--muted);font-weight:500;margin-top:1px}
   .botlink{display:inline-flex;align-items:center;gap:8px;margin-top:8px;background:var(--cream);border:1px solid var(--line);border-radius:11px;padding:9px 13px;font-size:12px;font-weight:600;color:var(--teal-600);transition:all .2s var(--ease)}
@@ -181,7 +183,7 @@
   .note{font-size:12px;color:var(--muted-soft);text-align:center;margin-top:28px;line-height:1.7}
   .note a{color:var(--teal-600);font-weight:600}.note b{color:var(--muted)}
 
-  @media(max-width:1180px){.kpis{grid-template-columns:repeat(3,1fr)}.layout{grid-template-columns:1fr}.col-right{position:static}.pipe{grid-template-columns:repeat(5,1fr)}}
+  @media(max-width:1180px){.kpis{grid-template-columns:repeat(3,1fr)}.layout{grid-template-columns:1fr}.col-right{position:static}.pipe{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:760px){.pipe{grid-template-columns:1fr 1fr}.pst .arr{display:none}}
   @media(max-width:720px){
     :root{--sidebar-w:62px}
@@ -218,14 +220,15 @@
         <h1>Закрывающие документы</h1>
         <div class="preset" id="preset" role="group" aria-label="Роль">
           <button class="on" data-p="all" onclick="setPreset(this)">Все</button>
-          <button data-p="intake" onclick="setPreset(this)">ПТО · приёмка</button>
-          <button data-p="dir" onclick="setPreset(this)">Дир по стройке</button>
+          <button data-p="intake" onclick="setPreset(this)">Инженер ПТО</button>
+          <button data-p="ruk" onclick="setPreset(this)">Руководитель</button>
+          <button data-p="dir" onclick="setPreset(this)">Директор</button>
           <button data-p="findir" onclick="setPreset(this)">Финдир</button>
         </div>
       </div>
       <div class="top-meta">
         <div class="stamp-chip" title="Дата среза"><span class="dot" aria-hidden="true"></span><span><span class="t">срез на</span><br><span class="v tnum" id="stamp">28.05.2026</span></span></div>
-        <div class="id-chip">Конвейер<small>Рэмбо → Шерлок → Баффетт</small></div>
+        <div class="id-chip">Конвейер<small>Рэмбо → инж. ПТО → Шерлок → рук → дир → финдир</small></div>
       </div>
     </header>
 
@@ -233,7 +236,7 @@
     <div class="kpis" id="kpis"></div>
 
     <!-- PIPELINE -->
-    <div class="lbl">Конвейер закрывающих документов <span class="n">Рэмбо принял → Шерлок проверил → дир и финдир согласовали → Баффетт к оплате</span></div>
+    <div class="lbl">Конвейер закрывающих документов <span class="n">Рэмбо → инженер ПТО → Шерлок (СБ) → руководитель → дир → финдир → Баффетт</span></div>
     <div class="pipe" id="pipe"></div>
 
     <!-- LAYOUT -->
@@ -251,7 +254,7 @@
       </aside>
     </div>
 
-    <div class="note">Закрывающие документы · единый реестр КС-2/КС-3/АВР по подрядчикам и поставщикам — зеркало конвейера <b>Рэмбо → ПТО → Шерлок → дир/финдир → Баффетт</b>. Приёмка и согласование выполняются в ботах. <b>Данные условные, имена вымышленные; суммы демонстрационные.</b> · <a href="pto.html">ПТО</a> · <a href="finance.html">Финансы</a> · <a href="dashboard.html">Командный центр</a> · <a href="index.html">← Все экраны</a></div>
+    <div class="note">Закрывающие документы · единый реестр КС-2/КС-3/АВР по подрядчикам и поставщикам — зеркало конвейера <b>Рэмбо → инженер ПТО → Шерлок → руководитель → дир → финдир → Баффетт</b>. Приёмка и согласование выполняются в ботах. <b>Данные условные, имена вымышленные; суммы демонстрационные.</b> · <a href="pto.html">ПТО</a> · <a href="finance.html">Финансы</a> · <a href="dashboard.html">Командный центр</a> · <a href="index.html">← Все экраны</a></div>
   </main>
 </div>
 
@@ -259,81 +262,68 @@
 const $=id=>document.getElementById(id);
 const fmt=n=>n.toLocaleString('ru');
 const STAGES=[
-  {k:'intake',n:'Приёмка ПТО',cls:'intake'},
+  {k:'intake',n:'Инженер ПТО',cls:'intake'},
   {k:'check',n:'Проверка СБ',cls:'check'},
+  {k:'ruk',n:'Руководитель',cls:'ruk'},
   {k:'dir',n:'Дир по стройке',cls:'dir'},
   {k:'findir',n:'Финдир',cls:'findir'},
   {k:'pay',n:'К оплате',cls:'pay'},
 ];
-const STAGE_NAME={intake:'Приёмка ПТО',check:'Проверка Шерлока',dir:'Дир по стройке',findir:'Финдир',pay:'К оплате (Баффетт)',paid:'Оплачено'};
+const STAGE_NAME={intake:'Приёмка · инженер ПТО',check:'Проверка Шерлока',ruk:'Руководитель проекта',dir:'Дир по стройке',findir:'Финдир',pay:'К оплате (Баффетт)',paid:'Оплачено'};
+const ROUTE=[
+  {k:'rambo',who:'Рэмбо · бот',done:'распознал и принял документ',cur:'распознаёт документ'},
+  {k:'intake',who:'Инженер ПТО',done:'приёмка — объёмы сверены',cur:'приёмка — сверяет объёмы'},
+  {k:'check',who:'Шерлок · СБ',done:'СБ-проверка пройдена',cur:'СБ-проверка'},
+  {k:'ruk',who:'Руководитель проекта',done:'согласовал',cur:'на согласовании'},
+  {k:'dir',who:'Директор по стройке',done:'согласовал',cur:'на согласовании'},
+  {k:'findir',who:'Финдиректор',done:'согласовал',cur:'на согласовании'},
+  {k:'pay',who:'Баффетт · реестр',done:'оплачено',cur:'в реестре к оплате'},
+];
+const STAGE_IDX={intake:1,check:2,ruk:3,dir:4,findir:5,pay:6,paid:7};
 
 // ===== ДЕМО-ДАННЫЕ (условные; форма реального конвейера Рэмбо→Шерлок→Баффетт) =====
 const DOCS=[
   {id:'АВР-АТМ-014',type:'АВР',date:'27.05',party:'ТОО «ОктоПроф»',kind:'con',obj:'Атмосфера',work:'Металлоконструкции · перила',amount:4820000,barter:0,stage:'check',verdict:'red',bot:'sherlock',
-   flags:[{c:'RC1',sev:'red',t:'Контрагент в реестре adata — статус «ликвидация»'},{c:'R5',sev:'red',t:'Не приложен договор подряда'}],
-   chain:[{r:'Рэмбо',a:'Документ распознан и принят в ПТО',m:'27.05 09:14',s:'done'},{r:'Шерлок',a:'🔴 Проверка СБ — 2 стопа',m:'27.05 09:15',s:'cur'}]},
+   flags:[{c:'RC1',sev:'red',t:'Контрагент в реестре adata — статус «ликвидация»'},{c:'R5',sev:'red',t:'Не приложен договор подряда'}]},
   {id:'КС-2-КЕР-031',type:'КС-2',date:'26.05',party:'ИП Сатыбалдиев Н.',kind:'con',obj:'Керуен',work:'Отделка · 1 очередь',amount:7350000,barter:0,stage:'findir',verdict:'yellow',bot:'sherlock',
-   flags:[{c:'S2',sev:'yellow',t:'Похоже на дробление: 3-й акт того же объёма за 30 дней'},{c:'НДС',sev:'green',t:'НДС 16% — ставка корректна'}],
-   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'26.05 11:02',s:'done'},{r:'Шерлок',a:'🟡 1 сигнал — на согласование',m:'26.05 11:03',s:'done'},{r:'Дир по стройке',a:'Согласовал (Б. Нурлан)',m:'26.05 15:40',s:'done'},{r:'Финдир',a:'Ожидает согласования',m:'—',s:'cur'}]},
+   flags:[{c:'S2',sev:'yellow',t:'Похоже на дробление: 3-й акт того же объёма за 30 дней'},{c:'НДС',sev:'green',t:'НДС 16% — ставка корректна'}]},
   {id:'АВР-АУР-008',type:'АВР',date:'26.05',party:'ТОО «СтройМонолит KZ»',kind:'con',obj:'Аура',work:'Монолит · блок 4',amount:12900000,barter:0,stage:'pay',verdict:'green',bot:'buffett',
-   flags:[{c:'R1',sev:'green',t:'Суммы сходятся: субитог + НДС + удержание'},{c:'Док',sev:'green',t:'Договор, счёт, АВР приложены'}],
-   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'25.05 10:20',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'25.05 10:21',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'25.05 12:10',s:'done'},{r:'Финдир',a:'Согласовал (А. Айгуль)',m:'25.05 17:30',s:'done'},{r:'Баффетт',a:'В реестре к оплате',m:'26.05 09:00',s:'cur'}]},
+   flags:[{c:'R1',sev:'green',t:'Суммы сходятся: субитог + НДС + удержание'},{c:'Док',sev:'green',t:'Договор, счёт, АВР приложены'}]},
   {id:'СЧ-АТМ-220',type:'счёт',date:'27.05',party:'ТОО «Цемент Снаб»',kind:'sup',obj:'Атмосфера',work:'Поставка · цемент М500',amount:3150000,barter:0,stage:'check',verdict:'yellow',bot:'sherlock',
-   flags:[{c:'S1',sev:'yellow',t:'Новый поставщик: <2 заявок за 6 мес'},{c:'RC0',sev:'yellow',t:'Не найден в реестре adata'}],
-   chain:[{r:'Рэмбо',a:'Счёт принят в ПТО',m:'27.05 08:40',s:'done'},{r:'Шерлок',a:'🟡 2 сигнала — на согласование',m:'27.05 08:41',s:'cur'}]},
+   flags:[{c:'S1',sev:'yellow',t:'Новый поставщик: <2 заявок за 6 мес'},{c:'RC0',sev:'yellow',t:'Не найден в реестре adata'}]},
   {id:'КС-3-КЕР-019',type:'КС-3',date:'25.05',party:'ТОО «ФасадПро»',kind:'con',obj:'Керуен',work:'Фасад · витражи',amount:9870000,barter:0,stage:'paid',verdict:'green',bot:'buffett',
-   flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}],
-   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'22.05',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'22.05',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'22.05',s:'done'},{r:'Финдир',a:'Согласовал',m:'23.05',s:'done'},{r:'Баффетт',a:'Оплачено',m:'24.05',s:'done'}]},
+   flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}]},
   {id:'АВР-АУР-009',type:'АВР',date:'27.05',party:'ИП Дюсенов А.',kind:'con',obj:'Аура',work:'Электромонтаж · 2 очередь',amount:5640000,barter:0,stage:'intake',verdict:null,bot:'rambo',
-   flags:[],
-   chain:[{r:'Рэмбо',a:'Документ распознан, ждёт приёмки ПТО',m:'27.05 16:05',s:'cur'}]},
+   flags:[]},
   {id:'КС-2-АТМ-027',type:'КС-2',date:'24.05',party:'ТОО «АлматыИнжиниринг»',kind:'con',obj:'Атмосфера',work:'Инженерные сети',amount:1,barter:0,stage:'check',verdict:'red',bot:'sherlock',
-   flags:[{c:'R7',sev:'red',t:'Абсурдная сумма: 1 ₸ — ошибка ввода/документа'}],
-   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'24.05 13:10',s:'done'},{r:'Шерлок',a:'🔴 Стоп — абсурдная сумма',m:'24.05 13:11',s:'cur'}]},
+   flags:[{c:'R7',sev:'red',t:'Абсурдная сумма: 1 ₸ — ошибка ввода/документа'}]},
   {id:'АВР-КЕР-022',type:'АВР',date:'25.05',party:'ТОО «КровляСервис»',kind:'con',obj:'Керуен',work:'Кровля · гидроизоляция',amount:6730000,barter:0,stage:'dir',verdict:'yellow',bot:'sherlock',
-   flags:[{c:'S3',sev:'yellow',t:'Спешка: создан и подан < 24 ч'}],
-   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'25.05 09:30',s:'done'},{r:'Шерлок',a:'🟡 1 сигнал',m:'25.05 09:31',s:'done'},{r:'Дир по стройке',a:'Ожидает согласования',m:'—',s:'cur'}]},
+   flags:[{c:'S3',sev:'yellow',t:'Спешка: создан и подан < 24 ч'}]},
   {id:'СЧ-АУР-118',type:'счёт',date:'26.05',party:'ТОО «МеталлТорг Астана»',kind:'sup',obj:'Аура',work:'Поставка · арматура А500С',amount:8420000,barter:0,stage:'pay',verdict:'green',bot:'buffett',
-   flags:[{c:'R1',sev:'green',t:'Суммы и НДС сходятся'}],
-   chain:[{r:'Рэмбо',a:'Счёт принят',m:'24.05',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'24.05',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'25.05',s:'done'},{r:'Финдир',a:'Согласовал',m:'25.05',s:'done'},{r:'Баффетт',a:'В реестре к оплате',m:'26.05',s:'cur'}]},
-  {id:'КС-2-АТМ-028',type:'КС-2',date:'27.05',party:'ИП Кенжебаев Е.',kind:'con',obj:'Атмосфера',work:'Благоустройство · бордюры',amount:2380000,barter:0,stage:'intake',verdict:null,bot:'rambo',flags:[],
-   chain:[{r:'Рэмбо',a:'Распознан, ждёт приёмки ПТО',m:'27.05 17:22',s:'cur'}]},
+   flags:[{c:'R1',sev:'green',t:'Суммы и НДС сходятся'}]},
+  {id:'КС-2-АТМ-028',type:'КС-2',date:'27.05',party:'ИП Кенжебаев Е.',kind:'con',obj:'Атмосфера',work:'Благоустройство · бордюры',amount:2380000,barter:0,stage:'intake',verdict:null,bot:'rambo',flags:[]},
   {id:'АВР-АУР-010',type:'АВР',date:'25.05',party:'ТОО «СтройМонолит KZ»',kind:'con',obj:'Аура',work:'Монолит · блок 3',amount:11200000,barter:3200000,stage:'findir',verdict:'green',bot:'sherlock',
-   flags:[{c:'R1',sev:'green',t:'Суммы сходятся'},{c:'Бартер',sev:'green',t:'Часть оплаты — бартер (квартиры) → счёт «Бартер»'}],
-   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'25.05 10:00',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'25.05 10:01',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'25.05 14:00',s:'done'},{r:'Финдир',a:'Ожидает согласования',m:'—',s:'cur'}]},
-  {id:'КС-3-КЕР-020',type:'КС-3',date:'23.05',party:'ИП Сатыбалдиев Н.',kind:'con',obj:'Керуен',work:'Отделка · 1 очередь (этап 2)',amount:4100000,barter:0,stage:'paid',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'},{c:'R2',sev:'green',t:'Не дубль: другой этап того же договора (≠ КС-3-КЕР-019)'}],
-   chain:[{r:'Рэмбо',a:'Принят',m:'20.05',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'20.05',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'21.05',s:'done'},{r:'Финдир',a:'Согласовал',m:'21.05',s:'done'},{r:'Баффетт',a:'Оплачено',m:'22.05',s:'done'}]},
+   flags:[{c:'R1',sev:'green',t:'Суммы сходятся'},{c:'Бартер',sev:'green',t:'Часть оплаты — бартер (квартиры) → счёт «Бартер»'}]},
+  {id:'КС-3-КЕР-020',type:'КС-3',date:'23.05',party:'ИП Сатыбалдиев Н.',kind:'con',obj:'Керуен',work:'Отделка · 1 очередь (этап 2)',amount:4100000,barter:0,stage:'paid',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'},{c:'R2',sev:'green',t:'Не дубль: другой этап того же договора (≠ КС-3-КЕР-019)'}]},
   {id:'СЧ-КЕР-077',type:'счёт',date:'27.05',party:'ТОО «ЭлектроКомплект»',kind:'sup',obj:'Керуен',work:'Поставка · кабель ВВГ',amount:5910000,barter:0,stage:'check',verdict:'yellow',bot:'sherlock',
-   flags:[{c:'S8',sev:'yellow',t:'Серия: 3 счёта ±5% за 14 дней'}],
-   chain:[{r:'Рэмбо',a:'Счёт принят',m:'27.05 10:10',s:'done'},{r:'Шерлок',a:'🟡 1 сигнал',m:'27.05 10:11',s:'cur'}]},
-  {id:'АВР-АКС-004',type:'АВР',date:'26.05',party:'ТОО «ФасадПро»',kind:'con',obj:'Аксай резорт',work:'Фасад · штукатурка',amount:3680000,barter:0,stage:'dir',verdict:'green',bot:'sherlock',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}],
-   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'26.05 12:00',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'26.05 12:01',s:'done'},{r:'Дир по стройке',a:'Ожидает согласования',m:'—',s:'cur'}]},
-  {id:'АВР-АТМ-015',type:'АВР',date:'27.05',party:'ТОО «ОктоПрофф»',kind:'con',obj:'Атмосфера',work:'Металлоконструкции · козырьки',amount:2940000,barter:0,stage:'check',verdict:'red',bot:'sherlock',
-   flags:[{c:'RC1·S6',sev:'red',t:'Возможен обход блокировки: имя ≈ ликвидированный контрагент ТОО «ОктоПроф» (АВР-АТМ-014)'}],
-   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'27.05 11:40',s:'done'},{r:'Шерлок',a:'🟡 1 сигнал',m:'27.05 11:41',s:'cur'}]},
-  {id:'КС-2-АУР-012',type:'КС-2',date:'24.05',party:'ИП Дюсенов А.',kind:'con',obj:'Аура',work:'Электромонтаж · 1 очередь',amount:6280000,barter:0,stage:'paid',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}],
-   chain:[{r:'Рэмбо',a:'Принят',m:'19.05',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'19.05',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'20.05',s:'done'},{r:'Финдир',a:'Согласовал',m:'20.05',s:'done'},{r:'Баффетт',a:'Оплачено',m:'21.05',s:'done'}]},
-  {id:'СЧ-АТМ-221',type:'счёт',date:'25.05',party:'ТОО «БетонБаза»',kind:'sup',obj:'Атмосфера',work:'Поставка · товарный бетон',amount:4470000,barter:0,stage:'pay',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}],
-   chain:[{r:'Рэмбо',a:'Счёт принят',m:'23.05',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'23.05',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'24.05',s:'done'},{r:'Финдир',a:'Согласовал',m:'24.05',s:'done'},{r:'Баффетт',a:'В реестре к оплате',m:'25.05',s:'cur'}]},
-  {id:'АВР-КЕР-023',type:'АВР',date:'22.05',party:'ТОО «КровляСервис»',kind:'con',obj:'Керуен',work:'Кровля · 2 секция',amount:3920000,barter:0,stage:'paid',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}],
-   chain:[{r:'Рэмбо',a:'Принят',m:'18.05',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'18.05',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'19.05',s:'done'},{r:'Финдир',a:'Согласовал',m:'19.05',s:'done'},{r:'Баффетт',a:'Оплачено',m:'20.05',s:'done'}]},
-  {id:'КС-2-АКС-005',type:'КС-2',date:'27.05',party:'ИП Кенжебаев Е.',kind:'con',obj:'Аксай резорт',work:'Благоустройство · озеленение',amount:1980000,barter:0,stage:'intake',verdict:null,bot:'rambo',flags:[],
-   chain:[{r:'Рэмбо',a:'Распознан, ждёт приёмки ПТО',m:'27.05 18:01',s:'cur'}]},
-  {id:'СЧ-АУР-119',type:'счёт',date:'26.05',party:'ТОО «Сантех Опт»',kind:'sup',obj:'Аура',work:'Поставка · трубы ПП',amount:2760000,barter:0,stage:'dir',verdict:'green',bot:'sherlock',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}],
-   chain:[{r:'Рэмбо',a:'Счёт принят',m:'26.05 09:50',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'26.05 09:51',s:'done'},{r:'Дир по стройке',a:'Ожидает согласования',m:'—',s:'cur'}]},
-  {id:'АВР-АТМ-013',type:'АВР',date:'24.05',party:'ТОО «АлматыИнжиниринг»',kind:'con',obj:'Атмосфера',work:'Инженерные сети · водопровод',amount:8150000,barter:0,stage:'findir',verdict:'green',bot:'sherlock',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}],
-   chain:[{r:'Рэмбо',a:'Принят в ПТО',m:'24.05 10:30',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'24.05 10:31',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'24.05 16:00',s:'done'},{r:'Финдир',a:'Ожидает согласования',m:'—',s:'cur'}]},
-  {id:'КС-2-КЕР-032',type:'КС-2',date:'23.05',party:'ТОО «СтройМонолит KZ»',kind:'con',obj:'Керуен',work:'Монолит · блок 2',amount:13400000,barter:4100000,stage:'paid',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'},{c:'Бартер',sev:'green',t:'Часть — бартер → счёт «Бартер»'}],
-   chain:[{r:'Рэмбо',a:'Принят',m:'19.05',s:'done'},{r:'Шерлок',a:'🟢 Чисто',m:'19.05',s:'done'},{r:'Дир по стройке',a:'Согласовал',m:'20.05',s:'done'},{r:'Финдир',a:'Согласовал',m:'20.05',s:'done'},{r:'Баффетт',a:'Оплачено',m:'21.05',s:'done'}]},
+   flags:[{c:'S8',sev:'yellow',t:'Серия: 3 счёта ±5% за 14 дней'}]},
+  {id:'АВР-АКС-004',type:'АВР',date:'26.05',party:'ТОО «ФасадПро»',kind:'con',obj:'Аксай резорт',work:'Фасад · штукатурка',amount:3680000,barter:0,stage:'ruk',verdict:'green',bot:'sherlock',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}]},
+  {id:'АВР-АТМ-015',type:'АВР',date:'27.05',party:'ТОО «ОктоПрофф»',kind:'con',obj:'Атмосфера',work:'Металлоконструкции · козырьки',amount:2940000,barter:0,stage:'check',verdict:'yellow',bot:'sherlock',
+   flags:[{c:'RC1·S6',sev:'yellow',t:'Возможен обход блокировки: имя ≈ ликвидированный контрагент ТОО «ОктоПроф» (АВР-АТМ-014)'}]},
+  {id:'КС-2-АУР-012',type:'КС-2',date:'24.05',party:'ИП Дюсенов А.',kind:'con',obj:'Аура',work:'Электромонтаж · 1 очередь',amount:6280000,barter:0,stage:'paid',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}]},
+  {id:'СЧ-АТМ-221',type:'счёт',date:'25.05',party:'ТОО «БетонБаза»',kind:'sup',obj:'Атмосфера',work:'Поставка · товарный бетон',amount:4470000,barter:0,stage:'pay',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}]},
+  {id:'АВР-КЕР-023',type:'АВР',date:'22.05',party:'ТОО «КровляСервис»',kind:'con',obj:'Керуен',work:'Кровля · 2 секция',amount:3920000,barter:0,stage:'paid',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}]},
+  {id:'КС-2-АКС-005',type:'КС-2',date:'27.05',party:'ИП Кенжебаев Е.',kind:'con',obj:'Аксай резорт',work:'Благоустройство · озеленение',amount:1980000,barter:0,stage:'intake',verdict:null,bot:'rambo',flags:[]},
+  {id:'СЧ-АУР-119',type:'счёт',date:'26.05',party:'ТОО «Сантех Опт»',kind:'sup',obj:'Аура',work:'Поставка · трубы ПП',amount:2760000,barter:0,stage:'ruk',verdict:'green',bot:'sherlock',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}]},
+  {id:'АВР-АТМ-013',type:'АВР',date:'24.05',party:'ТОО «АлматыИнжиниринг»',kind:'con',obj:'Атмосфера',work:'Инженерные сети · водопровод',amount:8150000,barter:0,stage:'findir',verdict:'green',bot:'sherlock',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'}]},
+  {id:'КС-2-КЕР-032',type:'КС-2',date:'23.05',party:'ТОО «СтройМонолит KZ»',kind:'con',obj:'Керуен',work:'Монолит · блок 2',amount:13400000,barter:4100000,stage:'paid',verdict:'green',bot:'buffett',flags:[{c:'R1',sev:'green',t:'Суммы сходятся'},{c:'Бартер',sev:'green',t:'Часть — бартер → счёт «Бартер»'}]},
 ];
 
 let preset='all', fStage=null, fKind=null, selId=null;
 
 function visible(){
   return DOCS.filter(d=>{
-    if(preset==='intake' && d.stage!=='intake') return false;
-    if(preset==='dir' && d.stage!=='dir') return false;
-    if(preset==='findir' && d.stage!=='findir') return false;
+    if(['intake','ruk','dir','findir'].includes(preset) && d.stage!==preset) return false;
     if(fStage && d.stage!==fStage) return false;
     if(fKind && d.kind!==fKind) return false;
     return true;
@@ -342,12 +332,12 @@ function visible(){
 
 function renderKPI(){
   const c=k=>DOCS.filter(d=>d.stage===k).length;
-  const toPay=DOCS.filter(d=>['check','dir','findir','pay'].includes(d.stage) && d.verdict!=='red').reduce((a,d)=>a+d.amount,0);
+  const toPay=DOCS.filter(d=>['check','ruk','dir','findir','pay'].includes(d.stage) && d.verdict!=='red').reduce((a,d)=>a+d.amount,0);
   const red=DOCS.filter(d=>d.verdict==='red').length, yel=DOCS.filter(d=>d.verdict==='yellow').length;
   const kpi=[
-    {v:c('intake'),k:'в приёмке',sub:'ждут ПТО'},
+    {v:c('intake'),k:'у инженера ПТО',sub:'приёмка'},
     {v:c('check'),k:'проверка СБ',sub:'Шерлок'},
-    {v:c('dir')+c('findir'),k:'на согласовании',sub:'дир + финдир'},
+    {v:c('ruk')+c('dir')+c('findir'),k:'на согласовании',sub:'рук + дир + финдир'},
     {v:c('pay'),k:'к оплате',sub:'реестр Баффетта'},
     {v:'₸'+(toPay/1e6).toFixed(1)+'<small> млн</small>',k:'сумма к оплате',sub:'не оплачено',gold:true},
     {v:red+yel,k:'красная зона',sub:red+' 🔴 · '+yel+' 🟡',alarm:true},
@@ -363,9 +353,10 @@ const SVG={
   bank:'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>',
   check:'<polyline points="20 6 9 17 4 12"/>', warn:'<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
   x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>', dot:'<circle cx="12" cy="12" r="4"/>',
-  bot:'<rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/>'
+  bot:'<rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/>',
+  user:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>'
 };
-const STAGE_ICON={intake:SVG.inbox,check:SVG.shield,dir:SVG.hard,findir:SVG.bank,pay:SVG.wallet};
+const STAGE_ICON={intake:SVG.inbox,check:SVG.shield,ruk:SVG.user,dir:SVG.hard,findir:SVG.bank,pay:SVG.wallet};
 
 function renderPipe(){
   $('pipe').innerHTML=STAGES.map(s=>{
@@ -410,7 +401,14 @@ function renderDetail(){
   const d=DOCS.find(x=>x.id===selId);
   if(!d){$('detail').innerHTML='<div class="dp-empty">Выберите документ в реестре, чтобы увидеть распознанные поля, проверки Шерлока и цепочку согласования.</div>';return;}
   const flags=d.flags.length?d.flags.map(f=>`<div class="flag ${f.sev}"><span class="fc">${f.c}</span><span class="ft">${f.t}</span></div>`).join(''):'<div class="flag green"><span class="fc">—</span><span class="ft">Проверка ещё не запускалась (документ в приёмке ПТО).</span></div>';
-  const chain=d.chain.map(c=>`<li class="${c.s}"><div class="ca">${c.r} — ${c.a}</div><div class="cm">${c.m}</div></li>`).join('');
+  const si=STAGE_IDX[d.stage]||0;
+  const chain=ROUTE.map((r,i)=>{
+    let st,act;
+    if(i<si){st='done';act=r.done;}
+    else if(i===si){if(r.k==='check'&&d.verdict==='red'){st='stop';act='СБ-проверка — стоп · на доработку (см. флаги)';}else{st='cur';act=r.cur;}}
+    else{st='pending';act='ожидает';}
+    return `<li class="${st}"><div class="ca">${r.who} — ${act}</div></li>`;
+  }).join('');
   const isBot=(d.bot==='rambo'||d.bot==='sherlock');
   const botName=d.bot==='rambo'?'@rambo_murabot':d.bot==='sherlock'?'@sherlok_murabot':'Баффетт · реестр платежей';
   const botLabel=(isBot?'Открыть в боте · ':'Открыть · ')+botName;
