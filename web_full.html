@@ -4,67 +4,104 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#284157">
+<meta name="robots" content="noindex,nofollow">
 <title>ATLAS · веб-панель</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#284157;--bg:#F7F5EE;--card:#FBFBFB;--ink:#1E1E1E;--mut:#6E6E6E;--faint:#A39C8E;
-  --line:#E0DDD3;--line2:#ECEAE2;
-  --accent:#007484;--accent-soft:#E0EEF0;--accent-d:#005763;
-  --gold:#CFB372;--gold-d:#A88E48;
-  --red:#C8554C;--amber:#C98A2C;--green:#2E8F5B;
+  --navy:#284157; --navy-700:#1d3142; --navy-d:#1d3142; --navy-900:#15242f;
+  --teal:#007484; --teal-600:#00606e; --teal-tint:#e2eef0;
+  --gold:#CFB372; --gold-deep:#b7995a; --gold-soft:#f0e6cf; --gold-ink:#8a6d2f;
+  --cream:#F7F5EE; --cream-deep:#efece1; --paper:#fffefb;
+  --ink:#23303a; --muted:#5f6b75; --muted-soft:#8b96a0;
+  --good:#1f7a4d; --good-soft:#e6f0ea;
+  --line:#e6e2d6; --line-strong:#d8d3c4;
+  --shadow-sm:0 1px 2px rgba(21,36,47,.04), 0 1px 3px rgba(21,36,47,.05);
+  --shadow-md:0 2px 4px rgba(21,36,47,.04), 0 8px 24px rgba(21,36,47,.07);
+  --shadow-lg:0 4px 8px rgba(21,36,47,.05), 0 20px 48px rgba(21,36,47,.12);
+  --shadow-navy:0 12px 36px rgba(40,65,87,.28);
+  --shadow-gold:0 10px 30px rgba(183,153,90,.30);
+  --r-sm:10px; --r-md:16px; --r-lg:22px; --sidebar-w:84px; --ease:cubic-bezier(.22,.61,.36,1);
+  /* legacy aliases → new palette */
+  --bg:var(--cream); --card:var(--paper); --mut:var(--muted); --faint:var(--muted-soft); --line2:var(--cream-deep);
+  --accent:var(--teal); --accent-d:var(--teal-600); --accent-soft:var(--teal-tint); --gold-d:var(--gold-ink);
+  --green:var(--good); --green-bg:var(--good-soft);
+  --red:#b5482e; --red-d:#8f3a25; --red-bg:#f6e6e0; --amber:#c2862a; --amber-bg:#f6ecd6; --amber-ink:#8a5a12;
   --ring:0 0 0 3px rgba(0,116,132,.35);
+  --shadow:var(--shadow-md);
 }
 *{margin:0;padding:0;box-sizing:border-box}
+html{color-scheme:light}
 html,body{height:100%}
-body{font-family:'Jost','Futura PT','Futura',-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);
-  font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overscroll-behavior:none;font-feature-settings:"ss03","cv11"}
+body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;color:var(--ink);background-color:var(--cream);
+  background-image:radial-gradient(1200px 600px at 8% -5%, rgba(0,116,132,.06), transparent 60%),radial-gradient(900px 500px at 105% 0%, rgba(207,179,114,.10), transparent 55%),radial-gradient(1000px 700px at 50% 120%, rgba(40,65,87,.05), transparent 60%);
+  background-attachment:fixed;min-height:100vh;font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overscroll-behavior:none;font-feature-settings:"ss03","cv11"}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;color:var(--navy);line-height:1.08;letter-spacing:.01em}
+
+/* ===== shell + rail (design system) ===== */
+.shell{position:relative;z-index:1;display:flex;min-height:100vh}
+aside.nav{position:sticky;top:0;height:100vh;width:var(--sidebar-w);flex-shrink:0;background:linear-gradient(180deg,var(--navy) 0%, var(--navy-900) 100%);display:flex;flex-direction:column;align-items:center;padding:22px 0 18px;gap:6px;z-index:40;box-shadow:var(--shadow-navy)}
+.brand-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(150deg,var(--gold),var(--gold-deep));display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;color:var(--navy-900);box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px}
+nav.rail{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;flex:1}
+.rail a{position:relative;width:60px;padding:11px 0 9px;border-radius:15px;display:flex;flex-direction:column;align-items:center;gap:5px;color:rgba(231,238,242,.62);transition:all .28s var(--ease)}
+.rail a .ic{width:23px;height:23px;display:block;transition:transform .28s var(--ease)}
+.rail a .nav-lbl{font-size:9.5px;font-weight:500;letter-spacing:.02em;line-height:1;text-align:center;white-space:nowrap}
+.rail a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.rail a:hover .ic{transform:translateY(-2px) scale(1.06)}
+.rail a.active{color:var(--navy-900);background:linear-gradient(150deg,#fff,#f3efe2)}
+.rail a.active::before{content:"";position:absolute;left:-16px;top:50%;transform:translateY(-50%);width:5px;height:30px;border-radius:0 5px 5px 0;background:var(--gold);box-shadow:0 0 14px rgba(207,179,114,.7)}
+.rail-bottom{display:flex;flex-direction:column;align-items:center;padding-top:8px;border-top:1px solid rgba(255,255,255,.09)}
+.nav-avatar{width:42px;height:42px;border-radius:13px;margin-top:4px;background:linear-gradient(150deg,var(--teal),var(--teal-600));display:grid;place-items:center;color:#fff;font-weight:600;font-size:15px;border:2px solid rgba(255,255,255,.25);box-shadow:0 4px 10px rgba(0,0,0,.25)}
+.shell main{flex:1;min-width:0}
 .tnum{font-variant-numeric:tabular-nums}
-.mono{font-family:'Jost','Futura PT',sans-serif;letter-spacing:.01em}
+.mono{font-family:'Jost',sans-serif;letter-spacing:.01em}
 :where(button,a,[tabindex],select,input){touch-action:manipulation}
 :where(button,a,[role],select):focus-visible{outline:none;box-shadow:var(--ring);border-radius:8px}
 button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
 .skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--accent);color:#fff;padding:8px 14px;border-radius:8px;font-weight:600}
 .skip:focus{left:8px}
 
-.app{display:grid;grid-template-columns:240px 1fr;min-height:100%}
+/* ===== content shell (design system) ===== */
+.shell main{padding:28px clamp(18px,2.6vw,44px) 52px;max-width:1900px;margin:0 auto;width:100%}
 
-/* sidebar — quiet */
-.side{background:var(--navy);color:#b9c8d4;padding:18px 14px;display:flex;flex-direction:column;gap:2px;position:sticky;top:0;height:100vh;overflow:auto}
-.brand{display:flex;align-items:center;gap:11px;padding:6px 8px 20px}
-.brand .lg{width:34px;height:34px;border-radius:9px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--gold);font-size:18px;font-family:'Cormorant',Georgia,serif;box-shadow:inset 0 0 0 1px rgba(207,179,114,.4)}
-.brand .nm{font-family:'Cormorant',Georgia,serif;font-weight:700;font-size:19px;color:#fff;letter-spacing:.02em}
-.brand .sb{font-size:11px;color:#7e93a4}
-.navlist{display:flex;flex-direction:column;gap:1px}
-.navlist button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:10px 12px;border-radius:9px;color:#a7b8c6;font-size:14px;font-weight:500;transition:background .15s,color .15s}
-.navlist button .i{width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.35;flex-shrink:0}
-.navlist button[aria-current="page"]{background:rgba(255,255,255,.07);color:#fff;font-weight:600}
-.navlist button[aria-current="page"] .i{background:var(--accent);opacity:1}
-.navlist button:hover:not([aria-current="page"]){background:rgba(255,255,255,.04);color:#d6e1e9}
-.side .ft{margin-top:auto;padding:12px;font-size:11.5px;color:#7e93a4;line-height:1.5;border-top:1px solid rgba(255,255,255,.08)}
-.side .ft b{color:#cdd9e2;font-weight:600}
+/* header — light, в духе дизайн-системы (как dashboard/finance) */
+header.top{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;flex-wrap:wrap;margin-bottom:6px}
+.top .hl{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.eyebrow::before{content:"";width:24px;height:1.5px;background:var(--teal);opacity:.6}
+.top h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(28px,3.2vw,40px);font-weight:600;letter-spacing:.01em;color:var(--navy);margin-top:7px}
+.top .meta{font-size:12.5px;color:var(--muted);margin-top:9px}
+.top .meta b{color:var(--ink);font-weight:600}
+.top-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:4px}
+.rolewrap{display:inline-flex;align-items:center;gap:8px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:8px 14px;box-shadow:var(--shadow-sm)}
+.rolewrap label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.role-sel{font-size:13px;font-weight:600;padding:4px 6px;border-radius:8px;border:1px solid var(--line);background:var(--cream-deep);color:var(--navy)}
+.role-sel option{color:var(--ink)}
+.obs{display:inline-flex;align-items:center;font-size:11px;font-weight:600;border-radius:999px;padding:7px 13px;background:var(--gold-soft);color:var(--gold-ink);border:1px solid #e7d4a6}
+.obs .d{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold-deep);margin-right:7px;vertical-align:middle}
+
+/* сегмент-табы видов (внутренняя под-навигация SPA, как .role в дизайн-системе) */
+.viewtabs{display:flex;flex-wrap:wrap;gap:5px;background:var(--cream-deep);border:1px solid var(--line);border-radius:14px;padding:5px;margin:18px 0 6px}
+.viewtabs button{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:10px;white-space:nowrap;transition:background .18s var(--ease),color .18s var(--ease)}
+.viewtabs button .i{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.4;flex-shrink:0}
+.viewtabs button:hover:not([aria-current="page"]){color:var(--ink);background:rgba(255,255,255,.6)}
+.viewtabs button[aria-current="page"]{background:var(--navy);color:#fff;box-shadow:var(--shadow-sm)}
+.viewtabs button[aria-current="page"] .i{background:var(--gold);opacity:1}
 .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:6px}
 
-.main{min-width:0;padding-bottom:48px}
-.top{background:var(--card);border-bottom:1px solid var(--line);padding:14px 28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;position:sticky;top:0;z-index:20;padding-left:max(28px,env(safe-area-inset-left))}
-.burger{display:none;width:40px;height:40px;border-radius:9px;background:var(--bg);align-items:center;justify-content:center;font-size:17px;color:var(--ink)}
-.top h1{font-size:18px;font-weight:700;letter-spacing:-.01em}
-.top .meta{font-size:12.5px;color:var(--mut)}
-.top .meta b{color:var(--ink);font-weight:600}
-.top .right{margin-left:auto;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-.rolewrap{display:flex;align-items:center;gap:8px}
-.rolewrap label{font-size:12.5px;color:var(--mut)}
-.role-sel{font-size:13px;padding:7px 10px;border-radius:8px;border:1px solid var(--line2);background:var(--card);color:var(--ink)}
-.obs{font-size:12px;color:var(--mut)}
-.obs .d{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--amber);margin-right:6px;vertical-align:middle}
+/* legacy JS-anchors kept hidden (script unchanged references #burger/#scrim) */
+.burger,.scrim{display:none}
 
-.body{padding:28px;max-width:1180px}
+.wrap{width:100%}
+.body{padding:6px 0 0}
 .view{display:none}.view.on{display:block}
 @media(prefers-reduced-motion:no-preference){.view.on{animation:fade .22s ease}@keyframes fade{from{opacity:0}to{opacity:1}}
   .navlist button,.tk,.f-btn,.kpi{transition:background .15s,color .15s,border-color .15s}}
-h2.sec{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);margin:34px 2px 16px}
+h2.sec{display:flex;align-items:center;gap:9px;font-family:'Jost',sans-serif;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted-soft);margin:34px 2px 16px}
+h2.sec::before{content:"";width:14px;height:1.5px;background:var(--teal);opacity:.7;flex:none}
 h2.sec:first-child{margin-top:6px}
 .note{font-size:13px;color:var(--mut);margin:0 2px 18px;line-height:1.6;max-width:70ch;text-wrap:pretty}
 
@@ -79,8 +116,8 @@ body[data-role="ceo"] .ro-ceo,body[data-role="owner"] .ro-owner{display:flex}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line2);border:1px solid var(--line2);border-radius:14px;overflow:hidden}
 .kpi{background:var(--card);padding:20px 22px}
 .kpi .l{font-size:12px;color:var(--mut);margin-bottom:10px}
-.kpi .v{font-size:30px;font-weight:700;line-height:1;letter-spacing:-.01em}
-.kpi .v small{font-size:15px;color:var(--faint);font-weight:600}
+.kpi .v{font-family:'Cormorant Garamond',Georgia,serif;font-size:36px;font-weight:600;line-height:1;letter-spacing:.01em;color:var(--navy)}
+.kpi .v small{font-size:16px;color:var(--faint);font-weight:600}
 .kpi .h{font-size:12px;color:var(--faint);margin-top:9px}
 .kpi.flag .v{color:var(--red)}
 
@@ -160,42 +197,36 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover{background:#fafbfc}
 .frame iframe{width:100%;height:720px;border:0;display:block}
 .foot2{margin:28px;font-size:12px;color:var(--faint);line-height:1.7}.foot2 b{color:var(--mut);font-weight:600}
 
-.scrim{display:none;position:fixed;inset:0;background:rgba(10,20,30,.45);z-index:25}
-@media(max-width:980px){
-  .app{grid-template-columns:1fr}
-  .side{position:fixed;left:0;top:0;bottom:0;width:262px;z-index:30;transform:translateX(-100%);transition:transform .2s ease;height:100%}
-  body[data-menu="open"] .side{transform:none}body[data-menu="open"] .scrim{display:block}
-  .burger{display:flex}.body{padding:20px 16px}.kan{grid-template-columns:1fr 1fr}
-}
+@media(max-width:980px){.kan{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.kan{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}}
-@media(prefers-reduced-motion:reduce){.side{transition:none}}
 </style>
 </head>
 <body data-role="ceo" data-menu="closed">
 <a class="skip" href="#main">К основному содержимому</a>
-<div class="scrim" id="scrim" aria-hidden="true"></div>
-<div class="app">
+<div class="shell">
 
-  <aside class="side" id="side" aria-label="Разделы">
-    <div class="brand"><div class="lg" aria-hidden="true">A</div><div><div class="nm">ATLAS</div><div class="sb">отслеживание стройки</div></div></div>
-    <nav class="navlist" id="nav" aria-label="Основная навигация">
-      <button data-v="svodka" aria-current="page"><span class="i" aria-hidden="true"></span> Сводка недели</button>
-      <button data-v="kontur"><span class="i" aria-hidden="true"></span> Контур недели</button>
-      <button data-v="reestr"><span class="i" aria-hidden="true"></span> Реестр работ</button>
-      <button data-v="pyatna"><span class="i" aria-hidden="true"></span> Пятна и графики</button>
-      <button data-v="naznach"><span class="i" aria-hidden="true"></span> Назначения</button>
-      <button data-v="jrnl"><span class="i" aria-hidden="true"></span> Журнал и аудит</button>
-      <button data-v="dash"><span class="i" aria-hidden="true"></span> Дашборд ГПР</button>
+  <aside class="nav" aria-label="Главное меню ATLAS">
+    <div class="brand-mark" title="ATAMŪRA GROUP" aria-hidden="true">Ā</div>
+    <nav class="rail" aria-label="Модули ATLAS">
+      <a href="index.html" title="Вход"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg><span class="nav-lbl">Вход</span></a>
+      <a href="dashboard.html" title="Командный центр"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg><span class="nav-lbl">Центр</span></a>
+      <a href="portfolio.html" title="Портфель"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg><span class="nav-lbl">Портфель</span></a>
+      <a href="gpr.html" title="ГПР"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg><span class="nav-lbl">ГПР</span></a>
+      <a href="atlas_supply_roles_brand.html" title="Снабжение"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg><span class="nav-lbl">Снабж.</span></a>
+      <a href="league.html" title="Лига"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg><span class="nav-lbl">Лига</span></a>
+      <a href="docs.html" title="Документы"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></svg><span class="nav-lbl">Документы</span></a>
     </nav>
-    <div class="ft"><span class="dot" aria-hidden="true"></span>Бот <b>Флэш</b> на связи · Аура · 6 НУ</div>
+    <div class="rail-bottom"><div class="nav-avatar" title="Профиль" aria-label="Профиль">ДС</div></div>
   </aside>
 
-  <main class="main" id="main">
+  <main id="main">
     <header class="top">
-      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="side"><span aria-hidden="true">☰</span></button>
-      <h1 id="ttl">Сводка недели</h1>
-      <span class="meta">Объект: <b>ЖК «Аура»</b> · неделя <b>01–07.06</b></span>
-      <div class="right">
+      <div class="hl">
+        <span class="eyebrow">ATLAS · отслеживание стройки</span>
+        <h1 id="ttl">Сводка недели</h1>
+        <span class="meta">Объект: <b>ЖК «Аура»</b> · неделя <b>01–07.06</b> · <span class="dot" aria-hidden="true"></span>Бот <b>Флэш</b> на связи · 6 НУ</span>
+      </div>
+      <div class="top-meta">
         <div class="rolewrap"><label for="role">Вид:</label>
           <select class="role-sel" id="role" aria-label="Роль пользователя">
             <option value="dir">Директор по стройке</option>
@@ -206,6 +237,21 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover{background:#fafbfc}
       </div>
     </header>
 
+    <!-- legacy JS anchors (script unchanged still wires these) -->
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-hidden="true" tabindex="-1"></button>
+    <div class="scrim" id="scrim" aria-hidden="true"></div>
+
+    <nav class="viewtabs" id="nav" aria-label="Разделы панели">
+      <button data-v="svodka" aria-current="page"><span class="i" aria-hidden="true"></span> Сводка недели</button>
+      <button data-v="kontur"><span class="i" aria-hidden="true"></span> Контур недели</button>
+      <button data-v="reestr"><span class="i" aria-hidden="true"></span> Реестр работ</button>
+      <button data-v="pyatna"><span class="i" aria-hidden="true"></span> Пятна и графики</button>
+      <button data-v="naznach"><span class="i" aria-hidden="true"></span> Назначения</button>
+      <button data-v="jrnl"><span class="i" aria-hidden="true"></span> Журнал и аудит</button>
+      <button data-v="dash"><span class="i" aria-hidden="true"></span> Дашборд ГПР</button>
+    </nav>
+
+    <div class="wrap">
     <div class="body">
 
       <!-- СВОДКА -->
@@ -290,20 +336,20 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover{background:#fafbfc}
           <table id="rtable"><caption class="skip">Реестр работ недели</caption>
             <thead><tr><th scope="col">Пятно</th><th scope="col">Работа</th><th scope="col">Раздел</th><th scope="col">План</th><th scope="col">Факт</th><th scope="col">Δ дн.</th><th scope="col">Источник</th><th scope="col">Статус</th></tr></thead>
             <tbody>
-              <tr data-plot="3" data-late="1" data-pend="1"><td><b>3</b></td><td>Монтаж лифтов</td><td class="mut">Инженерка</td><td class="pct">100%</td><td class="pct" style="color:var(--amber)">90%</td><td class="pct" style="color:var(--red)">27</td><td class="mut">НУ · фото</td><td class="st-txt"><span class="d d-amber"></span>акцепт директора</td></tr>
+              <tr data-plot="3" data-late="1" data-pend="1"><td><b>3</b></td><td>Монтаж лифтов</td><td class="mut">Инженерка</td><td class="pct">100%</td><td class="pct" style="color:var(--amber-ink)">90%</td><td class="pct" style="color:var(--red)">27</td><td class="mut">НУ · фото</td><td class="st-txt"><span class="d d-amber"></span>акцепт директора</td></tr>
               <tr data-plot="3" data-late="1"><td><b>3</b></td><td>Видеонаблюдение</td><td class="mut">Инженерка</td><td class="pct">100%</td><td class="pct" style="color:var(--red)">67%</td><td class="pct" style="color:var(--red)">38</td><td class="mut">НУ</td><td class="st-txt"><span class="d d-red"></span>возвращено РП</td></tr>
               <tr data-plot="3"><td><b>3</b></td><td>Озеленение</td><td class="mut">Благоустройство</td><td class="pct">100%</td><td class="pct" style="color:var(--red)">0%</td><td class="pct">0</td><td class="mut">НУ · ждём смежников</td><td class="st-txt"><span class="d d-blue"></span>ввёл НУ</td></tr>
               <tr data-plot="3"><td><b>3</b></td><td>Фасад</td><td class="mut">Общестрой</td><td class="pct">100%</td><td class="pct" style="color:var(--green)">100%</td><td class="pct">0</td><td class="mut">НУ · фото · акт</td><td class="st-txt"><span class="d d-green"></span>подтв. РП</td></tr>
-              <tr data-plot="4" data-late="1"><td><b>4</b></td><td>Отопление</td><td class="mut">Инженерка</td><td class="pct">100%</td><td class="pct" style="color:var(--amber)">97%</td><td class="pct" style="color:var(--red)">8</td><td class="mut">НУ</td><td class="st-txt"><span class="d d-blue"></span>ввёл НУ</td></tr>
+              <tr data-plot="4" data-late="1"><td><b>4</b></td><td>Отопление</td><td class="mut">Инженерка</td><td class="pct">100%</td><td class="pct" style="color:var(--amber-ink)">97%</td><td class="pct" style="color:var(--red)">8</td><td class="mut">НУ</td><td class="st-txt"><span class="d d-blue"></span>ввёл НУ</td></tr>
               <tr data-plot="4" data-late="1" data-pend="1"><td><b>4</b></td><td>Хоз. питьевой водопровод</td><td class="mut">Инженерка</td><td class="pct">100%</td><td class="pct" style="color:var(--green)">100%</td><td class="pct" style="color:var(--red)">8</td><td class="mut">НУ · фото</td><td class="st-txt"><span class="d d-amber"></span>на подтв. РП</td></tr>
-              <tr data-plot="4" data-late="1" data-pend="1"><td><b>4</b></td><td>Электромонтажная работа</td><td class="mut">Инженерка</td><td class="pct">100%</td><td class="pct" style="color:var(--amber)">98%</td><td class="pct" style="color:var(--red)">5</td><td class="mut">НУ</td><td class="st-txt"><span class="d d-amber"></span>на подтв. РП</td></tr>
+              <tr data-plot="4" data-late="1" data-pend="1"><td><b>4</b></td><td>Электромонтажная работа</td><td class="mut">Инженерка</td><td class="pct">100%</td><td class="pct" style="color:var(--amber-ink)">98%</td><td class="pct" style="color:var(--red)">5</td><td class="mut">НУ</td><td class="st-txt"><span class="d d-amber"></span>на подтв. РП</td></tr>
               <tr data-plot="4"><td><b>4</b></td><td>Фасад</td><td class="mut">Общестрой</td><td class="pct">100%</td><td class="pct" style="color:var(--green)">100%</td><td class="pct">0</td><td class="mut">НУ · акт Рэмбо</td><td class="st-txt"><span class="d d-amber"></span>акцепт директора</td></tr>
-              <tr data-plot="5-8" data-late="1"><td><b>5</b></td><td>ЖБ каркас до 0.000</td><td class="mut">Общестрой</td><td class="pct">67%</td><td class="pct" style="color:var(--amber)">55%</td><td class="pct" style="color:var(--red)">10</td><td class="mut">НУ · фото</td><td class="st-txt"><span class="d d-green"></span>закрыто</td></tr>
-              <tr data-plot="5-8"><td><b>5</b></td><td>Бордюры и поребрики</td><td class="mut">Благоустройство</td><td class="pct">15%</td><td class="pct" style="color:var(--amber)">15%</td><td class="pct">0</td><td class="mut">НУ</td><td class="st-txt"><span class="d d-blue"></span>ввёл НУ</td></tr>
+              <tr data-plot="5-8" data-late="1"><td><b>5</b></td><td>ЖБ каркас до 0.000</td><td class="mut">Общестрой</td><td class="pct">67%</td><td class="pct" style="color:var(--amber-ink)">55%</td><td class="pct" style="color:var(--red)">10</td><td class="mut">НУ · фото</td><td class="st-txt"><span class="d d-green"></span>закрыто</td></tr>
+              <tr data-plot="5-8"><td><b>5</b></td><td>Бордюры и поребрики</td><td class="mut">Благоустройство</td><td class="pct">15%</td><td class="pct" style="color:var(--amber-ink)">15%</td><td class="pct">0</td><td class="mut">НУ</td><td class="st-txt"><span class="d d-blue"></span>ввёл НУ</td></tr>
               <tr data-plot="5-8"><td><b>6</b></td><td>Земляные работы</td><td class="mut">Общестрой</td><td class="pct">100%</td><td class="pct" style="color:var(--green)">100%</td><td class="pct">0</td><td class="mut">НУ · фото</td><td class="st-txt"><span class="d d-green"></span>закрыто</td></tr>
               <tr data-plot="5-8"><td><b>7</b></td><td>ЖБ каркас 4 этаж</td><td class="mut">Общестрой</td><td class="pct">47%</td><td class="pct" style="color:var(--green)">55%</td><td class="pct" style="color:var(--green)">опереж.</td><td class="mut">НУ · фото</td><td class="st-txt"><span class="d d-blue"></span>ввёл НУ</td></tr>
               <tr data-plot="5-8"><td><b>7</b></td><td>Бетонные работы до 0.000</td><td class="mut">Общестрой</td><td class="pct">100%</td><td class="pct" style="color:var(--green)">100%</td><td class="pct">0</td><td class="mut">НУ · акт</td><td class="st-txt"><span class="d d-green"></span>закрыто</td></tr>
-              <tr data-plot="5-8" data-late="1"><td><b>8</b></td><td>ЖБ каркас до 0.000</td><td class="mut">Общестрой</td><td class="pct">47%</td><td class="pct" style="color:var(--amber)">37%</td><td class="pct" style="color:var(--red)">11</td><td class="mut">НУ</td><td class="st-txt"><span class="d d-blue"></span>ввёл НУ</td></tr>
+              <tr data-plot="5-8" data-late="1"><td><b>8</b></td><td>ЖБ каркас до 0.000</td><td class="mut">Общестрой</td><td class="pct">47%</td><td class="pct" style="color:var(--amber-ink)">37%</td><td class="pct" style="color:var(--red)">11</td><td class="mut">НУ</td><td class="st-txt"><span class="d d-blue"></span>ввёл НУ</td></tr>
             </tbody>
           </table>
           </div>
@@ -356,7 +402,8 @@ tbody tr:last-child td{border-bottom:none}tbody tr:hover{background:#fafbfc}
 
     </div>
 
-    <p class="foot2"><b>Мокап веб-панели для согласования.</b> Переключайте роль справа и вкладки слева; фильтры в реестре кликабельны. Данные условные по ЖК «Аура», имена вымышленные.</p>
+    <p class="foot2"><b>Мокап веб-панели для согласования.</b> Переключайте роль справа и разделы в шапке; фильтры в реестре кликабельны. Данные условные по ЖК «Аура», имена вымышленные.</p>
+    </div>
   </main>
 </div>
 
