@@ -318,7 +318,7 @@ function render(){
     const hot=filter==='all'||filter===o.name;
     return `<div class="obj" style="${hot?'':'opacity:.4'}" onclick="goObj('${o.id}')">
       <span class="dot ${st}"></span>
-      <div class="nm">${o.name}<small>${o.blocks} блоков</small></div>
+      <div class="nm">${o.name.replace('ЖК ','').replace(/[«»]/g,'')}<small>${o.blocks} блоков</small></div>
       <div class="barwrap"><div class="bar"><i style="width:${o.ready}%"></i></div><div class="pct tnum">${o.ready}%</div></div>
       <div class="late"><b class="tnum">${o.nlate}</b><span>не в срок</span></div>
       <div class="worst ${wcls}">${o.worst>0?'до −'+o.worst+' дн':'в графике'}</div>
