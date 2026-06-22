@@ -8,7 +8,7 @@
 <title>ATLAS · Напарник — рабочее место мастера</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:wght@500;600&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --navy:#284157; --navy-700:#1d3142; --navy-d:#1d3142; --navy-900:#15242f;
@@ -37,12 +37,12 @@ body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;color:var(--ink);bac
   background-image:radial-gradient(1200px 600px at 8% -5%, rgba(0,116,132,.06), transparent 60%),radial-gradient(900px 500px at 105% 0%, rgba(207,179,114,.10), transparent 55%),radial-gradient(1000px 700px at 50% 120%, rgba(40,65,87,.05), transparent 60%);
   background-attachment:fixed;min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.4;-webkit-tap-highlight-color:transparent;font-feature-settings:"ss03","cv11"}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")}
-h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;color:var(--navy);line-height:1.08;letter-spacing:.01em}
+h1,h2,h3{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:600;color:var(--navy);line-height:1.08;letter-spacing:.01em}
 
 /* ===== shell + rail + header (design system) ===== */
 .shell{position:relative;z-index:1;display:flex;min-height:100vh}
 aside.nav{position:sticky;top:0;height:100vh;width:var(--sidebar-w);flex-shrink:0;background:linear-gradient(180deg,var(--navy) 0%, var(--navy-900) 100%);display:flex;flex-direction:column;align-items:center;padding:22px 0 18px;gap:6px;z-index:30;box-shadow:var(--shadow-navy)}
-.brand-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(150deg,var(--gold),var(--gold-deep));display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;color:var(--navy-900);box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px}
+.brand-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(150deg,var(--gold),var(--gold-deep));display:grid;place-items:center;font-family:'Cormorant','EB Garamond',serif;font-weight:700;font-size:24px;color:var(--navy-900);box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px}
 nav.rail{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;flex:1}
 .rail a{position:relative;width:60px;padding:11px 0 9px;border-radius:15px;display:flex;flex-direction:column;align-items:center;gap:5px;color:rgba(231,238,242,.62);transition:all .28s var(--ease)}
 .rail a .ic{width:23px;height:23px;display:block;transition:transform .28s var(--ease)}
@@ -64,9 +64,9 @@ main{flex:1;min-width:0;padding:24px clamp(16px,2.4vw,40px) 48px;max-width:1900p
 .stamp-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none;animation:pulse-dot 2.4s infinite}
 @keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(0,116,132,.45)}70%{box-shadow:0 0 0 8px rgba(0,116,132,0)}100%{box-shadow:0 0 0 0 rgba(0,116,132,0)}}
 .stamp-chip .t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.stamp-chip .v{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
+.stamp-chip .v{font-family:'Cormorant','EB Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
 .id-chip{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:7px 9px 7px 15px;box-shadow:var(--shadow-sm)}
-.id-chip .who{text-align:right;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--navy);line-height:1.1}
+.id-chip .who{text-align:right;font-family:'Cormorant','EB Garamond',serif;font-size:17px;font-weight:600;color:var(--navy);line-height:1.1}
 .id-chip .who small{display:block;font-family:'Jost',sans-serif;font-size:10.5px;color:var(--muted);font-weight:500;margin-top:1px}
 .id-chip .av{width:38px;height:38px;border-radius:11px;background:linear-gradient(150deg,var(--teal),var(--teal-600));color:#fff;display:grid;place-items:center;font-weight:600;font-size:14px;flex:none}
 @media(max-width:720px){
@@ -83,8 +83,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
 /* ===== шапка на весь экран ===== */
 .top{position:sticky;top:0;z-index:30;background:linear-gradient(110deg,var(--navy),var(--navy-d));color:#fff;display:flex;align-items:center;gap:16px;padding:12px clamp(16px,2.4vw,40px)}
-.top .lg{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;font-family:'Cormorant Garamond',Georgia,serif;flex:none}
-.top .nm{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:23px;line-height:1}
+.top .lg{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;font-family:'Cormorant','EB Garamond',Georgia,serif;flex:none}
+.top .nm{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:700;font-size:23px;line-height:1}
 .top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px;letter-spacing:.01em}
 .top .obsbadge{margin-left:6px;font-size:11px;font-weight:700;border-radius:999px;padding:5px 12px;background:rgba(207,179,114,.18);color:var(--gold);white-space:nowrap}
 .top .meta{margin-left:auto;display:flex;align-items:center;gap:16px}
@@ -118,14 +118,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .ringv b{font-size:22px;font-weight:800}.ringv span{font-size:9px;color:var(--mut)}
 .hgrade{min-width:0;flex:1}
 .hgrade .cap{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint)}
-.hgrade .gname{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:30px;line-height:1;color:var(--navy);margin-top:2px}
+.hgrade .gname{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:700;font-size:30px;line-height:1;color:var(--navy);margin-top:2px}
 .hgrade .gbar{height:8px;border-radius:5px;background:#EAD9AE;margin:9px 0 6px;overflow:hidden}
 .hgrade .gbar i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--gold),#e6cf94)}
 .hgrade .gnext{font-size:11.5px;color:var(--mut);font-weight:600;line-height:1.4}
 .hgrade .gnext b{color:var(--gold-d)}
 /* очки недели hero */
 .hxpcard .cap{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint)}
-.hxpcard .big{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:48px;line-height:1;color:var(--gold-d);margin-top:2px}
+.hxpcard .big{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:700;font-size:48px;line-height:1;color:var(--gold-d);margin-top:2px}
 .hxpcard .big small{font-family:'Jost',sans-serif;font-size:15px;font-weight:700;color:var(--faint)}
 .hxpcard .hxpsub{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:6px;line-height:1.4}
 .hchips{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
@@ -156,13 +156,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .wk .t{font-weight:700;font-size:13.5px;line-height:1.2}
 .wk .s{font-size:11.5px;color:var(--mut);font-weight:600;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wk .rt{flex:none;text-align:right}
-.wk .rt .p{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:22px;line-height:1;color:var(--navy)}
+.wk .rt .p{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:700;font-size:22px;line-height:1;color:var(--navy)}
 .wk .rt .lag{font-size:10px;font-weight:700;color:var(--red);margin-top:2px}
 .wk .rt .lag.ok{color:var(--green)}
 .wkstat{display:flex;gap:9px;padding:14px 20px 4px}
 .wkstat .c{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:10px 8px;text-align:center}
 .wkstat .c .gl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--faint)}
-.wkstat .c .gn{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:27px;line-height:1;margin-top:2px;color:var(--navy)}
+.wkstat .c .gn{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:700;font-size:27px;line-height:1;margin-top:2px;color:var(--navy)}
 .wkstat .c .gn.fact{color:var(--accent-d)}.wkstat .c .gn.lag{color:var(--red)}
 .wkstat .c .gn .gu{font-family:'Jost',sans-serif;font-size:11px;font-weight:600;color:var(--faint)}
 .subhead{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);padding:14px 20px 4px}
@@ -217,9 +217,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .goal{padding:18px 20px;background:linear-gradient(160deg,#fff,#fbfaf4)}
 .goalhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .goalcap{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--faint)}
-.goaltitle{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:24px;line-height:1.02;color:var(--navy);margin-top:2px}
+.goaltitle{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:700;font-size:24px;line-height:1.02;color:var(--navy);margin-top:2px}
 .goaldate{flex:none;text-align:right}
-.goaldate b{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:23px;color:var(--accent-d);line-height:1}
+.goaldate b{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:700;font-size:23px;color:var(--accent-d);line-height:1}
 .goaldate span{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--faint);margin-top:2px}
 .goalbar{position:relative;height:24px;border-radius:9px;background:#e7edf2;overflow:hidden;margin:14px 0 8px}
 .goalbar i{position:absolute;left:0;top:0;bottom:0;border-radius:9px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
@@ -259,7 +259,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .xpb .xr .xt i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
 .xpb .xr .xv{flex:none;width:46px;text-align:right;font-size:13px;font-weight:800;color:var(--accent-d)}
 .xptot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:11px;border-top:1px solid var(--line);font-weight:800;font-size:13px;color:var(--mut)}
-.xptot b{font-family:'Cormorant Garamond',Georgia,serif;font-size:25px;color:var(--gold-d)}
+.xptot b{font-family:'Cormorant','EB Garamond',Georgia,serif;font-size:25px;color:var(--gold-d)}
 .gain{margin-top:12px;background:var(--accent-soft);border-radius:13px;padding:11px 13px;font-size:12px;font-weight:700;color:var(--accent-d);line-height:1.5}
 .gain b{color:var(--ink)}.gain .row{display:flex;gap:7px;align-items:flex-start;margin-top:6px}
 .gain .row:first-child{margin-top:0}.gain .e{flex:none}
@@ -320,7 +320,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* ===== ОТиТБ (охрана труда · ТБ) ===== */
 .safe{padding:18px 20px}
 .safehero{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;background:linear-gradient(135deg,#fff,#f3f6f3);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-.safehero .big{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:52px;line-height:.92;color:var(--green);text-align:center;min-width:96px}
+.safehero .big{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:700;font-size:52px;line-height:.92;color:var(--green);text-align:center;min-width:96px}
 .safehero .big small{display:block;font-family:'Jost',sans-serif;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--faint);margin-top:4px}
 .safehero .sb{min-width:0}
 .safehero .sb .st{font-size:13px;font-weight:800;line-height:1.25}
