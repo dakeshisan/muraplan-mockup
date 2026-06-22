@@ -8,7 +8,7 @@
 <title>ATLAS · Командный центр</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:wght@500;600&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Cormorant:wght@500;600;700&family=EB+Garamond:wght@500;600&family=Jost:wght@400;500;600;700&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --navy:#284157; --navy-700:#1d3142; --navy-900:#15242f;
@@ -30,7 +30,7 @@
   *{margin:0;padding:0;box-sizing:border-box}
   html{color-scheme:light;scroll-behavior:smooth}
   body{
-    font-family:'Jost',-apple-system,'Segoe UI',sans-serif;color:var(--ink);
+    font-family:'Onest','Noto Sans',-apple-system,'Segoe UI',sans-serif;color:var(--ink);
     background-color:var(--cream);
     background-image:
       radial-gradient(1200px 600px at 8% -5%, rgba(0,116,132,.06), transparent 60%),
@@ -39,7 +39,7 @@
     background-attachment:fixed;min-height:100vh;line-height:1.45;-webkit-font-smoothing:antialiased;letter-spacing:.005em}
   body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")}
-  h1,h2,h3{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:600;color:var(--navy);line-height:1.08;letter-spacing:.01em}
+  h1,h2,h3{font-family:'Onest','Noto Sans',sans-serif;font-weight:600;color:var(--navy);line-height:1.08;letter-spacing:.01em}
   a{color:inherit;text-decoration:none}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
   :focus-visible{outline:2.5px solid var(--teal);outline-offset:3px;border-radius:6px}
@@ -52,7 +52,7 @@
     background:linear-gradient(180deg,var(--navy) 0%, var(--navy-900) 100%);
     display:flex;flex-direction:column;align-items:center;padding:22px 0 18px;gap:6px;z-index:30;box-shadow:var(--shadow-navy)}
   .brand-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(150deg,var(--gold),var(--gold-deep));
-    display:grid;place-items:center;font-family:'Cormorant','EB Garamond',serif;font-weight:700;font-size:24px;color:var(--navy-900);
+    display:grid;place-items:center;font-family:'Onest','Noto Sans',sans-serif;font-weight:700;font-size:24px;color:var(--navy-900);
     box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px}
   nav.rail{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;flex:1}
   .rail a{position:relative;width:60px;padding:11px 0 9px;border-radius:15px;display:flex;flex-direction:column;align-items:center;gap:5px;
@@ -82,10 +82,10 @@
   .stamp-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none;animation:pulse-dot 2.4s infinite}
   @keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(0,116,132,.45)}70%{box-shadow:0 0 0 8px rgba(0,116,132,0)}100%{box-shadow:0 0 0 0 rgba(0,116,132,0)}}
   .stamp-chip .t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
-  .stamp-chip .v{font-family:'Cormorant','EB Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
+  .stamp-chip .v{font-family:'Onest','Noto Sans',sans-serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
   .id-chip{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:8px 15px;box-shadow:var(--shadow-sm);
-    font-family:'Cormorant','EB Garamond',serif;font-size:17px;font-weight:600;color:var(--navy);line-height:1.1}
-  .id-chip small{display:block;font-family:'Jost',sans-serif;font-size:11px;color:var(--muted);font-weight:500;margin-top:2px}
+    font-family:'Onest','Noto Sans',sans-serif;font-size:17px;font-weight:600;color:var(--navy);line-height:1.1}
+  .id-chip small{display:block;font-family:'Onest',sans-serif;font-size:11px;color:var(--muted);font-weight:500;margin-top:2px}
 
   .wrap{width:100%}
   .lbl{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted-soft);margin:26px 2px 12px}
@@ -98,7 +98,7 @@
   .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:16px}
   .kpi{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow-sm);padding:16px 18px;position:relative;overflow:hidden;transition:transform .18s var(--ease),box-shadow .18s var(--ease)}
   .kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--line-strong)}
-  .kpi .v{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:600;font-size:36px;line-height:1;color:var(--navy)}
+  .kpi .v{font-family:'Onest','Noto Sans',sans-serif;font-weight:600;font-size:36px;line-height:1;color:var(--navy)}
   .kpi .v small{font-size:17px;color:var(--muted-soft)}
   .kpi .k{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-top:8px}
   .kpi .sub{font-size:11px;color:var(--muted-soft);font-weight:500;margin-top:3px}
@@ -110,19 +110,19 @@
   .grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;align-items:start}
 
   /* objects */
-  .obj{display:grid;grid-template-columns:14px 1.4fr 2fr auto auto;align-items:center;gap:16px;padding:15px 20px;border-top:1px solid var(--cream-deep);cursor:pointer;transition:background .14s}
+  .obj{display:grid;grid-template-columns:14px 1.4fr 2fr auto auto auto;align-items:center;gap:16px;padding:15px 20px;border-top:1px solid var(--cream-deep);cursor:pointer;transition:background .14s}
   .obj:first-child{border-top:none}
   .obj:hover{background:var(--cream)}
   .obj .dot{width:12px;height:12px;border-radius:50%;flex:none}
   .dot.red{background:var(--bad)}.dot.amber{background:var(--amber)}.dot.green{background:var(--good)}.dot.teal{background:var(--teal)}
-  .obj .nm{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:600;font-size:21px;color:var(--navy);line-height:1.05}
-  .obj .nm small{display:block;font-family:'Jost',sans-serif;font-size:11px;color:var(--muted-soft);font-weight:500;margin-top:3px}
+  .obj .nm{font-family:'Onest','Noto Sans',sans-serif;font-weight:600;font-size:21px;color:var(--navy);line-height:1.05}
+  .obj .nm small{display:block;font-family:'Onest',sans-serif;font-size:11px;color:var(--muted-soft);font-weight:500;margin-top:3px}
   .obj .barwrap{display:flex;align-items:center;gap:10px}
   .obj .bar{flex:1;height:9px;border-radius:99px;background:var(--cream-deep);overflow:hidden;min-width:60px}
   .obj .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--teal),var(--teal-600))}
   .obj .pct{font-weight:700;font-size:15px;width:42px;text-align:right;color:var(--navy)}
   .obj .late{text-align:center;min-width:74px}
-  .obj .late b{font-family:'Cormorant','EB Garamond',Georgia,serif;font-size:24px;font-weight:600;color:var(--bad);line-height:1}
+  .obj .late b{font-family:'Onest','Noto Sans',sans-serif;font-size:24px;font-weight:600;color:var(--bad);line-height:1}
   .obj .late span{display:block;font-size:9.5px;font-weight:600;text-transform:uppercase;color:var(--muted-soft);margin-top:2px}
   .obj .worst{font-size:12px;font-weight:600;color:var(--bad);background:var(--bad-soft);border-radius:999px;padding:5px 11px;white-space:nowrap}
   .obj .worst.ok{color:var(--good);background:var(--good-soft)}
@@ -130,12 +130,12 @@
 
   /* fire */
   .fire{max-height:560px;overflow:auto;padding:6px 0}
-  .fr{display:flex;align-items:center;gap:13px;padding:11px 20px;border-left:4px solid var(--line);transition:background .14s}
+  .fr{display:flex;align-items:center;gap:13px;padding:7px 20px;border-left:4px solid var(--line);transition:background .14s}
   .fr:hover{background:var(--cream)}
   .fr.crit{border-left-color:var(--bad-d)}.fr.high{border-left-color:var(--bad)}.fr.mid{border-left-color:var(--amber)}.fr.low{border-left-color:var(--gold)}
-  .fr .d{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:600;font-size:24px;color:var(--bad);width:62px;text-align:right;flex:none;line-height:1}
+  .fr .d{font-family:'Onest','Noto Sans',sans-serif;font-weight:600;font-size:24px;color:var(--bad);width:62px;text-align:right;flex:none;line-height:1}
   .fr.mid .d,.fr.low .d{color:var(--amber)}
-  .fr .d small{font-family:'Jost',sans-serif;font-size:10px;color:var(--muted-soft);font-weight:700}
+  .fr .d small{font-family:'Onest',sans-serif;font-size:10px;color:var(--muted-soft);font-weight:700}
   .fr .bd{flex:1;min-width:0}
   .fr .t{font-weight:600;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .fr .s{font-size:11.5px;color:var(--muted);font-weight:500;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -184,6 +184,13 @@
   .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(22px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:13px;font-size:13px;font-weight:600;box-shadow:var(--shadow-navy);opacity:0;pointer-events:none;transition:.28s;z-index:60}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   .toast b{color:var(--gold)}
+
+/* === Onest-канон Академии: засечный только на акценты + калибровка чисел под Onest === */
+.brand-mark, header.top h1, .hdr h1{font-family:'Cormorant','EB Garamond',Georgia,serif}
+.kpi .v{font-size:31px;letter-spacing:-.015em}
+.obj .late b, .fr .d, .stamp-chip .v{letter-spacing:-.01em}
+.obj .nm{font-weight:500;letter-spacing:0}
+.fr .obj{display:inline;color:var(--teal-600);font-weight:600}
 </style>
 </head>
 <body>

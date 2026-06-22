@@ -8,7 +8,7 @@
 <title>ATLAS · портфель объектов</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:wght@500;600&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Cormorant:wght@500;600;700&family=EB+Garamond:wght@500;600&family=Jost:wght@400;500;600;700&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --navy:#284157; --navy-700:#1d3142; --navy-d:#1d3142; --navy-900:#15242f;
@@ -33,16 +33,16 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{color-scheme:light}
-body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;color:var(--ink);background-color:var(--cream);
+body{font-family:'Onest','Noto Sans',-apple-system,'Segoe UI',sans-serif;color:var(--ink);background-color:var(--cream);
   background-image:radial-gradient(1200px 600px at 8% -5%, rgba(0,116,132,.06), transparent 60%),radial-gradient(900px 500px at 105% 0%, rgba(207,179,114,.10), transparent 55%),radial-gradient(1000px 700px at 50% 120%, rgba(40,65,87,.05), transparent 60%);
   background-attachment:fixed;min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.4;-webkit-tap-highlight-color:transparent;font-feature-settings:"ss03","cv11"}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")}
-h1,h2,h3{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:600;color:var(--navy);line-height:1.08;letter-spacing:.01em}
+h1,h2,h3{font-family:'Onest','Noto Sans',sans-serif;font-weight:600;color:var(--navy);line-height:1.08;letter-spacing:.01em}
 
 /* ===== shell + rail + header (design system) ===== */
 .shell{position:relative;z-index:1;display:flex;min-height:100vh}
 aside.nav{position:sticky;top:0;height:100vh;width:var(--sidebar-w);flex-shrink:0;background:linear-gradient(180deg,var(--navy) 0%, var(--navy-900) 100%);display:flex;flex-direction:column;align-items:center;padding:22px 0 18px;gap:6px;z-index:30;box-shadow:var(--shadow-navy)}
-.brand-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(150deg,var(--gold),var(--gold-deep));display:grid;place-items:center;font-family:'Cormorant','EB Garamond',serif;font-weight:700;font-size:24px;color:var(--navy-900);box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px}
+.brand-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(150deg,var(--gold),var(--gold-deep));display:grid;place-items:center;font-family:'Onest','Noto Sans',sans-serif;font-weight:700;font-size:24px;color:var(--navy-900);box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px}
 nav.rail{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;flex:1}
 .rail a{position:relative;width:60px;padding:11px 0 9px;border-radius:15px;display:flex;flex-direction:column;align-items:center;gap:5px;color:rgba(231,238,242,.62);transition:all .28s var(--ease)}
 .rail a .ic{width:23px;height:23px;display:block;transition:transform .28s var(--ease)}
@@ -65,10 +65,10 @@ main{flex:1;min-width:0;padding:24px clamp(16px,2.4vw,40px) 48px;max-width:1900p
 .stamp-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none;animation:pulse-dot 2.4s infinite}
 @keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(0,116,132,.45)}70%{box-shadow:0 0 0 8px rgba(0,116,132,0)}100%{box-shadow:0 0 0 0 rgba(0,116,132,0)}}
 .stamp-chip .t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.stamp-chip .v{font-family:'Cormorant','EB Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
+.stamp-chip .v{font-family:'Onest','Noto Sans',sans-serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
 .id-chip{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:7px 9px 7px 15px;box-shadow:var(--shadow-sm)}
-.id-chip .who{text-align:right;font-family:'Cormorant','EB Garamond',serif;font-size:17px;font-weight:600;color:var(--navy);line-height:1.1}
-.id-chip .who small{display:block;font-family:'Jost',sans-serif;font-size:10.5px;color:var(--muted);font-weight:500;margin-top:1px}
+.id-chip .who{text-align:right;font-family:'Onest','Noto Sans',sans-serif;font-size:17px;font-weight:600;color:var(--navy);line-height:1.1}
+.id-chip .who small{display:block;font-family:'Onest',sans-serif;font-size:10.5px;color:var(--muted);font-weight:500;margin-top:1px}
 .id-chip .av{width:38px;height:38px;border-radius:11px;background:linear-gradient(150deg,var(--teal),var(--teal-600));color:#fff;display:grid;place-items:center;font-weight:600;font-size:14px;flex:none}
 @media(max-width:720px){
   :root{--sidebar-w:62px}
@@ -84,9 +84,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .wrap{width:100%}
 
 .top{position:sticky;top:0;z-index:10;background:linear-gradient(120deg,var(--navy),var(--navy-d));color:#fff;margin:0 -14px 16px;padding:13px 18px;display:flex;align-items:center;gap:12px}
-.top .lg{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;font-family:'Cormorant','EB Garamond',Georgia,serif;flex:none}
-.top .nm{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:700;font-size:22px;line-height:1}
-.top .nm small{font-family:'Jost',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px}
+.top .lg{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;font-family:'Onest','Noto Sans',sans-serif;flex:none}
+.top .nm{font-family:'Onest','Noto Sans',sans-serif;font-weight:700;font-size:22px;line-height:1}
+.top .nm small{font-family:'Onest',sans-serif;display:block;font-size:11px;color:#9db4c6;font-weight:500;margin-top:2px}
 .top .me{margin-left:auto;display:flex;align-items:center;gap:9px}
 .top .me .who{text-align:right;font-size:12px;font-weight:700;line-height:1.1}
 .top .me .who small{display:block;font-weight:500;color:#9db4c6;font-size:10.5px}
@@ -99,10 +99,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* сводка */
 .sum{padding:16px 16px;display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
 .sst{background:var(--bg);border:1px solid var(--line);border-radius:13px;padding:11px 8px;text-align:center}
-.sst .sn{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:700;font-size:28px;line-height:1;color:var(--navy)}
+.sst .sn{font-family:'Onest','Noto Sans',sans-serif;font-weight:700;font-size:28px;line-height:1;color:var(--navy)}
 .sst .sn.lag{color:var(--red)}
 .sst .sn.sm{font-size:20px;line-height:1.2}
-.sst .sn small{font-family:'Jost',sans-serif;font-size:12px;font-weight:600;color:var(--faint)}
+.sst .sn small{font-family:'Onest',sans-serif;font-size:12px;font-weight:600;color:var(--faint)}
 .sst .sl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--faint);margin-top:5px;line-height:1.2}
 @media(max-width:520px){.sum{grid-template-columns:repeat(2,1fr)}}
 
@@ -123,8 +123,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .z-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .z-nm{font-size:16px;font-weight:700;line-height:1.15}
 .z-nm small{display:block;font-size:11.5px;color:var(--faint);font-weight:600;margin-top:3px}
-.z-pct{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:700;font-size:31px;line-height:.9;color:var(--accent-d)}
-.z-pct span{font-family:'Jost',sans-serif;font-size:14px;font-weight:600;color:var(--faint)}
+.z-pct{font-family:'Onest','Noto Sans',sans-serif;font-weight:700;font-size:31px;line-height:.9;color:var(--accent-d)}
+.z-pct span{font-family:'Onest',sans-serif;font-size:14px;font-weight:600;color:var(--faint)}
 .z-bar{height:8px;border-radius:6px;background:#e7edf2;overflow:hidden;margin:12px 0 4px}
 .z-bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-d))}
 
@@ -179,6 +179,10 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   .wrap>:nth-child(7){animation-delay:.3s}.wrap>:nth-child(8){animation-delay:.35s}
   .wrap>:nth-child(9){animation-delay:.4s}.wrap>:nth-child(10){animation-delay:.45s}
 }
+
+/* === Onest-канон Академии: основной Onest, засечный только на акценты === */
+.brand-mark, header.top h1, .hdr h1, .top .nm, .top .lg, .lg, .word, .hero .word, .hero h1, .hero .sub, .creed .q, .tx .q, .creed .tx .q, .motto, .nm.brand{font-family:'Cormorant','EB Garamond',Georgia,serif}
+.tnum{letter-spacing:-.012em}
 </style>
 </head>
 <body>

@@ -8,7 +8,7 @@
 <title>ATLAS · строительная ERP · вход по роли</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:wght@500;600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Cormorant:wght@500;600;700&family=EB+Garamond:wght@500;600&family=Jost:wght@400;500;600;700&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --navy:#284157; --navy-700:#1d3142; --navy-900:#15242f;
@@ -33,7 +33,7 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth;color-scheme:light}
   body{
-    font-family:'Jost',-apple-system,'Segoe UI',sans-serif;
+    font-family:'Onest','Noto Sans',-apple-system,'Segoe UI',sans-serif;
     color:var(--ink);
     background-color:var(--cream);
     background-image:
@@ -47,7 +47,7 @@
     content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
   }
-  h1,h2,h3,h4,.display{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:600;letter-spacing:.01em;color:var(--navy);line-height:1.08}
+  h1,h2,h3,h4,.display{font-family:'Onest','Noto Sans',sans-serif;font-weight:600;letter-spacing:.01em;color:var(--navy);line-height:1.08}
   a{color:inherit;text-decoration:none}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
   :focus-visible{outline:2.5px solid var(--teal);outline-offset:3px;border-radius:6px}
@@ -65,7 +65,7 @@
   .brand-mark{
     width:46px;height:46px;border-radius:13px;
     background:linear-gradient(150deg,var(--gold) 0%, var(--gold-deep) 100%);
-    display:grid;place-items:center;font-family:'Cormorant','EB Garamond',serif;font-weight:700;font-size:24px;color:var(--navy-900);
+    display:grid;place-items:center;font-family:'Onest','Noto Sans',sans-serif;font-weight:700;font-size:24px;color:var(--navy-900);
     box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px;
   }
   nav.rail{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;flex:1}
@@ -102,23 +102,23 @@
   .stamp-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none;animation:pulse-dot 2.4s infinite}
   @keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(0,116,132,.45)}70%{box-shadow:0 0 0 8px rgba(0,116,132,0)}100%{box-shadow:0 0 0 0 rgba(0,116,132,0)}}
   .stamp-chip .t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
-  .stamp-chip .v{font-family:'Cormorant','EB Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
+  .stamp-chip .v{font-family:'Onest','Noto Sans',sans-serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
   .group-chip{text-align:right;line-height:1.2}
-  .group-chip b{font-family:'Cormorant','EB Garamond',serif;font-size:18px;font-weight:600;color:var(--navy)}
+  .group-chip b{font-family:'Onest','Noto Sans',sans-serif;font-size:18px;font-weight:600;color:var(--navy)}
   .group-chip small{display:block;font-size:11px;color:var(--muted);font-weight:500;margin-top:1px}
 
   /* ===== HERO ===== */
   .hero{position:relative;margin-top:clamp(22px,3.4vw,40px)}
-  .hero .word{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:700;font-size:clamp(56px,9vw,116px);line-height:.86;color:var(--navy);letter-spacing:-.012em}
+  .hero .word{font-family:'Onest','Noto Sans',sans-serif;font-weight:700;font-size:clamp(56px,9vw,116px);line-height:.86;color:var(--navy);letter-spacing:-.012em}
   .hero .word .g{color:var(--gold-deep)}
-  .hero .sub{font-family:'Cormorant','EB Garamond',serif;font-weight:500;font-style:italic;font-size:clamp(19px,2.7vw,32px);color:var(--teal-600);line-height:1.12;margin-top:12px}
+  .hero .sub{font-family:'Onest','Noto Sans',sans-serif;font-weight:500;font-style:italic;font-size:clamp(19px,2.7vw,32px);color:var(--teal-600);line-height:1.12;margin-top:12px}
   .hero .lead{color:var(--muted);font-size:15px;margin-top:16px;max-width:780px;line-height:1.65;font-weight:400}
   .hero .lead b{color:var(--navy);font-weight:600}
 
   .snap{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
   .snap .pill{display:flex;flex-direction:column;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:13px 18px;box-shadow:var(--shadow-sm);min-width:128px;transition:all .25s var(--ease)}
   .snap .pill:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--line-strong)}
-  .snap .pill b{font-family:'Cormorant','EB Garamond',serif;font-weight:600;font-size:30px;color:var(--navy);line-height:1}
+  .snap .pill b{font-family:'Onest','Noto Sans',sans-serif;font-weight:600;font-size:30px;color:var(--navy);line-height:1}
   .snap .pill span{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
   .snap .pill.alarm b{color:var(--bad)}
   .snap .pill.alarm{border-color:var(--bad-soft);background:linear-gradient(165deg,#fffaf8,var(--bad-soft))}
@@ -181,15 +181,15 @@
   .sys:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--line-strong)}
   .sys .e{width:42px;height:42px;border-radius:12px;background:linear-gradient(150deg,var(--cream),var(--cream-deep));color:var(--navy);display:grid;place-items:center;flex:none;border:1px solid var(--line)}
   .sys .e svg{width:21px;height:21px}
-  .sys .t{font-family:'Cormorant','EB Garamond',serif;font-weight:600;font-size:18px;color:var(--navy);line-height:1.05}
+  .sys .t{font-family:'Onest','Noto Sans',sans-serif;font-weight:600;font-size:18px;color:var(--navy);line-height:1.05}
   .sys .s{font-size:11.5px;color:var(--muted);font-weight:400;margin-top:4px;line-height:1.45}
   .sys .badge{display:inline-block;margin-top:9px;font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--teal-600);background:var(--teal-tint);border-radius:999px;padding:3px 10px}
 
   /* ===== creed footer ===== */
   .creed{margin-top:clamp(36px,5vw,54px);padding:28px clamp(24px,3vw,34px);border-radius:var(--r-lg);background:linear-gradient(135deg,var(--navy) 0%, var(--navy-900) 100%);color:#eef4f6;display:flex;align-items:center;gap:22px;box-shadow:var(--shadow-navy);position:relative;overflow:hidden}
   .creed::after{content:"";position:absolute;right:-30px;bottom:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(207,179,114,.16),transparent 70%)}
-  .creed .mk{font-family:'Cormorant','EB Garamond',serif;font-size:62px;color:var(--gold);line-height:.6;opacity:.6;flex:none}
-  .creed .tx .q{font-family:'Cormorant','EB Garamond',serif;font-size:24px;font-weight:500;font-style:italic;color:#fff;line-height:1.22}
+  .creed .mk{font-family:'Onest','Noto Sans',sans-serif;font-size:62px;color:var(--gold);line-height:.6;opacity:.6;flex:none}
+  .creed .tx .q{font-family:'Onest','Noto Sans',sans-serif;font-size:24px;font-weight:500;font-style:italic;color:#fff;line-height:1.22}
   .creed .tx .a{font-size:12.5px;color:rgba(238,244,246,.65);margin-top:8px;letter-spacing:.03em}
   .creed .tx .a b{color:var(--gold);font-weight:600}
 
@@ -211,6 +211,10 @@
     header.top{gap:14px}.group-chip{text-align:left}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+
+/* === Onest-канон Академии: основной Onest, засечный только на акценты === */
+.brand-mark, header.top h1, .hdr h1, .top .nm, .top .lg, .lg, .word, .hero .word, .hero h1, .hero .sub, .creed .q, .tx .q, .creed .tx .q, .motto, .nm.brand{font-family:'Cormorant','EB Garamond',Georgia,serif}
+.tnum{letter-spacing:-.012em}
 </style>
 </head>
 <body>

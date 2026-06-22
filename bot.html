@@ -6,7 +6,7 @@
 <title>ATLAS · Флэш — мокап интерфейса</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:wght@500;600&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Cormorant:wght@500;600;700&family=EB+Garamond:wght@500;600&family=Jost:wght@400;500;600;700&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --navy:#284157; --navy-700:#1d3142; --navy-d:#1d3142; --navy-900:#15242f;
@@ -35,16 +35,16 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{color-scheme:light}
-body{font-family:'Jost',-apple-system,'Segoe UI',sans-serif;color:var(--ink);background-color:var(--cream);
+body{font-family:'Onest','Noto Sans',-apple-system,'Segoe UI',sans-serif;color:var(--ink);background-color:var(--cream);
   background-image:radial-gradient(1200px 600px at 8% -5%, rgba(0,116,132,.06), transparent 60%),radial-gradient(900px 500px at 105% 0%, rgba(207,179,114,.10), transparent 55%),radial-gradient(1000px 700px at 50% 120%, rgba(40,65,87,.05), transparent 60%);
   background-attachment:fixed;min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.4;-webkit-tap-highlight-color:transparent;font-feature-settings:"ss03","cv11"}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")}
-h1,h2,h3{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:600;color:var(--navy);line-height:1.08;letter-spacing:.01em}
+h1,h2,h3{font-family:'Onest','Noto Sans',sans-serif;font-weight:600;color:var(--navy);line-height:1.08;letter-spacing:.01em}
 
 /* ===== shell + rail + header (design system) ===== */
 .shell{position:relative;z-index:1;display:flex;min-height:100vh}
 aside.nav{position:sticky;top:0;height:100vh;width:var(--sidebar-w);flex-shrink:0;background:linear-gradient(180deg,var(--navy) 0%, var(--navy-900) 100%);display:flex;flex-direction:column;align-items:center;padding:22px 0 18px;gap:6px;z-index:30;box-shadow:var(--shadow-navy)}
-.brand-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(150deg,var(--gold),var(--gold-deep));display:grid;place-items:center;font-family:'Cormorant','EB Garamond',serif;font-weight:700;font-size:24px;color:var(--navy-900);box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px}
+.brand-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(150deg,var(--gold),var(--gold-deep));display:grid;place-items:center;font-family:'Onest','Noto Sans',sans-serif;font-weight:700;font-size:24px;color:var(--navy-900);box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px}
 nav.rail{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;flex:1}
 .rail a{position:relative;width:60px;padding:11px 0 9px;border-radius:15px;display:flex;flex-direction:column;align-items:center;gap:5px;color:rgba(231,238,242,.62);transition:all .28s var(--ease)}
 .rail a .ic{width:23px;height:23px;display:block;transition:transform .28s var(--ease)}
@@ -67,10 +67,10 @@ main{flex:1;min-width:0;padding:24px clamp(16px,2.4vw,40px) 48px;max-width:1900p
 .stamp-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none;animation:pulse-dot 2.4s infinite}
 @keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(0,116,132,.45)}70%{box-shadow:0 0 0 8px rgba(0,116,132,0)}100%{box-shadow:0 0 0 0 rgba(0,116,132,0)}}
 .stamp-chip .t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.stamp-chip .v{font-family:'Cormorant','EB Garamond',serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
+.stamp-chip .v{font-family:'Onest','Noto Sans',sans-serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
 .id-chip{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:7px 9px 7px 15px;box-shadow:var(--shadow-sm)}
-.id-chip .who{text-align:right;font-family:'Cormorant','EB Garamond',serif;font-size:17px;font-weight:600;color:var(--navy);line-height:1.1}
-.id-chip .who small{display:block;font-family:'Jost',sans-serif;font-size:10.5px;color:var(--muted);font-weight:500;margin-top:1px}
+.id-chip .who{text-align:right;font-family:'Onest','Noto Sans',sans-serif;font-size:17px;font-weight:600;color:var(--navy);line-height:1.1}
+.id-chip .who small{display:block;font-family:'Onest',sans-serif;font-size:10.5px;color:var(--muted);font-weight:500;margin-top:1px}
 .id-chip .av{width:38px;height:38px;border-radius:11px;background:linear-gradient(150deg,var(--teal),var(--teal-600));color:#fff;display:grid;place-items:center;font-weight:600;font-size:14px;flex:none}
 @media(max-width:720px){
   :root{--sidebar-w:62px}
@@ -89,23 +89,23 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 
 /* header */
 header.top{margin-bottom:14px}
-.kicker{font-family:'Jost','Futura PT',sans-serif;font-size:12px;letter-spacing:.32em;color:var(--teal);text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.kicker{font-family:'Onest','Noto Sans','Futura PT',sans-serif;font-size:12px;letter-spacing:.32em;color:var(--teal);text-transform:uppercase;display:flex;align-items:center;gap:10px}
 .kicker::before{content:"";width:34px;height:1px;background:var(--teal)}
-h1{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:700;font-size:clamp(32px,5vw,56px);line-height:1.04;letter-spacing:.01em;margin:14px 0 6px;color:var(--navy)}
+h1{font-family:'Onest','Noto Sans',sans-serif;font-weight:700;font-size:clamp(32px,5vw,56px);line-height:1.04;letter-spacing:.01em;margin:14px 0 6px;color:var(--navy)}
 h1 .g{color:var(--gold)}
 .lead{font-size:16px;max-width:680px;color:var(--muted);line-height:1.5}
-.flowbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;font-family:'Jost','Futura PT',sans-serif;font-size:12.5px}
+.flowbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;font-family:'Onest','Noto Sans','Futura PT',sans-serif;font-size:12.5px}
 .flowbar .node{padding:7px 13px;border:1px solid var(--line);border-radius:30px;background:var(--paper);color:var(--muted)}
 .flowbar .node b{color:var(--gold)}
 .flowbar .arr{color:var(--teal);align-self:center}
-.obs{margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-family:'Jost','Futura PT',sans-serif;font-size:11.5px;color:#0e2233;background:var(--gold);padding:6px 12px;border-radius:6px;font-weight:700}
+.obs{margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-family:'Onest','Noto Sans','Futura PT',sans-serif;font-size:11.5px;color:#0e2233;background:var(--gold);padding:6px 12px;border-radius:6px;font-weight:700}
 
 /* scenes grid */
 .scenes{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px 26px;margin-top:46px;align-items:start}
 .scene{position:relative}
-.tag{font-family:'Jost','Futura PT',sans-serif;font-size:11.5px;color:var(--teal);letter-spacing:.05em;margin-bottom:6px;display:flex;gap:8px;align-items:baseline}
+.tag{font-family:'Onest','Noto Sans','Futura PT',sans-serif;font-size:11.5px;color:var(--teal);letter-spacing:.05em;margin-bottom:6px;display:flex;gap:8px;align-items:baseline}
 .tag .num{color:var(--gold);font-weight:700}
-.cap{font-family:'Jost','Futura PT',sans-serif;font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:14px;min-height:34px}
+.cap{font-family:'Onest','Noto Sans','Futura PT',sans-serif;font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:14px;min-height:34px}
 .cap b{color:var(--ink)}
 
 /* phone */
@@ -128,7 +128,7 @@ h1 .g{color:var(--gold)}
 .worki{padding:6px 0;border-bottom:1px solid #eef1f3;font-size:12px;display:flex;justify-content:space-between;gap:8px}
 .worki:last-child{border-bottom:none}
 .worki .wn{color:#1a1a1a}
-.worki .wm{white-space:nowrap;font-weight:700;font-family:'Jost','Futura PT',sans-serif;font-size:11px}
+.worki .wm{white-space:nowrap;font-weight:700;font-family:'Onest','Noto Sans','Futura PT',sans-serif;font-size:11px}
 .lbl{display:inline-block;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:10px;font-family:-apple-system,sans-serif;vertical-align:middle}
 .l-late{background:#fde7e6;color:#c0392b} .l-stuck{background:#fff3da;color:#b9791b}
 .l-new{background:#e7f1fb;color:#2c7fc4} .l-ok{background:#e6f6ec;color:#1f9d57}
@@ -147,11 +147,15 @@ h1 .g{color:var(--gold)}
 .composer .ic{color:#7c8b96}
 
 /* footer */
-footer{margin-top:54px;border-top:1px solid var(--line);padding-top:20px;font-family:'Jost','Futura PT',sans-serif;font-size:11.5px;color:var(--muted);line-height:1.6}
+footer{margin-top:54px;border-top:1px solid var(--line);padding-top:20px;font-family:'Onest','Noto Sans','Futura PT',sans-serif;font-size:11.5px;color:var(--muted);line-height:1.6}
 footer b{color:var(--ink)}
 .legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .legend span{padding:4px 10px;border:1px solid var(--line);border-radius:20px}
 @media(max-width:700px){.flowbar{font-size:11px}}
+
+/* === Onest-канон Академии: основной Onest, засечный только на акценты === */
+.brand-mark, header.top h1, .hdr h1, .top .nm, .top .lg, .lg, .word, .hero .word, .hero h1, .hero .sub, .creed .q, .tx .q, .creed .tx .q, .motto, .nm.brand{font-family:'Cormorant','EB Garamond',Georgia,serif}
+.tnum{letter-spacing:-.012em}
 </style>
 </head>
 <body>
