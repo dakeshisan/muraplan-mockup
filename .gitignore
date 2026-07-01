@@ -5,3 +5,4 @@ __pycache__/
 supply_core/.env
 .env
 .superpowers/
+.worktrees/

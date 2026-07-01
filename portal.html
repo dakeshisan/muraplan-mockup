@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#284157">
+<meta name="robots" content="noindex,nofollow">
+<title>ATLAS · корпоративный портал</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Cormorant:wght@500;600;700&family=EB+Garamond:wght@500;600&family=Jost:wght@400;500;600;700&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#284157; --navy-700:#1d3142; --navy-900:#15242f;
+    --teal:#007484; --teal-600:#00606e; --teal-tint:#e2eef0;
+    --gold:#CFB372; --gold-deep:#b7995a; --gold-soft:#f0e6cf; --gold-ink:#8a6d2f;
+    --cream:#F7F5EE; --cream-deep:#efece1; --paper:#fffefb;
+    --ink:#23303a; --muted:#5f6b75; --muted-soft:#8b96a0;
+    --good:#1f7a4d; --bad:#b5482e; --bad-soft:#f6e6e0;
+    --amber:#c2862a; --amber-soft:#f6ecd6;
+    --line:#e6e2d6; --line-strong:#d8d3c4;
+
+    --shadow-sm:0 1px 2px rgba(21,36,47,.04), 0 1px 3px rgba(21,36,47,.05);
+    --shadow-md:0 2px 4px rgba(21,36,47,.04), 0 8px 24px rgba(21,36,47,.07);
+    --shadow-lg:0 4px 8px rgba(21,36,47,.05), 0 20px 48px rgba(21,36,47,.12);
+    --shadow-navy:0 12px 36px rgba(40,65,87,.28);
+    --shadow-gold:0 10px 30px rgba(183,153,90,.30);
+
+    --r-sm:10px; --r-md:16px; --r-lg:22px; --r-xl:28px;
+    --sidebar-w:84px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;color-scheme:light}
+  body{
+    font-family:'Onest','Noto Sans',-apple-system,'Segoe UI',sans-serif;
+    color:var(--ink);
+    background-color:var(--cream);
+    background-image:
+      radial-gradient(1200px 600px at 8% -5%, rgba(0,116,132,.06), transparent 60%),
+      radial-gradient(900px 500px at 105% 0%, rgba(207,179,114,.10), transparent 55%),
+      radial-gradient(1000px 700px at 50% 120%, rgba(40,65,87,.05), transparent 60%);
+    background-attachment:fixed;
+    min-height:100vh;line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:.005em;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  }
+  h1,h2,h3,h4,.display{font-family:'Onest','Noto Sans',sans-serif;font-weight:600;letter-spacing:.01em;color:var(--navy);line-height:1.08}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  :focus-visible{outline:2.5px solid var(--teal);outline-offset:3px;border-radius:6px}
+  .tnum{font-variant-numeric:tabular-nums}
+
+  .shell{position:relative;z-index:1;display:flex;min-height:100vh}
+
+  /* ============ SIDEBAR RAIL ============ */
+  aside.nav{
+    position:sticky;top:0;height:100vh;width:var(--sidebar-w);flex-shrink:0;
+    background:linear-gradient(180deg,var(--navy) 0%, var(--navy-900) 100%);
+    display:flex;flex-direction:column;align-items:center;padding:22px 0 18px;gap:6px;z-index:30;
+    box-shadow:var(--shadow-navy);
+  }
+  .brand-mark{
+    width:46px;height:46px;border-radius:13px;
+    background:linear-gradient(150deg,var(--gold) 0%, var(--gold-deep) 100%);
+    display:grid;place-items:center;font-family:'Onest','Noto Sans',sans-serif;font-weight:700;font-size:24px;color:var(--navy-900);
+    box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px;
+  }
+  nav.rail{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;flex:1}
+  .rail a{
+    position:relative;width:60px;padding:11px 0 9px;border-radius:15px;
+    display:flex;flex-direction:column;align-items:center;gap:5px;
+    color:rgba(231,238,242,.62);transition:all .28s var(--ease);
+  }
+  .rail a .ic{width:23px;height:23px;display:block;transition:transform .28s var(--ease)}
+  .rail a .nav-lbl{font-size:9.5px;font-weight:500;letter-spacing:.02em;line-height:1;text-align:center;white-space:nowrap}
+  .rail a:hover{color:#fff;background:rgba(255,255,255,.07)}
+  .rail a:hover .ic{transform:translateY(-2px) scale(1.06)}
+  .rail a.active{color:var(--navy-900);background:linear-gradient(150deg,#fff,#f3efe2)}
+  .rail a.active::before{
+    content:"";position:absolute;left:-16px;top:50%;transform:translateY(-50%);
+    width:5px;height:30px;border-radius:0 5px 5px 0;background:var(--gold);box-shadow:0 0 14px rgba(207,179,114,.7);
+  }
+  .rail-bottom{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;padding-top:8px;border-top:1px solid rgba(255,255,255,.09)}
+  .nav-avatar{
+    width:42px;height:42px;border-radius:13px;margin-top:4px;
+    background:linear-gradient(150deg,var(--teal),var(--teal-600));
+    display:grid;place-items:center;color:#fff;font-weight:600;font-size:13px;letter-spacing:.02em;
+    border:2px solid rgba(255,255,255,.25);box-shadow:0 4px 10px rgba(0,0,0,.25);
+  }
+
+  /* ============ MAIN ============ */
+  main{flex:1;min-width:0;padding:30px clamp(20px,3vw,52px) 56px;max-width:1640px;margin:0 auto;width:100%}
+
+  header.top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+  .eyebrow::before{content:"";width:24px;height:1.5px;background:var(--teal);display:inline-block;opacity:.6}
+  .top-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .stamp-chip{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:9px 15px;box-shadow:var(--shadow-sm)}
+  .stamp-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none;animation:pulse-dot 2.4s infinite}
+  @keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(0,116,132,.45)}70%{box-shadow:0 0 0 8px rgba(0,116,132,0)}100%{box-shadow:0 0 0 0 rgba(0,116,132,0)}}
+  .stamp-chip .t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .stamp-chip .v{font-family:'Onest','Noto Sans',sans-serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
+  .group-chip{text-align:right;line-height:1.2}
+  .group-chip b{font-family:'Onest','Noto Sans',sans-serif;font-size:18px;font-weight:600;color:var(--navy)}
+  .group-chip small{display:block;font-size:11px;color:var(--muted);font-weight:500;margin-top:1px}
+
+  .snap{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  .snap .pill{display:flex;flex-direction:column;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:13px 18px;box-shadow:var(--shadow-sm);min-width:128px;transition:all .25s var(--ease)}
+  .snap .pill:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--line-strong)}
+  .snap .pill b{font-family:'Onest','Noto Sans',sans-serif;font-weight:600;font-size:30px;color:var(--navy);line-height:1}
+  .snap .pill span{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .snap .pill.alarm b{color:var(--bad)}
+  .snap .pill.alarm{border-color:var(--bad-soft);background:linear-gradient(165deg,#fffaf8,var(--bad-soft))}
+
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-md);position:relative;overflow:hidden}
+
+  /* ===== reveal ===== */
+  .reveal{opacity:0;transform:translateY(16px);animation:rise .7s var(--ease) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  /* ===== PORTAL: greeting ===== */
+  .greet{margin-top:clamp(20px,3vw,32px);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
+  .greet .brandline{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:600;font-style:italic;font-size:15px;color:var(--gold-ink);letter-spacing:.04em;text-transform:uppercase}
+  .greet .brandline .g{color:var(--gold-deep)}
+  .greet h1{font-family:'Cormorant','EB Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(30px,4vw,44px);color:var(--navy);margin-top:4px}
+  .greet .sub{font-size:13px;color:var(--muted);margin-top:4px}
+  .greet .today{font-size:12px;color:var(--muted);text-align:right}
+
+  /* ===== PORTAL: cards shared ===== */
+  .pcard{padding:22px clamp(20px,2.4vw,30px)}
+  .pcard h3{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin-bottom:14px}
+
+  /* ===== PORTAL: task list (На вас ждёт) ===== */
+  .task{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+  .task:first-of-type{border-top:none}
+  .task .dot2{width:9px;height:9px;border-radius:50%;flex:none}
+  .task .dot2.bad{background:var(--bad)}
+  .task .dot2.amber{background:var(--amber)}
+  .task .dot2.good{background:var(--good)}
+  .task .tx{flex:1;min-width:0}
+  .task .tx b{display:block;font-size:13.5px;color:var(--ink);font-weight:600}
+  .task .tx span{font-size:12px;color:var(--muted)}
+  .task a{font-size:12px;color:var(--teal-600);font-weight:600;white-space:nowrap}
+
+  /* ===== PORTAL: news + kpi row ===== */
+  .row2{display:flex;gap:18px;align-items:stretch;flex-wrap:wrap;margin-top:18px}
+  .row2>*{flex:1;min-width:280px}
+  .news .item{padding:12px 0;border-top:1px solid var(--line)}
+  .news .item:first-child{border-top:none}
+  .news .item .meta{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--gold-ink)}
+  .news .item h4{font-size:15px;color:var(--navy);margin:5px 0 4px}
+  .news .item p{font-size:12.5px;color:var(--muted);line-height:1.5}
+  .news .item a{font-size:12px;color:var(--teal-600);font-weight:600;display:inline-block;margin-top:5px}
+  .news .item span.nolink{font-size:12px;color:var(--muted-soft);font-weight:600;display:inline-block;margin-top:5px}
+  .kpi-col .snap{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:0}
+
+  /* ===== PORTAL: quick links ===== */
+  .linkgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:2px}
+  .linkgrid a{background:var(--teal-tint);border-radius:var(--r-md);padding:14px 10px;text-align:center;font-size:12.5px;font-weight:600;color:var(--teal-600);transition:transform .18s var(--ease)}
+  .linkgrid a:hover{transform:translateY(-2px)}
+  .linkgrid a.cta{background:linear-gradient(150deg,var(--gold),var(--gold-deep));color:var(--navy-900)}
+
+  /* ===== PORTAL: org info ===== */
+  .orgcard{padding:16px clamp(20px,2.4vw,30px)}
+  .orgtoggle{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--navy);width:100%;justify-content:space-between}
+  .orgtoggle .chev{transition:transform .2s var(--ease);color:var(--muted);display:inline-block}
+  .orgtoggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+  .orglist{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .orglist[hidden]{display:none}
+  .orglist .grp b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--gold-ink);margin-bottom:8px}
+  .orglist .grp ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+  .orglist .grp li{font-size:12.5px;color:var(--muted)}
+
+  /* ===== responsive ===== */
+  @media (max-width:1180px){.linkgrid{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:720px){
+    :root{--sidebar-w:62px}
+    aside.nav{padding:16px 0 14px}
+    .brand-mark{width:38px;height:38px;font-size:20px;margin-bottom:14px}
+    .rail a{width:50px}.rail a .nav-lbl{display:none}.rail a .ic{width:22px;height:22px}
+    main{padding:22px 16px 44px}
+    .row2{flex-direction:column}
+    .linkgrid{grid-template-columns:repeat(2,1fr)}
+    .orglist{grid-template-columns:1fr}
+    header.top{gap:14px}.group-chip{text-align:left}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+
+/* === Onest-канон Академии: основной Onest, засечный только на акценты === */
+.brand-mark, header.top h1, .hdr h1, .top .nm, .top .lg, .lg, .word, .hero .word, .hero h1, .hero .sub, .creed .q, .tx .q, .creed .tx .q, .motto, .nm.brand{font-family:'Cormorant','EB Garamond',Georgia,serif}
+.tnum{letter-spacing:-.012em}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="nav" aria-label="Главное меню ATLAS">
+    <div class="brand-mark" title="ATAMŪRA GROUP" aria-hidden="true">Ā</div>
+    <nav class="rail" aria-label="Модули ATLAS">
+      <a href="index.html" class="active" aria-current="page">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+        <span class="nav-lbl">Вход</span>
+      </a>
+      <a href="dashboard.html">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        <span class="nav-lbl">Центр</span>
+      </a>
+      <a href="portfolio.html">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg>
+        <span class="nav-lbl">Портфель</span>
+      </a>
+      <a href="gpr.html">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+        <span class="nav-lbl">ГПР</span>
+      </a>
+      <a href="atlas_supply_roles_brand.html">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+        <span class="nav-lbl">Снабж.</span>
+      </a>
+      <a href="league.html">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+        <span class="nav-lbl">Лига</span>
+      </a>
+      <a href="docs.html" title="Документы">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></svg>
+        <span class="nav-lbl">Документы</span>
+      </a>
+    </nav>
+    <div class="rail-bottom">
+      <div class="nav-avatar" title="Профиль" aria-label="Профиль: проектный офис">ПО</div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main>
+
+    <header class="top reveal" style="animation-delay:.04s">
+      <span class="eyebrow">Строительная ERP · единый движок ГПР</span>
+      <div class="top-meta">
+        <div class="stamp-chip" title="Дата среза движка ГПР">
+          <span class="dot" aria-hidden="true"></span>
+          <span><span class="t">данные движка</span><br><span class="v tnum" id="stamp">28.05.2026</span></span>
+        </div>
+        <div class="group-chip"><b>ATAMŪRA GROUP</b><small>единый движок ГПР · 4 ЖК</small></div>
+      </div>
+    </header>
+
+    <!-- GREETING -->
+    <section class="greet reveal" style="animation-delay:.1s">
+      <div>
+        <div class="brandline">ATL<span class="g">A</span>S</div>
+        <h1>С возвращением</h1>
+        <p class="sub">ATLAS · корпоративный портал ATAMŪRA</p>
+      </div>
+      <div class="today" id="today"></div>
+    </section>
+
+    <!-- НА ВАС ЖДЁТ -->
+    <div class="card pcard reveal" style="animation-delay:.16s">
+      <h3>На вас ждёт</h3>
+      <div class="task">
+        <span class="dot2 bad"></span>
+        <span class="tx"><b>3 акта КС-2 на согласование</b><span>Атмосфера — от инженера ПТО</span></span>
+        <a href="docs.html">Открыть →</a>
+      </div>
+      <div class="task">
+        <span class="dot2 amber"></span>
+        <span class="tx"><b>1 просроченный фронт ГПР</b><span>Аура, каркас — отставание 6 дней</span></span>
+        <a href="gpr.html?zk=aura">В ГПР →</a>
+      </div>
+      <div class="task">
+        <span class="dot2 good"></span>
+        <span class="tx"><b>2 заявки на закуп ждут визы</b><span>Керуен — арматура, кабель-канал</span></span>
+        <a href="snab.html#zakup">В снабжение →</a>
+      </div>
+    </div>
+
+    <!-- НОВОСТИ + KPI -->
+    <div class="row2 reveal" style="animation-delay:.22s">
+      <div class="card pcard">
+        <h3>Новости и объявления</h3>
+        <div class="news">
+          <div class="item">
+            <div class="meta">Снабжение · 27 июня</div>
+            <h4>Новый поставщик арматуры прошёл проверку СБ</h4>
+            <p>Цена на 4% ниже текущего прайса, договор на подписи.</p>
+            <a href="atlas_supply_roles_brand.html">Читать →</a>
+          </div>
+          <div class="item">
+            <div class="meta">Атмосфера · 28 июня</div>
+            <h4>Срыт до фундаментной плиты пятно 6</h4>
+            <p>Начало каркасных работ смещено на неделю раньше графика.</p>
+            <a href="gpr.html?zk=atmo">Читать →</a>
+          </div>
+          <div class="item">
+            <div class="meta">Академия · 30 июня</div>
+            <h4>Модуль M6 «Работа с возражениями» открыт для ТМ</h4>
+            <p>Проходят 42 из 58 менеджеров, средний балл 81%.</p>
+            <span class="nolink">Демо-запись, без перехода</span>
+          </div>
+        </div>
+      </div>
+      <div class="kpi-col">
+        <div class="card pcard" style="height:100%">
+          <h3>KPI-снапшот</h3>
+          <div class="snap" id="snap">
+            <div class="pill"><b class="tnum">4</b><span>жилых комплекса</span></div>
+            <div class="pill"><b class="tnum">36</b><span>блоков</span></div>
+            <div class="pill"><b class="tnum">1&nbsp;322</b><span>работ в плане</span></div>
+            <div class="pill alarm"><b class="tnum">666</b><span>работ не в срок</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- БЫСТРЫЕ ССЫЛКИ -->
+    <div class="card pcard reveal" style="animation-delay:.28s">
+      <h3>Быстрые ссылки</h3>
+      <div class="linkgrid">
+        <a href="gpr.html">ГПР</a>
+        <a href="atlas_supply_roles_brand.html">Снабжение</a>
+        <a href="finance.html">Финансы</a>
+        <a href="docs.html">Документы</a>
+        <a href="league.html">Лига</a>
+        <a href="index.html" class="cta">Войти по роли →</a>
+      </div>
+    </div>
+
+    <!-- ОРГ-ИНФО -->
+    <div class="card orgcard reveal" style="animation-delay:.34s">
+      <button type="button" class="orgtoggle" id="orgToggle" aria-expanded="false" aria-controls="orgList">
+        <span>9 ЖК · 18 подразделений</span>
+        <span class="chev">▾</span>
+      </button>
+      <div class="orglist" id="orgList" hidden>
+        <div class="grp">
+          <b>Совет управляющих</b>
+          <ul><li>Совет Управляющих</li><li>AI департамент</li><li>Новые проекты</li><li>Финансы</li></ul>
+        </div>
+        <div class="grp">
+          <b>Коммерческий блок</b>
+          <ul><li>Департамент продаж</li><li>Департамент маркетинга</li></ul>
+        </div>
+        <div class="grp">
+          <b>Без блока</b>
+          <ul><li>Департамент строительства</li><li>ATAMŪRA Комфорт</li><li>Департамент механизмов</li><li>Департамент снабжения и хранения</li><li>Департамент безопасности</li><li>Проектный департамент</li><li>GR</li><li>Департамент HR</li><li>Бухгалтерия</li><li>Юридический</li><li>Тех.совет</li><li>Без подразделения</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center;font-size:11px;color:var(--muted-soft);margin-top:8px">ATLAS · корпоративный портал · данные условные, имена вымышленные · <b style="color:var(--gold-ink)">ATAMŪRA GROUP — мы создаём наследие</b></p>
+  </main>
+</div>
+
+<script>
+  const $=id=>document.getElementById(id);
+  function build(D){
+    const port=D.portfolio||[];
+    const allBlocks=port.reduce((a,o)=>a+(o.blocks||[]).length,0);
+    const allWorks=port.reduce((a,o)=>a+(o.blocks||[]).reduce((s,b)=>s+(b.works||[]).length,0),0);
+    let totalLate=0;
+    port.forEach(o=>(o.blocks||[]).forEach(b=>(b.works||[]).forEach(w=>{if((w.lag||0)>0)totalLate++;})));
+    return {objects:port.length,allBlocks,allWorks,totalLate};
+  }
+  function render(M){
+    const n=x=>x.toLocaleString('ru');
+    $('snap').innerHTML=[
+      {v:M.objects,k:'жилых комплекса'},
+      {v:M.allBlocks,k:'блоков'},
+      {v:M.allWorks,k:'работ в плане'},
+      {v:M.totalLate,k:'работ не в срок',alarm:true},
+    ].map(p=>`<div class="pill${p.alarm?' alarm':''}"><b class="tnum">${n(p.v)}</b><span>${p.k}</span></div>`).join('');
+  }
+  fetch('gpr-engine/gpr_data.json',{cache:'no-store'})
+    .then(r=>{if(!r.ok)throw 0;return r.json();})
+    .then(D=>{
+      const d=(D.status_date||'2026-05-28').split('-').reverse().join('.');
+      $('stamp').textContent=d;
+      render(build(D));
+    })
+    .catch(()=>{/* keep static prefilled snapshot */});
+
+  $('today').textContent=new Date().toLocaleDateString('ru',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  const orgToggle=$('orgToggle'), orgList=$('orgList');
+  orgToggle.addEventListener('click',()=>{
+    const open=orgToggle.getAttribute('aria-expanded')==='true';
+    orgToggle.setAttribute('aria-expanded',String(!open));
+    orgList.hidden=open;
+  });
+</script>
+</body>
+</html>
