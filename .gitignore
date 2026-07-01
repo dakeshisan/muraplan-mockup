@@ -4,3 +4,4 @@ __pycache__/
 *.sqlite3
 supply_core/.env
 .env
+.superpowers/
