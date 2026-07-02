@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#007484">
 <meta name="robots" content="noindex,nofollow">
-<title>ATAMŪRA · корпоративный портал</title>
+<title>ATAMŪRA · оргструктура</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -94,6 +94,31 @@
   .thumb{height:110px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px}
   .demo-note{text-align:center;font-size:10.5px;color:var(--grey);padding:6px 0 18px}
 
+
+  /* ===== ORG STRUCTURE ===== */
+  .org{grid-column:2 / 4;display:flex;flex-direction:column;min-width:0}
+  .org .chead h2{flex:1}
+  .org .sum{display:flex;gap:22px;padding:16px 26px 4px;flex-wrap:wrap}
+  .org .sum .k{font-size:12px;color:var(--ink-mute)}
+  .org .sum .k b{display:block;font-size:26px;font-weight:700;color:var(--navy);line-height:1}
+  .org .wrap{padding:14px 26px 34px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:start}
+  .blk{background:var(--card);border:1px solid var(--line-soft);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .blk .bh{display:flex;align-items:baseline;justify-content:space-between;padding:15px 18px 12px;border-bottom:1px solid var(--line-soft)}
+  .blk .bh .t{font-size:15px;font-weight:700;color:var(--navy)}
+  .blk .bh .c{font-size:22px;font-weight:700;color:var(--teal)}
+  .blk .bh .c small{font-size:11px;color:var(--ink-mute);font-weight:500;margin-left:3px}
+  .blk .dep{padding:10px 18px;border-top:1px solid #f2f2f0}
+  .blk .dep:first-of-type{border-top:none}
+  .blk .dep .row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px}
+  .blk .dep .row .nm{color:var(--ink)}
+  .blk .dep .row .n{font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+  .blk .dep .bar{height:5px;border-radius:3px;background:var(--line-soft);margin-top:7px;overflow:hidden}
+  .blk .dep .bar span{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--teal),var(--gold))}
+  .org .foot{padding:2px 26px 26px}
+  .org .foot .note{font-size:11px;color:var(--ink-mute);background:#f4f6f6;border:1px solid var(--line-soft);border-radius:10px;padding:10px 14px;line-height:1.5}
+  .org .foot .note b{color:var(--navy)}
+  @media (max-width:1000px){.org{grid-column:auto}.org .wrap{grid-template-columns:1fr}}
+
   @media (max-width:1000px){
     .app{grid-template-columns:1fr}
     .sb{flex-direction:row;align-items:center;border-right:none;border-bottom:1px solid var(--line-soft);padding:10px 8px;overflow-x:auto}
@@ -124,10 +149,10 @@
     <nav>
       <a><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Поиск</a>
       <a><svg class="i" viewBox="0 0 24 24"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Задачи<span class="dot"></span></a>
-      <a class="on"><svg class="i" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>Новости<span class="dot"></span></a>
+      <a href="portal.html"><svg class="i" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>Новости</a>
       <a><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>События</a>
       <a><svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Обсуждения</a>
-      <a href="people.html"><svg class="i" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Люди</a>
+      <a class="on"><svg class="i" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Люди</a>
       <a><svg class="i" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>Библиотека</a>
       <a><svg class="i" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Команды</a>
       <a><svg class="i" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Объявления</a>
@@ -149,149 +174,22 @@
     </div>
   </aside>
 
-  <!-- ACTIVITY -->
-  <section class="act">
+  <!-- ORG STRUCTURE -->
+  <main class="org">
     <div class="chead">
-      <h2>Активность</h2>
-      <svg class="i ic2" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-      <span style="color:var(--ink-mute);letter-spacing:1px">⋮</span>
+      <h2>Оргструктура</h2>
+      <a href="portal.html" style="font-size:12.5px;color:var(--teal);font-weight:600">← В портал</a>
     </div>
-    <div class="share">Поделиться апдейтом или благодарностью</div>
-    <div class="post">
-      <div class="ph">
-        <div class="pav" style="background:var(--teal)">ЕК</div>
-        <div><div class="pn">Ержан Касымов</div><div class="pt">7:31 · сегодня</div></div>
-      </div>
-      <p class="tx">Огромное спасибо Кайрату — подхватил приёмку блока Б-3 в мой выходной 🙏</p>
-      <div class="so"><b>Благодарность за:</b> <i>#выручил</i></div>
-      <div class="so-row">
-        <div class="meg"><svg class="i" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
-        <span class="arr">›</span>
-        <div class="rc"><div class="rav">КБ</div><div class="rn">Кайрат</div></div>
-      </div>
-      <div class="pf">
-        <span class="rep"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>1</span>
-        <span class="hrt"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>16</span>
-      </div>
+    <div class="sum">
+      <span class="k"><b>212</b>сотрудников</span>
+      <span class="k"><b>3</b>блока</span>
+      <span class="k"><b>25</b>подразделений</span>
     </div>
-    <div class="post">
-      <div class="ph">
-        <div class="pav" style="background:var(--navy)">АЖ</div>
-        <div><div class="pn">Алия Жумабаева</div><div class="pt">пн, 29 июня</div></div>
-      </div>
-      <p class="tx">Рассвет над ЖК Аура этим утром!</p>
-      <div class="vid" style="background:linear-gradient(160deg,#CFB372 0%,#007484 60%,#284157 100%)">🌅<span class="pb">▶</span></div>
-      <div class="pf">
-        <span class="rep"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>0</span>
-        <span class="hrt"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>10</span>
-      </div>
+    <div class="wrap">
+      <div class="blk"><div class="bh"><span class="t">Совет управляющих</span><span class="c">10<small>чел.</small></span></div><div class="dep"><div class="row"><span class="nm">Департамент государственных и общественных связей</span><span class="n">2</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Совет Управляющих</span><span class="n">2</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент снабжения и хранения</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент финансов</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">ATAMŪRA Комфорт</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Проектный департамент</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент строительства</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент HR</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div></div><div class="blk"><div class="bh"><span class="t">Коммерческий блок</span><span class="c">54<small>чел.</small></span></div><div class="dep"><div class="row"><span class="nm">Департамент продаж</span><span class="n">47</span></div><div class="bar"><span style="width:100%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент маркетинга</span><span class="n">7</span></div><div class="bar"><span style="width:15%"></span></div></div></div><div class="blk"><div class="bh"><span class="t">Без блока</span><span class="c">148<small>чел.</small></span></div><div class="dep"><div class="row"><span class="nm">Департамент строительства</span><span class="n">47</span></div><div class="bar"><span style="width:100%"></span></div></div><div class="dep"><div class="row"><span class="nm">Без подразделения</span><span class="n">28</span></div><div class="bar"><span style="width:60%"></span></div></div><div class="dep"><div class="row"><span class="nm">ATAMŪRA Комфорт</span><span class="n">15</span></div><div class="bar"><span style="width:32%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент механизмов</span><span class="n">9</span></div><div class="bar"><span style="width:19%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент безопасности</span><span class="n">9</span></div><div class="bar"><span style="width:19%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент снабжения и хранения</span><span class="n">8</span></div><div class="bar"><span style="width:17%"></span></div></div><div class="dep"><div class="row"><span class="nm">Проектный департамент</span><span class="n">7</span></div><div class="bar"><span style="width:15%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент бухгалтерии</span><span class="n">6</span></div><div class="bar"><span style="width:13%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент HR</span><span class="n">5</span></div><div class="bar"><span style="width:11%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент государственных и общественных связей</span><span class="n">4</span></div><div class="bar"><span style="width:9%"></span></div></div><div class="dep"><div class="row"><span class="nm">AI департамент</span><span class="n">3</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Юридический департамент</span><span class="n">3</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент новых проектов</span><span class="n">2</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Совет управляющих</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент финансов</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div></div>
     </div>
-    <div class="post">
-      <div class="ph">
-        <div class="pav" style="background:var(--gold);color:var(--navy)">ТБ</div>
-        <div><div class="pn">Тимур Бекетов</div><div class="pt">вс, 28 июня</div></div>
-      </div>
-      <p class="tx">Новый поставщик арматуры прошёл проверку СБ — цена на 4% ниже прайса ✅</p>
-      <div class="pf">
-        <span class="rep"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>2</span>
-        <span class="hrt"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>7</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- NEWS -->
-  <main class="news">
-    <div class="chead">
-      <h2>Новости</h2>
-      <div class="plus"><svg class="i" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M5 12h14M12 5v14"/></svg></div>
-      <span style="color:var(--ink-mute);letter-spacing:1px">⋮</span>
-    </div>
-    <div class="toolbar">
-      <span class="all">Все <span style="font-size:10px">▾</span></span>
-      <svg class="i ic2" viewBox="0 0 24 24" style="color:var(--ink-mute)"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-      <svg class="i ic2" viewBox="0 0 24 24" style="color:var(--ink-mute)"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
-      <span class="sp"></span>
-      <span class="srt">⇅ Дата публикации</span>
-    </div>
-    <div class="nlist">
-
-      <div class="nrow">
-        <div>
-          <span class="chip">📣 Объявление</span>
-          <div class="trow">
-            <h3>Добро пожаловать: Динара — новый руководитель отдела продаж 🎉🎉</h3>
-            <span class="pinbox"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><path d="M12 17v5"/><path d="M9 10.76V7a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3.76l1.14 1.14c.3.3.47.71.47 1.14V15a1 1 0 0 1-1 1H8.39a1 1 0 0 1-1-1v-1.96c0-.43.17-.84.47-1.14L9 10.76Z"/></svg><span class="rd"></span></span>
-          </div>
-          <p>У Динары 9 лет опыта в девелопменте, до этого строила отдел продаж в крупном застройщике. Любит горы и своего добермана Дакса. Некоторые из вас могли помнить её по…</p>
-          <div class="by"><span>Айгерим С. · 30 июн 2026</span><span class="sp"></span>
-            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>56</span>
-            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>4</span>
-            <span class="st hrt"><svg class="i" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>48</span>
-          </div>
-        </div>
-        <div class="thumb" style="background:linear-gradient(150deg,#284157,#007484)">👋</div>
-      </div>
-
-      <div class="nrow">
-        <div>
-          <span class="chip">Событие компании 🎉</span>
-          <div class="trow"><h3>Субботник в ЖК Аура прошёл на ура</h3></div>
-          <p>Управление комфорта официально подвело итоги: собрали больше тонны мусора, высадили 40 саженцев и раздали 263 стакана лимонада…</p>
-          <div class="by"><span>Ержан К. · 23 июн 2026</span><span class="sp"></span>
-            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>56</span>
-            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>2</span>
-            <span class="st hrt"><svg class="i" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>8</span>
-          </div>
-        </div>
-        <div class="thumb" style="background:linear-gradient(150deg,#007484,#1f7a4d)">🌱</div>
-      </div>
-
-      <div class="nrow">
-        <div>
-          <span class="chip">🏆 Достижение</span>
-          <div class="trow"><h3>Отдел продаж закрыл план июня на 112%</h3></div>
-          <p>Лучший месяц с начала года: 84 сделки, из них 19 — по программе трейд-ин. Поздравляем команду и ждём разбор кейсов на пятничной планёрке.</p>
-          <div class="by"><span>Динара М. · 1 июл 2026</span><span class="sp"></span>
-            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>56</span>
-            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>3</span>
-            <span class="st hrt"><svg class="i" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>5</span>
-          </div>
-        </div>
-        <div class="thumb" style="background:linear-gradient(150deg,#CFB372,#b7995a)">🏆</div>
-      </div>
-
-      <div class="nrow">
-        <div>
-          <span class="chip">Новости проектов</span>
-          <div class="trow"><h3>Атмосфера: пятно 6 вышло из котлована на неделю раньше графика</h3></div>
-          <p>Фундаментная плита завершена, каркасные работы стартуют уже в июле. По остальным пятнам — статус в ATLAS, раздел ГПР.</p>
-          <div class="by"><span>Бауыржан Т. · 28 июн 2026</span><span class="sp"></span>
-            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>56</span>
-            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>2</span>
-            <span class="st hrt"><svg class="i" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>5</span>
-          </div>
-        </div>
-        <div class="thumb" style="background:linear-gradient(150deg,#284157,#4A4A4A)">🏗️</div>
-      </div>
-
-      <div class="nrow">
-        <div>
-          <span class="chip">🎓 Академия</span>
-          <div class="trow"><h3>Модуль M6 «Работа с возражениями» открыт для менеджеров ТМ</h3></div>
-          <p>Уже проходят 42 из 58 менеджеров, средний балл 81%. Дедлайн по модулю — 15 июля, дальше открываем M7.</p>
-          <div class="by"><span>Академия · 30 июн 2026</span><span class="sp"></span>
-            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>41</span>
-            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>6</span>
-            <span class="st hrt"><svg class="i" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>12</span>
-          </div>
-        </div>
-        <div class="thumb" style="background:linear-gradient(150deg,#007484,#284157)">🎓</div>
-      </div>
-
-      <div class="demo-note">данные условные, имена вымышленные · ATAMŪRA GROUP · мы создаём наследие</div>
-    </div>
+    <div class="foot"><div class="note"><b>Агрегированные данные</b> — только структура и численность, без персональных данных. Справочник конкретных сотрудников доступен во внутренней версии портала за логином.</div></div>
   </main>
 </div>
-
 </body>
 </html>
