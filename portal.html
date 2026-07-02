@@ -3,396 +3,295 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#284157">
+<meta name="theme-color" content="#007484">
 <meta name="robots" content="noindex,nofollow">
-<title>ATLAS · корпоративный портал</title>
+<title>ATAMŪRA · корпоративный портал</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Cormorant:wght@500;600;700&family=EB+Garamond:wght@500;600&family=Jost:wght@400;500;600;700&family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --navy:#284157; --navy-700:#1d3142; --navy-900:#15242f;
-    --teal:#007484; --teal-600:#00606e; --teal-tint:#e2eef0;
-    --gold:#CFB372; --gold-deep:#b7995a; --gold-soft:#f0e6cf; --gold-ink:#8a6d2f;
-    --cream:#F7F5EE; --cream-deep:#efece1; --paper:#fffefb;
-    --ink:#23303a; --muted:#5f6b75; --muted-soft:#8b96a0;
-    --good:#1f7a4d; --bad:#b5482e; --bad-soft:#f6e6e0;
-    --amber:#c2862a; --amber-soft:#f6ecd6;
-    --line:#e6e2d6; --line-strong:#d8d3c4;
-
-    --shadow-sm:0 1px 2px rgba(21,36,47,.04), 0 1px 3px rgba(21,36,47,.05);
-    --shadow-md:0 2px 4px rgba(21,36,47,.04), 0 8px 24px rgba(21,36,47,.07);
-    --shadow-lg:0 4px 8px rgba(21,36,47,.05), 0 20px 48px rgba(21,36,47,.12);
-    --shadow-navy:0 12px 36px rgba(40,65,87,.28);
-    --shadow-gold:0 10px 30px rgba(183,153,90,.30);
-
-    --r-sm:10px; --r-md:16px; --r-lg:22px; --r-xl:28px;
-    --sidebar-w:84px;
-    --ease:cubic-bezier(.22,.61,.36,1);
-  }
-
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;color-scheme:light}
-  body{
-    font-family:'Onest','Noto Sans',-apple-system,'Segoe UI',sans-serif;
-    color:var(--ink);
-    background-color:var(--cream);
-    background-image:
-      radial-gradient(1200px 600px at 8% -5%, rgba(0,116,132,.06), transparent 60%),
-      radial-gradient(900px 500px at 105% 0%, rgba(207,179,114,.10), transparent 55%),
-      radial-gradient(1000px 700px at 50% 120%, rgba(40,65,87,.05), transparent 60%);
-    background-attachment:fixed;
-    min-height:100vh;line-height:1.5;-webkit-font-smoothing:antialiased;letter-spacing:.005em;
-  }
-  body::before{
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
-  }
-  h1,h2,h3,h4,.display{font-family:'Onest','Noto Sans',sans-serif;font-weight:600;letter-spacing:.01em;color:var(--navy);line-height:1.08}
-  a{color:inherit;text-decoration:none}
-  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-  :focus-visible{outline:2.5px solid var(--teal);outline-offset:3px;border-radius:6px}
-  .tnum{font-variant-numeric:tabular-nums}
-
-  .shell{position:relative;z-index:1;display:flex;min-height:100vh}
-
-  /* ============ SIDEBAR RAIL ============ */
-  aside.nav{
-    position:sticky;top:0;height:100vh;width:var(--sidebar-w);flex-shrink:0;
-    background:linear-gradient(180deg,var(--navy) 0%, var(--navy-900) 100%);
-    display:flex;flex-direction:column;align-items:center;padding:22px 0 18px;gap:6px;z-index:30;
-    box-shadow:var(--shadow-navy);
-  }
-  .brand-mark{
-    width:46px;height:46px;border-radius:13px;
-    background:linear-gradient(150deg,var(--gold) 0%, var(--gold-deep) 100%);
-    display:grid;place-items:center;font-family:'Onest','Noto Sans',sans-serif;font-weight:700;font-size:24px;color:var(--navy-900);
-    box-shadow:0 6px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.45);margin-bottom:20px;
-  }
-  nav.rail{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;flex:1}
-  .rail a{
-    position:relative;width:60px;padding:11px 0 9px;border-radius:15px;
-    display:flex;flex-direction:column;align-items:center;gap:5px;
-    color:rgba(231,238,242,.62);transition:all .28s var(--ease);
-  }
-  .rail a .ic{width:23px;height:23px;display:block;transition:transform .28s var(--ease)}
-  .rail a .nav-lbl{font-size:9.5px;font-weight:500;letter-spacing:.02em;line-height:1;text-align:center;white-space:nowrap}
-  .rail a:hover{color:#fff;background:rgba(255,255,255,.07)}
-  .rail a:hover .ic{transform:translateY(-2px) scale(1.06)}
-  .rail a.active{color:var(--navy-900);background:linear-gradient(150deg,#fff,#f3efe2)}
-  .rail a.active::before{
-    content:"";position:absolute;left:-16px;top:50%;transform:translateY(-50%);
-    width:5px;height:30px;border-radius:0 5px 5px 0;background:var(--gold);box-shadow:0 0 14px rgba(207,179,114,.7);
-  }
-  .rail-bottom{display:flex;flex-direction:column;gap:7px;width:100%;align-items:center;padding-top:8px;border-top:1px solid rgba(255,255,255,.09)}
-  .nav-avatar{
-    width:42px;height:42px;border-radius:13px;margin-top:4px;
-    background:linear-gradient(150deg,var(--teal),var(--teal-600));
-    display:grid;place-items:center;color:#fff;font-weight:600;font-size:13px;letter-spacing:.02em;
-    border:2px solid rgba(255,255,255,.25);box-shadow:0 4px 10px rgba(0,0,0,.25);
-  }
-
-  /* ============ MAIN ============ */
-  main{flex:1;min-width:0;padding:30px clamp(20px,3vw,52px) 56px;max-width:1640px;margin:0 auto;width:100%}
-
-  header.top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap}
-  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
-  .eyebrow::before{content:"";width:24px;height:1.5px;background:var(--teal);display:inline-block;opacity:.6}
-  .top-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-  .stamp-chip{display:flex;align-items:center;gap:11px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:9px 15px;box-shadow:var(--shadow-sm)}
-  .stamp-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none;animation:pulse-dot 2.4s infinite}
-  @keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(0,116,132,.45)}70%{box-shadow:0 0 0 8px rgba(0,116,132,0)}100%{box-shadow:0 0 0 0 rgba(0,116,132,0)}}
-  .stamp-chip .t{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
-  .stamp-chip .v{font-family:'Onest','Noto Sans',sans-serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1}
-  .group-chip{text-align:right;line-height:1.2}
-  .group-chip b{font-family:'Onest','Noto Sans',sans-serif;font-size:18px;font-weight:600;color:var(--navy)}
-  .group-chip small{display:block;font-size:11px;color:var(--muted);font-weight:500;margin-top:1px}
-
-  .snap{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
-  .snap .pill{display:flex;flex-direction:column;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:13px 18px;box-shadow:var(--shadow-sm);min-width:128px;transition:all .25s var(--ease)}
-  .snap .pill:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--line-strong)}
-  .snap .pill b{font-family:'Onest','Noto Sans',sans-serif;font-weight:600;font-size:30px;color:var(--navy);line-height:1}
-  .snap .pill span{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-  .snap .pill.alarm b{color:var(--bad)}
-  .snap .pill.alarm{border-color:var(--bad-soft);background:linear-gradient(165deg,#fffaf8,var(--bad-soft))}
-
-  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-md);position:relative;overflow:hidden}
-
-  /* ===== reveal ===== */
-  .reveal{opacity:0;transform:translateY(16px);animation:rise .7s var(--ease) forwards}
-  @keyframes rise{to{opacity:1;transform:none}}
-
-  /* ===== PORTAL: greeting ===== */
-  .greet{margin-top:clamp(20px,3vw,32px);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
-  .greet .brandline{font-family:'Cormorant','EB Garamond',Georgia,serif;font-weight:600;font-style:italic;font-size:15px;color:var(--gold-ink);letter-spacing:.04em;text-transform:uppercase}
-  .greet .brandline .g{color:var(--gold-deep)}
-  .greet h1{font-family:'Cormorant','EB Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(30px,4vw,44px);color:var(--navy);margin-top:4px}
-  .greet .sub{font-size:13px;color:var(--muted);margin-top:4px}
-  .greet .today{font-size:12px;color:var(--muted);text-align:right}
-
-  /* ===== PORTAL: cards shared ===== */
-  .pcard{padding:22px clamp(20px,2.4vw,30px)}
-  .pcard h3{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin-bottom:14px}
-
-  /* ===== PORTAL: task list (На вас ждёт) ===== */
-  .task{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
-  .task:first-of-type{border-top:none}
-  .task .dot2{width:9px;height:9px;border-radius:50%;flex:none}
-  .task .dot2.bad{background:var(--bad)}
-  .task .dot2.amber{background:var(--amber)}
-  .task .dot2.good{background:var(--good)}
-  .task .tx{flex:1;min-width:0}
-  .task .tx b{display:block;font-size:13.5px;color:var(--ink);font-weight:600}
-  .task .tx span{font-size:12px;color:var(--muted)}
-  .task a{font-size:12px;color:var(--teal-600);font-weight:600;white-space:nowrap}
-
-  /* ===== PORTAL: news + kpi row ===== */
-  .row2{display:flex;gap:18px;align-items:stretch;flex-wrap:wrap;margin-top:18px}
-  .row2>*{flex:1;min-width:280px}
-  .news .item{padding:12px 0;border-top:1px solid var(--line)}
-  .news .item:first-child{border-top:none}
-  .news .item .meta{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--gold-ink)}
-  .news .item h4{font-size:15px;color:var(--navy);margin:5px 0 4px}
-  .news .item p{font-size:12.5px;color:var(--muted);line-height:1.5}
-  .news .item a{font-size:12px;color:var(--teal-600);font-weight:600;display:inline-block;margin-top:5px}
-  .news .item span.nolink{font-size:12px;color:var(--muted-soft);font-weight:600;display:inline-block;margin-top:5px}
-  .kpi-col .snap{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:0}
-
-  /* ===== PORTAL: quick links ===== */
-  .linkgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:2px}
-  .linkgrid a{background:var(--teal-tint);border-radius:var(--r-md);padding:14px 10px;text-align:center;font-size:12.5px;font-weight:600;color:var(--teal-600);transition:transform .18s var(--ease)}
-  .linkgrid a:hover{transform:translateY(-2px)}
-  .linkgrid a.cta{background:linear-gradient(150deg,var(--gold),var(--gold-deep));color:var(--navy-900)}
-
-  /* ===== PORTAL: org info ===== */
-  .orgcard{padding:16px clamp(20px,2.4vw,30px)}
-  .orgtoggle{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--navy);width:100%;justify-content:space-between}
-  .orgtoggle .chev{transition:transform .2s var(--ease);color:var(--muted);display:inline-block}
-  .orgtoggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
-  .orglist{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .orglist[hidden]{display:none}
-  .orglist .grp b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--gold-ink);margin-bottom:8px}
-  .orglist .grp ul{list-style:none;display:flex;flex-direction:column;gap:5px}
-  .orglist .grp li{font-size:12.5px;color:var(--muted)}
-
-  /* ===== responsive ===== */
-  @media (max-width:1180px){.linkgrid{grid-template-columns:repeat(3,1fr)}}
-  @media (max-width:720px){
-    :root{--sidebar-w:62px}
-    aside.nav{padding:16px 0 14px}
-    .brand-mark{width:38px;height:38px;font-size:20px;margin-bottom:14px}
-    .rail a{width:50px}.rail a .nav-lbl{display:none}.rail a .ic{width:22px;height:22px}
-    main{padding:22px 16px 44px}
-    .row2{flex-direction:column}
-    .linkgrid{grid-template-columns:repeat(2,1fr)}
-    .orglist{grid-template-columns:1fr}
-    header.top{gap:14px}.group-chip{text-align:left}
-  }
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
-
-/* === Onest-канон Академии: основной Onest, засечный только на акценты === */
-.brand-mark, header.top h1, .hdr h1, .top .nm, .top .lg, .lg, .word, .hero .word, .hero h1, .hero .sub, .creed .q, .tx .q, .creed .tx .q, .motto, .nm.brand{font-family:'Cormorant','EB Garamond',Georgia,serif}
-.tnum{letter-spacing:-.012em}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="shell">
+<style>
+  :root{--bg:#F7F5EE;--card:#FFFFFF;--ink:#1E1E1E;--ink-soft:#4A4A4A;--ink-mute:#6E6E6E;
+    --line:#D8DEE1;--line-soft:#E7ECEE;--navy:#284157;--logo:#081F3A;--teal:#007484;--teal-deep:#00606e;
+    --coral:#FF2125;--gold:#CFB372;--grey:#BCBCBC}
+  a{color:inherit;text-decoration:none}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Futura PT','Gilroy','Montserrat',-apple-system,'Segoe UI',system-ui,sans-serif;font-size:14px;line-height:1.45}
+  .app{display:grid;grid-template-columns:224px 304px 1fr;min-height:100vh;max-width:1440px;margin:0 auto;background:var(--card);box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  svg.i{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 
-  <!-- ===== SIDEBAR ===== -->
-  <aside class="nav" aria-label="Главное меню ATLAS">
-    <div class="brand-mark" title="ATAMŪRA GROUP" aria-hidden="true">Ā</div>
-    <nav class="rail" aria-label="Модули ATLAS">
-      <a href="index.html" class="active" aria-current="page">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
-        <span class="nav-lbl">Вход</span>
-      </a>
-      <a href="dashboard.html">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
-        <span class="nav-lbl">Центр</span>
-      </a>
-      <a href="portfolio.html">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg>
-        <span class="nav-lbl">Портфель</span>
-      </a>
-      <a href="gpr.html">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-        <span class="nav-lbl">ГПР</span>
-      </a>
-      <a href="atlas_supply_roles_brand.html">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-        <span class="nav-lbl">Снабж.</span>
-      </a>
-      <a href="league.html">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-        <span class="nav-lbl">Лига</span>
-      </a>
-      <a href="docs.html" title="Документы">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></svg>
-        <span class="nav-lbl">Документы</span>
-      </a>
+  /* ===== SIDEBAR ===== */
+  .sb{padding:26px 0 14px;display:flex;flex-direction:column;border-right:1px solid var(--line-soft)}
+  .sb .logo{padding:4px 20px 24px}
+  .sb .logo svg.lg{width:172px;height:auto;display:block}
+  .sb .logo small{display:block;font-size:9.5px;font-weight:600;color:var(--ink-mute);letter-spacing:.14em;text-transform:uppercase;margin-top:7px}
+  .sb nav{display:flex;flex-direction:column}
+  .sb nav a{position:relative;display:flex;align-items:center;gap:13px;padding:9px 20px;color:var(--ink-soft);font-size:14.5px;font-weight:500}
+  .sb nav a:hover{background:#f6f6f3}
+  .sb nav a.on{color:var(--teal);font-weight:700}
+  .sb nav a.on::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;border-radius:0 3px 3px 0;background:var(--teal)}
+  .sb nav a .dot{width:7px;height:7px;border-radius:50%;background:var(--coral);margin-left:auto}
+  .sb .div{height:1px;background:var(--line-soft);margin:12px 20px}
+  .sb .lnk{display:flex;align-items:center;gap:13px;padding:8px 20px;color:var(--ink-soft);font-size:14px}
+  .sb .lnk.sub{padding-left:51px;font-size:13.5px;color:var(--ink-mute)}
+  .sb .bottom{margin-top:auto;padding-top:12px}
+  .sb .me{display:flex;align-items:center;gap:10px;padding:8px 20px}
+  .sb .me .av{width:34px;height:34px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+  .sb .me .n{font-size:13px;font-weight:700;line-height:1.15}
+  .sb .me .s{font-size:11px;color:var(--ink-mute)}
+  .sb .me .kb{margin-left:auto;color:var(--grey);font-size:16px;letter-spacing:1px}
+
+  /* ===== ACTIVITY ===== */
+  .act{border-right:1px solid var(--line-soft);display:flex;flex-direction:column}
+  .chead{display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:1px solid var(--line-soft)}
+  .chead h2{font-size:15px;font-weight:700;margin:0;flex:1;color:var(--navy)}
+  .chead .ic2{color:var(--ink-mute)}
+  .act .share{margin:14px 14px 4px;border:1px solid var(--line);border-radius:999px;padding:9px 15px;font-size:13px;color:var(--ink-mute)}
+  .post{padding:14px 14px 12px;border-bottom:1px solid var(--line-soft)}
+  .post .ph{display:flex;gap:10px;align-items:center}
+  .post .pav{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;color:#fff;flex:none}
+  .post .pn{font-size:13.5px;font-weight:700;line-height:1.2}
+  .post .pt{font-size:11px;color:var(--ink-mute)}
+  .post .tx{font-size:13px;margin:9px 0 0;line-height:1.45}
+  .post .so{font-size:12px;margin-top:7px}
+  .post .so b{font-weight:700}
+  .post .so i{color:var(--teal);font-style:italic}
+  .post .so-row{display:flex;align-items:center;gap:9px;margin-top:9px}
+  .post .so-row .meg{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--teal);color:var(--teal);display:flex;align-items:center;justify-content:center}
+  .post .so-row .arr{color:var(--grey)}
+  .post .so-row .rc{text-align:center}
+  .post .so-row .rc .rav{width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;margin:0 auto}
+  .post .so-row .rc .rn{font-size:10px;color:var(--ink-mute);margin-top:3px}
+  .post .vid{margin-top:10px;border-radius:12px;height:150px;position:relative;display:flex;align-items:center;justify-content:center;font-size:34px;overflow:hidden}
+  .post .vid .pb{position:absolute;left:10px;bottom:10px;width:34px;height:26px;border-radius:6px;background:rgba(8,31,58,.72);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px}
+  .post .pf{display:flex;justify-content:flex-end;align-items:center;gap:14px;margin-top:10px;font-size:12px;color:var(--ink-mute)}
+  .post .pf .hrt{display:flex;align-items:center;gap:4px;color:var(--coral);font-weight:600}
+  .post .pf .hrt svg{fill:var(--coral);stroke:none}
+  .post .pf .rep{display:flex;align-items:center;gap:4px}
+
+  /* ===== NEWS ===== */
+  .news{display:flex;flex-direction:column;min-width:0}
+  .chead .plus{width:28px;height:28px;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--ink-soft)}
+  .toolbar{display:flex;align-items:center;gap:14px;padding:12px 26px 10px}
+  .toolbar .all{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-size:13px;font-weight:600}
+  .toolbar .sp{flex:1}
+  .toolbar .srt{font-size:12.5px;color:var(--ink-mute);display:flex;align-items:center;gap:5px}
+  .nlist{padding:4px 26px 30px;max-width:980px}
+  .nrow{display:grid;grid-template-columns:1fr 196px;gap:24px;padding:20px 0;align-items:start}
+  .nrow+.nrow{border-top:1px solid var(--line-soft)}
+  .chip{display:inline-block;background:var(--gold);color:var(--ink);font-size:10px;font-weight:700;border-radius:999px;padding:4px 12px;text-transform:uppercase;letter-spacing:.08em}
+  .nrow .trow{display:flex;align-items:flex-start;gap:10px;margin-top:10px}
+  .nrow h3{font-size:17px;font-weight:700;margin:0;line-height:1.3;flex:1;color:var(--navy)}
+  .nrow .pinbox{display:flex;align-items:center;gap:5px;color:var(--ink-soft);flex:none;padding-top:3px}
+  .nrow .pinbox .rd{width:7px;height:7px;border-radius:50%;background:var(--coral)}
+  .nrow p{font-size:13px;color:var(--ink-mute);margin:6px 0 0;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .nrow .by{display:flex;align-items:center;gap:14px;margin-top:10px;font-size:12px;color:var(--ink-mute)}
+  .nrow .by .sp{flex:1}
+  .nrow .st{display:flex;align-items:center;gap:4px}
+  .nrow .st svg{width:15px;height:15px}
+  .nrow .st.hrt{color:var(--coral);font-weight:600}
+  .nrow .st.hrt svg{fill:var(--coral);stroke:none}
+  .thumb{height:110px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px}
+  .demo-note{text-align:center;font-size:10.5px;color:var(--grey);padding:6px 0 18px}
+
+  @media (max-width:1000px){
+    .app{grid-template-columns:1fr}
+    .sb{flex-direction:row;align-items:center;border-right:none;border-bottom:1px solid var(--line-soft);padding:10px 8px;overflow-x:auto}
+    .sb .logo{padding:0 12px}
+    .sb .logo svg.lg{width:130px}
+    .sb .logo small{display:none}
+    .sb nav{flex-direction:row}
+    .sb nav a{padding:8px 10px;white-space:nowrap}
+    .sb nav a.on::before{display:none}
+    .sb .div,.sb .lnk,.sb .bottom{display:none}
+    .act{border-right:none;border-bottom:1px solid var(--line-soft)}
+    .nrow{grid-template-columns:1fr}
+    .thumb{height:140px}
+  }
+</style>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sb">
+    <div class="logo">
+      <svg class="lg" viewBox="0 0 1715 216" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ATAMŪRA GROUP">
+        <path d="M461.435 23.5278C435.805 -6.23321 384.332 -6.1273 353.512 15.1609C346.098 20.2446 338.366 28.7175 338.366 38.885V207.707C338.366 214.062 346.945 217.663 351.711 214.803C354.465 213.109 356.583 209.084 356.583 205.589V117.153H450.103V207.39C450.844 212.685 455.08 215.757 459.635 215.651C464.612 215.651 468.319 211.732 468.319 206.013V43.3332C468.319 36.449 465.777 28.5057 461.541 23.5278H461.435ZM356.689 98.9366V39.9441C356.689 34.9662 362.09 30.8357 365.691 28.3998C386.874 13.784 415.787 16.5377 438.346 26.4934C442.795 29.4589 449.785 33.5894 449.785 39.9441L450.103 99.1484H356.689V98.9366ZM667.432 9.86529C667.432 14.7372 663.619 18.55 658.112 18.55L611.405 18.7618V208.978C611.299 214.803 601.979 216.71 598.802 215.015C594.459 212.685 593.612 208.131 593.612 203.365V18.6559L546.482 18.4441C541.61 18.4441 537.479 13.6781 537.691 9.86529C537.903 5.41702 540.974 0.545105 546.164 0.545105H659.171C664.573 0.545105 667.326 6.1584 667.326 9.75938L667.432 9.86529ZM1228.87 9.75938C1228.87 4.78155 1232.89 0.756928 1237.87 0.756928H1271.34C1276.32 0.756928 1280.34 4.78155 1280.34 9.75938C1280.34 14.7372 1276.32 18.7618 1271.34 18.7618H1237.87C1232.89 18.7618 1228.87 14.7372 1228.87 9.75938ZM1503.39 128.486L1493.54 122.555C1505.51 113.341 1516.73 103.491 1516.73 87.2864V45.7692C1516.73 21.3037 1484.64 1.18057 1458.48 1.07466L1396.84 0.756928C1391.86 0.756928 1387.2 3.93426 1387.2 9.65347V207.284C1387.2 212.473 1392.82 215.863 1396.31 215.968C1400.02 215.968 1405.21 212.262 1405.32 207.39L1405.53 133.252H1461.77C1471.09 133.252 1479.56 136.747 1488.35 139.712C1492.06 142.36 1498.62 145.538 1498.73 150.939L1499.15 206.119C1499.15 211.308 1503.6 215.651 1507.63 215.333C1512.39 214.909 1516.95 212.05 1516.84 206.542L1516.42 147.338C1516.42 139.183 1509.32 131.981 1503.5 128.486H1503.39ZM1452.45 114.4L1405.32 113.976V19.0796H1454.46C1468.86 19.0796 1482.21 24.481 1492.9 33.3776C1496.93 37.9318 1498.73 42.8037 1498.73 48.8406V84.8504C1498.73 91.5228 1496.29 96.3947 1492.27 101.161C1481.47 110.905 1466.96 114.506 1452.34 114.294L1452.45 114.4ZM1318.68 7.21751L1318.89 174.981C1318.89 183.666 1315.5 191.079 1309.04 196.904C1293.26 211.097 1272.4 216.392 1251.11 215.863C1233.21 215.439 1216.48 210.567 1203.13 199.023C1195.93 192.774 1190.85 185.254 1190.85 175.087V8.70027C1190.85 3.82835 1195.93 0.651017 1198.89 0.545105C1203.03 0.439194 1208.21 3.08697 1208.21 8.59436V172.863C1208.21 179.535 1212.45 184.937 1217.64 188.326C1230.14 196.375 1244.44 197.858 1259.16 197.752C1274.73 197.54 1289.87 193.198 1299.51 180.276C1300.99 178.37 1300.99 173.286 1300.99 170.109V10.0771C1300.99 4.67564 1304.81 1.60422 1308.09 0.862839C1311.05 0.227372 1318.57 2.66333 1318.57 7.21751H1318.68ZM859.767 26.7052C850.553 13.5722 836.572 5.62884 821.003 2.23968C795.903 -3.05588 768.577 1.07466 747.713 16.6436C740.935 21.7273 734.686 29.5648 734.686 38.779V206.436C734.58 212.262 738.711 215.121 744.006 215.651C747.925 215.968 752.797 211.732 752.797 206.225V116.942H846.316V205.377C846.316 209.826 848.54 213.427 852.247 214.803C855.107 215.863 859.873 215.968 862.097 212.897C863.58 210.885 864.745 207.178 864.745 204.318V44.9219C864.745 38.779 863.156 31.3653 859.767 26.7052ZM753.009 98.8307V42.8037C752.903 37.0845 755.55 33.3776 759.999 29.8825C781.393 13.3604 812.742 16.0081 836.043 27.1288C839.962 30.3062 846.21 34.013 846.21 39.8382V98.8307H753.114H753.009ZM1715 44.9219C1715 37.2963 1712.88 29.353 1708.22 23.8456C1694.88 7.85298 1675.28 0.862839 1654.74 0.227372C1634.3 -0.302184 1614.49 4.04017 1598.18 16.5377C1590.87 22.151 1584.84 30.2002 1584.84 39.8382V207.178C1584.84 210.885 1587.8 213.744 1590.55 214.803C1593.41 215.968 1596.17 215.439 1599.66 214.274C1601.46 210.991 1602.63 208.025 1603.16 204.318V116.942H1696.57V207.496C1697.31 212.579 1702.18 215.651 1706.53 215.545C1711.5 215.333 1714.89 210.885 1714.89 205.377V44.9219H1715ZM1603.48 99.0425L1603.26 41.7446C1603.26 37.5081 1606.02 33.1658 1609.19 30.7298C1631.75 13.4663 1661.41 15.7963 1685.98 26.917C1690.43 30.0943 1696.57 34.013 1696.68 40.1559V99.0425H1603.58H1603.48ZM1121.16 40.8973V206.436C1121.16 212.05 1116.6 215.757 1112.05 215.863C1108.02 215.863 1102.83 211.838 1102.83 206.331V40.8973C1102.83 25.5401 1075.51 12.1953 1053.9 21.5155C1046.49 24.6929 1037.49 32.2126 1037.49 40.8973L1037.06 207.284C1037.06 211.626 1033.04 215.015 1029.97 215.651C1026.79 216.286 1020.96 213.956 1019.48 210.037V44.9219C1019.48 36.3431 1015.46 29.1411 1008.25 24.7988C981.565 8.38253 954.134 26.917 954.028 39.2027L953.287 206.436C953.287 211.52 949.156 215.545 945.131 215.757C940.683 216.074 935.176 213.003 935.176 207.496V40.8973C935.176 33.9071 937.718 27.0229 941.848 22.0451C963.56 -4.85636 1003.17 -6.86868 1027.74 17.9145L1036.64 11.348C1059.52 -5.49183 1094.15 -2.94997 1112.68 19.8209C1117.34 25.5401 1121.26 32.7421 1121.26 41.0032L1121.16 40.8973Z" fill="#081F3A"/>
+        <path d="M89.6869 145.749C97.1007 159.518 97.4185 176.04 90.0047 190.126C83.3323 202.941 71.4702 211.52 59.0786 214.486C43.6156 218.193 28.6821 214.274 17.2437 204.742C-3.30308 187.584 -5.84495 157.188 11.8422 136.959C22.3274 124.991 37.7905 118.848 53.889 120.86C68.7165 122.767 82.2732 131.769 89.7928 145.643L89.6869 145.749ZM34.5072 1.92201C6.8644 10.0772 -7.53953 40.2619 4.00479 66.6337C11.5245 83.7914 28.3644 95.0179 46.7929 95.3357C65.4333 95.6534 82.8027 85.0623 90.852 67.6929C99.0071 50.2175 95.7239 30.3062 83.4382 16.22C71.4702 2.55748 52.4062 -3.37355 34.5072 1.92201ZM200.152 82.8382C219.64 64.9392 221.017 35.1781 203.224 15.6905C192.103 3.51068 175.899 -2.20853 159.165 0.862897C144.549 3.61659 131.204 13.5722 124.638 27.9762C116.8 45.1338 119.872 65.151 132.263 79.1313C149.95 99.1485 180.347 100.949 200.152 82.7322V82.8382ZM200.152 133.04C183.524 117.895 158.847 116.306 140.418 129.545C122.413 142.36 115.212 166.402 124.426 187.267C131.734 203.789 147.303 214.486 164.354 215.757C182.571 217.134 199.411 208.237 208.943 192.668C220.911 173.18 216.78 148.185 200.152 133.04Z" fill="#081F3A"/>
+      </svg>
+      <small>корпоративный портал</small>
+    </div>
+    <nav>
+      <a><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Поиск</a>
+      <a><svg class="i" viewBox="0 0 24 24"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Задачи<span class="dot"></span></a>
+      <a class="on"><svg class="i" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>Новости<span class="dot"></span></a>
+      <a><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>События</a>
+      <a><svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Обсуждения</a>
+      <a><svg class="i" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Люди</a>
+      <a><svg class="i" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>Библиотека</a>
+      <a><svg class="i" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Команды</a>
+      <a><svg class="i" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Объявления</a>
     </nav>
-    <div class="rail-bottom">
-      <div class="nav-avatar" title="Профиль" aria-label="Профиль: проектный офис">ПО</div>
+    <div class="div"></div>
+    <div class="lnk"><svg class="i" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Ссылки</div>
+    <a class="lnk sub" href="index.html">ATLAS · стройка 🏗️</a>
+    <a class="lnk sub" href="https://academy.atamura.group" rel="noopener">Академия продаж 🎓</a>
+    <div class="lnk sub">Наши ценности ✨</div>
+    <div class="bottom">
+      <div class="div"></div>
+      <div class="me">
+        <div class="av">ДА</div>
+        <div><div class="n">Данияр А. 👋</div><div class="s">в офисе</div></div>
+        <div class="kb">⋮</div>
+      </div>
+      <div class="lnk"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Помощь</div>
+      <div class="lnk"><svg class="i" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>Настройки</div>
     </div>
   </aside>
 
-  <!-- ===== MAIN ===== -->
-  <main>
-
-    <header class="top reveal" style="animation-delay:.04s">
-      <span class="eyebrow">Строительная ERP · единый движок ГПР</span>
-      <div class="top-meta">
-        <div class="stamp-chip" title="Дата среза движка ГПР">
-          <span class="dot" aria-hidden="true"></span>
-          <span><span class="t">данные движка</span><br><span class="v tnum" id="stamp">28.05.2026</span></span>
-        </div>
-        <div class="group-chip"><b>ATAMŪRA GROUP</b><small>единый движок ГПР · 4 ЖК</small></div>
+  <!-- ACTIVITY -->
+  <section class="act">
+    <div class="chead">
+      <h2>Активность</h2>
+      <svg class="i ic2" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      <span style="color:var(--ink-mute);letter-spacing:1px">⋮</span>
+    </div>
+    <div class="share">Поделиться апдейтом или благодарностью</div>
+    <div class="post">
+      <div class="ph">
+        <div class="pav" style="background:var(--teal)">ЕК</div>
+        <div><div class="pn">Ержан Касымов</div><div class="pt">7:31 · сегодня</div></div>
       </div>
-    </header>
-
-    <!-- GREETING -->
-    <section class="greet reveal" style="animation-delay:.1s">
-      <div>
-        <div class="brandline">ATL<span class="g">A</span>S</div>
-        <h1>С возвращением</h1>
-        <p class="sub">ATLAS · корпоративный портал ATAMŪRA</p>
+      <p class="tx">Огромное спасибо Кайрату — подхватил приёмку блока Б-3 в мой выходной 🙏</p>
+      <div class="so"><b>Благодарность за:</b> <i>#выручил</i></div>
+      <div class="so-row">
+        <div class="meg"><svg class="i" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div>
+        <span class="arr">›</span>
+        <div class="rc"><div class="rav">КБ</div><div class="rn">Кайрат</div></div>
       </div>
-      <div class="today" id="today"></div>
-    </section>
-
-    <!-- НА ВАС ЖДЁТ -->
-    <div class="card pcard reveal" style="animation-delay:.16s">
-      <h3>На вас ждёт</h3>
-      <div class="task">
-        <span class="dot2 bad"></span>
-        <span class="tx"><b>3 акта КС-2 на согласование</b><span>Атмосфера — от инженера ПТО</span></span>
-        <a href="docs.html">Открыть →</a>
-      </div>
-      <div class="task">
-        <span class="dot2 amber"></span>
-        <span class="tx"><b>1 просроченный фронт ГПР</b><span>Аура, каркас — отставание 6 дней</span></span>
-        <a href="gpr.html?zk=aura">В ГПР →</a>
-      </div>
-      <div class="task">
-        <span class="dot2 good"></span>
-        <span class="tx"><b>2 заявки на закуп ждут визы</b><span>Керуен — арматура, кабель-канал</span></span>
-        <a href="snab.html#zakup">В снабжение →</a>
+      <div class="pf">
+        <span class="rep"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>1</span>
+        <span class="hrt"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>16</span>
       </div>
     </div>
-
-    <!-- НОВОСТИ + KPI -->
-    <div class="row2 reveal" style="animation-delay:.22s">
-      <div class="card pcard">
-        <h3>Новости и объявления</h3>
-        <div class="news">
-          <div class="item">
-            <div class="meta">Снабжение · 27 июня</div>
-            <h4>Новый поставщик арматуры прошёл проверку СБ</h4>
-            <p>Цена на 4% ниже текущего прайса, договор на подписи.</p>
-            <a href="atlas_supply_roles_brand.html">Читать →</a>
-          </div>
-          <div class="item">
-            <div class="meta">Атмосфера · 28 июня</div>
-            <h4>Срыт до фундаментной плиты пятно 6</h4>
-            <p>Начало каркасных работ смещено на неделю раньше графика.</p>
-            <a href="gpr.html?zk=atmo">Читать →</a>
-          </div>
-          <div class="item">
-            <div class="meta">Академия · 30 июня</div>
-            <h4>Модуль M6 «Работа с возражениями» открыт для ТМ</h4>
-            <p>Проходят 42 из 58 менеджеров, средний балл 81%.</p>
-            <span class="nolink">Демо-запись, без перехода</span>
-          </div>
-        </div>
+    <div class="post">
+      <div class="ph">
+        <div class="pav" style="background:var(--navy)">АЖ</div>
+        <div><div class="pn">Алия Жумабаева</div><div class="pt">пн, 29 июня</div></div>
       </div>
-      <div class="kpi-col">
-        <div class="card pcard" style="height:100%">
-          <h3>KPI-снапшот</h3>
-          <div class="snap" id="snap">
-            <div class="pill"><b class="tnum">4</b><span>жилых комплекса</span></div>
-            <div class="pill"><b class="tnum">36</b><span>блоков</span></div>
-            <div class="pill"><b class="tnum">1&nbsp;322</b><span>работ в плане</span></div>
-            <div class="pill alarm"><b class="tnum">666</b><span>работ не в срок</span></div>
-          </div>
-        </div>
+      <p class="tx">Рассвет над ЖК Аура этим утром!</p>
+      <div class="vid" style="background:linear-gradient(160deg,#CFB372 0%,#007484 60%,#284157 100%)">🌅<span class="pb">▶</span></div>
+      <div class="pf">
+        <span class="rep"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>0</span>
+        <span class="hrt"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>10</span>
       </div>
     </div>
-
-    <!-- БЫСТРЫЕ ССЫЛКИ -->
-    <div class="card pcard reveal" style="animation-delay:.28s">
-      <h3>Быстрые ссылки</h3>
-      <div class="linkgrid">
-        <a href="gpr.html">ГПР</a>
-        <a href="atlas_supply_roles_brand.html">Снабжение</a>
-        <a href="finance.html">Финансы</a>
-        <a href="docs.html">Документы</a>
-        <a href="league.html">Лига</a>
-        <a href="index.html" class="cta">Войти по роли →</a>
+    <div class="post">
+      <div class="ph">
+        <div class="pav" style="background:var(--gold);color:var(--navy)">ТБ</div>
+        <div><div class="pn">Тимур Бекетов</div><div class="pt">вс, 28 июня</div></div>
+      </div>
+      <p class="tx">Новый поставщик арматуры прошёл проверку СБ — цена на 4% ниже прайса ✅</p>
+      <div class="pf">
+        <span class="rep"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>2</span>
+        <span class="hrt"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>7</span>
       </div>
     </div>
+  </section>
 
-    <!-- ОРГ-ИНФО -->
-    <div class="card orgcard reveal" style="animation-delay:.34s">
-      <button type="button" class="orgtoggle" id="orgToggle" aria-expanded="false" aria-controls="orgList">
-        <span>9 ЖК · 18 подразделений</span>
-        <span class="chev">▾</span>
-      </button>
-      <div class="orglist" id="orgList" hidden>
-        <div class="grp">
-          <b>Совет управляющих</b>
-          <ul><li>Совет Управляющих</li><li>AI департамент</li><li>Новые проекты</li><li>Финансы</li></ul>
-        </div>
-        <div class="grp">
-          <b>Коммерческий блок</b>
-          <ul><li>Департамент продаж</li><li>Департамент маркетинга</li></ul>
-        </div>
-        <div class="grp">
-          <b>Без блока</b>
-          <ul><li>Департамент строительства</li><li>ATAMŪRA Комфорт</li><li>Департамент механизмов</li><li>Департамент снабжения и хранения</li><li>Департамент безопасности</li><li>Проектный департамент</li><li>GR</li><li>Департамент HR</li><li>Бухгалтерия</li><li>Юридический</li><li>Тех.совет</li><li>Без подразделения</li></ul>
-        </div>
-      </div>
+  <!-- NEWS -->
+  <main class="news">
+    <div class="chead">
+      <h2>Новости</h2>
+      <div class="plus"><svg class="i" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M5 12h14M12 5v14"/></svg></div>
+      <span style="color:var(--ink-mute);letter-spacing:1px">⋮</span>
     </div>
+    <div class="toolbar">
+      <span class="all">Все <span style="font-size:10px">▾</span></span>
+      <svg class="i ic2" viewBox="0 0 24 24" style="color:var(--ink-mute)"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      <svg class="i ic2" viewBox="0 0 24 24" style="color:var(--ink-mute)"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+      <span class="sp"></span>
+      <span class="srt">⇅ Дата публикации</span>
+    </div>
+    <div class="nlist">
 
-    <p style="text-align:center;font-size:11px;color:var(--muted-soft);margin-top:8px">ATLAS · корпоративный портал · данные условные, имена вымышленные · <b style="color:var(--gold-ink)">ATAMŪRA GROUP — мы создаём наследие</b></p>
+      <div class="nrow">
+        <div>
+          <span class="chip">📣 Объявление</span>
+          <div class="trow">
+            <h3>Добро пожаловать: Динара — новый руководитель отдела продаж 🎉🎉</h3>
+            <span class="pinbox"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><path d="M12 17v5"/><path d="M9 10.76V7a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3.76l1.14 1.14c.3.3.47.71.47 1.14V15a1 1 0 0 1-1 1H8.39a1 1 0 0 1-1-1v-1.96c0-.43.17-.84.47-1.14L9 10.76Z"/></svg><span class="rd"></span></span>
+          </div>
+          <p>У Динары 9 лет опыта в девелопменте, до этого строила отдел продаж в крупном застройщике. Любит горы и своего добермана Дакса. Некоторые из вас могли помнить её по…</p>
+          <div class="by"><span>Айгерим С. · 30 июн 2026</span><span class="sp"></span>
+            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>56</span>
+            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>4</span>
+            <span class="st hrt"><svg class="i" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>48</span>
+          </div>
+        </div>
+        <div class="thumb" style="background:linear-gradient(150deg,#284157,#007484)">👋</div>
+      </div>
+
+      <div class="nrow">
+        <div>
+          <span class="chip">Событие компании 🎉</span>
+          <div class="trow"><h3>Субботник в ЖК Аура прошёл на ура</h3></div>
+          <p>Управление комфорта официально подвело итоги: собрали больше тонны мусора, высадили 40 саженцев и раздали 263 стакана лимонада…</p>
+          <div class="by"><span>Ержан К. · 23 июн 2026</span><span class="sp"></span>
+            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>56</span>
+            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>2</span>
+            <span class="st hrt"><svg class="i" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>8</span>
+          </div>
+        </div>
+        <div class="thumb" style="background:linear-gradient(150deg,#007484,#1f7a4d)">🌱</div>
+      </div>
+
+      <div class="nrow">
+        <div>
+          <span class="chip">🏆 Достижение</span>
+          <div class="trow"><h3>Отдел продаж закрыл план июня на 112%</h3></div>
+          <p>Лучший месяц с начала года: 84 сделки, из них 19 — по программе трейд-ин. Поздравляем команду и ждём разбор кейсов на пятничной планёрке.</p>
+          <div class="by"><span>Динара М. · 1 июл 2026</span><span class="sp"></span>
+            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>56</span>
+            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>3</span>
+            <span class="st hrt"><svg class="i" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>5</span>
+          </div>
+        </div>
+        <div class="thumb" style="background:linear-gradient(150deg,#CFB372,#b7995a)">🏆</div>
+      </div>
+
+      <div class="nrow">
+        <div>
+          <span class="chip">Новости проектов</span>
+          <div class="trow"><h3>Атмосфера: пятно 6 вышло из котлована на неделю раньше графика</h3></div>
+          <p>Фундаментная плита завершена, каркасные работы стартуют уже в июле. По остальным пятнам — статус в ATLAS, раздел ГПР.</p>
+          <div class="by"><span>Бауыржан Т. · 28 июн 2026</span><span class="sp"></span>
+            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>56</span>
+            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>2</span>
+            <span class="st hrt"><svg class="i" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>5</span>
+          </div>
+        </div>
+        <div class="thumb" style="background:linear-gradient(150deg,#284157,#4A4A4A)">🏗️</div>
+      </div>
+
+      <div class="nrow">
+        <div>
+          <span class="chip">🎓 Академия</span>
+          <div class="trow"><h3>Модуль M6 «Работа с возражениями» открыт для менеджеров ТМ</h3></div>
+          <p>Уже проходят 42 из 58 менеджеров, средний балл 81%. Дедлайн по модулю — 15 июля, дальше открываем M7.</p>
+          <div class="by"><span>Академия · 30 июн 2026</span><span class="sp"></span>
+            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>41</span>
+            <span class="st"><svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>6</span>
+            <span class="st hrt"><svg class="i" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>12</span>
+          </div>
+        </div>
+        <div class="thumb" style="background:linear-gradient(150deg,#007484,#284157)">🎓</div>
+      </div>
+
+      <div class="demo-note">данные условные, имена вымышленные · ATAMŪRA GROUP · мы создаём наследие</div>
+    </div>
   </main>
 </div>
 
-<script>
-  const $=id=>document.getElementById(id);
-  function build(D){
-    const port=D.portfolio||[];
-    const allBlocks=port.reduce((a,o)=>a+(o.blocks||[]).length,0);
-    const allWorks=port.reduce((a,o)=>a+(o.blocks||[]).reduce((s,b)=>s+(b.works||[]).length,0),0);
-    let totalLate=0;
-    port.forEach(o=>(o.blocks||[]).forEach(b=>(b.works||[]).forEach(w=>{if((w.lag||0)>0)totalLate++;})));
-    return {objects:port.length,allBlocks,allWorks,totalLate};
-  }
-  function render(M){
-    const n=x=>x.toLocaleString('ru');
-    $('snap').innerHTML=[
-      {v:M.objects,k:'жилых комплекса'},
-      {v:M.allBlocks,k:'блоков'},
-      {v:M.allWorks,k:'работ в плане'},
-      {v:M.totalLate,k:'работ не в срок',alarm:true},
-    ].map(p=>`<div class="pill${p.alarm?' alarm':''}"><b class="tnum">${n(p.v)}</b><span>${p.k}</span></div>`).join('');
-  }
-  fetch('gpr-engine/gpr_data.json',{cache:'no-store'})
-    .then(r=>{if(!r.ok)throw 0;return r.json();})
-    .then(D=>{
-      const d=(D.status_date||'2026-05-28').split('-').reverse().join('.');
-      $('stamp').textContent=d;
-      render(build(D));
-    })
-    .catch(()=>{/* keep static prefilled snapshot */});
-
-  $('today').textContent=new Date().toLocaleDateString('ru',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-
-  const orgToggle=$('orgToggle'), orgList=$('orgList');
-  orgToggle.addEventListener('click',()=>{
-    const open=orgToggle.getAttribute('aria-expanded')==='true';
-    orgToggle.setAttribute('aria-expanded',String(!open));
-    orgList.hidden=open;
-  });
-</script>
 </body>
 </html>
