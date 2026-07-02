@@ -95,27 +95,33 @@
   .demo-note{text-align:center;font-size:10.5px;color:var(--grey);padding:6px 0 18px}
 
 
-  /* ===== ORG STRUCTURE ===== */
   .org{grid-column:2 / 4;display:flex;flex-direction:column;min-width:0}
-  .org .chead h2{flex:1}
-  .org .sum{display:flex;gap:22px;padding:16px 26px 4px;flex-wrap:wrap}
+  .org .sum{display:flex;gap:22px;padding:16px 26px 6px;flex-wrap:wrap}
   .org .sum .k{font-size:12px;color:var(--ink-mute)}
   .org .sum .k b{display:block;font-size:26px;font-weight:700;color:var(--navy);line-height:1}
-  .org .wrap{padding:14px 26px 34px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:start}
-  .blk{background:var(--card);border:1px solid var(--line-soft);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04)}
-  .blk .bh{display:flex;align-items:baseline;justify-content:space-between;padding:15px 18px 12px;border-bottom:1px solid var(--line-soft)}
-  .blk .bh .t{font-size:15px;font-weight:700;color:var(--navy)}
-  .blk .bh .c{font-size:22px;font-weight:700;color:var(--teal)}
-  .blk .bh .c small{font-size:11px;color:var(--ink-mute);font-weight:500;margin-left:3px}
-  .blk .dep{padding:10px 18px;border-top:1px solid #f2f2f0}
-  .blk .dep:first-of-type{border-top:none}
-  .blk .dep .row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px}
-  .blk .dep .row .nm{color:var(--ink)}
-  .blk .dep .row .n{font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
-  .blk .dep .bar{height:5px;border-radius:3px;background:var(--line-soft);margin-top:7px;overflow:hidden}
-  .blk .dep .bar span{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--teal),var(--gold))}
-  .org .foot{padding:2px 26px 26px}
-  .org .foot .note{font-size:11px;color:var(--ink-mute);background:#f4f6f6;border:1px solid var(--line-soft);border-radius:10px;padding:10px 14px;line-height:1.5}
+  .org .sum .k.teal b{color:var(--teal)}
+  .org .wrap{padding:8px 26px 30px;display:grid;grid-template-columns:1.6fr 1fr;gap:20px;align-items:start}
+  .treecard,.offcard{background:var(--card);border:1px solid var(--line-soft);border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.04);overflow:hidden}
+  .treecard h4,.offcard h4{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-mute);font-weight:700;margin:0;padding:14px 16px 6px}
+  .treewrap{padding:6px 14px 16px}
+  .node{margin-top:2px}
+  .nrow{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:8px}
+  .node.d0 > .nrow{background:var(--navy);color:#fff;font-weight:700}
+  .node.d0 > .nrow .nm{color:#fff}
+  .node.d1 > .nrow{background:var(--teal-tint)}
+  .nrow .nm{font-size:13px;color:var(--ink);font-weight:500;flex:1;min-width:0}
+  .node.d1 > .nrow .nm{font-weight:700;color:var(--teal-600)}
+  .nrow .cnt{font-size:12px;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums;background:#fff;border:1px solid var(--line);border-radius:999px;padding:1px 9px}
+  .node.d0 > .nrow .cnt{background:rgba(255,255,255,.16);color:#fff;border:none}
+  .nrow .roll{font-size:10.5px;color:var(--ink-mute);font-variant-numeric:tabular-nums}
+  .node.d0 > .nrow .roll{color:rgba(255,255,255,.7)}
+  .kids{margin-left:14px;padding-left:10px;border-left:1.5px solid var(--line-soft)}
+  .offcard .oi{display:flex;justify-content:space-between;gap:10px;padding:9px 16px;border-top:1px solid #f2f2f0;font-size:13px}
+  .offcard .oi:first-of-type{border-top:none}
+  .offcard .oi .n{font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+  .offcard .tot{display:flex;justify-content:space-between;padding:11px 16px;background:#faf7ef;border-top:1px solid var(--line-soft);font-weight:700;color:var(--navy)}
+  .org .foot{padding:0 26px 28px}
+  .org .foot .note{font-size:11.5px;color:var(--ink-soft);background:#f4f6f6;border:1px solid var(--line-soft);border-radius:10px;padding:11px 15px;line-height:1.55}
   .org .foot .note b{color:var(--navy)}
   @media (max-width:1000px){.org{grid-column:auto}.org .wrap{grid-template-columns:1fr}}
 
@@ -174,21 +180,26 @@
     </div>
   </aside>
 
-  <!-- ORG STRUCTURE -->
+  <!-- ORG TREE -->
   <main class="org">
-    <div class="chead">
-      <h2>Оргструктура</h2>
-      <a href="portal.html" style="font-size:12.5px;color:var(--teal);font-weight:600">← В портал</a>
-    </div>
+    <div class="chead"><h2>Оргструктура</h2><a href="portal.html" style="font-size:12.5px;color:var(--teal);font-weight:600">← В портал</a></div>
     <div class="sum">
-      <span class="k"><b>212</b>сотрудников</span>
-      <span class="k"><b>3</b>блока</span>
-      <span class="k"><b>25</b>подразделений</span>
+      <span class="k"><b>212</b>всего в штате</span>
+      <span class="k teal"><b>155</b>в корп-системе (дерево)</span>
+      <span class="k"><b>34</b>узла в дереве</span>
     </div>
     <div class="wrap">
-      <div class="blk"><div class="bh"><span class="t">Совет управляющих</span><span class="c">10<small>чел.</small></span></div><div class="dep"><div class="row"><span class="nm">Департамент государственных и общественных связей</span><span class="n">2</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Совет Управляющих</span><span class="n">2</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент снабжения и хранения</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент финансов</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">ATAMŪRA Комфорт</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Проектный департамент</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент строительства</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент HR</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div></div><div class="blk"><div class="bh"><span class="t">Коммерческий блок</span><span class="c">54<small>чел.</small></span></div><div class="dep"><div class="row"><span class="nm">Департамент продаж</span><span class="n">47</span></div><div class="bar"><span style="width:100%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент маркетинга</span><span class="n">7</span></div><div class="bar"><span style="width:15%"></span></div></div></div><div class="blk"><div class="bh"><span class="t">Без блока</span><span class="c">148<small>чел.</small></span></div><div class="dep"><div class="row"><span class="nm">Департамент строительства</span><span class="n">47</span></div><div class="bar"><span style="width:100%"></span></div></div><div class="dep"><div class="row"><span class="nm">Без подразделения</span><span class="n">28</span></div><div class="bar"><span style="width:60%"></span></div></div><div class="dep"><div class="row"><span class="nm">ATAMŪRA Комфорт</span><span class="n">15</span></div><div class="bar"><span style="width:32%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент механизмов</span><span class="n">9</span></div><div class="bar"><span style="width:19%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент безопасности</span><span class="n">9</span></div><div class="bar"><span style="width:19%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент снабжения и хранения</span><span class="n">8</span></div><div class="bar"><span style="width:17%"></span></div></div><div class="dep"><div class="row"><span class="nm">Проектный департамент</span><span class="n">7</span></div><div class="bar"><span style="width:15%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент бухгалтерии</span><span class="n">6</span></div><div class="bar"><span style="width:13%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент HR</span><span class="n">5</span></div><div class="bar"><span style="width:11%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент государственных и общественных связей</span><span class="n">4</span></div><div class="bar"><span style="width:9%"></span></div></div><div class="dep"><div class="row"><span class="nm">AI департамент</span><span class="n">3</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Юридический департамент</span><span class="n">3</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент новых проектов</span><span class="n">2</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Совет управляющих</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div><div class="dep"><div class="row"><span class="nm">Департамент финансов</span><span class="n">1</span></div><div class="bar"><span style="width:6%"></span></div></div></div>
+      <div class="treecard"><h4>Корпоративный контур · Битрикс (155 чел., 157 членств)</h4>
+        <div class="treewrap"><div class="node d0"><div class="nrow"><span class="nm">ATAMURA GROUP</span><span class="cnt">2</span><span class="roll">Σ157</span></div><div class="kids"><div class="node d1"><div class="nrow"><span class="nm">Генеральный директор</span><span class="cnt">5</span><span class="roll">Σ153</span></div><div class="kids"><div class="node d2"><div class="nrow"><span class="nm">GR</span><span class="cnt">6</span></div></div><div class="node d2"><div class="nrow"><span class="nm">Инжиниринг</span><span class="cnt">5</span><span class="roll">Σ26</span></div><div class="kids"><div class="node d3"><div class="nrow"><span class="nm">Отдел ПТО</span><span class="cnt">11</span></div></div><div class="node d3"><div class="nrow"><span class="nm">Проекты - Атмосфера &amp; Керуен</span><span class="cnt">4</span></div></div><div class="node d3"><div class="nrow"><span class="nm">Логистика</span><span class="cnt">2</span></div></div><div class="node d3"><div class="nrow"><span class="nm">Проекты - Aura &amp; Aqsai Resort</span><span class="cnt">2</span></div></div><div class="node d3"><div class="nrow"><span class="nm">Проекты - NEO &amp; Карабулак &amp; Жана куат</span><span class="cnt">2</span></div></div></div></div><div class="node d2"><div class="nrow"><span class="nm">Проектный офис</span><span class="cnt">5</span></div></div><div class="node d2"><div class="nrow"><span class="nm">Продукт и дизайн</span><span class="cnt">4</span></div></div><div class="node d2"><div class="nrow"><span class="nm">Бизнес операции</span><span class="cnt">3</span><span class="roll">Σ11</span></div><div class="kids"><div class="node d3"><div class="nrow"><span class="nm">Снабжения</span><span class="cnt">4</span></div></div><div class="node d3"><div class="nrow"><span class="nm">Юридический отдел</span><span class="cnt">3</span></div></div><div class="node d3"><div class="nrow"><span class="nm">Склад</span><span class="cnt">1</span></div></div></div></div><div class="node d2"><div class="nrow"><span class="nm">Управляющий директор</span><span class="cnt">3</span><span class="roll">Σ83</span></div><div class="kids"><div class="node d3"><div class="nrow"><span class="nm">HR</span><span class="cnt">8</span></div></div><div class="node d3"><div class="nrow"><span class="nm">Отдел маркетинга</span><span class="cnt">7</span></div></div><div class="node d3"><div class="nrow"><span class="nm">Коммерческий департамент</span><span class="cnt">1</span><span class="roll">Σ28</span></div><div class="kids"><div class="node d4"><div class="nrow"><span class="nm">Отдел продаж (Толе би)</span><span class="cnt">9</span></div></div><div class="node d4"><div class="nrow"><span class="nm">Отдел продаж (Атмосфера)</span><span class="cnt">7</span></div></div><div class="node d4"><div class="nrow"><span class="nm">Отдел клиентского сервиса</span><span class="cnt">4</span></div></div><div class="node d4"><div class="nrow"><span class="nm">Отдел продаж (Keruen)</span><span class="cnt">4</span></div></div><div class="node d4"><div class="nrow"><span class="nm">Отдел службы заботы</span><span class="cnt">2</span></div></div><div class="node d4"><div class="nrow"><span class="nm">Отдел внешних продаж</span><span class="cnt">1</span></div></div></div></div><div class="node d3"><div class="nrow"><span class="nm">Отдел телемаркетинга</span><span class="cnt">1</span><span class="roll">Σ37</span></div><div class="kids"><div class="node d4"><div class="nrow"><span class="nm">Телемаркетинг</span><span class="cnt">36</span></div></div></div></div><div class="node d3"><div class="nrow"><span class="nm">Отдел по запуску проектов</span></div></div></div></div><div class="node d2"><div class="nrow"><span class="nm">Сервис</span><span class="cnt">2</span></div></div><div class="node d2"><div class="nrow"><span class="nm">Финансы</span><span class="cnt">2</span><span class="roll">Σ9</span></div><div class="kids"><div class="node d3"><div class="nrow"><span class="nm">Бухгалтерия</span><span class="cnt">7</span></div></div></div></div><div class="node d2"><div class="nrow"><span class="nm">Директор по развитию</span><span class="cnt">1</span></div></div><div class="node d2"><div class="nrow"><span class="nm">Служба безопасности</span><span class="cnt">1</span></div></div></div></div><div class="node d1"><div class="nrow"><span class="nm">Производство</span><span class="cnt">2</span></div></div></div></div></div>
+      </div>
+      <div>
+        <div class="offcard"><h4>Вне корпоративной системы (по штату)</h4>
+          <div class="oi"><span>AI департамент</span><span class="n">3</span></div><div class="oi"><span>Департамент механизмов</span><span class="n">9</span></div><div class="oi"><span>Без подразделения</span><span class="n">28</span></div><div class="oi"><span>Стройплощадка · хоз-блок (рабочие сверх CRM)</span><span class="n">17</span></div>
+          <div class="tot"><span>Итого вне CRM</span><span>57</span></div>
+        </div>
+      </div>
     </div>
-    <div class="foot"><div class="note"><b>Агрегированные данные</b> — только структура и численность, без персональных данных. Справочник конкретных сотрудников доступен во внутренней версии портала за логином.</div></div>
+    <div class="foot"><div class="note"><b>Как читать.</b> Дерево — живая оргструктура из Битрикса: <b>155</b> сотрудников с аккаунтами в CRM (157 членств, часть — в двух отделах). Полный штат компании — <b>212</b> (штатный файл); разница <b>57</b> — стройплощадка, спецтехника (Департамент механизмов), AI-департамент и нераспределённые, у которых нет аккаунтов в Битриксе. Только агрегаты, без персональных данных.</div></div>
   </main>
 </div>
 </body>
