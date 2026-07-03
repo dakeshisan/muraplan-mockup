@@ -107,6 +107,17 @@
   .group-chip b{font-family:'Onest','Noto Sans',sans-serif;font-size:18px;font-weight:600;color:var(--navy)}
   .group-chip small{display:block;font-size:11px;color:var(--muted);font-weight:500;margin-top:1px}
 
+  /* ===== PORTAL ENTRY BANNER ===== */
+  .portal-banner{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:22px;padding:15px 22px;border-radius:var(--r-md);background:linear-gradient(120deg,var(--teal-tint),#eef6f7);border:1px solid var(--line);text-decoration:none}
+  .portal-banner .pb-ic{width:38px;height:38px;border-radius:11px;background:linear-gradient(150deg,var(--gold),var(--gold-deep));display:grid;place-items:center;flex:none;box-shadow:var(--shadow-sm)}
+  .portal-banner .pb-ic svg{width:20px;height:20px;color:var(--navy-900)}
+  .portal-banner .pb-tx{flex:1;min-width:220px;font-size:13.5px;color:var(--muted);line-height:1.5}
+  .portal-banner .pb-tx b{color:var(--navy);font-weight:600}
+  .portal-banner .pb-go{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(150deg,var(--teal),var(--teal-600));color:#fff;font-weight:600;font-size:13.5px;padding:11px 20px;border-radius:var(--r-sm);white-space:nowrap;transition:all .2s var(--ease)}
+  .portal-banner .pb-go svg{width:16px;height:16px;transition:transform .2s var(--ease)}
+  .portal-banner:hover .pb-go{box-shadow:var(--shadow-md)}
+  .portal-banner:hover .pb-go svg{transform:translateX(3px)}
+
   /* ===== HERO ===== */
   .hero{position:relative;margin-top:clamp(22px,3.4vw,40px)}
   .hero .word{font-family:'Onest','Noto Sans',sans-serif;font-weight:700;font-size:clamp(56px,9vw,116px);line-height:.86;color:var(--navy);letter-spacing:-.012em}
@@ -271,6 +282,13 @@
         <div class="group-chip"><b>ATAMŪRA GROUP</b><small>единый движок ГПР · 4 ЖК</small></div>
       </div>
     </header>
+
+    <!-- PORTAL ENTRY -->
+    <a class="portal-banner reveal" href="portal.html" style="animation-delay:.07s" aria-label="Открыть корпоративный портал">
+      <span class="pb-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9h.01M9 12h.01M9 15h.01M9 18h.01"/></svg></span>
+      <span class="pb-tx"><b>Корпоративный портал ATAMŪRA</b> — новости, люди, оргструктура, задачи. Этот экран (ATLAS) — рабочий вход по роли в движок стройки.</span>
+      <span class="pb-go">Открыть портал <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </a>
 
     <!-- HERO -->
     <section class="hero reveal" style="animation-delay:.1s" aria-label="ATLAS">
