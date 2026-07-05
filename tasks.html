@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#007484">
 <meta name="robots" content="noindex,nofollow">
-<title>ATAMŪRA · оргструктура</title>
+<title>ATAMŪRA · Задачи</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -95,47 +95,39 @@
   .demo-note{text-align:center;font-size:10.5px;color:var(--grey);padding:6px 0 18px}
 
 
-  .org{grid-column:2 / 4;display:flex;flex-direction:column;min-width:0}
-  .org .head2{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:16px 30px 4px;flex-wrap:wrap}
-  .org .head2 h2{font-size:20px;color:var(--navy);margin:0}
-  .org .head2 .legend{font-size:11.5px;color:var(--ink-mute)}
-  .org .sum{display:flex;gap:14px;padding:10px 30px 8px;flex-wrap:wrap}
-  .org .sum .k{background:var(--card);border:1px solid var(--line-soft);border-radius:12px;padding:11px 16px;min-width:120px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
-  .org .sum .k b{display:block;font-size:24px;font-weight:800;color:var(--navy);line-height:1}
-  .org .sum .k.teal b{color:var(--teal)} .org .sum .k.mut b{color:var(--ink-mute)}
-  .org .sum .k span{font-size:11.5px;color:var(--ink-mute)}
-  .org .wrap{padding:8px 30px 30px;display:grid;grid-template-columns:2fr 0.9fr;gap:22px;align-items:start}
-  .panel{background:var(--card);border:1px solid var(--line-soft);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.05);overflow:hidden}
-  .panel>.ph{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-mute);font-weight:700;padding:15px 18px 4px}
-  .tree{padding:8px 12px 16px}
-  /* collapsible branches */
-  .br{margin:3px 0}
-  .br>summary{list-style:none;display:flex;align-items:center;gap:10px;cursor:pointer;padding:9px 12px;border-radius:10px;user-select:none;transition:background .15s}
-  .br>summary::-webkit-details-marker{display:none}
-  .br>summary:hover{background:#f4f6f6}
-  .br>summary .chev{font-size:12px;color:var(--ink-mute);transition:transform .18s;flex:none}
-  .br[open]>summary .chev{transform:rotate(90deg)}
-  .br>summary .nm{flex:1;min-width:0;font-size:15px;color:var(--ink)}
-  .br>summary .own{font-size:11px;color:var(--ink-mute);background:#eef1f1;border-radius:999px;padding:2px 8px;flex:none}
-  .br>summary .tot{font-size:14px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums;min-width:34px;text-align:right;flex:none}
-  .br.d0>summary{background:var(--navy)} .br.d0>summary .nm{color:#fff;font-weight:700;font-size:16px}
-  .br.d0>summary .chev,.br.d0>summary .tot{color:#fff} .br.d0>summary .own{background:rgba(255,255,255,.16);color:#eef}
-  .br.d1>summary{background:var(--teal-tint)} .br.d1>summary .nm{color:var(--teal-600);font-weight:700}
-  .br.d1>summary .tot{color:var(--teal-600)}
-  .br .ch{margin-left:16px;padding-left:12px;border-left:2px solid var(--line-soft)}
-  .leaf{display:flex;align-items:center;gap:10px;padding:8px 12px 8px 34px;border-radius:8px}
-  .leaf:hover{background:#f7f8f8}
-  .leaf .nm{flex:1;min-width:0;font-size:14px;color:var(--ink-soft)}
-  .leaf .tot{font-size:14px;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
-  /* off panel */
-  .off .oi{display:flex;justify-content:space-between;gap:10px;padding:11px 18px;border-top:1px solid #f2f2f0;font-size:14px;align-items:baseline}
-  .off .oi:first-of-type{border-top:none} .off .oi .n{font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums}
-  .off .tot{display:flex;justify-content:space-between;padding:13px 18px;background:#faf7ef;border-top:1px solid var(--line-soft);font-weight:800;color:var(--navy);font-size:15px}
-  .off .cap{font-size:11.5px;color:var(--ink-mute);padding:4px 18px 14px;line-height:1.5}
-  .org .foot{padding:0 30px 30px}
-  .org .foot .note{font-size:12px;color:var(--ink-soft);background:#f4f6f6;border:1px solid var(--line-soft);border-radius:10px;padding:12px 16px;line-height:1.6}
-  .org .foot .note b{color:var(--navy)}
-  @media (max-width:1000px){.org{grid-column:auto}.org .wrap{grid-template-columns:1fr}}
+  /* ===== TASKS ===== */
+  .content{grid-column:2 / 4;display:flex;flex-direction:column;min-width:0}
+  .content .head2{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:16px 30px 4px;flex-wrap:wrap}
+  .content .head2 h2{font-size:20px;color:var(--navy);margin:0}
+  .content .head2 .legend{font-size:11.5px;color:var(--ink-mute)}
+  .note-chip{margin:10px 30px 0;background:#f4f6f6;border:1px solid var(--line-soft);border-radius:999px;padding:8px 16px;font-size:11.5px;color:var(--ink-mute);width:fit-content}
+  .board{padding:18px 30px 10px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+  .col{display:flex;flex-direction:column;min-width:0}
+  .colhead{display:flex;align-items:center;gap:8px;padding:0 2px 12px}
+  .colhead .ctitle{font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.06em}
+  .colhead .ccount{background:var(--line-soft);color:var(--ink-mute);font-size:11.5px;font-weight:700;border-radius:999px;padding:1px 9px;font-variant-numeric:tabular-nums}
+  .cstack{display:flex;flex-direction:column;gap:12px}
+  .tcard{background:var(--card);border:1px solid var(--line-soft);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.05);padding:14px 16px}
+  .tcard.done{opacity:.72}
+  .ttop{display:flex;align-items:flex-start;gap:9px}
+  .ttop h3{flex:1;min-width:0;font-size:14px;font-weight:700;line-height:1.35;margin:0;color:var(--ink)}
+  .tcard.done .ttop h3{text-decoration:line-through;text-decoration-color:var(--grey);color:var(--ink-mute)}
+  .tdot{width:9px;height:9px;border-radius:50%;flex:none;margin-top:5px}
+  .tdot.new{background:var(--gold)}
+  .tdot.progress{background:var(--teal)}
+  .tdot.done{background:var(--ink-mute)}
+  .ttags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .tag{display:inline-block;font-size:10px;font-weight:700;border-radius:999px;padding:3px 11px;text-transform:uppercase;letter-spacing:.06em}
+  .tag-aura{background:#e4ecef;color:var(--navy)}
+  .tag-atmosfera{background:#dcecee;color:var(--teal-deep)}
+  .tag-keruen{background:#f2ead6;color:#8a6a1f}
+  .tag-office{background:#eceae3;color:var(--ink-soft)}
+  .tdue{font-size:11.5px;color:var(--ink-mute);margin-top:9px}
+  .tdue.overdue{color:#b5482e;font-weight:700}
+  @media (max-width:1000px){
+    .content{grid-column:auto}
+    .board{grid-template-columns:1fr;overflow-x:visible}
+  }
 
   @media (max-width:1000px){
     .app{grid-template-columns:1fr}
@@ -166,11 +158,11 @@
     </div>
     <nav>
       <a href="#search"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Поиск</a>
-      <a href="tasks.html"><svg class="i" viewBox="0 0 24 24"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Задачи<span class="dot"></span></a>
+      <a href="tasks.html" class="on"><svg class="i" viewBox="0 0 24 24"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Задачи<span class="dot"></span></a>
       <a href="portal.html"><svg class="i" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>Новости</a>
       <a href="events.html"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>События</a>
       <a href="discussions.html"><svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Обсуждения</a>
-      <a href="people.html" class="on"><svg class="i" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Люди</a>
+      <a href="people.html"><svg class="i" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Люди</a>
       <a href="library.html"><svg class="i" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>Библиотека</a>
       <a href="teams.html"><svg class="i" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Команды</a>
       <a href="announcements.html"><svg class="i" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Объявления</a>
@@ -192,24 +184,75 @@
     </div>
   </aside>
 
-  <!-- ORG TREE -->
-  <main class="org">
-    <div class="head2"><h2>Оргструктура компании</h2>
-      <span class="legend">клик по строке — развернуть / свернуть · число справа = людей в ветке</span></div>
-    <div class="sum">
-      <span class="k"><b>212</b><span>всего в штате</span></span>
-      <span class="k teal"><b>155</b><span>в корп-системе (дерево)</span></span>
-      <span class="k mut"><b>57</b><span>вне CRM (стройка)</span></span>
-    </div>
-    <div class="wrap">
-      <div class="panel"><div class="ph">Живая структура · Битрикс</div><div class="tree"><details class="br d0" open><summary><span class="chev">▸</span><span class="nm">ATAMURA GROUP</span><span class="own">своих 2</span><span class="tot">157</span></summary><div class="ch"><details class="br d1" open><summary><span class="chev">▸</span><span class="nm">Генеральный директор</span><span class="own">своих 5</span><span class="tot">153</span></summary><div class="ch"><details class="br d2"><summary><span class="chev">▸</span><span class="nm">Управляющий директор</span><span class="own">своих 3</span><span class="tot">83</span></summary><div class="ch"><details class="br d3"><summary><span class="chev">▸</span><span class="nm">Отдел телемаркетинга</span><span class="own">своих 1</span><span class="tot">37</span></summary><div class="ch"><div class="leaf d3"><span class="nm">Телемаркетинг</span><span class="tot leaf-n">36</span></div></div></details><details class="br d3"><summary><span class="chev">▸</span><span class="nm">Коммерческий департамент</span><span class="own">своих 1</span><span class="tot">28</span></summary><div class="ch"><div class="leaf d3"><span class="nm">Отдел продаж (Толе би)</span><span class="tot leaf-n">9</span></div><div class="leaf d3"><span class="nm">Отдел продаж (Атмосфера)</span><span class="tot leaf-n">7</span></div><div class="leaf d3"><span class="nm">Отдел клиентского сервиса</span><span class="tot leaf-n">4</span></div><div class="leaf d3"><span class="nm">Отдел продаж (Keruen)</span><span class="tot leaf-n">4</span></div><div class="leaf d3"><span class="nm">Отдел службы заботы</span><span class="tot leaf-n">2</span></div><div class="leaf d3"><span class="nm">Отдел внешних продаж</span><span class="tot leaf-n">1</span></div></div></details><div class="leaf d3"><span class="nm">HR</span><span class="tot leaf-n">8</span></div><div class="leaf d3"><span class="nm">Отдел маркетинга</span><span class="tot leaf-n">7</span></div><div class="leaf d3"><span class="nm">Отдел по запуску проектов</span><span class="tot leaf-n">0</span></div></div></details><details class="br d2"><summary><span class="chev">▸</span><span class="nm">Инжиниринг</span><span class="own">своих 5</span><span class="tot">26</span></summary><div class="ch"><div class="leaf d3"><span class="nm">Отдел ПТО</span><span class="tot leaf-n">11</span></div><div class="leaf d3"><span class="nm">Проекты - Атмосфера &amp; Керуен</span><span class="tot leaf-n">4</span></div><div class="leaf d3"><span class="nm">Логистика</span><span class="tot leaf-n">2</span></div><div class="leaf d3"><span class="nm">Проекты - Aura &amp; Aqsai Resort</span><span class="tot leaf-n">2</span></div><div class="leaf d3"><span class="nm">Проекты - NEO &amp; Карабулак &amp; Жана куат</span><span class="tot leaf-n">2</span></div></div></details><details class="br d2"><summary><span class="chev">▸</span><span class="nm">Бизнес операции</span><span class="own">своих 3</span><span class="tot">11</span></summary><div class="ch"><div class="leaf d3"><span class="nm">Снабжения</span><span class="tot leaf-n">4</span></div><div class="leaf d3"><span class="nm">Юридический отдел</span><span class="tot leaf-n">3</span></div><div class="leaf d3"><span class="nm">Склад</span><span class="tot leaf-n">1</span></div></div></details><details class="br d2"><summary><span class="chev">▸</span><span class="nm">Финансы</span><span class="own">своих 2</span><span class="tot">9</span></summary><div class="ch"><div class="leaf d3"><span class="nm">Бухгалтерия</span><span class="tot leaf-n">7</span></div></div></details><div class="leaf d2"><span class="nm">GR</span><span class="tot leaf-n">6</span></div><div class="leaf d2"><span class="nm">Проектный офис</span><span class="tot leaf-n">5</span></div><div class="leaf d2"><span class="nm">Продукт и дизайн</span><span class="tot leaf-n">4</span></div><div class="leaf d2"><span class="nm">Сервис</span><span class="tot leaf-n">2</span></div><div class="leaf d2"><span class="nm">Директор по развитию</span><span class="tot leaf-n">1</span></div><div class="leaf d2"><span class="nm">Служба безопасности</span><span class="tot leaf-n">1</span></div></div></details><div class="leaf d1"><span class="nm">Производство</span><span class="tot leaf-n">2</span></div></div></details></div></div>
-      <div class="panel off"><div class="ph">Вне корпоративной системы</div>
-        <div class="oi"><span>AI департамент</span><span class="n">3</span></div><div class="oi"><span>Департамент механизмов</span><span class="n">9</span></div><div class="oi"><span>Без подразделения</span><span class="n">28</span></div><div class="oi"><span>Стройплощадка и хоз-блок</span><span class="n">17</span></div>
-        <div class="tot"><span>Итого вне CRM</span><span>57</span></div>
-        <div class="cap">Эти подразделения ведутся в штатном файле, но аккаунтов в Битриксе не имеют — поэтому в дереве слева их нет.</div>
+  <!-- TASKS -->
+  <main class="content">
+    <div class="head2"><h2>Мои задачи</h2>
+      <span class="legend">личные задачи · вы видите только свои</span></div>
+    <div class="note-chip">Демо · в рабочей версии список фильтруется по вошедшему сотруднику на сервере</div>
+    <div class="board">
+
+      <div class="col">
+        <div class="colhead"><span class="ctitle">Новые</span><span class="ccount">2</span></div>
+        <div class="cstack">
+
+          <div class="tcard">
+            <div class="ttop"><span class="tdot new"></span><h3>Согласовать заявку на арматуру</h3></div>
+            <div class="ttags"><span class="tag tag-keruen">Керуен</span></div>
+            <div class="tdue">срок · 08 июл</div>
+          </div>
+
+          <div class="tcard">
+            <div class="ttop"><span class="tdot new"></span><h3>Проверить смету пятно 5</h3></div>
+            <div class="ttags"><span class="tag tag-aura">Аура</span></div>
+            <div class="tdue">срок · 10 июл</div>
+          </div>
+
+        </div>
       </div>
+
+      <div class="col">
+        <div class="colhead"><span class="ctitle">В работе</span><span class="ccount">2</span></div>
+        <div class="cstack">
+
+          <div class="tcard">
+            <div class="ttop"><span class="tdot progress"></span><h3>Приёмка КС-2 по фасаду</h3></div>
+            <div class="ttags"><span class="tag tag-atmosfera">Атмосфера</span></div>
+            <div class="tdue overdue">срок · 06 июл · просрочено</div>
+          </div>
+
+          <div class="tcard">
+            <div class="ttop"><span class="tdot progress"></span><h3>Обновить ГПР по каркасу</h3></div>
+            <div class="ttags"><span class="tag tag-aura">Аура</span></div>
+            <div class="tdue">срок · 09 июл</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="colhead"><span class="ctitle">Готово</span><span class="ccount">3</span></div>
+        <div class="cstack">
+
+          <div class="tcard done">
+            <div class="ttop"><span class="tdot done"></span><h3>Отчёт НУ за июнь</h3></div>
+            <div class="ttags"><span class="tag tag-aura">Аура</span></div>
+          </div>
+
+          <div class="tcard done">
+            <div class="ttop"><span class="tdot done"></span><h3>Заявка на кабель-канал</h3></div>
+            <div class="ttags"><span class="tag tag-keruen">Керуен</span></div>
+          </div>
+
+          <div class="tcard done">
+            <div class="ttop"><span class="tdot done"></span><h3>Онбординг нового прораба</h3></div>
+            <div class="ttags"><span class="tag tag-office">Офис</span></div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
-    <div class="foot"><div class="note"><b>Как читать.</b> Слева — живая оргструктура из Битрикса: <b>155</b> сотрудников с аккаунтами (157 членств — часть в двух отделах). Полный штат — <b>212</b>; разница <b>57</b> (стройплощадка, спецтехника, AI-департамент, нераспределённые) — справа. Только агрегаты, без персональных данных.</div></div>
+    <div class="demo-note">данные условные · ATAMŪRA GROUP</div>
   </main>
 </div>
 </body>

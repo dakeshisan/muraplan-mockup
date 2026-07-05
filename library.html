@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#007484">
 <meta name="robots" content="noindex,nofollow">
-<title>ATAMŪRA · оргструктура</title>
+<title>ATAMŪRA · Библиотека</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -137,6 +137,27 @@
   .org .foot .note b{color:var(--navy)}
   @media (max-width:1000px){.org{grid-column:auto}.org .wrap{grid-template-columns:1fr}}
 
+  /* ===== LIBRARY ===== */
+  .content{grid-column:2 / 4;display:flex;flex-direction:column;min-width:0}
+  .content .head2{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:16px 30px 4px;flex-wrap:wrap}
+  .content .head2 h2{font-size:20px;color:var(--navy);margin:0}
+  .content .head2 .legend{font-size:11.5px;color:var(--ink-mute)}
+  .content .body{padding:8px 30px 30px}
+  .lib-cat{margin-bottom:26px}
+  .lib-cat:last-child{margin-bottom:0}
+  .lib-cat h3{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-mute);font-weight:700;margin:0 0 12px}
+  .lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+  .doc-card{background:var(--card);border:1px solid var(--line-soft);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.05);padding:16px 16px 14px;display:flex;flex-direction:column;gap:10px;transition:box-shadow .15s,transform .15s}
+  .doc-card:hover{box-shadow:0 4px 14px rgba(8,31,58,.08);transform:translateY(-1px)}
+  .doc-card .dic{width:38px;height:38px;border-radius:10px;background:#f4f6f6;display:flex;align-items:center;justify-content:center;font-size:19px;flex:none}
+  .doc-card .dt{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.3}
+  .doc-card .dm{font-size:11.5px;color:var(--ink-mute);line-height:1.4}
+  .doc-card .dopen{font-size:12.5px;color:var(--ink-mute);margin-top:auto;padding-top:6px}
+  .doc-card:hover .dopen{color:var(--teal);font-weight:600}
+  .content .foot{padding:4px 30px 30px}
+  .content .foot .note{text-align:center;font-size:11px;color:var(--grey)}
+  @media (max-width:1000px){.content{grid-column:auto}.lib-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}}
+
   @media (max-width:1000px){
     .app{grid-template-columns:1fr}
     .sb{flex-direction:row;align-items:center;border-right:none;border-bottom:1px solid var(--line-soft);padding:10px 8px;overflow-x:auto}
@@ -170,8 +191,8 @@
       <a href="portal.html"><svg class="i" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>Новости</a>
       <a href="events.html"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>События</a>
       <a href="discussions.html"><svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Обсуждения</a>
-      <a href="people.html" class="on"><svg class="i" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Люди</a>
-      <a href="library.html"><svg class="i" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>Библиотека</a>
+      <a href="people.html"><svg class="i" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Люди</a>
+      <a href="library.html" class="on"><svg class="i" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>Библиотека</a>
       <a href="teams.html"><svg class="i" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Команды</a>
       <a href="announcements.html"><svg class="i" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Объявления</a>
     </nav>
@@ -192,24 +213,49 @@
     </div>
   </aside>
 
-  <!-- ORG TREE -->
-  <main class="org">
-    <div class="head2"><h2>Оргструктура компании</h2>
-      <span class="legend">клик по строке — развернуть / свернуть · число справа = людей в ветке</span></div>
-    <div class="sum">
-      <span class="k"><b>212</b><span>всего в штате</span></span>
-      <span class="k teal"><b>155</b><span>в корп-системе (дерево)</span></span>
-      <span class="k mut"><b>57</b><span>вне CRM (стройка)</span></span>
-    </div>
-    <div class="wrap">
-      <div class="panel"><div class="ph">Живая структура · Битрикс</div><div class="tree"><details class="br d0" open><summary><span class="chev">▸</span><span class="nm">ATAMURA GROUP</span><span class="own">своих 2</span><span class="tot">157</span></summary><div class="ch"><details class="br d1" open><summary><span class="chev">▸</span><span class="nm">Генеральный директор</span><span class="own">своих 5</span><span class="tot">153</span></summary><div class="ch"><details class="br d2"><summary><span class="chev">▸</span><span class="nm">Управляющий директор</span><span class="own">своих 3</span><span class="tot">83</span></summary><div class="ch"><details class="br d3"><summary><span class="chev">▸</span><span class="nm">Отдел телемаркетинга</span><span class="own">своих 1</span><span class="tot">37</span></summary><div class="ch"><div class="leaf d3"><span class="nm">Телемаркетинг</span><span class="tot leaf-n">36</span></div></div></details><details class="br d3"><summary><span class="chev">▸</span><span class="nm">Коммерческий департамент</span><span class="own">своих 1</span><span class="tot">28</span></summary><div class="ch"><div class="leaf d3"><span class="nm">Отдел продаж (Толе би)</span><span class="tot leaf-n">9</span></div><div class="leaf d3"><span class="nm">Отдел продаж (Атмосфера)</span><span class="tot leaf-n">7</span></div><div class="leaf d3"><span class="nm">Отдел клиентского сервиса</span><span class="tot leaf-n">4</span></div><div class="leaf d3"><span class="nm">Отдел продаж (Keruen)</span><span class="tot leaf-n">4</span></div><div class="leaf d3"><span class="nm">Отдел службы заботы</span><span class="tot leaf-n">2</span></div><div class="leaf d3"><span class="nm">Отдел внешних продаж</span><span class="tot leaf-n">1</span></div></div></details><div class="leaf d3"><span class="nm">HR</span><span class="tot leaf-n">8</span></div><div class="leaf d3"><span class="nm">Отдел маркетинга</span><span class="tot leaf-n">7</span></div><div class="leaf d3"><span class="nm">Отдел по запуску проектов</span><span class="tot leaf-n">0</span></div></div></details><details class="br d2"><summary><span class="chev">▸</span><span class="nm">Инжиниринг</span><span class="own">своих 5</span><span class="tot">26</span></summary><div class="ch"><div class="leaf d3"><span class="nm">Отдел ПТО</span><span class="tot leaf-n">11</span></div><div class="leaf d3"><span class="nm">Проекты - Атмосфера &amp; Керуен</span><span class="tot leaf-n">4</span></div><div class="leaf d3"><span class="nm">Логистика</span><span class="tot leaf-n">2</span></div><div class="leaf d3"><span class="nm">Проекты - Aura &amp; Aqsai Resort</span><span class="tot leaf-n">2</span></div><div class="leaf d3"><span class="nm">Проекты - NEO &amp; Карабулак &amp; Жана куат</span><span class="tot leaf-n">2</span></div></div></details><details class="br d2"><summary><span class="chev">▸</span><span class="nm">Бизнес операции</span><span class="own">своих 3</span><span class="tot">11</span></summary><div class="ch"><div class="leaf d3"><span class="nm">Снабжения</span><span class="tot leaf-n">4</span></div><div class="leaf d3"><span class="nm">Юридический отдел</span><span class="tot leaf-n">3</span></div><div class="leaf d3"><span class="nm">Склад</span><span class="tot leaf-n">1</span></div></div></details><details class="br d2"><summary><span class="chev">▸</span><span class="nm">Финансы</span><span class="own">своих 2</span><span class="tot">9</span></summary><div class="ch"><div class="leaf d3"><span class="nm">Бухгалтерия</span><span class="tot leaf-n">7</span></div></div></details><div class="leaf d2"><span class="nm">GR</span><span class="tot leaf-n">6</span></div><div class="leaf d2"><span class="nm">Проектный офис</span><span class="tot leaf-n">5</span></div><div class="leaf d2"><span class="nm">Продукт и дизайн</span><span class="tot leaf-n">4</span></div><div class="leaf d2"><span class="nm">Сервис</span><span class="tot leaf-n">2</span></div><div class="leaf d2"><span class="nm">Директор по развитию</span><span class="tot leaf-n">1</span></div><div class="leaf d2"><span class="nm">Служба безопасности</span><span class="tot leaf-n">1</span></div></div></details><div class="leaf d1"><span class="nm">Производство</span><span class="tot leaf-n">2</span></div></div></details></div></div>
-      <div class="panel off"><div class="ph">Вне корпоративной системы</div>
-        <div class="oi"><span>AI департамент</span><span class="n">3</span></div><div class="oi"><span>Департамент механизмов</span><span class="n">9</span></div><div class="oi"><span>Без подразделения</span><span class="n">28</span></div><div class="oi"><span>Стройплощадка и хоз-блок</span><span class="n">17</span></div>
-        <div class="tot"><span>Итого вне CRM</span><span>57</span></div>
-        <div class="cap">Эти подразделения ведутся в штатном файле, но аккаунтов в Битриксе не имеют — поэтому в дереве слева их нет.</div>
+  <!-- LIBRARY -->
+  <main class="content">
+    <div class="head2"><h2>Библиотека</h2>
+      <span class="legend">регламенты, шаблоны, брендбук</span></div>
+    <div class="body">
+
+      <div class="lib-cat">
+        <h3>Регламенты</h3>
+        <div class="lib-grid">
+          <a class="doc-card" href="#doc"><div class="dic">📋</div><div class="dt">Регламент заявок на закуп</div><div class="dm">обновлён 28 июн · PDF · 1.2 МБ</div><div class="dopen">Открыть →</div></a>
+          <a class="doc-card" href="#doc"><div class="dic">📋</div><div class="dt">Приёмка актов КС-2/КС-3</div><div class="dm">обновлён 14 июн · PDF · 860 КБ</div><div class="dopen">Открыть →</div></a>
+          <a class="doc-card" href="#doc"><div class="dic">📋</div><div class="dt">Согласование договоров</div><div class="dm">обновлён 02 июн · PDF · 640 КБ</div><div class="dopen">Открыть →</div></a>
+        </div>
       </div>
+
+      <div class="lib-cat">
+        <h3>Шаблоны</h3>
+        <div class="lib-grid">
+          <a class="doc-card" href="#doc"><div class="dic">📄</div><div class="dt">Отчёт начальника участка</div><div class="dm">обновлён 30 июн · DOCX · 48 КБ</div><div class="dopen">Открыть →</div></a>
+          <a class="doc-card" href="#doc"><div class="dic">📄</div><div class="dt">Служебная записка</div><div class="dm">обновлён 22 июн · DOCX · 32 КБ</div><div class="dopen">Открыть →</div></a>
+          <a class="doc-card" href="#doc"><div class="dic">📄</div><div class="dt">Заявка на материал</div><div class="dm">обновлён 22 июн · XLSX · 55 КБ</div><div class="dopen">Открыть →</div></a>
+        </div>
+      </div>
+
+      <div class="lib-cat">
+        <h3>Брендбук</h3>
+        <div class="lib-grid">
+          <a class="doc-card" href="#doc"><div class="dic">📘</div><div class="dt">Брендбук ATAMŪRA</div><div class="dm">обновлён 05 май · PDF · 8.4 МБ</div><div class="dopen">Открыть →</div></a>
+          <a class="doc-card" href="#doc"><div class="dic">📘</div><div class="dt">Логотип и палитра</div><div class="dm">обновлён 05 май · ZIP · 3.1 МБ</div><div class="dopen">Открыть →</div></a>
+        </div>
+      </div>
+
+      <div class="lib-cat">
+        <h3>Инструкции</h3>
+        <div class="lib-grid">
+          <a class="doc-card" href="#doc"><div class="dic">📑</div><div class="dt">Работа в ATLAS</div><div class="dm">обновлён 18 июн · PDF · 2.0 МБ</div><div class="dopen">Открыть →</div></a>
+          <a class="doc-card" href="#doc"><div class="dic">📑</div><div class="dt">Боты компании (Рэмбо, Муравей…)</div><div class="dm">обновлён 10 июн · PDF · 1.5 МБ</div><div class="dopen">Открыть →</div></a>
+          <a class="doc-card" href="#doc"><div class="dic">📑</div><div class="dt">Онбординг нового сотрудника</div><div class="dm">обновлён 01 июн · PDF · 3.3 МБ</div><div class="dopen">Открыть →</div></a>
+        </div>
+      </div>
+
     </div>
-    <div class="foot"><div class="note"><b>Как читать.</b> Слева — живая оргструктура из Битрикса: <b>155</b> сотрудников с аккаунтами (157 членств — часть в двух отделах). Полный штат — <b>212</b>; разница <b>57</b> (стройплощадка, спецтехника, AI-департамент, нераспределённые) — справа. Только агрегаты, без персональных данных.</div></div>
+    <div class="foot"><div class="note">данные условные · ATAMŪRA GROUP</div></div>
   </main>
 </div>
 </body>
