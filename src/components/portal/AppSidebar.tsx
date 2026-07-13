@@ -38,10 +38,10 @@ export function AppSidebar() {
           className="flex items-center gap-2 rounded-lg px-1 py-1"
         >
           {collapsed ? (
-            <Logo className="h-6" />
+            <Logo className="h-5" />
           ) : (
             <div className="min-w-0 leading-tight">
-              <Logo className="h-[26px]" />
+              <Logo className="h-5" />
               <div className="mt-1 truncate text-[11px] font-medium text-muted-foreground">
                 Портал ATLAS
               </div>

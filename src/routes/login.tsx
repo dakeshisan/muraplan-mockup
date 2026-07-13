@@ -81,7 +81,7 @@ function LoginPage() {
               src="/brand/logo-white.svg"
               alt="ATAMŪRA GROUP"
               draggable={false}
-              className="h-8 w-auto object-contain sm:h-[34px]"
+              className="h-7 w-auto object-contain sm:h-[28px]"
             />
 
             {/* Eyebrow */}
