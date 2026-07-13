@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-import { useRouterState, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useRouterState } from "@tanstack/react-router";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
 import { AppSidebar } from "./AppSidebar";
@@ -17,6 +16,11 @@ import { PersonaPickerProvider } from "./PersonaPicker";
 import { ScopeBanner } from "./ScopeBanner";
 
 export function PortalShell({ children }: { children: ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  // Пилотный финансовый экран не монтирует демо-провайдеры, локальные роли
+  // или выбор персоны. Его доступ контролируется сервером до SSR.
+  if (pathname === "/finance" || pathname === "/login") return <>{children}</>;
+
   return (
     <ThemeProvider>
       <RoleProvider>
@@ -35,22 +39,6 @@ export function PortalShell({ children }: { children: ReactNode }) {
 
 function PortalShellInner({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const navigate = useNavigate();
-  // Гейт: без демо-логина отправляем на /login (кроме самого /login).
-  useEffect(() => {
-    if (pathname === "/login") return;
-    try {
-      if (!localStorage.getItem("atlas.loggedIn")) {
-        navigate({ to: "/login" });
-      }
-    } catch {
-      /* ignore */
-    }
-  }, [pathname, navigate]);
-
-  if (pathname === "/login") {
-    return <div className="min-h-screen bg-background text-foreground">{children}</div>;
-  }
   const { canAccess } = useRole();
   const { space } = useWorkspace();
   // Мобайл прораба — самостоятельный продукт: без сайдбара, топбара,
@@ -82,9 +70,7 @@ function PortalShellInner({ children }: { children: ReactNode }) {
             aria-label={denied ? "Нет доступа" : "Основной контент"}
             key={pathname}
             className={`animate-page-in flex-1 focus:outline-none ${
-              space === "company"
-                ? "px-4 py-8 sm:px-8 sm:py-10"
-                : "px-3 py-5 sm:px-6 sm:py-6"
+              space === "company" ? "px-4 py-8 sm:px-8 sm:py-10" : "px-3 py-5 sm:px-6 sm:py-6"
             }`}
           >
             {denied ? <NoAccess pathname={pathname} /> : children}

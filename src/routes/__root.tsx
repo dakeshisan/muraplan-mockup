@@ -80,10 +80,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "ATLAS — портал ATAMURA" },
-      { name: "description", content: "Единый корпоративный портал строительной компании ATAMURA: дирекция, стройка, снабжение, ПТО и финансы." },
+      { name: "robots", content: "noindex, nofollow, noarchive" },
+      {
+        name: "description",
+        content:
+          "Единый корпоративный портал строительной компании ATAMURA: дирекция, стройка, снабжение, ПТО и финансы.",
+      },
       { name: "author", content: "ATAMURA" },
       { property: "og:title", content: "ATLAS — портал ATAMURA" },
-      { property: "og:description", content: "Единый корпоративный портал строительной компании ATAMURA." },
+      {
+        property: "og:description",
+        content: "Единый корпоративный портал строительной компании ATAMURA.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -109,7 +117,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <head>
         <HeadContent />
       </head>

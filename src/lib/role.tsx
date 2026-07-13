@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 
 export type Role =
   | "admin"
@@ -134,31 +134,11 @@ interface RoleContextValue {
 }
 
 const RoleContext = createContext<RoleContextValue | null>(null);
-const STORAGE_KEY = "atlas.role";
-
 export function RoleProvider({ children }: { children: ReactNode }) {
-  const [role, setRoleState] = useState<Role>("admin");
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY) as Role | null;
-      if (saved && PERSONAS.some((p) => p.id === saved)) setRoleState(saved);
-    } catch {
-      /* ignore */
-    }
-  }, []);
-
-  const setRole = (r: Role) => {
-    setRoleState(r);
-    try {
-      localStorage.setItem(STORAGE_KEY, r);
-    } catch {
-      /* ignore */
-    }
-  };
+  const [role, setRole] = useState<Role>("office");
 
   const value = useMemo<RoleContextValue>(() => {
-    const persona = PERSONAS.find((p) => p.id === role) ?? PERSONAS[0];
+    const persona = PERSONAS.find((p) => p.id === role) ?? PERSONAS.find((p) => p.id === "office")!;
     const allowed = ROLE_ACCESS[role];
     return {
       role,

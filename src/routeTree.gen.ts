@@ -18,6 +18,7 @@ import { Route as PortalRouteImport } from './routes/portal'
 import { Route as ObjectRouteImport } from './routes/object'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LeagueRouteImport } from './routes/league'
+import { Route as HealthRouteImport } from './routes/health'
 import { Route as GprRouteImport } from './routes/gpr'
 import { Route as ForemanRouteImport } from './routes/foreman'
 import { Route as FinanceRouteImport } from './routes/finance'
@@ -28,6 +29,10 @@ import { Route as PortalPeopleRouteImport } from './routes/portal.people'
 import { Route as PortalPaymentsRouteImport } from './routes/portal.payments'
 import { Route as PortalNewsRouteImport } from './routes/portal.news'
 import { Route as ForemanMobileRouteImport } from './routes/foreman.mobile'
+import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as ApiIngestSherlockRouteImport } from './routes/api.ingest.sherlock'
+import { Route as ApiIngestOneCRouteImport } from './routes/api.ingest.one-c'
+import { Route as ApiFinanceCasesRouteImport } from './routes/api.finance.cases'
 
 const SupplyRoute = SupplyRouteImport.update({
   id: '/supply',
@@ -72,6 +77,11 @@ const LoginRoute = LoginRouteImport.update({
 const LeagueRoute = LeagueRouteImport.update({
   id: '/league',
   path: '/league',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthRoute = HealthRouteImport.update({
+  id: '/health',
+  path: '/health',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GprRoute = GprRouteImport.update({
@@ -124,6 +134,26 @@ const ForemanMobileRoute = ForemanMobileRouteImport.update({
   path: '/mobile',
   getParentRoute: () => ForemanRoute,
 } as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiIngestSherlockRoute = ApiIngestSherlockRouteImport.update({
+  id: '/api/ingest/sherlock',
+  path: '/api/ingest/sherlock',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiIngestOneCRoute = ApiIngestOneCRouteImport.update({
+  id: '/api/ingest/one-c',
+  path: '/api/ingest/one-c',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiFinanceCasesRoute = ApiFinanceCasesRouteImport.update({
+  id: '/api/finance/cases',
+  path: '/api/finance/cases',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -131,6 +161,7 @@ export interface FileRoutesByFullPath {
   '/finance': typeof FinanceRoute
   '/foreman': typeof ForemanRouteWithChildren
   '/gpr': typeof GprRoute
+  '/health': typeof HealthRoute
   '/league': typeof LeagueRoute
   '/login': typeof LoginRoute
   '/object': typeof ObjectRoute
@@ -140,11 +171,15 @@ export interface FileRoutesByFullPath {
   '/rp': typeof RpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/supply': typeof SupplyRoute
+  '/auth/login': typeof AuthLoginRoute
   '/foreman/mobile': typeof ForemanMobileRoute
   '/portal/news': typeof PortalNewsRoute
   '/portal/payments': typeof PortalPaymentsRoute
   '/portal/people': typeof PortalPeopleRoute
   '/portal/': typeof PortalIndexRoute
+  '/api/finance/cases': typeof ApiFinanceCasesRoute
+  '/api/ingest/one-c': typeof ApiIngestOneCRoute
+  '/api/ingest/sherlock': typeof ApiIngestSherlockRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -152,6 +187,7 @@ export interface FileRoutesByTo {
   '/finance': typeof FinanceRoute
   '/foreman': typeof ForemanRouteWithChildren
   '/gpr': typeof GprRoute
+  '/health': typeof HealthRoute
   '/league': typeof LeagueRoute
   '/login': typeof LoginRoute
   '/object': typeof ObjectRoute
@@ -160,11 +196,15 @@ export interface FileRoutesByTo {
   '/rp': typeof RpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/supply': typeof SupplyRoute
+  '/auth/login': typeof AuthLoginRoute
   '/foreman/mobile': typeof ForemanMobileRoute
   '/portal/news': typeof PortalNewsRoute
   '/portal/payments': typeof PortalPaymentsRoute
   '/portal/people': typeof PortalPeopleRoute
   '/portal': typeof PortalIndexRoute
+  '/api/finance/cases': typeof ApiFinanceCasesRoute
+  '/api/ingest/one-c': typeof ApiIngestOneCRoute
+  '/api/ingest/sherlock': typeof ApiIngestSherlockRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -173,6 +213,7 @@ export interface FileRoutesById {
   '/finance': typeof FinanceRoute
   '/foreman': typeof ForemanRouteWithChildren
   '/gpr': typeof GprRoute
+  '/health': typeof HealthRoute
   '/league': typeof LeagueRoute
   '/login': typeof LoginRoute
   '/object': typeof ObjectRoute
@@ -182,11 +223,15 @@ export interface FileRoutesById {
   '/rp': typeof RpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/supply': typeof SupplyRoute
+  '/auth/login': typeof AuthLoginRoute
   '/foreman/mobile': typeof ForemanMobileRoute
   '/portal/news': typeof PortalNewsRoute
   '/portal/payments': typeof PortalPaymentsRoute
   '/portal/people': typeof PortalPeopleRoute
   '/portal/': typeof PortalIndexRoute
+  '/api/finance/cases': typeof ApiFinanceCasesRoute
+  '/api/ingest/one-c': typeof ApiIngestOneCRoute
+  '/api/ingest/sherlock': typeof ApiIngestSherlockRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -196,6 +241,7 @@ export interface FileRouteTypes {
     | '/finance'
     | '/foreman'
     | '/gpr'
+    | '/health'
     | '/league'
     | '/login'
     | '/object'
@@ -205,11 +251,15 @@ export interface FileRouteTypes {
     | '/rp'
     | '/sitemap.xml'
     | '/supply'
+    | '/auth/login'
     | '/foreman/mobile'
     | '/portal/news'
     | '/portal/payments'
     | '/portal/people'
     | '/portal/'
+    | '/api/finance/cases'
+    | '/api/ingest/one-c'
+    | '/api/ingest/sherlock'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -217,6 +267,7 @@ export interface FileRouteTypes {
     | '/finance'
     | '/foreman'
     | '/gpr'
+    | '/health'
     | '/league'
     | '/login'
     | '/object'
@@ -225,11 +276,15 @@ export interface FileRouteTypes {
     | '/rp'
     | '/sitemap.xml'
     | '/supply'
+    | '/auth/login'
     | '/foreman/mobile'
     | '/portal/news'
     | '/portal/payments'
     | '/portal/people'
     | '/portal'
+    | '/api/finance/cases'
+    | '/api/ingest/one-c'
+    | '/api/ingest/sherlock'
   id:
     | '__root__'
     | '/'
@@ -237,6 +292,7 @@ export interface FileRouteTypes {
     | '/finance'
     | '/foreman'
     | '/gpr'
+    | '/health'
     | '/league'
     | '/login'
     | '/object'
@@ -246,11 +302,15 @@ export interface FileRouteTypes {
     | '/rp'
     | '/sitemap.xml'
     | '/supply'
+    | '/auth/login'
     | '/foreman/mobile'
     | '/portal/news'
     | '/portal/payments'
     | '/portal/people'
     | '/portal/'
+    | '/api/finance/cases'
+    | '/api/ingest/one-c'
+    | '/api/ingest/sherlock'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -259,6 +319,7 @@ export interface RootRouteChildren {
   FinanceRoute: typeof FinanceRoute
   ForemanRoute: typeof ForemanRouteWithChildren
   GprRoute: typeof GprRoute
+  HealthRoute: typeof HealthRoute
   LeagueRoute: typeof LeagueRoute
   LoginRoute: typeof LoginRoute
   ObjectRoute: typeof ObjectRoute
@@ -268,6 +329,10 @@ export interface RootRouteChildren {
   RpRoute: typeof RpRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SupplyRoute: typeof SupplyRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  ApiFinanceCasesRoute: typeof ApiFinanceCasesRoute
+  ApiIngestOneCRoute: typeof ApiIngestOneCRoute
+  ApiIngestSherlockRoute: typeof ApiIngestSherlockRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -333,6 +398,13 @@ declare module '@tanstack/react-router' {
       path: '/league'
       fullPath: '/league'
       preLoaderRoute: typeof LeagueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health': {
+      id: '/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof HealthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gpr': {
@@ -405,6 +477,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForemanMobileRouteImport
       parentRoute: typeof ForemanRoute
     }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ingest/sherlock': {
+      id: '/api/ingest/sherlock'
+      path: '/api/ingest/sherlock'
+      fullPath: '/api/ingest/sherlock'
+      preLoaderRoute: typeof ApiIngestSherlockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ingest/one-c': {
+      id: '/api/ingest/one-c'
+      path: '/api/ingest/one-c'
+      fullPath: '/api/ingest/one-c'
+      preLoaderRoute: typeof ApiIngestOneCRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/finance/cases': {
+      id: '/api/finance/cases'
+      path: '/api/finance/cases'
+      fullPath: '/api/finance/cases'
+      preLoaderRoute: typeof ApiFinanceCasesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -442,6 +542,7 @@ const rootRouteChildren: RootRouteChildren = {
   FinanceRoute: FinanceRoute,
   ForemanRoute: ForemanRouteWithChildren,
   GprRoute: GprRoute,
+  HealthRoute: HealthRoute,
   LeagueRoute: LeagueRoute,
   LoginRoute: LoginRoute,
   ObjectRoute: ObjectRoute,
@@ -451,6 +552,10 @@ const rootRouteChildren: RootRouteChildren = {
   RpRoute: RpRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SupplyRoute: SupplyRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  ApiFinanceCasesRoute: ApiFinanceCasesRoute,
+  ApiIngestOneCRoute: ApiIngestOneCRoute,
+  ApiIngestSherlockRoute: ApiIngestSherlockRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

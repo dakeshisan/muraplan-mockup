@@ -1,6 +1,13 @@
 import { createStart, createMiddleware } from "@tanstack/react-start";
 
 import { renderErrorPage } from "./lib/error-page";
+import { protectPilotRequest } from "./server/request-guard.server";
+
+const pilotAccessMiddleware = createMiddleware().server(async ({ next, request }) => {
+  const blocked = protectPilotRequest(request);
+  if (blocked) return blocked;
+  return next();
+});
 
 const errorMiddleware = createMiddleware().server(async ({ next }) => {
   try {
@@ -18,5 +25,5 @@ const errorMiddleware = createMiddleware().server(async ({ next }) => {
 });
 
 export const startInstance = createStart(() => ({
-  requestMiddleware: [errorMiddleware],
+  requestMiddleware: [pilotAccessMiddleware, errorMiddleware],
 }));
