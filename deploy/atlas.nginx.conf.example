@@ -7,7 +7,7 @@ upstream atlas_app {
 
 server {
   listen 443 ssl http2;
-  server_name atlas.atamuragroup.kz;
+  server_name atlas.atamura.group;
 
   # TLS certificates and Authentik outpost values are installed outside git.
   location /outpost.goauthentik.io/ {
